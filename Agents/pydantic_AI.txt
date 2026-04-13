@@ -1,0 +1,20 @@
+[[{]]
+## ML PydanticAI (LangChain competitor)
+
+- supported by Pydantic (data validation)
+
+- Python-based agent framework designed to ease the development of
+  production-ready Generative AI applications. 
+- Positioned as a potential competitor to LangChain, 
+  PydanticAI introduces a **type-safe**, model-agnostic approach
+  inspired by the design principles of FastAPI.
+
+- Features:
+- Model-Agnostic: OpenAI, Anthropic, Gemini, Ollama, Groq, and Mistral,
+- Type-Safe Framework: Ensures robustness through structured response 
+  validation using Pydantic, even for streamed responses.
+- Pythonic Design: Offers control flow and agent composition in pure Python,
+  aligning with established development practices.
+- type-safe Dependency Injection System:
+- Logfire Integration: real-time debugging and monitoring of LLM application behavior and performance.
+[[}]]

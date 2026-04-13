@@ -1,0 +1,194 @@
+[[{architecture.RAG,PM.TODO]]
+# RAG TODO
+
+
+[[{]]
+## RAG Crash Course from Daily Dose of Data Science
+
+- <https://www.dailydoseofds.com/tag/rag-crash-course/>
+- <https://lnkd.in/gNXxHuVA>
+- Traditional vs. Agentic RAG, clearly explained! 
+
+The core idea is to introduce agentic behaviors at each stage of RAG.
+
+ Agents can actively think through tasks—planning, adapting, and iterating to 
+find the best solution, rather than just following a set of instructions, 
+and LLMs enable this. 
+
+1. user inputs a query, and an agent refines it 
+  (corrects spelling, simplifies for embedding, etc.)
+1. Another agent decides if more details are needed. 
+1. If not, the refined query is sent to the LLM.
+1. If yes, the agent selects the relevant sources (vector database, 
+   tools/APIs, internet), retrieves context, and sends it to the LLM. 
+1.  A response is generated.
+1. A final agent checks if the answer is relevant.
+1. If yes, return the response.
+1. If no, restart from Step 1.
+   This process repeats until the system provides an 
+   acceptable answer or concedes it cannot respond. 
+
+This makes the RAG much more dynamic and robust.
+
+However, it's important to note that building RAG 
+systems often comes down to design preferences and choices. 
+
+
+[[}]]
+
+[[{]]
+## RAG Rerankers
+
+* REF: <https://www.mongodb.com/resources/basics/artificial-intelligence/reranking-models>
+
+  Rerankers are models trained to evaluate and rank the relevance of retrieved 
+documents against a given query. These types of models have been part of search 
+engine architectures for decades and have recently gained renewed attention 
+with the emergence of retrieval-augmented Generation (RAG), which is built upon 
+search and large language models (LLMs). 
+
+### Rerankers are cross-encoders
+
+Modern rerankers are transformer-based models referred to as cross-encoders. 
+These models jointly encode the query and each document together, allowing them 
+to capture deeper relationships and context. Cross-encoders apply 
+self-attention, a mechanism in transformer models that weighs the importance of 
+different words in an input relative to each other. By processing the combined 
+query-document input, self-attention enables the model to focus on the most 
+relevant words in context. As a result, rerankers better grasp the search 
+query's intent in relation to the document's content. They also navigate subtle 
+nuances and ambiguities that can significantly affect the relevance and 
+accuracy of retrieval results.
+
+Embedding models are bi-encoders, which means they encode the query and the 
+documents separately, leading to less precision and missing contextual nuances. 
+This is why rerankers are more effective than embedding models for 
+high-precision retrieval.
+
+### Trade-offs of rerankers
+
+- Rerankers are computationally expensive (compared to embedding models that precompute
+  and store embeddings for efficient comparison):<br/>
+  - rerankers process each query-document pair through the reranking model at query time. 
+    using a transformer (quadratic length computation).
+[[}]]
+
+## ML naive vs Advanced vs Modular Retrieval Augmented Generation (RAG)
+
+Post by David Sauerwein PhD in Quantum PhysicsAI/ML at AWS @ LinkedIn
+
+When talking about Retrieval Augmented Generation (RAG) for 
+conversational search, most are talking about "naive RAG". However, 
+by now we have many more tricks to play. Here are proven ways to 
+improve your RAG setup:
+
+We can broadly distinguish between Naive RAG, Advanced RAG and Modular RAG.
+
+### Naive RAG: The original RAG paradigm:
+
+- PRESETUP) index the documents.
+- At inference the process is the following:
+  1. User creates a query
+  2. Query is used to retrieve the most relevant documents (retrieval)
+  3. User query is augmented with retrieved documents and some context and then send to the LLM (augmentation)
+  4. LLM provides the answer (generation)
+
+### Advanced RAG
+
+- first step is to improve either the retrieval or the preparation
+  of retrieved documents for augmentation.
+
+- A common problem with retrieval is that the user query is ambiguous 
+  or makes only sense in the context of the overall conversation with 
+  the LLM. Two prominent and relatively easy-to-implement methods:
+  1. Query Rewriting: Examples
+     - use the LLM to take the original question and the context
+       of the conversation so far to reformulate the question
+     - step back prompting: first generate a more abstract (step back)
+       question and the query based on both the original and the 
+       step back question.
+  2. Query Expansion: Expand a single query into multiple queries 
+     enriches the content of the query, to address nuances.
+
+- Another problem is using the retrieved data to create an effective 
+  augmented prompt. One challenge is that too much content can easily 
+  "distract" the LLM. So building in mechanism to rerank the retrieved 
+  pieces of context, or summarize them (e.g. using another LLM) can 
+  improve performance.
+
+### Modular RAG (Advanced RAG++)
+
+  This paradigm leaves the chain-like structure of the 3-step 
+Retrival Augmented Generation process. The overall process is not 
+limited to sequential retrieval and generation. Different models can 
+feed into each other in different ways. This includes methods such as 
+iterative or adaptive retrieval. The use case and data determine 
+which modules make sense. 
+
+[[{architecture.CAG,doc_has.comparative]]
+## Don't Do RAG, Do CAG: 40x faster, Retrieval-Free with higher precision
+
+By Maryam Miradi, Ph
+
+- Cache-Augmented Generation (CAG) emerges as a game-changing approach by 
+eliminating real-time retrieval, leveraging preloaded knowledge, and achieving 
+superior results.
+
+Here is how:
+
+- The Bottleneck of RAG:
+
+RAG has revolutionized AI systems by allowing models to fetch external 
+knowledge dynamically. However, RAG introduces retrieval latency, document 
+selection errors, and complex architectures, often leading to inefficiencies in 
+time-sensitive tasks.
+
+- The CAG Paradigm: A Simpler, Faster Approach
+
+- CAG Key Idea: CAG profits from newer (2025+) LLMs with **big-contexts** ,
+  preloaded documents and precomputed memory (Key-Value Cache), avoiding 
+  reliance on external data fetches, enabling instant and contextually accurate 
+  answers without errors.
+
+- Why Is CAG Retrieval-Free?
+  - Preloaded Knowledge          :  CAG preloads all required knowledge into the model’s context. (vs dynamically retrieval)
+  - Precomputed Memory (KV Cache): Documents are encoded into a Key-Value cache, which stores inference states and eliminates the need for lookups.
+  - Direct Access to Context     : Queries directly access preloaded information, ensuring faster responses and bypassing retrieval mechanisms.
+  - Error-Free Responses         : Since all context is preloaded, there’s no risk of retrieval errors or incomplete data.
+
+- How Does CAG Preload Context?
+  - Document Preparation    : All relevant documents are curated and preprocessed to fit within the LLM’s context window.
+  - Key-Value Cache Encoding: The documents are transformed into a precomputed KV cache that stores inference states.
+  - Storage and Reuse       : This KV cache is stored in memory or disk and reused during inference, eliminating repeated processing.
+  - Query Execution         : User queries leverage the preloaded cache, ensuring instant responses without additional retrieval steps.
+
+### Experimental Results: Why CAG Outperforms RAG
+
+- Benchmark Datasets:
+  - HotPotQA - Focused on multi-hop reasoning.
+  - SQuAD - Emphasizes single-passage comprehension.
+- Metrics:
+  - Accuracy: Measured with BERTScore.
+  - Speed: Response time comparisons.
+- Findings:
+  - CAG outperformed RAG in accuracy and response time across small, medium, and large datasets.
+  - Large datasets saw up to 40x faster inference times compared to traditional RAG setups.
+  - CAG consistently maintained higher precision and coherence due to holistic context processing. [[qa.coherence,qa.CAG]]
+
+- Paper : <https://arxiv.org/pdf/2412.15605>
+- Github: <https://github.com/hhhuang/CAG>
+[[architecture.CAG}]]
+
+[[{]]
+## OpenDataLoader PDF - Fast Local PDF Parser for RAG 
+
+* <https://opendataloader.org/>
+[[}]]
+
+
+
+
+
+
+
+[[architecture.RAG}]]

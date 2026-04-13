@@ -1,0 +1,7 @@
+101.payload
+HDF_data_format.txt           # md OK, content 1%, TODO: Move 
+DVC_Data_Version_Control.txt  # md OK, content 1%, 
+Kedro.txt
+# BMW_Yolo.txt                  # md OK, content 1%,
+# MLOps/MLOps_with_Airflow.txt
+

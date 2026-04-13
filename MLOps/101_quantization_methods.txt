@@ -1,0 +1,123 @@
+[[{scalability.quantization,mlops.deployment,]]
+
+# Quantization
+
+- Once the model has been trained we have the oportunite to save (lot of) memory by switching from
+  32 Float Point weight to maybe even int8 (with precission degradation). 
+- There are different techniques to quantize loosing minimal quality.
+  (NOTE:  As of 2026, AWQ looks to outperform all others)
+
+[[{]]
+## AWQ: Activation-Aware Weight Quantization
+
+- Applies only to NVidia hardware (H100, A100, L40S, or RTX 4090) (Recheck)
+- AWQ INT4 models consistently outperform GPTQ at the same bit-width on quality benchmarks.
+- As of 2026, AWQ is the default INT4 format for production inference. [[qa.best_patterns]]
+- "Save up to 50% when running a 70B model on an NVidia H100" [[scalability.quantization]]
+- cuts model VRAM requirements by about 50% with 1-3% quality degradation (on most tasks).
+- Major model families ship pre-quantized AWQ checkpoints on Hugging Face. 
+  **You may never need to run quantization yourself**.
+- vLLM, SGLang, and TensorRT-LLM all include optimized AWQ kernels.
+
+### AWQ in context
+
+* REF: <https://www.spheron.network/blog/awq-quantization-guide-llm-deployment/>
+  (Check original article for details)
+
+  previous INT4 quantization methods (naive INT4, round-to-nearest) worked on 
+small models but produced significant quality loss on 7B+ parameter models. 
+
+  GPTQ (2022) improved this by using layer-wise second-order weight optimization, 
+which produced better INT4 quality than naive quantization. But it still left 
+headroom on the table.
+
+  AWQ (2023, from MIT Han Lab) solved the remaining quality problem with a 
+different insight: 
+- not all weights are equally important: A small fraction of weights, maybe 1%,
+  have outsized influence on model outputs. 
+- If you can identify and protect those weights during quantization, the rest
+  can be aggressively compressed with minimal quality impact.
+
+- AWD is also different from bitsandbytes NF4 (used in QLoRA fine-tuning), which
+  applies a different 4-bit representation without a calibration step. 
+  - NF4 is good for fine-tuning but AWQ is better for inference quality. [[training.fine_tunning.quantization]]
+
+Here's how the formats compare on memory and quality:
+  ```
+  |Format    |Bits |Bytes/param |70B model| Quality vs BF16
+  |----------|-----|------------|---------|------------------
+  |BF16      |16   |2 bytes     |~140 GB  | Reference
+  |FP8       |8    |1 byte      |~70 GB   | Negligible           
+  |GPTQ INT4 |4    |0.5 bytes   |~35 GB   | 2-5% degradation
+  |AWQ INT4  |4    |0.5 bytes   |~35 GB   | 1-3% degradation
+  |FP4(NVFP4)|4    |0.5 bytes   |~35 GB   | Blackwell only;              
+  ```
+
+  ```
+  | AWQ vs GPTQ vs GGUF vs FP4: When to Use Each
+  | ───────────────────────────────────────────────────────────────────────────────────────────
+  | Method|Format     |GPU support        |Framework          |Best for
+  | ------|-----------|-------------------|-------------------|----------------------------------
+  | AWQ   |INT4       |All CUDA GPUs      |vLLM,SGLang,TRT-LLM|Production GPU server inference
+  | GPTQ  |INT4       |All CUDA GPUs      |vLLM, AutoGPTQ     |When AWQ weights unavailable
+  | GGUF  |Variable   |CPU+NVIDIA+Apple   |llama.cpp, Ollama  |Local/edge/CPU inference
+  | FP8   |8-bit float|H100,H200,Blackwell|vLLM, SGLang       |Server inference, near-lossless
+  | FP4   |4-bit float|Blackwell only     |TRT-LLM, vLLM      |Maximum throughput on B200/B300
+  ```
+
+  ```
+  | Cost per 1M tokens = ($/hr) ÷ (tokens/sec × 3,600) × 1,000,000 (2026-04)
+  | 
+  | Using live Spheron pricing and estimated throughput figures:
+  | Config           |GPU             |$/hr  |Tok/s.|Cost/1MTok.
+  | 70B     BF16,2GPU|2x A100 80G SXM4|$3.28 |~1,200|~$0.757
+  | 70B AWQ INT4,1GPU|1x A100 80G SXM4|$1.64 |~1,800|~$0.253
+  | 70B     BF16     |H100 SXM5       |$2.98 |~1,600|~$0.517
+  | 70B AWQ INT4     |H100 SXM5       |$2.98 |~2,400|~$0.345
+  |  7B AWQ INT4     |A100 80G PCIe   |$1.04 |~3,800|~$0.076
+  ```
+[[}]]
+
+[[{PM.RADAR]]
+
+## TurboQuant: Redefining AI Efficiency
+
+* <https://research.google/blog/turboquant-redefining-ai-efficiency-with-extreme-compression/>
+
+TurboQuant is a compression method that achieves a high reduction in model size 
+with zero accuracy loss, making it ideal for supporting both key-value (KV) 
+cache compression and vector search.  [[architecture.embeddings,architecture.cache]]
+
+It accomplishes this via two key steps:
+
+- High-quality compression (the PolarQuant method): TurboQuant starts by 
+randomly rotating the data vectors. This clever step simplifies the data's 
+geometry, making it easy to apply a standard, high-quality quantizer (a tool 
+that maps a large set of continuous values, like precise decimals, to a 
+smaller, discrete set of symbols or numbers, like integers: examples include 
+audio quantization and jpeg compression) to each part of the vector 
+individually. This first stage uses most of the compression power (the majority 
+of the bits) to capture the main concept and strength of the original vector.
+
+- Eliminating hidden errors: TurboQuant uses a small, residual amount of 
+compression power (just 1 bit) to apply the QJL algorithm to the tiny amount of 
+error left over from the first stage. The QJL stage acts as a mathematical 
+error-checker that eliminates bias, leading to a more accurate attention score.
+
+
+[[}]]
+
+[[{PM.TODO]]
+## Quantization Methods comparative: GGUF vs GPTQ vs AWQ vs ...
+
+- TODO
+
+[[PM.TODO}]]
+
+
+
+[[scalability.quantization}]]
+
+
+
+

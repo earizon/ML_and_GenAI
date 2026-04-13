@@ -1,0 +1,63 @@
+[[{mlops.*,PM.TODO]]
+<!-- { -->
+# ServingMachineLearningModels.pdf (Oreilly): <./OreillyServingMachineLearningModels.pdf>
+
+
+[[{]]
+## PacktPublishing/LLM-Engineers-Handbook:
+
+* The LLM's practical guide: From the fundamentals to deploying advanced LLM and RAG apps to AWS using LLMOps best practices
+
+* <https://github.com/PacktPublishing/LLM-Engineers-Handbook>
+[[QA.101,MLOps.101]]
+[[}]]
+
+
+<!-- } -->
+
+[[{mlops,PM.TODO]]
+# MLflow: Simplifying ML Lifecycle
+
+* <https://www.infoq.com/presentations/mlflow-databricks/>
+
+- MLflow provides APIs for tracking experiment runs between multiple
+  users within a reproducible environment and for managing the
+  deployment of models to production. MLflow is designed to be an open,
+  modular platform.
+[[}]]
+
+[[{]]
+# MLOps for Enterprise AI
+* <https://www.infoq.com/articles/optimizing-mlops-enterprise-ai/>
+[[}]]
+
+
+[[{k8s,mlops,cloud.k8s,cloud.GCP,mlops.IaC_terraform,PM.TODO]]
+
+# OOSS Terraform module for Google k8s
+https://www.infoq.com/news/2020/03/spotify-terraform-kubeflow/
+
+Spotify has open-sourced their Terraform module for running machine-learning
+pipeline software Kubeflow on Google K8s Engine (GKE). By switching
+their in-house ML platform to Kubeflow, Spotify engineers have achieved faster
+time to production and are producing 7x more experiments than on the previous
+platform.
+
+In a recent blog post, Spotify's Product Manager Josh Baer and ML Engineer
+Samuel Ngahane described Spotify's "Paved Road" for machine learning: "an
+opinionated set of products and configurations to deploy an end-to-end machine
+learning solution using our recommended infrastructure." By adopting these
+standards, Spotify's machine learning engineers no longer need to build or
+maintain infrastructure and instead can focus on their ML experiments. Since
+launching the platform in mid-2019, about 100 internal users have adopted it
+and run up to 18,000 experiments.
+[[}]]
+
+[[{]]
+# ML Pipeline @ Stitch Fix:
+<https://www.infoq.com/presentations/data-ml-pipelines-stitchfix>
+[[}]]
+
+
+
+[[mlops.*,PM.TODO}]]

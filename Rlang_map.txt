@@ -1,0 +1,43 @@
+[[{dev_stack.R]]
+# R Lang.
+
+
+* <www.htmlwidgets.org>
+* <http://www.elmomentodecisivo.com/> (Spanish)
+* <https://datanalytics.com/libro_r/> (Spanish)
+* <https://datanalytics.com/libro_r/> (Spanish)
+* <https://www.datanalytics.com/>
+* <https://mc-stan.org/>
+* Video: 101 Introduction to Data Science:
+  <https://www.youtube.com/watch?v=tKa0zDDDaQk>
+
+- <https://rkward.kde.org/>
+
+
+[[{]]
+## Top R-Tips mmtable2:
+
+* ggplot2 for tablesggdist: Make a Raincloud Plot to Visualize
+* Distribution in ggplot2ggside: Plot linear regression with marginal
+* distributionsDataEditR: Interactive Data Editing in Ropenxlsx: How to
+* Automate Excel in Rofficer: How to Automate PowerPoint in
+* RDataExplorer: Fast EDA in Resquisse: Interactive ggplot2
+* buildergghalves: Half-plots with ggplot2rmarkdown: How to Automate
+* PDF Reportingpatchwork: How to combine multiple ggplotsGeospatial Map
+* Visualizations in R Want these tips every week? Join R-Tips Weekly.
+[[}]]
+
+[[dev_stack.R}]]
+
+## Janovi: low-code R spreadhseet like front end  [[{]]
+ Jamovi is an open source statistical package based on R, that can be
+used for advanced analysis, while having a user friendly interface.
+Jamovi supports summary statistics, regression modeling and
+hypothesis testing. Furthermore, Jamovi includes syntax mode, where
+the underlying R code for each analysis is made available. In the
+following example, we can see that running an ANOVA test is extremely
+simple! You can check the links below for more information, and make
+sure to follow me for regular content
+
+https://www.jamovi.org/
+[[}]]

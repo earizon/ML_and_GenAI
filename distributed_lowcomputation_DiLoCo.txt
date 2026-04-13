@@ -1,0 +1,39 @@
+[[{scalability.DiLoCo,architecture.distributed,PM.radar]]
+
+# DiLoCo: Distributed Low Computation
+
+C&P From DataAnalytics by Carlos J. Gil Bellosta
+"""
+GPT-4 se entrenó usando un clúster de 25k GPUs, Musk planea construir 
+un centro de datos con 100k GPUs y Meta, uno de 350k. Sin embargo, 
+parece que tecnologías emergentes como DiLoCo (de distributed low 
+communication), permitirá entrenar esos modelos sin necesidad de 
+grandes centros de cálculo. Una visión alternativa en la que se 
+especula con la construcción de enormes centros de datos (con 
+potencias eléctricas de hasta de 5GW) puede verse aquí.
+
+
+* <https://arxiv.org/abs/2311.08105>
+
+... standard approaches to training LLM require a large number of tightly
+interconnected accelerators, with **devices exchanging gradients and other
+intermediate states at each optimization step**. 
+
+...it might be easier to find several computing clusters each hosting a
+smaller number of devices.
+
+ In this work, we propose a distributed optimization algorithm, that
+enables training of LLM on islands of devices that are poorly connected.
+
+ **The approach is a variant of federated averaging**, where the number of
+inner steps is large, the inner optimizer is AdamW, and the outer optimizer
+is Nesterov momentum**. 
+
+**On the widely used C4 dataset, we show that DiLoCo on 8 workers performs
+as well as fully synchronous optimization while communicating 500 times less**
+
+  DiLoCo exhibits great robustness to the data distribution of each 
+worker. It is also robust to resources becoming unavailable over 
+time, and vice versa, it can seamlessly leverage resources that 
+become available during training. 
+[[scalability.DiLoCo}]]

@@ -1,0 +1,27 @@
+[[{]]
+# DeepDetect: C++11 ML API and server 
+- <https://www.deepdetect.com/>.
+
+- Easy-to-work-with and easy-to-integrate(test and connection) state-of-the-art ML.
+- Support for training and inference.
+- Automatic conversion to embedded platforms with TensorRT
+  (NVidia GPU) and NCNN (ARM CPU). [[architecture.IoT]]
+- cross-collaboration project.
+- Used by Airbus, Microsoft., ...
+- OOSS deep learning server based on Caffe, TensorFlow and XGBoost.
+- easy-to-use API for image classification, object detection, and
+  text and numerical data analysis.
+- support for supervised and unsupervised deep learning of
+  images, text, time series and other data.
+. It supports classification, object detection, segmentation, regression, autoencoders, ...
+- It relies on external machine learning libraries through a very generic and flexible API. 
+  supporting libraries like:
+  - Caffe 1/2.
+  - Tensorflow.
+  - Torch.
+  - NCNN Tensorrt
+  - Dlib.
+  - XGBoost: Distributed gradient boosting library 
+  - clustering with T-SNE [[architecture.distributed,scalability.T-SNE]]
+  - Similarity search with Annoy and FAISS (Facebook AI Similarity Search)
+[[}]]

@@ -1,0 +1,55 @@
+101.payload
+COGNITIVE.payload
+Agents/ALL.payload
+DATA/ALL.payload
+RAG/ALL.payload
+MLOps/ALL.payload
+anthropic.md                         # ???
+# mistral.md                           # ???
+OpenVINO.txt
+PROMPTING/ALL.payload
+TIME_SERIES/ALL.payload
+KANs.txt                               #
+# TODO.txt                             # ??? 
+# AutoML.txt                           # ??? 
+# bibliography_from_ML_book.txt        # ??? 
+# openAI.txt                           # ???
+# codestral.txt                        # ??? 
+# data_gathering_ODK_offline_forms.txt # ??? 
+# data_gathering_opendatakit.txt       # ??? 
+# data_preprocesing_beautiful_soup.txt # ??? 
+# data_preprocesing_CSV.txt            # ??? 
+# data_preprocesing_miller.txt         # ??? 
+# data_preprocesing_OpenPyxl.txt       # ??? 
+# data_preprocessing.txt               # ??? 
+# data_visualization.txt               # ??? 
+# devops_DVC.txt                       # ??? 
+# DevOps_MLFlow.txt                    # ??? 
+# devops_pyforest.txt                  # ??? 
+# geodata.txt                          # ??? 
+# JupyterLab.txt                       # ??? 
+# keras.txt                            # ??? 
+# ML_tools.txt                         # ??? 
+# model_serving.txt                    # ??? 
+# NetWorkX.txt                         # ??? 
+# notes.txt                            # ??? 
+# nvidia_map.txt                       # ??? 
+# OptaPlanner.txt                      # ??? 
+# Orange.txt                           # ??? 
+# ORTools.txt                          # ??? 
+# prompt_engineering.txt               # ??? 
+# PyCaret.txt                          # ??? 
+# pytables.txt                         # ??? 
+# pytorch.txt                          # ??? 
+# rlang.txt                            # ??? 
+# scikit_learn.txt                     # ??? 
+# statsmodels.txt                      # ??? 
+# tensor_flow.txt                      # ??? 
+# time_series.txt                      # ??? 
+who-is-who.txt                         # OK, WiP
+who-is-who_companies.txt               # OK, WiP
+# TODO_transformers.txt                # ???
+# NLTK/ALL.payload                     
+USE_CASES/ALL.payload
+# AWS_Bedrock.txt                      # TODO
+# AWS_SageMaker.txt                    # TODO

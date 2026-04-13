@@ -1,0 +1,11 @@
+# Intel IPEX LLM
+
+- WARN: THIS PROJECT IS ARCHIVED
+- Accelerate local LLM inference and finetuning on Intel XPU 
+  (laptop with iGPU and NPU, discrete GPU such as Arc, Flex and Max)
+- LLaMA, Mistral, ChatGLM, Qwen, DeepSeek, Mixtral,
+  Gemma, Phi, MiniCPM, Qwen-VL, MiniCPM-V, etc.
+- Seamlessly integrate with llama.cpp, Ollama, HuggingFace, LangChain,
+  LlamaIndex, vLLM, DeepSpeed, Axolotl,  ...
+
+

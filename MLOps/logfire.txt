@@ -1,0 +1,26 @@
+[[{mlops.observability,mlops.logfire]]
+## Pydantic Logfire
+
+- OpenTelemetry-Native: Vercel AI SDK, LangChain, FastAPI—enable OTel, point to Logfire, done.
+- Complete Application Traces to see entire application:
+  - LLM calls.
+  - agent reasoning.
+  - database queries.
+  - API requests.
+  - vector searches.
+  - business logic.
+  - JS/TS frontend.
+- MCP Server support.
+- Integrated Evaluation Framework: Use Pydantic Evals to continuously evaluate LLM outputs in production. [[qa.prompting]]
+  - Curate datasets from production traces and catch regressions before users do. [[qa.best_patterns]]
+- Real-Time Cost Tracking:
+  - Identify expensive prompts [[PM.price.control]]
+  - optimize model selection.
+  - set budget alerts.
+  - See exactly where your AI spending goes. [[profiling.tokens]]
+- Pydantic AI & AI Gateway Integration: 
+  - Natively integrates with Pydantic AI and Pydantic AI Gateway for model routing & budget control across all major LLM providers.
+
+- First-Party SDKs for Python, JS/TS, Rust:
+- Query Your Data with SQL: Drill down into your traces with SQL and use Natural Language Processing (NLP) to auto-generate your SQL queries. 
+[[mlops.observability,mlops.logfire}]]

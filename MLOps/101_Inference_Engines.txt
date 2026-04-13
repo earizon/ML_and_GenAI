@@ -1,0 +1,241 @@
+[[{mlops.101]]
+# Modern AI Inference Engines for Optimized Cross-Platform Deployment: TensorRT, ONNX Runtime, and OpenVINO (2025-10)
+
+Summary from <https://uplatz.com/blog/a-comparative-analysis-of-modern-ai-inference-engines-for-optimized-cross-platform-deployment-tensorrt-onnx-runtime-and-openvino/>
+
+(Uplatz is a global IT Training & Consulting company)
+
+- Training frameworks such as PyTorch and TensorFlow offer flexibility (aka training from data),
+  rapid prototyping. However production inference environments (use of ALREADY TRAINED models)
+  impose different constraints (low-latency/low-memory/high-throughput response).
+
+- Specialized software stacks such as NVIDIA TensorRT, ONNX or Intel OpenVIO  have been designed
+  to cover the inference deployment scenarios for specific target hardware.
+  - It functions as a sophisticated compiler and runtime, applying a suite of 
+    **aggressive optimizations** (layer fusion, precision quantization, hardware-specific kernel
+    selection) often impractical or unavailable while training.
+
+- NVIDIA TensorRT: hardware-centric, "meticulously engineered" for maximum performance on NVIDIA harware.
+  - It comprises inference compilers, runtimes, and a suite of model optimization utilities that 
+    collectively deliver low latency and high throughput for production applications.
+- ONNX Runtime   : universalist framework focusing on interoperability and hardware abstraction. 
+  (CPU (x86, ARM), GPU (NVIDIA, AMD, Intel), NPU/Accelerators )
+  - Open Neural Network Exchange (ONNX) standard:  provide consistent deployment path to "many" hardware targets.
+  - Supported by PyTorch, TensorFlow, Keras, scikit-learn, LightGBM, XGBoost, ...
+- Intel OpenVINO:  Promotes "write once, deploy anywhere" but in practice focuses on Intel hardware, including
+  CPUs, integrated and discrete GPUs and Neural Processing Units (NPUs).
+
+  ```
+  | Feature        | NVIDIA                 | ONNX Runtime | Intel
+  |                | TensorRT               |              | OpenVINO              
+  | ---------------+------------------------+--------------+--------------------------------------------------
+  | Primary Input  | ONNX                   | ONNX         | Framework models (PyTorch, TF, ONNX)
+  | Format         | TensorFlow/PyTorch via |              | via Model Optimizer to OpenVINO IR
+  |                | converters             |              |
+  | ---------------+------------------------+--------------+--------------------------------------------------
+  ```
+
+ 
+
+### NVIDIA TensorRT: 
+- built around several key components to facilitate optimization and deployment process:
+  * Parsers: TensorRT uses different parsers to import neural network models from various training frameworks. 
+    converting them into an in-memory graph-representation known as a Network Definition consisting of 
+    tensors and operators mirroring the original model’s structure.
+    - ONNX parser: The most important parser, converting models from frameworks like
+      PyTorch, TensorFlow, ... into TensorRT’s internal network representation. (Builder Input)
+  * Builder: core offline graph optimization component: 
+    - INPUT  : TensorRT neural network definition. (output from Parser)
+    - PROCESS: hardware-independent and hardware-specific optimizations, including:
+      * Constant Folding, Dead Layer Elimination, Tensor Dimension Shuffling, ...<br/>
+      * Layer & Tensor Fusion: On of the most powerful features: A pattern-matching algorithm scans the graph
+        for common sequences of layers, such as a convolution followed by a batch normalization and a ReLU activation.
+        Instead of launching three separate CUDA kernels with intermediate memory reads/writes, 
+        TensorRT merges them into a single, highly optimized kernel dramatically reducing kernel launch overhead
+        and memory bandwidth. TensorRT employs several types of fusion:
+        - Vertical    Fusion: Combines sequential layers (e.g., Conv -> BN -> ReLU).
+        - Horizontal  Fusion: Merges parallel layers that share the same input tensor.
+        - Elimination Fusion: Removes redundant operations (eg: transpose-transpose)
+      * Kernel Auto-Tuning: For each operation in the optimized graph, TensorRT maintains a library of 
+        different kernel implementations. For a convolution layer, for instance, it might test algorithms 
+        based on GEMM (General Matrix Multiply), Winograd, or FFT. <br/>
+        At build phase, TensorRT profiles each of these kernels on the actual target GPU to empirically
+        determine which one delivers the best performance for the specific input dimensions, batch size,
+        and precision (FP32/FP16/FP8/BF16/INT8¹/INT4). (hardware-specific tuning)
+    - OUTPUT : Engine (or "Plan").  file (.plan or .engine) with fully optimized graph ready for deployment.
+serializes this fully optimized graph into a portable Plan file. 
+      * It lacks portability: Compiled for specific GPU (e.g., Ampere), TensorRT version, and CUDA version,
+        and **cannot be moved to a different configuration**.
+  * Runtime: deserializes the Engine Plan and executes a TensorRT Engine.
+    - It manages device memory.
+    - orchestrates the launch of optimized CUDA kernels.
+    - handles both sync/async execution.
+  * Logger: essential utility for Builder and Runtime, it captures information for debugging, profiling and troubleshooting.
+
+¹ Post-Training Quantization (PTQ) is  the most common workflow for INT8 quantization. 
+  (See [original post](https://uplatz.com/blog/a-comparative-analysis-of-modern-ai-inference-engines-for-optimized-cross-platform-deployment-tensorrt-onnx-runtime-and-openvino/) for mor information)
+¹ Quantization-Aware Training (QAT): For models where PTQ results are unacceptable
+¹  Explicit (newer) vs. Implicit (older) Quantization: In implicit Q. TensorRT would opportunistically use INT8 kernels if deemed faster.
+   In explicit Q. the model graph contains explicit QuantizeLayer and DequantizeLayer (Q/DQ) nodes giving developers precise control
+   over where precision transitions occur in the network.
+ 
+### TensorRT-LLM Server: Explicit Runtime Optimizations for LLMs
+
+- OOSS library built on top of TensorRT to accelerate their inference.
+- Offers a simplified Python API and runtime architecture designed for 
+  autoregressive generation.
+- It includes: 
+  - Scheduler for managing requests.
+  - KVCacheManager: efficient handling of the attention mechanism’s state.
+  - Sampler: for token generation strategies.
+
+### TensorRT-LLM Server vs Triton LLM Server
+
+- Triton is a project governed by the PyTorch Foundation.
+- Developed also by NVIDIA. OOSS inference server 
+- streamlines deployment and management of AI models across diverse environments,
+- supporting multiple frameworks and optimizing performance through its features. 
+- Triton offers in general lower performance when compared to TensorRT.
+
+- <https://github.com/NVIDIA/TensorRT-LLM>
+- <https://github.com/triton-inference-server>
+- <https://docs.nvidia.com/tensorrt-llm/index.html>
+- <https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/index.html>
+
+## TensorRT-Memory Management:
+
+Several strategies are used to minimize memory traffic and consumption.
+
+- Build vs. Runtime Memory: 
+- Memory Optimization Techniques: Reuse, Workspace Memory, Optimized Access Pattern,
+
+[[{qa.best_patterns]]
+To reduce memory usage in production, several practices are recommended:
+- using reduced precision (FP16/INT8),
+- limiting the workspace size available to the builder.
+- leveraging Multi-Instance GPU (MIG) on data center GPUs 
+  like the A100 or H100 to partition resources and isolate 
+  workloads.
+[[qa.best_patterns}]]
+ 
+
+### TensorRT Ecosystem
+ 
+- deeply integrated with the broader deep learning ecosystem, providing clear pathways from training to deployment.
+
+- Torch-TensorRT: OOSS compiler for PyTorch integrating seamlessly with torch.compile for just-in-time (JIT) compilation,
+  as well as supporting ahead-of-time (AOT) workflows.
+  - It partitions the PyTorch graph, converting compatible subgraphs into TensorRT engines while leaving the 
+    rest to be executed by the standard PyTorch runtime.
+- TensorFlow-TensorRT (TF-TRT): A similar integration for TensorFlow operating on SavedModel formats.
+  * Specialized Libraries:
+    - TensorRT-LLM for LLMs
+    - TensorRT Model Optimizer library: model compression techniques replacing framework-specific toolkits.
+ 
+
+## ONNX Runtime:
+ 
+- high-performance, cross-platform inference engine designed to accelerate models in the 
+  Open Neural Network Exchange (ONNX) format. 
+- Developed by Microsoft and open-sourced
+- Core mission: decouple model training framework from deployment hardware. """train anywhere, deploy everywhere"""
+
+### ONNX Architectural Blueprint: 
+
+- (Extensible) Execution Provider (EP) Framework: "cornerstone" of ONNX Runtime's architecture.
+  enabling its broad hardware compatibility and platform portability.
+  * Core Concept: It acts as an abstraction layer over hardware-specific acceleration libraries. 
+    delegating computation to registered EPs (NVIDIA GPU, Intel NPU, "web browser CPU/GPU")
+  * Graph Partitioning: When the ONNX model is loaded, the runtime analyzes the graph and partitions
+    it into subgraphs. 
+    - It iterates through a prioritized list of registered EPs and assigns the largest possible 
+      subgraphs to the highest-priority provider that can execute them. 
+    - Any operators not supported by specialized EP fall back to a lower-priority provider (CPU).
+
+### ONNX Graph Compilation Multi-stage Process:
+ 
+- Model Loading                     : INPUT: .onnx file. OUTPU: parsed in-memory graph representation.
+- Provider-Independent Optimizations: "Basic" graph optimizations,  semantics-preserving transformations, 
+  (constant folding, redundant node elimination, ...)
+- Graph Partitioning                : Depending on capatibilities exposed by each registered EP, the
+  runtime queries which parts of the graph each provider can handle. 
+- Provider-Specific Optimizations   : Each EP can apply further "complex" optimizations
+                                      (node fusions, data layout changes,...)
+- Execution: The final, optimized, and partitioned graph is executed by the runtime engine, which 
+  dispatches each subgraph to its assigned EP for computation.
+ 
+
+### ONNX Core Optimization Strategies
+ 
+- Graph-Level Transformations
+- Quantization Methodologies
+- Memory Management
+
+### ONNX Ecosystem and Deployment
+ 
+- Broad Hardware Support via EPs.
+  - NVIDIA GPUs     : via CUDA and TensorRT EPs.
+  - Intel Hardware  : via the OpenVINO and oneDNN EPs.
+  - AMD GPUs        : via the ROCm and MIGraphX EPs.
+  - Windows Devices : via DirectML EP for DirectX 12 capable GPUs.
+  - Mobile/Edge SoCs: via EPs for Qualcomm’s QNN, Android’s NNAPI, and Apple’s CoreML.
+  - Web Browsers    : via WebAssembly (WASM) for CPU and WebGL/WebGPU for GPU execution.
+
+## Intel OpenVINO (Open Visual Inference and Neural network Optimization)
+ 
+- OOSS software suite designed to optimize and deploy deep learning models across a wide range of Intel hardware platforms.
+  """write once, deploy anywhere"""
+
+### Intel OpenVINO Architectural Blueprint:
+ 
+2-stage process that separates model optimization from runtime execution.
+
+1. Model Optimizer: ahead-of-time using the ovc command-line tool or just-in-time using the Python API (openvino.convert_model):
+   - INPUT       : trained model (ONNX?)
+   - OPTIMIZATION: device-agnostic graph optimizations (operator fusion, removal of training-only nodes)
+   - OUTPUT      : OpenVINO’s proprietary Intermediate Representation (IR) format. In practice a pair of files:
+     * .xml: Describes the network topology.
+     * .bin: Contains the model's weights and biases as a binary blob.
+2. Inference Engine (Runtime): It uses a plugin-based architecture, where each plugin is a library that
+   provides the implementation for inference on a specific type of Intel hardware 
+   (CPU plugin, GPU plugin).
+   - Within an application an ov::Core object is created to manage available devices. .xml and .bin files are
+     loaded into memory using core.read_model(). 
+   - The runtime loads the IR, selects the appropriate plugin for the target device, and then performs
+     further device-specific compilation and optimization before executing inference using core.compile_model()
+   - From the CompiledModel, one or more InferRequest objects are created. These objects are used to run inference,
+     either synchronously (infer()) or asynchronously (start_async() followed by wait()), which allows for
+     overlapping computation and data handling.
+### Intel OpenVINO Graph Compilation Process:
+ 
+- The journey from a trained model to an executable in OpenVINO involves a clear and structured workflow.
+
+ 
+
+### Intel OpenVINO Core Optimization Strategies:
+ 
+
+- Performance Hints: Instead of manually configuring low-level parameters like 
+  stream counts or thread pinning, developers can simply declare their 
+  optimization goal:
+  - LATENCY: 
+  - THROUGHPUT: 
+- Automatic Device Selection (AUTO):
+- Heterogeneous Execution: Use NPU, fallback to CPU for unsupported layers.
+- Automatic Batching:
+- Model Compression (NNCF): suite of algorithms for optimizing models, including:
+  (primary tool for decreasing memory footprint)
+  - post-training quantization
+  - quantization-aware training.
+  - filter prunin.
+ 
+
+### Intel OpenVINO Ecosystem and Deployment
+ 
+- Deeply optimized for Intel hardware (Intel CPUs Core/Xeon/Atom, ARM CPUs, GPUs like Iris Xe, discrete Arc GPUs,  integrated NPUs)
+- Open Model Zoo (OMZ): Rich repository of over 200 pre-trained and pre-optimized models for a wide variety of tasks, 
+- Framework Integration: PyTorch, TensorFlow, ONNX, PaddlePaddle, and JAX/Flax.
+- Hugging Face models through Optimum Intel library.
+- ONNX: Through Execution provider.
+
+[[mlops.101}]]

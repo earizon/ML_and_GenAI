@@ -1,0 +1,90 @@
+# OpenCV: Cognitive, Computer Vision
+- Python Tutorial: Find Lanes for Self-Driving Cars (Computer Vision Basics Tutorial)
+<https://www.youtube.com/watch?v=eLTLtUVuuy4>
+
+# MS Cognitive Services:Cognitive, Computer Vision, Low_Code
+https://www.patrickvankleef.com/2018/08/27/exploring-city-with-azure-durable-functions-and-the-custom-vision-service/
+ Microsoft Cognitive Services makes it super easy to use AI in your
+own solution. The toolset includes services like searching for images
+and entities, analyzing images for recognizing objects or faces,
+language or speech services, etc. The default Vision service allows
+us to upload an image which will be analyzed and it returns a JSON
+object that holds detailed information about the image. For example,
+if an image contains any faces, what the landscape is, what the
+recognized objects are, etc.
+
+The Custom Vision service will give you more control of what
+specifically should be recognized in an image. The way it works is
+that in the portal of the Custom Vision service you have the option
+to upload images and tag them. Let’s, for instance, pretend that
+you want to recognize if uploaded images are either a Mercedes or a
+Bentley car. You’ll need to create two tags, Mercedes and Bentley,
+upload images and connect them to the respective tags. After that,
+it’s time to train the model. Under the hood, machine learning is
+used to train and improve the model. The more images you upload the
+more accurate the model becomes and that’s how it works with most
+of the machine learning models. In the end, it’s all about data and
+verifying your model. After the model is all set, it’s time to
+upload images and test the results. The Custom Vision service analyze
+the images and return the tags with a probability percentage.
+
+# Tensorflow on GPU:
+https://www.infoq.com/news/2019/05/google-tensorflow-graphics/
+
+At a presentation during Google I/O 2019, Google announced TensorFlow
+Graphics, a library for building deep neural networks for
+unsupervised learning tasks in computer vision. The library contains
+3D-rendering functions written in TensorFlow, as well as tools for
+learning with non-rectangular mesh-based input data.
+
+# luminoth Comp.Vision Toolkit!!!
+<https://luminoth.ai/> !!! OpenSource Computer Vision Toolkit
+
+# MS Cognitive Services:
+https://www.patrickvankleef.com/2018/08/27/exploring-city-with-azure-durable-functions-and-the-custom-vision-service/
+ Microsoft Cognitive Services makes it super easy to use AI in your
+own solution. The toolset includes services like searching for images
+and entities, analyzing images for recognizing objects or faces,
+language or speech services, etc. The default Vision service allows
+us to upload an image which will be analyzed and it returns a JSON
+object that holds detailed information about the image. For example,
+if an image contains any faces, what the landscape is, what the
+recognized objects are, etc.
+
+The Custom Vision service will give you more control of what
+specifically should be recognized in an image. The way it works is
+that in the portal of the Custom Vision service you have the option
+to upload images and tag them. Let’s, for instance, pretend that
+you want to recognize if uploaded images are either a Mercedes or a
+Bentley car. You’ll need to create two tags, Mercedes and Bentley,
+upload images and connect them to the respective tags. After that,
+it’s time to train the model. Under the hood, machine learning is
+used to train and improve the model. The more images you upload the
+more accurate the model becomes and that’s how it works with most
+of the machine learning models. In the end, it’s all about data and
+verifying your model. After the model is all set, it’s time to
+upload images and test the results. The Custom Vision service analyze
+the images and return the tags with a probability percentage.
+
+## Google PaliGemma 2
+
+* <https://www.infoq.com/news/2025/01/google-paligemma-2/>
+
+* 2025-01: released PaliGemma 2 family of vision-language models (VLM).
+* three different sizes and three input image resolutions:
+* nine different models, combining LLM sizes of 2B, 9B, and 27B parameters 
+  with vision encoders of 224, 448, and 896 pixels-squared resolution. 
+* achieves state-of-the-art performance on several vision-language benchmarks,
+  where it sets new state-of-the-art records, including **OCR, molecular 
+  structure recognition, and radiography report generation**.
+* It uses the same SigLIP-So400m vision encoder as the original PaliGemma, 
+  but upgrades to the Gemma 2 LLM. 
+* PaliGemma 2 is a combination of a pre-trained SigLIP-So400m image 
+  encode and a Gemma 2 LLM. This combination is then further 
+  pre-trained on a 1B example multimodal dataset. Besides the 
+  pre-trained base models, Google also released variants that were 
+  fine-tuned on the Descriptions of Connected and Contrasting Images 
+  (DOCCI) dataset, a collection of images and corresponding detailed 
+  descriptions. **The fine-tuned variants can generate long, detailed 
+  captions of images, which are "more factually aligned sentences" than 
+  those produced by other VLMs**.

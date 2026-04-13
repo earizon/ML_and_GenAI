@@ -1,0 +1,74 @@
+[[{JAX]]
+# JAX
+
+  ```
+  | $ pip install jax
+  | $ pip install -U "jax[cuda13]"
+  ```
+
+* <https://docs.jax.dev/en/latest/notebooks/thinking_in_jax.html>
+
+* unified NumPy-like interface running on CPU, GPU, or TPU, local/distributed settings. [[scalability]]
+* built-in Just-In-Time (JIT) compilation via Open XLA (OOSS ML compiler ecosystem) [[scalability.JIT]]
+* JAX functions for efficient evaluation of gradients via automatic differentiation transformations.
+* JAX functions can be automatically vectorized to efficiently map them over arrays representing 
+  batches of inputs.
+
+[[{doc_has.comparative,numpy,JAX]]
+## JAX vs. NumPy (Key concepts)
+
+* JAX provides NumPy-inspired interface.
+* Through duck-typing, JAX arrays can often be used as drop-in replacements of NumPy arrays.
+* Unlike NumPy arrays, JAX arrays are always immutable. [[qa.inmutability]]
+
+  ```
+  | import jax.numpy as jnp # now jnp can be used "a la numpy"
+  | 
+  | import matplotlib.pyplot as plt
+  | 
+  | x_jnp = jnp.linspace(0, 10, 1000)
+  | y_jnp = 2 * jnp.sin(x_jnp) * jnp.cos(x_jnp)
+  | plt.plot(x_jnp, y_jnp);
+  ```
+[[doc_has.comparative}]]
+
+
+[[{doc_has.comparative]]
+## JAX 'vs' PyTorch 'vs' TensorFlow
+
+* Extracted from:
+  <https://www.reddit.com/r/MachineLearning/comments/1b08qv6/d_is_it_worth_switching_to_jax_from/?rdt=51234>
+
+  ... I like JAX, but use it primarily for Bayesian Inference 
+applications, since the parallelization + grad functions are neat and 
+easy.
+
+  ... JAX is numpy on a GPU/TPU, the saying goes. So I assume JAX is 
+very handy where TensorFlow is not pythonic, in particular for 
+describing mid to low level mathematical operations that are less 
+common or optimize common layers. [[numpy]]
+
+... Depending on what you’re doing JAX definitely can have some 
+advantages or even allow you to do things that are not possible in 
+PyTorch. If you need to perform some operation data-wise, you can do 
+that with vmap. For example in scientific machine learning you might 
+want the gradient of each output with respect to its inputs, not the 
+whole jacobian of all outputs with respect to all inputs. You can 
+easily do that with vmap, and that was the reason I switched to JAX 
+personally. Phillipe Lippe has some implementations of models in both 
+JAX and PyTorch and has some benchmarks for performance.<br/>
+... Sometimes the speed up with jit is huge, sometimes it’s not.
+[[scalability.JAX]]<br/>
+
+**Dataloaders are still usually in PyTorch regardless of if you are
+using JAX for the model or not.**
+
+* Extracted from: <<https://keras.io/>
+
+... By picking the backend (TensorFlow, PyTorch, JAX, OpenVINO)  that is
+the fastest for your model architecture (often JAX!), leverage speedups
+ranging from 20% to 350%.
+
+[[doc_has.comparative}]]
+
+[[JAX}]]

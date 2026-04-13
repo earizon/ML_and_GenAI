@@ -1,0 +1,26 @@
+[[{101,]]
+## Orca: Using AI to improve AI
+
+* <https://www.microsoft.com/en-us/research/project/orca/>
+
+ Orca focuses on creating automated pipelines for creating high-
+synthetic data at scale, and training models for specialization 
+and model self-improvement. 
+Orca's research areas involve self-improvement strategies, 
+feedback-driven teaching methods between large and small models 
+to create high-quality synthetic data and using domain specific
+data to specialize LM.
+
+ Microsoft Research's Orca paper explores progressive learning
+from complex explanation traces of large language models such as GPT-4:
+- <https://arxiv.org/abs/2306.02707>
+[[training.progressive_learning]]
+
+### OpenOrca:
+
+* <https://openlaboratory.ai/models/mistral-7b-openorca>
+
+... The model employs OpenAI’s Chat Markup Language (ChatML) formatting with
+delimiters such as <|im_start|> and <|im_end|>, a structure which is compatible
+with Transformers chat templating.  [[devMLops.ChatML,data.ChatML]]
+[[101}]]

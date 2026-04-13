@@ -1,0 +1,412 @@
+[[{PM.TODO]]
+[[{time_series,]]
+<!--
+- TODO:
+  - Split into files
+-->
+## Time Series Analysis 
+
+[[{time_series.101,doc_has.taxonomy]]
+# List of Time Series Methods
+ 1. Autoregression (AR)
+ 2. Moving Average (MA)
+ 3. Autoregressive Moving Average (ARMA)
+ 4. Autoregressive Integrated Moving Average (ARIMA)
+ 4. Seasonal Autoregressive Integrated Moving-Average (SARIMA)
+ 4. Seasonal Autoregressive Integrated Moving-Average with Exogenous Regressors (SARIMAX)
+ 7. Vector Autoregression (VAR)
+ 8. Vector Autoregression Moving-Average (VARMA)
+ 9. Vector Autoregression Moving-Average with Exogenous Regressors (VARMAX)
+10. Simple Exponentil Smoothing (SES)
+11. Holt Winter's Exponential Smoothing (HWES)
+12. Prophet
+13. Naive Method
+14. LSTM (Long Short Term Memory)
+15. STAR (Space Time Autoregressive)
+16. GSTAR (Generalized Space Time Autoegressive)
+17. LSTAR (Logistic Smooth Transition Autoregressive)
+18. Transfer Function
+19. Intervention Method
+20. Recurrent Neural Network
+21. Fuzzy Neural Network.
+[[time_series.101}]]
+
+[[{time_series.101.timecop,use_case.fraud_detection,PM.low_code]]
+## timecop TS Anomaly Detector (by BBVA)
+
+- Time series based anomaly detector.
+- RESTful webservice engine.
+- evaluates uni/multi-variate timeseries.
+- timecop considerates time series as having 3 stages:
+  * current state (of the time series) as the last five points.
+  * past state as all the previous points before the current state.
+  * future state as the forecast of the next steps (custom number).
+- Objective: get insight on the behavior of the time series.
+    'timecop' engine compares several time series forecasting algorithms.
+    and select the best one according to the MAE(mean absolute error)
+    metric.
+- engine algorithm set:
+  * VAR (Vercot Autoregression)
+  * Holt-Winters
+  * ARIMA (Autoregressive Integrated Moving Average)
+  * Recurrent Neural Networks using LSTM cells.
+
+- Engine ouput:
+  * The best of evaluated algorithm regarding the MAE metric.
+  * Past anomalies. past state points considerated as anomalous.
+  * Current anomalies, returning a flag telling whether there are
+    anomalies in the last 5 points or not and the current anomalous
+    points if there were.
+  * Future time series forecast of the next points.
+
+  * Main Features
+    * Future: Forecast n steps
+    * Past  : Sensibility custom anomaly detection
+    * Now   : Sensibility custom anomaly detection
+  * Secondary Features
+    * Delta / Full timesteps upload
+    * Train / Use best known model in production envirotnment
+    * Python API for easy integration in notebooks / python apps
+    * Backend Database
+  * ADVANCED FEATURES:
+    * Trend
+    * ChangePoints
+    * Confidence interval
+
+### 'timecop' Getting Started
+
+  ```
+  | ·> Feed engine with (JSON) uni/multi-variate TS data points through
+  |    its webservice (POST).
+  |    ·> service will return you a (JSON) result of the analysis.
+  |                             ┌ engine1 ┐
+  |                  ┌· Uni    ·┼ engine2 ├ Best  ─┐
+  |                  ·  variabe └ ...     ┘        ·  HTTP
+  |   POST           ·                             ·  Response
+  |  {JSON} → Web   ─┤                             ├─ {JSON}
+  |           Service·                             ·
+  |                  ·          ┌ engine1 ┐        ·
+  |                  └─ Multi  ─┼ engine2 ├ Best  ─┘
+  |                     Variate └ ...     ┘
+  |
+  |  - SUPPORTED ALGORITHMS
+  |    Univariate                 Multivariate
+  |    ==========                 ============
+  |    LSTM networks              Long Short Term Memory networks
+  |    Facebook prophet           vector autoregression
+  |    vector autoregression      Vector error correction model
+  |    Gluon-ts                   SArimaX
+  |    Holtwinters
+  |    ARIMA
+  |    N-beats
+  |    Temporal Convolutional Network
+  |    TBATS
+  |
+  |  - Metrics
+  |    - Mean Absolute Error
+  |    - Mean Squeared Error
+  |    - Root Mean Squeared Error
+  |    - Symmetric mean absolute percentage error
+  |    - Mean Absolute Percentage Error
+  ```
+
+### 'timecop' Ussage
+
+1. Launch server. eg, using Docker:
+  ```
+  | $ docker pull trakuo/timecop:devel
+  | $ docker run --name timecoprunning \
+  |     -p 3000:80 trakuo/timecop:devel
+  |
+  | Web UI will be available at:
+  | <http://localhost:3000/static/index.html> 
+  ```
+
+2. alt1) Use the server GUI, uploading the Input CSV.
+2. alt2) Prepare/send data to server, using python API.<br/>
+   ```
+   | presetup
+   | $ pip python client package
+   |
+   | import timecopts as tc                      UNIVARIATE Python API
+   | TS=[1,2,3,4,5,6,7,8,9,2,3,4,5,...]          =====================
+   | URL = 'URL_timecop_server'
+   | output_json = tc.timecop_univariate(
+   |   URL,
+   |   name='test01',
+   |   TS,                       <-············ input data
+   |   train=True,               <-············ True: find best algo.
+   |                             <-············ False: use last best model
+   |                                                   for named TS
+   |   restart=True)             <-············ True : delete all historical TS data.
+   |                                                   use only new (POST) data.
+   |
+   |   import timecopts as tc                   MULTIVARIATE Python API
+   |                                            =======================
+   |                                            analyze+predict 1 TS respect to
+   |                                            1+ reference TS
+   |   TS_main=[1,2,3,4,5,6,...]  <············ Target TS to analyze/predict
+   |   TS_timeseries= []          <············ Reference TS
+   |   TS_timeseries                            Feed (from memory/disk/,...)
+   |      .append({'data': [1,2,3,4,...]})
+   |   URL = 'http://timecop_server/'
+   |   output_json = tc.timecop_multivariate(
+   |     URL,
+   |     name='test_timeseries',
+   |     TS_main,                 <············ Target TS to analyze/predict
+   |     TS_timeseries,           <············ reference TSs
+   |     train=True,              <············ True : find best algo for TS
+   |                                            False: use last best model for named TS
+   |     restart=True)            <············ True : delete all historical TS data.
+   |                              <············        use only new (POST) data.
+   ```
+2. alt3) Use the exposed REST API:
+
+   ```
+   | $ curl -i \                                UNIVARIATE REST API
+   |   -H "Content-Type: application/json" \    ===================
+   |   -X POST -d \
+   |   '{ "data":[ 22125, 25817, 28779, ...] } '
+   |   http://127.0.0.1:5000/univariate
+   |
+   | $ curl -i \                                MULTIVARIATE REST API
+   |   -H "Content-Type: application/json" \    =====================
+   |   -X POST -d \
+   |   '{
+   |    "timeseries":[
+   |    { "data": [0.950007158, 1.0, 1.0, ...] },
+   |    { "data": [0.5, 1.0,              .. ] } ],
+   |    "main": [0.8571429252624512, 0.571, ...]
+   |   }'
+   |   http://127.0.0.1:5000/multivariate
+   |
+   |   EXAMPLE RESPONSE:
+   |   {
+   |     "engine": "Holtwinters",       <···· Winner Engine
+   |     "future": {                    <···· Forecast
+   |                "126": 15136.0,
+   |                "127": 16733.0,
+   |                "128": 20016.0,
+   |                ...
+   |               },
+   |     "mae": 5994.289473684211,      <··· Metric 01
+   |     "mse": 50689736.39473684,      <··· Metric 02
+   |     "rmse": 7119.672492097992,     <··· Metric 03
+   |     "past": [ {                    <··· Detected anomalies in past events
+   |                   "anomaly_score": 0.0,
+   |                   "expected value": 20016.0,
+   |                   "mae": 5994.289473684211,
+   |                   "mse": 50689736.39473684,
+   |                   "real_value": 33151.0,
+   |                   "rmse": 7119.672492097992,
+   |                   "step": 90.0 },
+   |                {
+   |                   "anomaly_score": 1.0,
+   |                   "expected value": 23739.0,
+   |                   "mae": 5994.289473684211,
+   |                   "mse": 50689736.39473684,
+   |                   "real_value": 40226.0,
+   |                   "rmse": 7119.672492097992,
+   |                   "step": 95.0 },
+   |                {
+   |                   "anomaly_score": 0.3460620525059665,
+   |                   "expected value": 20008.0,
+   |                   "mae": 5994.289473684211,
+   |                   "mse": 50689736.39473684,
+   |                   "real_value": 34303.0,
+   |                   "rmse": 7119.672492097992, "step": 102.0
+   |                } ],
+   |      "present_alerts": [],         <···· Present status
+   |      "present_status": "FALSE"
+   |   }
+   ```
+[[time_series.101.timecop}]]
+
+[[}]]
+
+[[{time_series,python,rlang,PM.TODO]]
+# Prophet Timeseries Forecasting
+- forecasts time series data.
+- Implemented in R or Python
+- fully automatic, accurate, fast and tunable.
+[[time_series}]]
+
+[[{doc_has.comparative,PM.TODO.topics]]
+
+## Top Python libraries for TS Analysis in 2022 (by Moez Ali)
+
+* <https://moez-62905.medium.com/top-python-libraries-for-time-series-analysis-in-2022-eebe95913085>
+
+* time series DDBB: "sequence of data points, typically consisting of successive
+  measurements made over a time interval. 
+* Time series analysis:  the process of using statistical techniques to model
+  and analyze time series data in order to extract meaningful information from 
+  them and make forecasts about future events (sales, demand, price), detect 
+  behaviour anomalies, identify trends, seasonal patterns and other relationships
+  with time. 
+
+### sktime
+
+* Python toolkit for processing, visualizing, and analyzing data """aiming
+  to create an ecosystem more interoperable and usable as a whole"""
+* unified interface for distinct but related time series learning tasks.
+* Supports pipelining, ensembling, tuning and reduction.
+* Interfaces to related libraries (scikit-learn, statsmodels, tsfresh,
+  PyOD and fbprophet).
+* designed to be extended for new time-series algorithms.
+* provides an extension to scikit-learn API.
+* time-series regression, prediction and classification.
+* conversion methods (not available in any other libraries).
+
+  ```
+  |from sktime.datasets import load_airline
+  |
+  |from sktime.forecasting.model_selection import temporal_train_test_split 
+  |# from sktime.utils.plotting.forecasting import  ...
+  |plot_ysy = load_airline()
+  |y_train, y_test = temporal_train_test_split(y)
+  |plt.title('Airline Data with Train and Test')
+  |y_train.plot(label = 'train')
+  |y_test.plot(label = 'test')
+  |plt.legend()
+  ```
+
+### pmdarima 
+
+* Python wrapper around ARIMA (AutoRegressive Integrated Moving Average) model
+  for analyzing, forecasting, and visualizing time series data and support
+  for seasonal data, including seasonality test and seasonal decomposition tool.
+* ARIMA forecasting algorithm can "predict" future values based on the
+  information in the past values of the time series without any 
+  additional information.
+* It automatically finds best hyperparameters (p,d,q) for the arima model.
+* Equivalent to  R's auto.arima functionality.
+* Collection of statistical tests of stationarity and seasonality 
+* utilities such as differencing and inverse differencing
+* Numerous endogenous and exogenous transformers and featurizers,
+  including Box-Cox and Fourier transformations.
+
+### TSFreshtsfresh (Python)
+
+* <https://github.com/blue-yonder/tsfresh>
+* Automates the process of feature extraction from time series.
+* Based on the idea that the information in a time series can be
+  decomposed into a set of meaningful characteristics, called features.
+* tsfresh takes care of the tedious task of manually extracting 
+  these features, and provides tools for automatic feature selection
+  and classification.
+* Designed to work with pandas DataFrames.
+* features for dealing with time series data includes:
+  * Automatic feature extraction from time series
+  * Automatic feature selection
+  * Time series decomposition
+  * Dimensionality reduction
+  * Outlier detection
+  * Support for multiple time series formats
+  * Support for missing values
+  * Support for multiple languages
+
+## Facebook Prophet
+
+* forecasting tool available to anyone with data in CSV format.
+* OOSS, by Facebook’s Core Data Science team.
+* Based on an additive model where non-linear trends are
+  fit with yearly, weekly, and daily seasonality, plus 
+  holiday effects.
+* It works best with time series that have strong seasonal effects
+  and several seasons of historical data.
+* Robust to missing data and shifts in the trend, and typically
+  handles outliers well.
+
+## Statsforecast : Replace FB-Prophet in 2 lines and gain speed and accuracy
+
+  """Fastest and most accurate AutoARIMA in Python and R"""
+* Collection of widely used univariate time series forecasting models,
+  including automatic ARIMA and ETS modeling optimized for high performance
+  using numba.
+* large battery of benchmarking models.
+* Distributed computation in clusters with ray. (Forecast 1M series in 30min)
+* Compatible with sklearn interface.
+* 20x faster than pmdarima , 
+* 500x faster than Prophet
+* 100x faster than NeuralProphet
+* 4x faster than statsmodels.
+* Compiled to high performance machine code through numba.
+* Out of the box implementations for:
+  * ADIDA, HistoricAverage, CrostonClassic, CrostonSBA,
+    CrostonOptimized, SeasonalWindowAverage, SeasonalNaive, IMAPA Naive,
+    RandomWalkWithDrift, WindowAverage, SeasonalExponentialSmoothing,
+    TSB, AutoARIMA and ETS.
+
+### PyCaret (by Moez Ali) [[PM.low_code]]
+
+* OOSS, low-code machine learning library in Python automating ML workflows.
+* end-to-end machine learning and model management tool 
+  to speeds up the experiment cycle exponentially and makes you
+  more productive.
+* When compared, PyCaret is an alternate low-code library that can
+  be used to replace hundreds of lines of code with few lines only.
+* PyCaret is essentially a Python wrapper around several ML libraries
+  such as scikit-learn, XGBoost, LightGBM, CatBoost, spaCy, Optuna,
+  Hyperopt, Ray, and few more.
+* Design and simplicity are inspired by the emerging role of citizen
+  "data scientists", power users who can perform both simple and 
+  moderately sophisticated analytical tasks that would previously
+  have required more technical expertise.
+* Although not a dedicated TS forecasting library,  it has a new
+  module dedicated for time-series forecasting.
+* Status: pre-release mode (as of 2022). 
+* Statistical testing, model training and selection (30+ algorithms),
+  model analysis, automated hyperparameter tuning, experiment logging,
+  deployment on cloud, and more.
+* <https://github.com/pycaret/pycaret>
+[[doc_has.comparative}]]
+
+[[{]]
+## pytorch-forecasting: Deep Learning for TS forecasting
+
+- In recent years, deep learning has been widely used for time series 
+forecasting, with various new models being introduced, such as N-BEATS and TFT. 
+PyTorch Forecasting is a library that provides numerous DL forecasting models, 
+and other tools that will help you get an optimal result.
+
+ Here are some of the models included in the library:
+- Temporal Fusion Transformers for interpretable time series forecasting
+- N-BEATS: Neural basis expansion analysis for interpretable forecasting
+- N-HiTS: Neural Hierarchical Interpolation for time series forecasting
+- DeepAR: Probabilistic forecasting with autoregressive recurrent networks
+
+ In addition, deep learning forecasting models are sometimes dismissed
+by data scientists, but it's important to be acquainted with the latest
+tools, and draw our own conclusions. 
+
+- <https://pytorch-forecasting.readthedocs.io/en/stable/>
+[[}]]
+
+[[{]]
+## Salesforces Morai
+
+* <https://www.salesforce.com/blog/moirai/>
+
+- time series foundation model, offering universal forecasting capabilities.
+
+- It stands out as a versatile time series forecasting model capable of 
+  addressing diverse forecasting tasks across multiple domains, 
+  frequencies, and variables in a zero-shot manner.
+
+-  To achieve this, Moirai tackles four major challenges:
+1. construction of a LOTSA, a large-scale and diverse time series dataset,
+   comprising 27 billion observations spanning nine distinct domains
+2. development of multiple patch size projection layers, allowing a single
+   model to capture temporal patterns across various frequencies.
+3. implementation of an any-variate attention mechanism, empowering a
+   single model to handle forecasts across any variable
+4. integration of a mixture distribution to model flexible predictive 
+   distributions.
+
+   Through comprehensive evaluation in both in-distribution and 
+out-of-distribution settings, Moirai demonstrates its prowess as a zero-shot 
+forecaster, consistently delivering competitive or superior performance 
+compared to full-shot models.
+
+[[}]]

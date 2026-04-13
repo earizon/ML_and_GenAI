@@ -1,0 +1,150 @@
+[[{dev_stack.python.101]]
+# Python Atmosphere
+
+
+   ```
+   | PYTHON ATMOSPHERE  ────────────────────────────────────────────────────────
+   | (initial report C&P from Brij Kishore Pandey Post @ Linked)
+   | [[{doc_has.report,doc_has.comparative}]]
+   | [[DATA.PROCESSING]] -------------------------------------------------------
+   |
+   | Polars    Modin    Pandas¹   Vaex    Datatable    CuPy     NumPy    ...
+   | 
+   | Pandas compatible alternative (with multithread and/or GPU acceleration) include: 
+   | - FireDucks:  import pandas as pd ··> import fireducsk.pandas as pd
+   | - cuDF     :  (NVidia CUDA based) 
+   |
+   | narwhals: lightweight, extensible compatibility layer between dataframe libraries
+   | - Full API  support: cuDF, Modin, pandas, Polars, PyArrow.
+   | - Lazy-only support: Daft, Dask, DuckDB, Ibis, PySpark, SQLFrame.
+   |
+   | [[DATA.PREPROCESSING]]  ───────────────────────────────────────────────────
+   |
+   | - skrub-data (preprocessing and feature engineering) [[PM.low_code,data.101,data.gathering,data.mining,trainning.*,data_cleaning]]
+   |   - <https://skrub-data.org/stable/>
+   |   - scikit-learn pipelines. [[mlops.data_pipeline]]
+   |   - Powerful Feature Engineering  [[data.feature_engineering]]
+   |   - Encode text and high cardinality categorical data 
+   |   - Scale and clip numerical features with the SquashingScaler. [[scalability.dimension_reduction]]
+   |
+   |
+   | - csvkit  [[data.csv]] clean, cut, format, grep, lookup, sort, sql, vstat on CSV
+   |   - <https://github.com/wireservice/csvkit>
+   |
+   | [[DATA.DATABASE]] ---------------------------------------------------------
+   |
+   | Dask    PySpark     Ray    Koalas      Kafka        Hadoop
+   |
+   | [[]] ----------------------------------------------------------------------
+   |
+   | Jax    Keras    Theano    XGBoost     Scikit-Learn    TensorFlow   Pytorch
+   |
+   | [[Data.Visualization]] ----------------------------------------------------
+   |
+   | Matplotlib : "standard" in any ML tutorial 
+   | Plotly     :
+   | Altair     : declarative visualization, simple, friendly and consistent API.
+   | Seaborn    :
+   | Geoplotlib :
+   | Pygalo     :
+   | Folium     :
+   | Bokeh      : 
+   | Perspective: (C++/Rust/WebAssembly Real Time visualization) [[scalability.data_visualization]]
+   | Yellowbricks: Sits on top of Scikit-learns and Matplotlib.
+   |               <https://github.com/DistrictDataLabs/yellowbrick>
+   |               Visual analysis and diagnostic tools to facilitate ML model selection.
+   | dtreeviz  : decison tree visualization and model interpretation.
+   |             supports for sklearn, LightGBM, and XGBoost.
+   |
+   |
+   | [[Neuroimaging]] ----------------------------------------------------------
+   |
+   | Neurosynth, NiPy, 
+   |
+   | [[cognitive.NLP]] ---------------------------------------------------------
+   |
+   | NLTK   Bert   Textblob   spaCy    Polygot    Gensim    Pattern  ...
+   |
+   | [[Stats]] (Statistical Analysis) ------------------------------------------
+   |
+   | SciPy    PyMC3   PyStan     Statsmodels    Lifelines    Pingouin
+   |
+   | [[Web_ Scrapping]] --------------------------------------------------------
+   |
+   | Scrapy       Selenium     BeautifulSoup     Ocroparse
+   | 
+   | [[probabilistic programming]] ---------------------------------------------
+   | 
+   | Pyro    : Deep universal probabilistic programming with Python and PyTorch 
+   | NumPyro : light probabilistic programming library providing a NumPy backend for Pyro,
+   |           JAX for automatic differentiation and JIT compilation to GPU/CPU.
+   |
+   | [[Time Series  ]] ---------------------------------------------------------
+   | pytimetk: (Using polars)
+   |
+   | ───────────────────────────────────────────────────────────────────────────
+   | ─────────── <https://www.xmind.net/m/WvfC/> ───────────────────────────────
+   | ───────────────────────────────────────────────────────────────────────────
+   |
+   | +- Basic Stack:
+   |    +- scikit image+learn+statsmodels
+   |    +- NLTK
+   |    +- matplotlib
+   | 
+   | +- Newer packages                        |+- Packages
+   |    +- Numba (x100 faster than alts)      |   +- PyPI
+   |    +- wiseRF                             |+- Efficiency
+   |    +- Blaze                              |   +- Cython
+   |                                          |+- Paraller
+   | +- Integrated Platforms                  |   +- iPython - ipcluster
+   |    +- Continuum.io                       |   +- PP
+   |       +-- Anaconda                       |   +- dispy
+   |       +-- Wakari                         |+- GPU
+   |    +- PiCloud  --- Python + AWS          |   +- NumbaPro
+   |    +- wise.io  -- MLaaS  -- RandomForest |   +- PyCUDA
+   |    +- ipython -- Notebook                |+- Glue
+   |    +- Orange                             |   +- rpy2 - R
+   |                                          |   +- PySpark - Spark
+   | +- Visualization                         |   +- ipython - "magic"
+   |    +- matplotlib                         |   |              +- R
+   |    +- Bokeh  -- ggplot for python        |   |              +- SQL
+   |    +- Mayavi                             |   |              +- matlab/octave
+   |    +- Nodebox                            |   |              +- IDL
+   |    +- igraph                             |   +- jython - java
+   |    +- pandas  -- pandas.tools.rplot      |     +- boto - Amazon Web Services
+   |    +- Google APIs  -- goggleVis
+   | 
+   | +- [[data.format]]                       | +-- MapReduce    [[architecture.bigdata]]
+   |    +- Flat text                          |     +-- Hadoop Interface
+   |       +-- xreadlines                     |     |   +-- Hadoop Streaming
+   |       +-- readlines                      |     |   |   +-- Hadoopy
+   |       +-- pandas                         |     |   |   +-- dumbo
+   |           +-- read_csv                   |     |   |   +-- mrjob
+   |           +-- read_fwf                   |     |   +-- Pydoop -- Pipes
+   |       +-- xlrd/xlwt/xlutils              |     +-- disco
+   |    +- HDF5
+   |       +-- PyTables
+   |       +-- h5py
+   |    +- SQL
+   |       +-- SQLAlchemy
+   |       +-- pysqlite3
+   |       +-- pyodbc
+   |           +-- Vertica
+   |           +-- Netezza
+   |           +-- Teradata
+   |    +- NoSQL
+   |       +-- MongoDB - PyMongo
+   |       +-- CouchDB
+   |           +-- couchdb-python
+   |           +-- couchdbkit
+   |    +- JSON
+   |       +-- Standard Library
+   |       +-- simplejson
+   |    +- XML
+   |       +-- Standard Library
+   |    +- HBase
+   |      +-- HappyBase
+   ```
+
+
+[[dev_stack.python.101}]]

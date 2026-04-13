@@ -1,0 +1,28 @@
+101.txt                                 # OK, WiP
+101_numpy.txt                           # OK, WiP
+101_pandas.txt                          # OK, WiP
+101_Python_Atmosphere.txt               # OK,
+101_open_data_catalog.txt               # OK, WiP
+hierarchical_reasoning_model.txt        # md OK, content 1%
+deep_search.txt                         # md OK, WiP
+ORCA.txt
+DATA/101.payload
+LLMs/101.payload
+Agents/101.payload
+PROMPTING/101.payload
+MLOps/101.payload                       #
+TIME_SERIES/101.payload
+DataVisualization/101.payload
+# NLTK/101.payload
+USE_CASES/101.payload
+RAG/101.payload
+101_TODO.txt                            # OK
+101_backpropagation.txt                 # OK, TODO
+# 101_external_resources.txt            # TODO 
+# 101_ggml.txt                          # TODO 
+# TRANSFOMERS/101_transformers.txt      # TODO 
+# 101_nomenclature_and_acronyms.txt     # TODO 
+# 101_jupyter.txt                       # Draft
+# 101_vibbe_coding.txt                  # TODO
+# 101_LLM_assistants.txt                # TODO 
+# 101_HierarchicalReasoning_vs_CoT.txt  # TODO  

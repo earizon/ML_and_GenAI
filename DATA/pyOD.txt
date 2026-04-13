@@ -1,0 +1,26 @@
+[[{data.analysis]]
+## PyOD: outliner detector library
+
+* Home Page: <https://pyod.readthedocs.io/en/latest/>
+* Paper: <https://arxiv.org/abs/2412.12154>
+
+- Outlier detection is the identification of dataset elements that vary 
+  significantly from the majority.
+
+* comprehensive, easy-to-use  library for detecting anomalies across tabular, 
+  time series, graph, text, and image data. Whether you are working with a 
+  small-scale project or large datasets.
+
+- Expanded Deep Learning Support: 12 modern neural models into a single 
+  PyTorch-based framework, bringing the total number of outlier detection methods 
+  to 45.
+
+- LLM-based Model Selection: Automated model selection guided by a large 
+  language model reduces manual tuning and assists users who may have limited 
+  experience with outlier detection.
+
+- Multi-Modal Detection via EmbeddingOD: Chain foundation model encoders 
+  (sentence-transformers, OpenAI, HuggingFace) with any PyOD detector for
+  text and image anomaly detection [ALLX+24].
+  [[use_case.anomaly_detection.text,use_case.anomaly_detection.image]]
+[[data.analysis}]]

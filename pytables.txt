@@ -1,0 +1,101 @@
+# PyTables (Hierarchical Data) [[{numpy.pytables,low_code,scalability,PM.WiP]]
+- Fill the gap left by NumPy/.. to manage large amounts of  hierarchical
+  datasets, providing a pythonic/numpy wrapper to (a subset of) the HDF5
+  library API.
+PyTables = powerful data mining/management features of HDF5
+           with up to 2**62 rows per-table.
+         + Python object orientation/introspection
+         + NumPy
+         + Numexpr's high-performance manipulation of
+           large-sets-of-objects organized in a grid-like structures.
+         + On-flight data-compression (part of HDF5 actually)
+
+MAIN FEATURES:
+- Multidimensional+nested table cells:
+  A table's column :=  values-with-any-number-of-dimensions (vs just SQL scalars)
+                     | columns-made-of-other-columns (of different types)
+
+- Indexing support for columns
+- Support for NumPy ndarrays to store homogeneous data.
+- Lazy-built-In-memory object tree replicating the underlying HDF5 file data structure.
+
+- Data compression: (Zlib, LZO, bzip2, Blosc).
+- High performance I/O:
+- No 2GB file-size limit.
+- Architecture-independent:
+
+- PyTable Object Tree:
+  - The different nodes in the object tree are instances of PyTables classes.
+  - the most important types of classes are:
+    - Node  class: All nodes in a PyTables tree are instances of the Node class.
+                   Parent class for groups ("directories") and leafs ("files"),
+                   always accessed by name.
+    - Group class: Node descendant, grouping structure containing instances of zero
+                   or more groups or leaves, together with supplementary metadata.
+                   "Sort of UNIX directory".
+    - Leaf  class: Node descendant, are containers for actual data (can NOT contain
+                   further groups or leaves). Children class types include:
+                   "Sort of UNIX file".
+                   - Table          class: COLLECTION OF FIXED SCHEMA RECORDS (STORED AS HDF5 COMPOUND DATA TYPES)
+                                           ("==" HDF5 compound-type-datasets)
+                   - Array          class: all of their components are homogeneous.
+                                           ("==" HDF5 homogeneous datasets)
+                   - CArray         class: all of their components are homogeneous.
+                   - EArray         class: (Enlargeable): Allows to add new elements to existing array in any dimension
+                                                          (but only one).
+                                           Slice views supported.
+                   - VLArray        class: (Variable length): elements can vary from row to row.
+                                           Use-case: complex data.
+                                           ("==" HDF5 var.length record datasets)
+                   - UnImplemented  class: (Supported by HDF5, but not by PyTable)
+                     └─────────┬────────┘
+                     Support for:
+                     Standard     metadata: number-of-rows, shape, flavor, ...
+                     User-defined metadata: (complementing meaning of actual table data)
+
+    In PyTables "full path" (‘/subgroup2/table3’) or
+    "natural name schema" (file.root.subgroup2.table3) can be used.
+
+ NOTE: data a file is only loaded into the in-memory object tree on-demand.
+
+ The object tree standard / custom metadata allows to retrieve information about
+ objects on disk such as: table names, titles, column names, data types in columns,
+ numbers of rows, ... arrays, arrays's shapes, typecodes, etc...)
+
+ ┌─ examples/objecttree.py (create HDF5 file): ┐
+ │ import tables as tb                         │
+ │                                             │
+ │ class Particle(tb.IsDescription):           │
+ │   identity = tb.StringCol(itemsize=22,      # character String
+ │                           dflt=" ", pos=0)  │
+ │   idnumber = tb.Int16Col(dflt=1,   pos=1)   # short integer
+ │   speed    = tb.Float32Col(dflt=1, pos=2)   # single-precision
+ │                                             │
+ │ fileh = tb.open_file("objecttree.h5",       # Open file in (w)rite mode
+ │                      mode="w")              │
+ │ root = fileh.root                           # Get HDF5-root-group
+ │ group1 = fileh.create_group(root, "group1") # Create new groups ("directories")
+ │ group2 = fileh.create_group(root, "group2") │
+ │ array1 = fileh.create_array(root,           # create array in root
+ │      "array1", ["string", "array"], "String │ array")
+ │ table1 = fileh.create_table(group1,         # Create table in group1
+ │          "table1", Particle)                │
+ │ array2 = fileh.create_array("/group1",      # Create array in group1
+ │          "array2", [1,2,3,4])               │
+ │ table2 = fileh.create_table("/group2",      # Create table in group2
+ │          "table2", Particle)                │
+ │                                             │
+ │ for table in (table1, table2):              # fill tables with values
+ │     row = table.row                         # Get record object associated
+ │                                             # with the table
+ │     for i in range(10):                     # Fill table with 10 records
+ │       row['identity'] = f'particle: {i:2d}' # 1) assign values to Particle record
+ │       row['idnumber'] = i                   │
+ │       row['speed']  = i * 2.                │
+ │       row.append()                          # 2) inject values inrow
+ │     table.flush()                           # "Flush" table buffers
+ │                                             │
+ │ fileh.close()                               # Free/close file (flushing any
+ │                                             # remaining buffers!)
+ └─────────────────────────────────────────────┘
+[[}]]

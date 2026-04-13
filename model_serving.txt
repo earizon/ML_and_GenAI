@@ -1,0 +1,19 @@
+Model Serving (Executing Trained Models)
+
+# Importing/Exporting Models: PMML formal, TODO
+
+# Keras vs. PyTorch Export:
+https://deepsense.ai/keras-or-pytorch/
+- What are the options for exporting and deploying your trained models
+  in production?
+- PyTorch saves models in Pickles, Python-only-compatible.
+  - Exporting models is harder and currently the widely
+    recommended approach is to start by translating
+    PyTorch models to Caffe2 using ONNX.
+- Kera can opt opt for:
+  - JSON + H5 files (though saving with custom layers in
+    Keras is generally more difficult).
+  - Keras in R.
+  - Tensorflow export utilities with Tensorflow backend.
+    ("protobuf") allowing to export to Mobile (Android, iOS, IoT)
+   and TensorFlow Lite (Web Browser, TensorFlow.js or keras.js).

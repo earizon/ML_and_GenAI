@@ -1,0 +1,12 @@
+[[{architecture.agents]]
+# Koog (TODO)
+
+* Create agents that interact with tools, handle complex workflows,
+  and communicate with users.
+* OOSS JetBrains framework for building AI agents.
+* Idiomatic, type-safe Kotlin DSL 
+* designed specifically for JVM and Kotlin developers.
+* Customizable
+* Deploy on JVM, JS, WasmJS, Android, and iOS targets through Kotlin Multiplatform.
+
+[[architecture.agents}]]

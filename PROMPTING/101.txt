@@ -1,0 +1,110 @@
+# Prompt "Engineering"
+
+## Prompting 101
+
+ Contrary to a Search engine where we place a text or question waiting for an answer,
+in an LLM prompt we must provide **context** to avoid potential allucinations.
+
+ The context is what really helps the underlying GPT architecture to find for the
+desired related information and skip non-related information.
+
+  When appropiate, do not ask for a single response, ask for as much as your prompting
+budget allows you.
+
+
+[[{prompting.101.step_by_step]]
+## "Explain your reasoning step by step before answering" 8 words "Miracle"
+
+Initial prompt engineering started to grew in complexity:
+
+- People traded massive prompt templates.
+- Threads promised "perfect prompts."
+
+As a consecuence:
+
+- The prompts got longer and rigid.
+- The results got more predictable.
+- Models "played it safe" instead of exploring ideas.
+
+Then a group of researchers connected to Stanford They noticed that 
+
+"""Large language models don’t just autocomplete text.
+   **They simulate reasoning when invited to do so**.""" [[prompting.101,doc_has.keypoint]]
+
+- When prompts demanded final answers immediately, models collapsed their internal reasoning into a short path.
+- But when prompts encouraged process, performance jumped:
+  - More original ideas.
+  - Fewer shallow answers.
+  - Better logical consistency.
+  - Higher creativity scores.
+
+
+## "Explain your reasoning step by step before answering"
+
+
+- Eight words.
+- No frameworks.
+- No role-playing.
+- No giant prompt blocks.
+- No fine-tuning.
+- No plugins.
+- No custom training.
+
+
+- Just an instruction that changes how the model allocates attention.
+
+When you ask for reasoning before answers, three things happen inside the model:
+
+1. The model slows down: 
+  - Instead of jumping to the most statistically likely response, it explores intermediate paths.
+  - Creativity lives in those paths:
+
+2. Multiple solution branches appear:
+  - Step-by-step reasoning encourages the model to surface alternatives, trade-offs, and edge cases.
+
+3. The model self-corrects
+  - **As it reasons, it notices weak assumptions and adjusts**,
+    often producing better final outputs than direct prompting.
+
+Just better instructions.
+
+
+**The future belongs to people who understand how models think, not those who memorize prompt formulas**.
+
+
+[[}]]
+
+
+[[{]]
+# Prompt-Engineering @ OpenAI
+
+* <https://platform.openai.com/docs/guides/prompt-engineering>
+
+Open AI just released their own Prompt Engineering guide. 
+
+... summary of their 6 strategies for getting better results when prompting GPT:
+
+1. Write Clear Instructions:
+  - Be specific: Clarity in instructions leads to more relevant outcomes.
+  - Define the desired output length and complexity.
+  - Demonstrate preferred formats.
+  - Minimize ambiguity to enhance model accuracy.
+2. Provide Reference Text:
+  - Counteract potential fabrications with concrete reference materials.
+  - Reference texts guide the model towards accurate and reliable answers.
+3. Split Complex Tasks into Simpler Subtasks:
+   - Break down tasks to reduce errors and improve manageability.
+   - Consider tasks as workflows of simpler, interconnected steps.
+4. Give the Model Time to "Think"
+   - Allow the model to process and reason, similar to a human solving a complex problem.
+   - Encourage a "chain of thought" approach for more accurate reasoning.
+5. Use External Tools
+   - Supplement the model's capabilities with specialized tools for specific tasks.
+   - Leverage resources like text retrieval systems or code execution engines.
+6. Test Changes Systematically
+   - Measure improvements with a comprehensive testing approach
+   - Ensure that modifications lead to overall performance enhancements.
+
+Full Guide: <https://developers.openai.com/api/docs/guides/prompt-engineering> [[PM.TODO.summarize]]
+
+[[}]]

@@ -1,0 +1,80 @@
+[[{mlops.model_deployment,persistence.NN_model]]
+
+## GGUF: GPT-Generated Unified Format: (used by Ollama, ...)
+
+- Originally part of the llama.cpp project and still focusing in llama.cpp.
+- Focused (as ONNX) in compatibility amongst LLMs (vs any type of NN).
+- improves over the previous llama.cpp GGML format and quantization to 
+  execute in resource constrained environements.
+- Designed to make LLM fast to load in local setups using 
+  advanced compression techniques.
+- <https://github.com/ggml-org/ggml/blob/master/docs/gguf.md>
+- GGUF is a persistence binary format used to store models for
+  inference with GGML and executors based on GGML, designed for 
+  fast loading and saving and ease of reading.
+- Designed  to be:
+  * unambiguous: by containing all the information needed to load a model.
+    (tensor plus metadata).
+  * extensible:  new information can be added to models without breaking compatibility.
+  * Optimized for Inference: performs well on consumer-grade hardware.
+- TIP: Models are traditionally developed using PyTorch/... frameworks,
+  then converted to GGUF for use in GGML.
+- Developed by Georgi Gerganov
+- Compatible with Python, R, ...
+- supports fine-tuning for specialized applications.
+- deprecates while keeping compatibility with older GGML, GGMF and GGJT and file format.
+- Excelent integer quantization support:  4-bit, 5-bit, 8-bit to help reduce the model size 
+  while improving inference speed. (Q2, Q3, ..., Q8)
+- Built-in support for automatic differentiation, making it easier to implement and
+  train ML models. [[{PM.TODO}]]
+- Still posses some security issues if the GGUF analizer has coding bugs.
+  - Digital Signature is recommended.
+
+[[{]]
+## Python Pickle 
+
+- Primitive and insecure method using Python pickle module. (First to be popularized).
+- Examples include python .pt, and .pth files and  TensorFlow/Keras .ckpt/.h5.
+
+##  Safetensors
+
+- Created to avoid security attacks and performance loading "big" NN graphs.
+- Created by Hugging Face, donated to PyTorch Foundation.
+- "zero-copy": Maps disk data to RAM memory.
+- and lazy loading: on-demand loading.
+- JSON Structured metadata embedding the file describing model tensors and shape, and pointers to
+  location in file.
+- Only raw tensor data and metadata is stored (vs any Pickle python code).
+- Quantization support.
+  WARN: less flexible than that in GGUF, (only quantization supported by PyTorch).
+- Support for encryption and signature of data.
+- Up to 76 faster to load than primitive pickle techniques.
+[[}]]
+
+[[{]]
+## ONNX (Open Neural Network Exchange, by Microsoft)
+
+- Part of the ONNX cross-hardawarei Inference echosystem.
+- Defines the model graph (independent of framework).
+- Focused on inference for already trained models (vs further training).
+- A single ONNX file contains the NN computational graph plus metadata.
+- Major training frameworks (PyTorch, TensorFlow o scikit-learn) support 
+  output to ONNX format. ("train once,  deploy anywhere").
+- While Safetensors or GGUF contains just the model weights and biases,
+  ONNX includes the full computation graph (recheck this claim).
+- Internally it uses "Protobuf" for efficient binary serialization.
+- NOTE: Doesn't look to support zero-copy and lazy-loading as SafeTensors (recheck)
+- A security risk is the possibility of hiddn computation graphs opening 
+  "back-doors" in target hardware. To prevent them:
+  - Sign the ONNX file digitally.
+  - Use best-pattern for security (isolation, monitoring, ...)
+- It does NOT natively admits cuantized tensors as GGUF or Safetensors does.
+  It splits in separated integer tensors ans scale factors, which can decrease
+  the quality of the model.
+[[}]]
+
+
+[[mlops.model_deployment}]]
+
+
+

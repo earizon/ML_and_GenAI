@@ -1,0 +1,27 @@
+# Cognitive Processing
+
+# DeepDetect:
+- cross-collaboration project.
+- Used by organizations like Airbus and Microsoft.
+- OOSS deep learning server based on Caffe, TensorFlow and XGBoost.
+- easy-to-use API for image classification, object detection, and
+  text and numerical data analysis.
+
+# Google-ML-Kit [[{mobile]]
+https://www.infoq.com/news/2019/04/Google-ML-Kit
+
+In a recent Android blog post, Google announced the release of two
+new Natural Language Processing (NLP) APIs for ML Kit, a mobile SDK
+that brings Google Machine Learning capabilities to iOS and Android
+devices, including Language Identification and Smart Reply. In both
+cases, Google is providing domain-independent APIs that help
+developers analyze and generate text, speak and other types of
+Natural Language text. Both of these APIs are available in the latest
+version of the ML Kit SDK on iOS (9.0 and higher) and Android (4.1
+and higher).
+
+The Language Identification API supports 110 different languages and
+allows developers to build applications that identify the language of
+the text passed into the API. Christiaan Prins, a product manager at
+Google, describes the following use case for the Language Identification API.
+[[}]]

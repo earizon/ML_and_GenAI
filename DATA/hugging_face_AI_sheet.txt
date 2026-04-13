@@ -1,0 +1,104 @@
+[[{data.cleaning,PM.low_code]]
+## HF AI Sheets: No-Code Tool for Dataset Transformation
+
+
+* <https://huggingface.co/spaces/aisheets/sheets>  (no installation required) [[PM.price.free_tier]]
+* <https://github.com/huggingface/sheets>          (local install)
+
+- OOSS tool for building, enriching, and transforming datasets using AI models with no code.
+
+  ```
+  |                                    ┌────────────────┐
+  |                          ┌─········· Refine         │
+  | HF CSV XLS               ·         │ - add column/s │
+  |  datasets                ·         │ - add cells    │
+  | └────┬────┘              ·         │ - Edit cells   │
+  |      ·                   ·         │ - Regenerate   │
+  |      ·                   ·         └──────^─────────┘
+  |      ·              ┌────v─────┐          ·
+  |      └─>·· import ··>          ··········>┘
+  |                     │ AISheets │ 
+  |                     │ dataset  ·· export to HF CSV
+  |      ┌─>· Generate··>          │ 
+  |      ·              └──────────┘
+  |      ·
+  |  ┌───┴───┐
+  |   Write
+  |   Prompt                    
+  ```
+
+Summary from <https://huggingface.co/blog/aisheets>
+
+-  It lets you use thousands of open models from the Hugging Face Hub via Inference Providers or local models, including gpt-oss from OpenAI!
+- tightly integrated with the Hub and the open-source AI ecosystem.
+- easy-to-learn with spreadsheet-like UI.
+- Allows for quick experimentation, starting with small datasets before running long/costly data generation pipelines.  [[qa.best_patterns]]
+- new columns are created by writing prompts,
+
+### Use Case 1: Compare and vibe test models on your own data.
+
+  - import a dataset with prompts/questions
+  - create several columns (one per model) with a prompt like this:
+    """ Answer the following: {{prompt}} """ (where prompt is a column in your dataset).
+
+You can:
+- alt 1: validate the results manually [[qa.model_testing]]
+- alt 2:  create a new column with an LLM as a judge prompt like this:
+  - """ Evaluate the responses to the following question: {{prompt}}. Response 1: {{model1}}. Response 2: {{model2}} """
+    (where model1 and model2 are columns in your dataset with different model responses).
+  - """ Answer the following: {{prompt}} """ 
+    (where prompt is a column in your dataset).
+
+- Improve prompts for your data and specific models.
+
+- "cool feature": you can provide feedback by editing or validating cells.<br/>
+  These example cells will be added to your prompts automatically. <br/>
+
+- You can think of it as a tool to fine-tune prompts and add a few-shot examples
+  to your prompts very efficiently, by looking at your data in real-time!    [[qa.prompting,prompting.few_shots,promting.tunning]]
+
+### Use Case 2: Clean-up dataset column:
+
+1. add a new column with a prompt like "Remove extra punctuation marks from the following text: {{text}}"
+   (where text is a column in your dataset containing the texts you want to clean up).
+
+### Use Case 3: Classify content in dataset.
+
+1.  add a new column with a prompt like """Categorize the following text: {{text}}""",
+    (where text is a column in your dataset containing the texts you want to categorize).
+
+### Use Case 4: Analyze/enrich the dataset.
+
+Example: extract the main ideas in your dataset.
+
+1. Add a new column with a prompt like this:
+   Extract the most important ideas from the following: {{text}}, 
+   (where text is a column in your dataset containing the texts you want to analyze)
+
+### Use Case 5: Enrich a dataset.
+
+Example:  dataset addresses are missing zip codes.
+
+1. add a new column with a prompt like this:
+   """ Find the zip code of the following address: {{address}} """
+   (in this case, you must enable the "Search the web" option to ensure accurate results).
+
+### Generate a synthetic dataset.
+
+Example: you need a dataset with realistic emails, but the data is not available.
+
+1. Create a dataset with a prompt like this:
+   """ Write a short description of a professional in the field of pharma 
+      companies and name the column person_bio """.
+2. Create another column with a prompt like this 
+   """ Write a realistic professional email as it was written by the following person: {{person_bio}} """
+
+### Community  Feedback
+
+- REF: <https://www.infoq.com/news/2025/09/ai-sheets/>
+
+ ... Some early adopters have highlighted both potential and limitations:
+
+"""It is LLM-powered, but quite slow. I wonder why someone would prefer it over OpenRefine?"""
+
+[[data.cleaning}]]

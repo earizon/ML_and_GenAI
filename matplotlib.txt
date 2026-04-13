@@ -1,0 +1,305 @@
+[[{lib.matplot]]
+
+# MATPLOTLIB Charts
+ EXTERNAL LINKS
+ User's Guide   : <https://matplotlib.org/users/index.html>
+ Git Source Code: <https://github.com/matplotlib/matplotlib>
+      Python Lib: <https://github.com/matplotlib/matplotlib/tree/master/lib/matplotlib>
+                  <https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/figure.py>
+                  <https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/axes/_axes.py>
+                  <https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/axis.py>
+                  <https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/container.py>
+
+         Recipes: <https://github.com/matplotlib/matplotlib/tree/master/examples/recipes>
+                  - common_date_problems.py
+                  - create_subplots.py
+                  - fill_between_alpha.py
+                  - placing_text_boxes.py
+                  - share_axis_lims_views.py
+
+REF: <https://matplotlib.org/tutorials/introductory/usage.html#sphx-glr-tutorials-introductory-usage-py>
+
+[[{data.visualization.101,doc_has.decission_tree,doc_has.comparative]]
+
+## Graph Ussage Decision Tree
+
+  ```
+  | Q: What do you want to show?
+  |   └ Comparasion
+  |   · - Among items
+  |   ·   - Two Vars per item: Variable width COmun Chart
+  |   ·   - One Var per item:
+  |   ·     - Many Categories: Table with embedded charts
+  |   ·     - Few  Categories: Bar chart horizontal|vertical
+  |   · - Over time:
+  |   ·   - by     Cyclical Data: Circular area charts
+  |   ·   - by Non-Cyclical Data: Line Chart
+  |   ·   - Few  categories: Bar chart vertical
+  |   ·   - Many categories: Line chart
+  |   ·
+  |   └ Distribution
+  |   · - Single Variable:
+  |   ·   - Few  data points: Bar histogram
+  |   ·   - many data points: Scatter plot
+  |   · - Two Variables:      Scatter plot
+  |   ·
+  |   └ Composition:
+  |   · - Changing over time
+  |   ·   - Few periods:
+  |   ·     - Only relative         differences matter: stacked 100% bar char
+  |   ·     - relative and absolute differences matter: stacked      bar char
+  |   ·   - Many periods:
+  |   ·     - Only relative         differences matter: stacked 100% area char
+  |   ·     - relative and absolute differences matter: stacked      area char
+  |   · - Static:
+  |   ·   - Simple shre of total: Pie chart
+  |   ·   - Accumulation of Subtraction to total: Waterfall chart
+  |   ·   - Components of componets: Stacked 100% bar chart with subcomponents
+  |   ·   - Accumulation to total and absolut diff. matters: TREE MAP
+  |   ·
+  |   └ Relationship:
+  |     - Two variables: Scatter plot
+  |     - 3+  variables: Scatter plot bubble saze.
+  ```
+[[data.visualization.101}]]
+
+
+
+[[{]]
+## ARCHITECTURE
+
+- Everything in matplotlib is organized in a hierarchy
+
+ ```
+ | o) state-machine environment (matplotlib.pyplot module):
+ | ^  simple element drawing functions like lines, images, text, current axes ,...
+ | │
+ | └─o) object-oriented interface
+ |      - figure creation where the user explicitly  controls figure and axes objects.
+ |
+ |           Artist <·· When the figure is rendered, all of the artists are drawn to the canvas.
+ |             │        Most Artists are tied to an  Axes ; and canNOT be shared
+ |             │        all visible elements in a figure are subclasses of it
+ |             │
+ |  ┌──────────┴──────┬───────────────────────────────┬─────┐
+ |  │                 │                               │     │
+ | Figure  1 <·> 1+  Axes    1 <···············>    {2,3}  Axis    ←   WARN:  be aware of Axes vs Axis
+ |   ^        ^      ^^^^                             ·    ^^^^
+ | self._axstack    (main "plot" class)               ·  - number-line-like objects.
+ | numrows         - takes care of the data limits    ·  - set graph limits
+ | numcols         - primary entry point to working   ·  - ticks (axis marks) + ticklabels
+ | add_subplot       with the OO interface.           ·    ^^^^^                ^^^^^^^^^^
+ | ....            ___________                        ·    location determined  format determined
+ |                 set_title()                        ·    by a Locator         by a Formatter
+ |                 set_xlabel()                       ·
+ |                 set_ylabel()                       ·
+ |                 ___________                        ·
+ |                 dataLim: box enclos.disply.data    ·
+ |                 viewLim: view limits in data coor. ·
+ |                             ┌······················┘
+ |                             │
+ |  ┌────────┬────────┬────────┴────┬─────...
+ | text    Line2D    Collection   Patch
+ ```
+
+* WARN:  All of plotting functions expect input of type:
+  -  np.array
+  -  np.ma.masked_array
+  -  np.array-'like' objects (pandas, np.matrix) must be converted first. Ex:
+     ```
+     a = pandas.DataFrame(np.random.rand(4,5), columns = list('abcde'))
+     b = np.matrix([ [1,2],[3,4] ])
+     a_asarray = a.values      #   ←  Correct input to matplotlib
+     b_asarray = np.asarray(b) #   ←  Correct input to matplotlib
+     ```
+[[}]]
+
+
+[[{doc_has.comparative,lib.matplot,lib.pyplot]]
+## MATPLOTLIB VS PYPLOT
+- Matplotlib: whole package
+- pyplot    : module of Matplotlib (matplotlib.pyplot) with simplified API:
+              - state-based MATLAB-like (vs Object Oriented based)
+              - functions in this module always have a "current" figure and axes
+                (created automatically on first request)
+              <https://github.com/matplotlib/matplotlib/blob/master/lib/matplotlib/pyplot.py>
+[[doc_has.comparative}]]
+
+
+## pyplot Example:
+
+  ```
+  |  import matplotlib.pyplot as plt         #
+  |  import numpy as np
+  |  from IPython.display import set_matplotlib_formats
+  |  set_matplotlib_formats('svg')           # <· Generate SVG (Defaults to PNG)
+  |
+  |  # Defining ranges:
+  |  x1 = np.linspace(0,    2,   10)         # <· generates evenly spaced numbers
+  |                                          #   over (start/stop/number) interval . In this case
+  |                                          #   [0.0, 0.1, 0.2, 0.4, 0.8, 1.0, 1.2, 1.4, 1.6, 1.8]
+  |  unused_x2 = range(0,3)                  # standard python
+  |  unused_x3 = np.arange(2.0)              # numpy arange
+  |
+  |  xpow1 = x1**2                           # <· With (x1)numpy arrays x1**3 is prefered (and faster)
+  |  xpow3 = [i**3 for i in x1]              # <· With (x1)numpy arrays x1**3 is prefered (and faster)
+  |  plt.plot(x1, x1   , label='linear'   )  # <· Automatically creates the axes"1"
+  |  plt.plot(x1, xpow2, label='quadratic')  # <· add additional lines to   axes"1"
+  |  plt.plot(x1, xpow3, label='qubic'    )  # <· add additional lines to   axes"1".
+  |                      ^^^^^                    Each plot is assigned a new color by default
+  |                      show in legend           (if hold is set to False, each plot clears previous one)
+  |
+  |  plt.xlabel('x label')                   # <· set axes"1" labels
+  |  plt.ylabel('y label')                   # <· "   "       "
+  |  plt.grid  (False)                       # <· Don't draw grid
+  |  plt.legend()                            # <· Show legend
+  |  plt.title("Simple Plot")                # <· "   "       title
+  |  plt.legend()                            # <· "   "       legend
+  |                                          #    default behavior for axes attempts
+  |                                          #    to find the location that covers
+  |                                          #    the fewest data points (loc='best').
+  |                                          #    (expensive computation with big data)
+  |
+  |  plt.show()                              # <· interactive  mode(ipython+pylab):
+  |                                          #    display all figures and return to prompt.
+  |                                          #    NON-interactive  mode:
+  |                                          #    display all figures and  block until
+  |                                          #    figures have been closed
+  |                                          #    ¹ Call signatures
+  | 
+  |   plt.axis()                             # <· show current axis x/y  (-0.1, 2.1, -0.4, 8.4)
+  |                                          #    Used as setter allows to zoom in/out of a particular
+  |                                          #    view region.
+  |   xmin,xmax,ymin,ymax=-1, 3, -1, 10      #
+  |   plt.axis([xmin,xmax,ymin,ymax])        # <· Set new x/y axis  for axes
+  | 
+  |¹ Call signatures:
+  |
+  | plot([x_l], y_l    , [fmt], [x2_l], y2_l        , [fmt2], ...        , **kwargs)
+  | plot([x_l], y_l    , [fmt], *                   , data=None           , **kwargs)
+  |       ^^^   ^^^       ^^^                        ^^^^
+  |       list (_) of     FORMAT STRINGS             Useful for labelled data
+  |       Coord. points  '[marker][line][color]'     Supports
+  |                       |.      |-    |b(lue)      - python dictionary
+  |                       |,      |--   |g(reen)     - pandas.DataFame
+  |                       |o      |-.   |r(ed)       - structured numpy array.
+  |                       |v      |:    |c(yan)
+  |                       |^      |     |m(agenta)
+  |                       |<      |     |y(ellow)
+  |                       |>      |     |k(lack)     Other Parameters include:
+  |                       |1      |     |w(hite)     - scalex, scaley : bool, optional, default: True
+  |                       |2                           determine if the view limits are adapted to
+  |                       |3                           the data limits.
+  |                       |4                           The values are passed on to `autoscale_view`.
+  |                       |s(qure)
+  |                       |p(entagon)                - **kwargs : '.Line2D' properties lik  line label
+  |                       |*                           (auto legends), linewidth, antialiasing, marker
+  |                       |h(exagon1)                  face color. See Line2D class constructor for full list:
+  |                       |H(exagon2)                  lib/matplotlib/lines.py
+  |                       |+
+  |                       |x
+  |                       |D(iamond)
+  |                       |d(iamond)
+  |                       ||
+  ```
+
+i<./matplotlib_example1.svg|min-width:2rem; max-width:30em>
+i<./matplotlib_example1_zoom.svg|min-width:2rem; max-width:25em>
+
+## TODO:
+<https://realpython.com/python-matplotlib-guide/>
+  - Why Can Matplotlib Be Confusing?
+  - Pylab: What Is It, and Should I Use It?
+  - The Matplotlib Object Hierarchy
+  - Stateful Versus Stateless Approaches
+  - Understanding plt.subplots() Notation
+  - The “Figures” Behind The Scenes
+  - A Burst of Color: imshow() and matshow()
+  - Plotting in Pandas
+  - Wrapping Up
+  - More Resources
+  - Appendix A: Configuration and Styling
+  - Appendix B: Interactive Mode
+
+
+
+[[{data.visualization.histograms]]
+## HISTOGRAMS 
+i[./matplotlib_example_histogram.svg|min-width:2rem; max-width:30em] [[}]]
+[[data.visualization.histograms}]]
+
+## BAR CHARTS: [[{]]
+<https://matplotlib.org/api/_as_gen/matplotlib.pyplot.bar.html>
+  matplotlib.pyplot.bar(x, height, width=0.8, bottom=None, *, align='center', data=None, **kwargs)
+  axis_x = range(5)
+  data1=[1,2,3,2,1] ; data1_yerr=[0.1,0.2,0.3,0.2,0.1]
+  data2=[3,2,1,2,3] ; data2_yerr=[0.3,0.2,0.1,0.2,0.3]
+  p1=plt.bar(x=axis_x       , height=data1, width=0.5  , color='green', yerr=data1_yerr)
+  p2=plt.bar(x=axis_x       , height=data2, width=0.5  , color='blue' , yerr=data2_yerr, bottom=data1)
+         ^^^ ^^^^^^^^         ^^^^^^^^^^^^  ^^^^^^^^^                                    ^^^^^^^^^^^^
+         |   placement of     bar data      default 0.8                                  Stack on top of
+         |   bars                                                                        previous data
+         barh(y=axis_y,...) for horizontal bars.
+
+  plt.legend((p1[0], p2[0]), ('A', 'B'))
+  plt.show()
+i[./matplotlib_example_stacked_bars.svg|min-width:2rem; max-width:30em]
+[[}]]
+
+## SCATTER PLOT  [[{]]
+<https://matplotlib.org/api/_as_gen/matplotlib.pyplot.scatter.html>
+  Useful to compare bivariate distributions.
+  bivariateREF = np.random.normal(0.5, 0.1, 30)
+  bivariateVS  = np.random.normal(0.5, 0.1, 30)
+                                            ^^
+                                            number of samples
+  p1=plt.scatter(bivariateREF, bivariateVS, marker="x")
+  plt.show()
+  i[./matplotlib_example_scatter.svg|min-width:2rem; max-width:30em]
+[[}]]
+
+## CONTOUR PLOT: [[{]]
+<https://matplotlib.org/api/_as_gen/matplotlib.pyplot.contour.html>
+  delta = 0.025
+  x = np.arange(-3.0, 3.0, delta)
+  X, Y = np.meshgrid(x, x) # coordinate vectors to  coordinate matrices from coordinate vectors.
+  CONTOUR1 = (X**2 + Y**2)
+  label_l=plt.contour(X, Y, CONTOUR1)
+  plt.colorbar()          # optional . Show lateral bar with ranges
+  plt.clabel(label_l)     # optional . Tag contours
+  # plt.contourf(label_l) # optional . Fill with color.
+  plt.show()
+  i[./matplotlib_example_contour.svg|min-width:2rem; max-width:30em]
+[[}]]
+
+## BOXPLOT (Quartiles): [[{]]
+<https://matplotlib.org/api/_as_gen/matplotlib.pyplot.boxplot.html>
+<https://matplotlib.org/examples/pylab_examples/boxplot_demo.html>
+
+v_l = np.random.randn(100)
+plt.boxplot(v_l)
+plt.show()
+i[./matplotlib_example_boxplot.svg|min-width:2rem; max-width:30em]
+[[}]]
+
+## TUNING PERFORMANCE [[{scalability]]
+  (In case of "many-data points", otherwise no tunning is needed
+
+  import matplotlib.style as mplstyle
+  mplstyle.use('fast')  # ← set simplification and chunking params.
+                        #   to reasonable settings to speed up
+                        #   plotting large amounts of data.
+  mplstyle.use([        # Alt 2: If other styles are used, get
+     'dark_background', #         sure that fast is applied last in list
+     'ggplot',          #
+     'fast'])           #
+
+## MATPLOTLIB TROUBLESHOOTING:
+  matplotlib.set_loglevel(*args, **kwargs)
+[[}]]
+
+
+
+
+
+[[lib.matplot}]]

@@ -1,0 +1,266 @@
+[[{architecture.AI_agents.skills,architecture.AI_agents]]
+# Skills.md spec
+
+* Agent Skills format was originally developed by Anthropic, released as an 
+  open standard, and has been adopted by a growing number of agent products. 
+
+* <https://agentskills.io/specification>
+
+  ```
+  | "ROOT"                <·· Where skills are located depends on each agent implementation.
+  |                           The root can be a File-system, a base remote URL, ...
+  |                           In general locally-running agents will scan two "root" scopes (project and user): 
+  |                           
+  |                           Scope      Path                         Purpose
+  |                           User       ~/.agents/skills/            Cross-client interoperability
+  |                           User       ~/.<...¹>/skills/            Custom client's native location
+  |                           Project    <project>/.<...¹>/skills/    Custom client's native location (overrides any matching User skill)
+  |                           Project    <project>/.agents/skills/    Cross-client interoperability   (overrides any matching User skill)
+  |                           Organi.    https://mycomp.net/skills/   Company wide skills
+  |
+  |                                      ¹: Anthropic, VSCode, ...
+  | my-skill01/
+  |   ├ SKILL.md 
+  |   │ ...
+  |
+  | my-skill02/           <·· Use skills-ref reference library to validate skills.
+  |   │                        (<https://github.com/agentskills/agentskills/tree/main/skills-ref>)
+  |   │                       $ skills-ref validate ./my-skill
+  |   │
+  |   ├ SKILL.md          <·· Required: YAML frontmatter metadata + Markdown content.
+  |   │                       - metadata.name and metadata.description is used by agents at "startup" to discover 
+  |   │                         each available skill, just enough to know when it might be relevant. (Discovery)
+  |   │                       - QA: ~50-100 tokens in total for name + description metadata. [[qa.best_pattern]]
+  |   │                       - MD content is use at "execution" time (injected in agent LLM prompt when the skill
+  |   │                         is "activated").
+  |   │                         optionally loading referenced files and/or executing bundled code as needed.
+  |   │                       - QA: <5000 tokens per "effective" content (skill md body + referenced files).
+  |   ├ scripts/          <·· Optional: executable code that agents can run. Scripts should:
+  |   │                       Be self-contained or clearly document dependencies.
+  |   │                       Include helpful error messages.
+  |   │                       Handle edge cases gracefully.
+  |   │                       Supported languages depend on agent implementation.
+  |   │                       (Python, Bash, JS, ...)
+  |   │                       - Not added to prompt, Just invoked by the agent, i.e., no token limits apply.
+  |   │                       - Executed locally by "VM" (Python, bash, ...) vs LLM inference.
+  |   │
+  |   ├ references/       <·· Optional: documentation that agents can read when needed (loaded in prompt on demand).
+  |   │                       - REFERENCE.md - Detailed technical reference
+  |   │                       - FORMS.md - Form templates or structured data formats [[PM.TODO]]
+  |   │                       - Domain-specific files (finance.md, legal.md, etc.)
+  |   │                       - Keep individual reference files focused:
+  |   │                         - Agents load these on demand => smaller files mean smaller LLM context.
+  |   │                       - Keep file references one level deep from SKILL.md. (vs deeply nested reference chains).
+  |   │
+  |   ├ assets/           # Optional: static resources: (document/config templates, images, data files, schemas,...)
+  |   └ ...               # Any additional files or directories
+  | 
+  | 
+  |   ¹ ┌─ SKILL.md ─────────────────────────────
+  |     │ ---
+  |     │ name: pdf-proc                          <·· lowercase|numbers|hyphens. 64max length.
+  |     │                                             Must not start or end with a hyphen (-)
+  |     │                                             Must not contain consecutive hyphens (--)
+  |     │ description: |
+  |     │   Extracts text and tables from PDF files,
+  |     │   fills PDF forms, and merges multiple PDFs.
+  |     │   Use when working with PDF documents or
+  |     │   when the user mentions PDFs, forms, or
+  |     │   document extraction.                  <·· Should describe both what the skill does and **WHEN TO USE IT**
+  |     │                                             Should include specific keywords that help agents identify relevant tasks
+  |     │ license: Apache-2.0                     <·· (opt) Keep short. Put details in LICENSE.txt if needed.
+  |     │ compatibility: Requires bash,pdf2ps,... <·· (opt) Max 500 chars. Hints about requirements. Example:
+  |     │                                              ex2: compatibility: Designed for Claude Code (or similar products)
+  |     │                                              ex3: compatibility: Requires Python 3.14+ and uv
+  |     │
+  |     │ metadata                                <·· (opt) Arbitrary YAML key-value mapping for additional metadata.
+  |     │   author: example-org                       Clients can use this to store additional properties not defined by this spec.
+  |     │   version: "1.0"                            TIP: make key names reasonably unique to avoid accidental conflicts [[qa.best_patterns]]
+  |     │
+  |     │ allowed-tools: Bash(pdf:*) Read         <·· (opt) Space-delimited list of pre-approved tools the skill may use. (Experimental)
+  |     │ ---                                         ex2: allowed-tools: Bash(git:*) Bash(jq:*) Read
+  |     │
+  |     │ # PDF Managment                         <·· No format restrictions in SKILLs body. Use any prompt helping agents to perform
+  |     │                                             the task effectively.
+  |     │ 
+  |     │ See [link](references/MANUAL.md) for    <·· When referencing other files  use relative paths from the skill root. Example:
+  |     │ details.
+  |     │                                             Recommended sections in SKILL body include:
+  |     │ Run the extraction script:                  - Step-by-step instructions.
+  |     │ scripts/extract.py                          - Examples of inputs and outputs.
+  |     │                                             - Common edge cases.
+  |     │
+  |     │ 
+  |     └─────────────────────────────────────────
+  ```
+
+## Agent's Catalog
+
+  For each "discovered" skill, agents will add them to an internal catalog, 
+  a "simple" database that registers the metadata.name, metadata.description and,
+  optionally, the path location of the SKILL.md file.
+
+  The catalog will end up being part of the prompt, adding around 50-100 tokens per skill.<br/>
+  Modern LLMs with "big" contexts will have no problems with Agent's catalog including dozens 
+  of skills.  [[doc_has.keypoint]]
+
+- Most probably it will end up being part of a system prompt, preceded by brief instructions
+  on how to use skills. (simplest approach, it works with any model that has access to a 
+  file-reading tool). The prompt could be something like:
+
+  ```
+  |  Next skills provide guided instructions for requested tasks.
+  |
+  |  When task matches a skill's description, use your file-read tool
+  | to load the SKILL.md at the listed location before proceeding.
+  |
+  |  When a skill references relative paths, resolve them against the skill's
+  |  directory (the parent of SKILL.md) and use absolute paths in tool calls.
+  ```
+- Alternatively, the catalog can be added into a dedicated skill-activation tool as part of 
+  its description, keeping the system prompt clean. The tool description could be 
+  something like:
+  ```
+  | The following skills provide specialized instructions for specific tasks.
+  | When a task matches a skill's description, call the activate_skill tool
+  | with the skill's name to load its full instructions.
+  ```
+
+Agents must be able to exclude skills from catalog due to different reasons including:
+- System wide or explicit denial from user to use the skill.
+- compatibility does not match running context (model, external tools, ...)
+- ...
+In such scenario, the skill must be omited from the (system prompt) catalog.
+
+## Skill activation
+
+(Step 4 @ <https://agentskills.io/client-implementation/adding-skills-support>)
+
+Either the (LLM) model or the user can decide to use the skill (tier 2 of progressive disclosure). 
+
+
+### Model-driven skill activation
+
+- Most implementations rely on the model's own judgment as the activation 
+  mechanism (vs hardcoded keyword or regex detection). 
+  - Model reads the catalog, decides a skill is relevant to the current task, and (the agent) loads it
+
+Two implementation patterns:
+  ```
+  title: File-read tool activation (estandar agent tool)
+
+  paritipant "File-read Tool" as FRT
+  Agent -> LLM  : prompt01
+  LLM   -> Agent: (some result indicating the Agent to use SKILL.md)
+  Agent -> FRT  : Read SKILL.md
+  FRT   -> Agent: SKILL.md
+  Agent -> Agent: skill = Replace rerences in SKILL.md
+  Agent -> Agent: prompt02 = prompt02 + skill
+  Agent -> Agent: prompt02 = prompt02 + ... (update with KV memory, ...)
+  Agent -> LLM  : prompt02
+  ...
+  ```
+
+  ```
+  title: Dedicated tool activation: 
+
+  note over LLM,Agent: 
+    function activation_tool takes an skill's name and returnes the effective content.
+    required when the model can’t read files directly, and optional (but useful) even when it can. Advantages over raw file reads:
+  end note
+  ... -> Agent : Register activation_tool(skill_name) -> SKILL.md effective content
+
+  ```
+
+Control what content is returned — e.g., strip YAML frontmatter or preserve it (see What the model receives below)
+Wrap content in structured tags for identification during context management
+List bundled resources (e.g., references/*) alongside the instructions
+Enforce permissions or prompt for user consent
+Track activation for analytics
+If you use a dedicated activation tool, constrain the name parameter to the set of valid skill names (e.g., as an enum in the tool schema). This prevents the model from hallucinating nonexistent skill names. If no skills are available, don’t register the tool at all.
+
+User-explicit activation
+Users should also be able to activate skills directly, without waiting for the model to decide. The most common pattern is a slash command or mention syntax (/skill-name or $skill-name) that the harness intercepts. The specific syntax is up to you — the key idea is that the harness handles the lookup and injection, so the model receives skill content without needing to take an activation action itself.
+An autocomplete widget (listing available skills as the user types) can also make this discoverable.
+
+What the model receives
+When a skill is activated, the model receives the skill’s instructions. Two options for what exactly that content looks like:
+Full file: The model sees the entire SKILL.md including YAML frontmatter. This is the natural outcome with file-read activation, where the model reads the raw file. It’s also a valid choice for dedicated tools. The frontmatter may contain fields useful at activation time — for example, compatibility notes environment requirements that could inform how the model executes the skill’s instructions.
+Body only (frontmatter stripped): The harness parses and removes the YAML frontmatter, returning only the markdown instructions. Among existing implementations with dedicated activation tools, most take this approach — stripping the frontmatter after extracting name and description during discovery.
+Both approaches work in practice.
+
+Structured wrapping
+If you use a dedicated activation tool, consider wrapping skill content in identifying tags. For example:
+<skill_content name="pdf-processing">
+# PDF Processing
+
+## When to use this skill
+Use this skill when the user needs to work with PDF files...
+
+[rest of SKILL.md body]
+
+Skill directory: /home/user/.agents/skills/pdf-processing
+Relative paths in this skill are relative to the skill directory.
+
+<skill_resources>
+  <file>scripts/extract.py</file>
+  <file>scripts/merge.py</file>
+  <file>references/pdf-spec-summary.md</file>
+</skill_resources>
+</skill_content>
+This has practical benefits:
+The model can clearly distinguish skill instructions from other conversation content
+The harness can identify skill content during context compaction (Step 5)
+Bundled resources are surfaced to the model without being eagerly loaded
+​
+Listing bundled resources
+When a dedicated activation tool returns skill content, it can also enumerate supporting files (scripts, references, assets) in the skill directory — but it should not eagerly read them. The model loads specific files on demand using its file-read tools when the skill’s instructions reference them.
+For large skill directories, consider capping the listing and noting that it may be incomplete.
+​
+Permission allowlisting
+If your agent has a permission system that gates file access, allowlist skill directories so the model can read bundled resources without triggering user confirmation prompts. Without this, every reference to a bundled script or reference file results in a permission dialog, breaking the flow for skills that include resources beyond the SKILL.md itself.
+​
+
+
+# https://skills.sh/
+
+* "Thousands" of ready to use skills.  [[PM.TODO]]
+
+  ```
+  | <https://skills.sh/>
+  | Agent Compatibility:
+  |
+  | * AMP               * Goose           * Antigravity       * Kilo
+  | * Antigravity       * Kilo            * Claude Code       * Kiro CLI
+  | * Claude Code       * Kiro CLI        * ClawdBot          * Nous Research
+  | * ClawdBot          * Nous Research   * Cline             * OpenCode
+  | * Cline             * OpenCode        * Codex             * Roo
+  | * Codex             * Roo             * Cursor            * Trae
+  | * Cursor            * Trae            * Droid             * VSCode
+  | * Droid             * VSCode          * Gemini            * Windsurf
+  | * Gemini            * Windsurf        * GitHub Copilot    * ...
+  | * GitHub Copilot    * AMP             * Goose
+  |
+  | TOP RANKED SKILLS
+  | Skill                         Installs
+  | ---------------------------   ------------------------------------
+  | find-skills                   vercel-labs/skills
+  | vercel-react-best-practices   vercel-labs/agent-skills
+  | frontend-design               anthropics/skills
+  | web-design-guidelines         vercel-labs/agent-skills
+  | remotion-best-practices       remotion-dev/skills
+  | azure-ai                      microsoft/github-copilot-for-azure
+  | agent-browser                 vercel-labs/agent-browser
+  | azure-messaging               microsoft/github-copilot-for-azure
+  | skill-creator                 anthropics/skills
+  | azure-observability           microsoft/github-copilot-for-azure
+  | ai-image-generation           inferen-sh/skills
+  | microsoft-foundry             microsoft/azure-skills
+  | azure-hosted-copilot-sdk      microsoft/github-copilot-for-azure
+  | ai-video-generation           inferen-sh/skills
+  | inferen-sh/skills             azure-ai
+  | ...
+  ```
+
+
+[[architecture.AI_agents.skills]]

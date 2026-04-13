@@ -1,0 +1,16 @@
+[[{data.gathering.CSV]]
+# CSVKit 
+
+## CSVpy: Loads CSV file 
+
+* <https://github.com/tldr-pages/tldr/blob/master/pages/common/csvpy.md>
+* <https://csvkit.readthedocs.io/en/latest/scripts/csvpy.html>
+
+  
+
+## in2CSV: Converts tabular data formats to CSV.
+
+* <https://github.com/tldr-pages/tldr/blob/master/pages/common/in2csv.md>
+* <https://csvkit.readthedocs.io/en/latest/scripts/in2csv.html>
+  
+[[data.gathering.CSV}]]

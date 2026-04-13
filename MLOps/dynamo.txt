@@ -1,0 +1,19 @@
+[[{mlops.dynamo,mlops.clustering,mlops.nvidia_dynamo,architecture.distributed]]
+# NVIDIA Dynamo Addresses Multi-Node LLM Inference Challenges
+
+* <https://www.infoq.com/news/2025/12/nvidia-dynamo-kubernetes/>
+
+Serving Large Language Models (LLMs) at scale is complex.
+
+Dynamo is an open-source framework for distributed inference. 
+It manages execution across GPUs and nodes. 
+- It breaks inference into phases, like prefill and decode.
+- It also separates memory-bound and compute-bound tasks.
+- It dynamically manages GPU resources to boost usage and keep latency low.
+
+Dynamo allows infrastructure teams to scale inference capacity responsively, 
+handling demand spikes without permanently overprovisioning expensive GPU 
+resources.
+
+- It supports TensorRT-LLM, vLLM, SGLang, and more.
+[[mlops.dynamo}]]

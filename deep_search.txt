@@ -1,0 +1,68 @@
+[{101,use_case.101,use_case.deep_research,architecture.RAG]]
+
+## DeepSearch 101
+
+* <https://jina.ai/news/a-practical-guide-to-implementing-deepsearch-deepresearch/>
+
+  DeepSearch is a leap in how search can approach complex queries in an 
+exhaustively deep manner. By breaking down the process into discrete steps of 
+searching, reading, and reasoning, it overcomes many limitations of traditional 
+single-pass RAG or multi-hop QA systems.
+
+- DeepSearch runs through an iterative loop of searching, reading, and
+  reasoning until it finds the optimal answer.
+  - search    action leverages web search engines to explore the Internet,
+  - reading   action analyzes specific web pages in detail (e.g. Jina Reader).
+  - reasoning action evaluates the current state and determines whether to break
+    down the original question into smaller sub-questions or try different search strategies.
+
+  ```
+             ┌───── "main loop" ───────────┐
+             │                             │
+  QUERY ·····>SEARCH  ··>  READ  ··> REASON··> ANSWER
+             │ ^                      ·    │
+             │ └─· Repeat until ·····─┘    │
+             │     budget exceeds          │
+             └─────────────────────────────┘
+  ```
+
+  Unlike 2024 RAG systems, which typically run a single search-generation pass. 
+DeepSearch, in contrast, performs multiple iterations through the pipeline, 
+requiring clear stop conditions. These could be based on token usage limits or 
+the number of failed attempts.
+
+- This marks a significant departure from classic search requirements, where 
+  failing to response within 200ms would doom your solution.
+- In 2025, seasoned search developers and RAG engineers prioritize top-1 
+  precision and recall over latency, and users have become accustomed to longer 
+  processing times – provided they can see the system is "thinking".  [[doc_has.keypoint]]
+
+
+```
+| Launch     | Company        | Product                | License     | Link
+| Date       |                |                        | Type        |     
+| -----------+----------------+------------------------+-------------+------------------------------------
+| 2025-01-20 | DeepSeek       | DeepSeek-r1            | Open source | DeepSeek-R1
+| 2025-12-17 | Google         | DeepResearch           | Proprietary | Google Gemini 2
+| 2025-02-02 | OpenAI         | DeepResearch           | Proprietary | Introducing Deep Research
+| 2025-02-02 | Jina AI        | DeepSearch             | Open source | node-deepresearch | search.jina.ai
+| 2025-02-04 | Hugging Face   | Open Deep Research     | Open source | Open Deep Research
+| 2025-02-15 | Perplexity     | DeepResearch           | Proprietary | Introducing Perplexity Deep Research
+| 2025-02-17 | X AI           | Grok3 with DeepSearch  | Proprietary | Grok 3 Beta
+| 2025-02-22 | Baidu Search   | Integrates DeepSeek-r1 | Proprietary | Baidu Integrates DeepSeek-R1
+| 2025-02-23 | T.Wechat Search| Integrates DeepSeek-r1 | Proprietary | Tencent Weixin Integrates DeepSeek
+```
+
+
+  In DeepSearch, "gap questions" represent knowledge gaps that need to be filled 
+before answering the main question. Rather than directly tackling the original 
+question, the agent identifies sub-questions that will build the necessary 
+knowledge foundation.
+
+This approach creates a FIFO (First-In-First-Out) queue with rotation, where:
+- New gap questions are pushed to the front of the queue
+- The original question is always pushed to the back
+- The system pulls from the front of the queue at each step
+
+[[use_case.deep_research}]]
+

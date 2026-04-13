@@ -1,0 +1,11 @@
+[[{data.gathering.101,PM.low_code]]
+## firecrawl: Scrape, crawl and extract with a single API
+
+- Turn entire websites into markdown or structured data.
+
+- firecrawl Crawls all accessible subpages and give you clean data 
+  for each. No sitemap required.
+
+- extracted data is catered for LLM-based pipelines. 
+
+[[data.gathering.101}]]

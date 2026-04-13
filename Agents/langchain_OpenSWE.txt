@@ -1,0 +1,27 @@
+[[{architecture.agents,dev_stack.langchain]]
+## LangChain Open SWE: Asynchronous Coding Agent
+
+By Robert Krzaczyński, Senior Software Engineer
+* <https://www.infoq.com/news/2025/08/langchain-open-swe/>
+
+ Open SWE is a fully open-source, asynchronous coding agent designed
+to operate in the cloud and handle complex software development tasks.   [[use_case.code_assistant]]
+
+  The company says Open SWE represents a shift away from real-time “copilot” 
+assistants toward more autonomous, long-running agents that integrate directly 
+with a developer’s existing workflows.  [[doc_has.comparative,architecture.agents.long_running,]]
+
+Unlike many coding assistants that focus on short interactions inside an IDE,
+Open SWE connects directly to GitHub repositories and works like another member 
+of the engineering team. Developers can assign it tasks via GitHub Issues or a 
+dedicated UI, after which it researches the codebase, generates a detailed 
+plan, writes and tests code, reviews its work, and opens a pull request when 
+complete.
+
+- The tool is designed for high-context, longer-term tasks. 
+- Every run occurs in a secure, isolated Daytona sandbox,
+  allowing the agent to execute shell commands freely without
+  risking the host environment. [[security.isolation,security.daytona]]
+- This architecture enables it to operate entirely in the cloud,
+  handling multiple tasks in parallel without consuming local resources.
+[[architecture.agents}]]

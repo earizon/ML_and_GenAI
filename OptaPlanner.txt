@@ -1,0 +1,14 @@
+# OptaPlanner [[{qa.enterprise_patterns.optimization]]
+* AI constraint solver to optimize planning and scheduling problems,
+  such as the Vehicle Routing Problem, Employee Rostering,
+  Maintenance Scheduling, Task Assignment, School Timetabling,
+  Cloud Optimization, Conference Scheduling, Job Shop Scheduling,
+  Bin Packing and many more.
+* It "compares" with OR-Tools, Multi Echelon and others.
+* Every organization faces such challenges:
+  1. assign a limited set of constrained resources (employees,
+     assets, time and/or money) to provide products or services.
+  OptaPlanner delivers more efficient plans, which reduce costs and
+  improve service quality.  [[}]]
+[[}]]
+

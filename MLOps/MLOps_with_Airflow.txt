@@ -1,0 +1,11 @@
+[[{MLOps.AirFlow]]
+## MLOps with AirFlow
+
+* <https://theaisummer.com/apache-airflow-tutorial/>
+
+Imagine that you want to build a machine learning pipeline that
+consists of several steps such as:Read an image dataset from a
+cloud-based storageProcess the images Train a deep learning model
+with the downloaded imagesUpload the trained model in the cloudDeploy
+the model.
+[[MLOps.AirFlow}]]

@@ -1,0 +1,309 @@
+[[{101,doc_has.time_line]]
+## Data Science TimeLine 
+
+
+  ```
+  | (by @faviovaz, @hiezelvazquez)
+  | 1943 Neural Nets                                    (McCulloch&Pitt)
+  | 1948 A Mathematical Theory of Communication         (Shannon)
+  | 1950 Computing Machiner and Intelligence            (Turing)
+  | 1958 A Business Intelligence System
+  | 1962 The Future of Data Analysis                    (Tukey)
+  | 1970 Relational Database                            (Codd)
+  | 1974 Concise Surver of Computer Methods             (Naur,Werbos et al.)
+  |      Backpopagation
+  | 1977 Exploratory Data Analysis                      (Tukey)
+  |      International Association for Statistical
+  |      Computing Founded.
+  | 1988 An Architecture for a Business                 (Devlin&Murphy)
+  |      and Information System
+  | 1996 From Data Mining to Knowledge Discovery        (Fayyad, Piatetsky-Shapiro & Smyth)
+  |      in Databases
+  | 1997 Statistics = Data Science?                     (Wu)
+  | 1998 Google Paper                                   (Page & Brin)
+  | 2001 Data Science: An Action Plan for Expanding
+  |      the Technical Areas of the Field of Statistics (Cleveland)
+  | 2001 Statistical Modeling: The Two Culture          (Breiman)
+  | 2002 Data Science Journal founded
+  | 2004 Map Reduce Paper                               (Dean & Ghemawat)
+  | 2005 Competing on Analytics                         (Davenport et al.)
+  | 2006 Deep Belief Networks                           (Hinton)
+  | 2006 Hadoop                                         (Yahoo!)
+  | 2006 Knowledge Discovery in Databases (KDD) founded (Piatetsky-Shapiro)
+  | 2006 International Federtion of
+  |      Classification Societes(IFCS)
+  |      - For the first time the term "Data Science"
+  |        appears in the cover !!!
+  | 2007 Scikit-Learn
+  | 2009 The Three Sexy Skills of Data Geeks           (Driscoll)
+  | 2009 The Rise of the Data Scientist                (Yun)
+  | 2009 Linked Data                                   (Berners-Lee)
+  | 2010 Spark paper                                   (Zahaira et al.)
+  | 2010 The Revolution in Astronomy Education:        (Borne et al.)
+  |      Data Science for the Masses
+  | 2010 A Taxonomy of Data Science (Mason & Wiggins)                   [[DOC_HAS.taxonomy]]
+  | 2011 Data Science: What's in a nmae?              (Smith)
+  | 2011 Data Lakes                                   (Dixon)
+  | 2011 The Art of Data Science                      (Graham)
+  | 2011 Building Data Science Teams                  (Patil)
+  | 2012 Data Scientist: The Sexiest Job of the       (Davenport & Patil)
+  |      21st Century
+  | 2012 Knowledge Graph                              (Google)
+  | 2014 AlphaGo                                      (Deep Mind)
+  | 2017 Data Fabrics
+  | 2018 Graph Tecnologies rising
+  | 2019 Python as one of the most used programming
+  |      languages in the world.
+  ```
+[[doc_has.time_line}]]
+
+[[{doc_has.humor,PM.low_code]]
+# Learning with humor
+  (by Moez Ali)
+- After listening to few statisticians who believe that
+  low-code/no-code tools are spoiling data scientists and taking away
+  critical thinking from society, I am now heavily influenced by them
+  and propose the following changes in future release of PyCaret
+
+  You will no longer be able to train logistic regression by
+create_model('lr'), instead you have to pass the sigmoid function,
+loss, and optimizer separately.
+
+  You won’t be able to train ensemble models with PyCaret, we
+encourage you to draw trees by hand and then combine them on piece of
+paper with your own hand-written booster.
+
+  You can’t preprocess the data unless you know all the
+transformation functions by heart. If you fail to prove, we will take
+all the bitcoins from your wallet.
+
+  Every time you download pycaret we will send you a fourier
+transformation challenge to solve.
+
+  I also propose to replace API with Statisticians. Instead of having
+an end-point on cloud, I suggest we keep statisticians on-duty for
+24/7 and every time inference is required, statistician will
+transform the data and generate boundary with their mind power only.
+
+- I am open to more ideas
+[[}]]
+
+
+
+[[{101,doc_has.comparative]]
+# OPTIMIZATION PROBLEMS VS DATA SCIENCE VS MACHINE LEARNING VS AI
+
+REF: <https://www.cybertec-postgresql.com/en/data-science/>
+
+  ```
+  |   ┌─ NON-POLYNOMIAL SOLVABLE PROBLEMS ───────────────────────────────────────┐
+  |   │  ┌─ OPTIMIZATION PROBLEMS ──────────────────────────────────────────────┐│
+  |   │  │  (No exact solution exists, but probabilistic (and/or aproximate     ││
+  |   │  │  is "good enough"). OR─Tools, ...                                    ││
+  |   │  │  Note: Probabilistic does not necesarely means "academic             ││
+  |   │  │        probability" (that deals with ideal and many times unknown    ││
+  |   │  │        probabilities).                                               ││
+  |   │  │  => WARN: This means there will always be random failures and        ││
+  |   │  │           random non-repeatable "successes".                         ││
+  |   │  │  ┌ DATA SCIENCE ───────────────────────────────────────────────────┐ ││
+  |   │  │  │          ┌───────────────────────────┐                          │ ││
+  |   │  │  │          │ Learn/    │ ML, AI, deep  │                          │ ││
+  |   │  │  │          │  Optimize │ deep-learning │                          │ ││
+  |   │  │  │       ┌──┴───────────────────────────┴─────────┐                │ ││
+  |   │  │  │       │ Explore/     │ analytics, metrics,     │                │ ││
+  |   │  │  │       │ transform    │ segments, aggregates,   │                │ ││
+  |   │  │  │       │              │ features, training data │                │ ││
+  |   │  │  │    ┌──┴────────────────────────────────────────┴──────────┐     │ ││
+  |   │  │  │    │ Move/Store      │ reliable data flow, infrastructure,│     │ ││
+  |   │  │  │    │                 │ pipelines, ETL, (un)structured data│     │ ││
+  |   │  │  │    │                 │ storage                            │     │ ││
+  |   │  │  │ ┌──┴──────────────────────────────────────────────────────┴────┐│ ││
+  |   │  │  │ │ Collect            │   Instrumentation, logging, sensons,    ││ ││
+  |   │  │  │ │                    │   external data, user generated content ││ ││
+  |   │  │  │ └──────────────────────────────────────────────────────────────┘│ ││
+  |   │  │  └─────────────────────────────────────────────────────────────────┘ ││
+  |   │  └──────────────────────────────────────────────────────────────────────┘│
+  |   └──────────────────────────────────────────────────────────────────────────┘
+  ```
+[[101}]]
+
+[[{101,PM.WiP]]
+# MACHINE LEARNING SUMMARY
+
+- MATHEMATICAL FOUNDATIONS
+  - Linear Algebra
+  - Lagrange Optimization
+  - Probability Theory
+  - Gaussian Derivatives & Integrals
+  - Hypothesis Testing
+  - Information Theory
+  - Computational Complexity
+    and Optimization Problems
+
+- ALGORITHM-INDEPENDENT MACHINE LEARNING PARAMETERS:
+  - bias
+  - variance
+  - degress of freedom
+
+- CENTRAL AIM OF DESIGNING A MACHINE-LEARNING CLASSIFIER:
+  Suggest actions when presented with not-yet-seen patterns,
+  This is the issue of generalization.
+
+- There is an overall single cost associated with our decision,
+  and our true task is to make a decision rule (i.e., set a decision
+  boundary) so as to minimize such a cost.
+  This is the central task of DECISION THEORY of which pattern
+  classification is (perhaps) the most important subfiled.
+
+- Classification is, at base, the task of recovering the model that
+  generated the patterns.
+  Because perfect classification performance is often impossible,
+  a more general task is to determine the probability for each
+  of the possible categories.
+
+- Learning: "Any method" that incorporates information from training samples in the
+  design of a classifier.  Formally, it refers to some form of algorithm for reducing
+  the error on a set of training data.
+
+[[{101]]
+# ML LEARNING PHASE PIPELINE
+
+  ```
+  | ┌─ LEARNING PHASE ───────────────────────────────────────────────────────────────────┐
+  | │ └ PRE-SETUP.                                                                       │
+  | │   - Sensing          ····> Feature-Extractor                                       │
+  | │   - Measuring                                                                      │
+  | │   - Collecting                                                                     │
+  | │                                                                                    │
+  | │ └ STEP 1) Data Preprocesing                                                        │
+  | │   - Remove/Replace missing data.                                                   │
+  | │   - Split data into train/test.                                                    │
+  | │   - L1/L2 renormalization.                                                         │
+  | │   - Rescale.                                                                       │
+  | │   - in/de-crease dimmensions.                                                      │
+  | │                                                                                    │
+  | │  └ STEP 2) Choose the set of features forming the Model or                         │
+  | │            N-dimensional Feature-space B                                           │
+  | │    ┌─────────────────────────────────────┐  ┌─────────────┐                        │
+  | │    │known value1 - featureA1,featureB1,..├·>│ NON_Trained │                        │
+  | │    │known value2 - featureA2,featureB2,..│  │  Classifier │  PARAMS examples:      │
+  | │    │known value3 - featureA3,featureB3,..│  │ · param1    <─ · Percepton params    │
+  | │    │....                                 │  │ · param2,   │  · Matrix/es of weights│
+  | │    │                                     │  │ · ..        │  · Tree params         │
+  | │    └↑────────────────────────────────────┘  └─────────────┘  · ...                 │
+  | │     └ known values apply only to SUPERVISED LEARNING                               │
+  | │       - In REINFORCED LEARNING  (or LEARNING-WITH-A-CRITIC)                        │
+  | │         the external supervisor (known values) is replaced with                    │
+  | │         a reward-function when calculating the function to                         │
+  | │         maximize/minimize during training.                                         │
+  | │       - In NON-SUPERVISED LEARNING groups are forming                              │
+  | │         where elements "are close to each other in group                           │
+  | │         minimizing some sort of function.                                          │
+  | │                                                                                    │
+  | │  └ STEP 3) LEARING PROCESS                                                         │
+  | │    LEARNING CAN BE SEEN AS THE SPLIT OF THE FEATURE-SPACE IN REGIONS WHERE THE     │
+  | │    DECISION─COST IS MINIMIZED BY TUNING THE PARAMETERS.                            │
+  | │                                                                                    │
+  | │  └ STEP 4)  MODEL EVALUATION                                                       │
+  | │    - Use evaluation data list to check accuracy of Predicted data vs Known Data    │
+  | │    - Go back to STEP 3), 2) or 1) if not satified according to some metric.        │
+  | │                                                                                    │
+  | ├─ PREDICTION PHASE ─────────────────────────────────────────────────────────────────┤
+  | │└ STEP 5)                                                                           │
+  | │             ┌──────────┐                                                           │
+  | │ ┌──────┐    │ TRAINED  │    "Mostly-Correct"                                       │
+  | │ │INPUT │  → │          │  →   Predicted                                            │
+  | │ └──────┘    │CLASSIFIER│      Output                                               │
+  | │             └──────────┘                                                           │
+  | └─ PREDICTION PHASE ─────────────────────────────────────────────────────────────────┘ 
+  ```
+[[101}]]
+
+[[{101]] 
+# ML COMPARATIVE MATRIX  
+
+* Forcibely incomplete but still pertinent
+
+  ```
+  |             ┌─·········· SUPERVISED: An external "teacher" provides a category label or cost
+  |             ·
+  |             · ┌─········ UNSUPERVISED: the system forms clusters or "natural groupings"
+  |             · · ┌─······ PREDICTION TYPE: Category
+  |             · · · ┌····· PREDICTION TYPE: Continuos
+  |             · · · ·┌─────────────────────┬──────────────────────────────────┬─────────────────────────────┐
+  |             · · · ·│ USE─CASES           │ POPULAR ALGORITHMS               │                             │
+  |             · · · ·┤                     │                                  │                             │
+  |             · · · ·│                     │                                  │                             │
+  |             · · · ·│                     │                                  │                             │
+  | ┌──────────┬v┬v┬v┬v┼─────────────────────┼──────────────────────────────────┼─────────────────────────────┤
+  | │Classifier│X│ │X│ │ Spam─Filtering      │ (MultiLayer)Percepton            │Fit curve to split different │
+  | │          │ │ │ │ │ Sentiment analysis  │ Adaline                          │  │     + /   ─    categories│
+  | │          │ │ │ │ │ handwritten recog.  │ Naive Bayes                      │  │+ +   /\                  │
+  | │          │ │ │ │ │ Fraud Detection     │ Decision Tree                    │  │     /  \ ─               │
+  | │          │ │ │ │ │                     │ Logistic Regression              │  │  + / o  \                │
+  | │          │ │ │ │ │                     │ K─Nearest Neighbours             │  │   / o  o \ ─             │
+  | │          │ │ │ │ │                     │ Support Vector Machine           │  └────────────              │
+  | ├──────────┼─┼─┼─┼─┼─────────────────────┼──────────────────────────────────┼─────────────────────────────┤
+  | │Regression│ │X│X│X│ Financial Analysis  │- Linear Regresion:               │find some functional descrip-│
+  | │          │ │ │ │ │                     │  find linear fun.(to input vars) │tion of the data.            │
+  | │          │ │ │ │ │                     │- Interpolation: Fun. is known for│Fit curve to approach        │
+  | │          │ │ │ │ │                     │  some range. Find fun for another││       /·   output data     │
+  | │          │ │ │ │ │                     │  range of input values.          ││    · /                     │
+  | │          │ │ │ │ │                     │- Density estimation: Estimate    ││     /·                     │
+  | │          │ │ │ │ │                     │  density (or probability) that a ││ ·  /                       │
+  | │          │ │ │ │ │                     │  member of a given category will ││   /  ·                     │
+  | │          │ │ │ │ │                     │  be found to have particular fea-││  / ·                       │
+  | │          │ │ │ │ │                     │  tures.                          │└──────────                  │
+  | ├──────────┼─┼─┼─┼─┼─────────────────────┼──────────────────────────────────┼─────────────────────────────┤
+  | │Clustering│ │X│ │ │ Market Segmentation │ K─Means clustering               │ Find clusters (meaninful    │
+  | │          │ │ │ │ │ Image Compression   │ Mean─Shift                       │ │B ┌─────┐      subgroups)  │
+  | │          │ │ │ │ │ Labeling new data   │ DBSCAN                           │ │B │x x  │                  │
+  | │          │ │ │ │ │ Detect abnormal     │                                  │ │B └─────┘  ┌────┐          │
+  | │          │ │ │ │ │   behaviour         │                                  │ │Q ┌────┐   │ y  │          │
+  | │          │ │ │ │ │ Automate marketing  │                                  │ │Q │ z  │   │   y│          │
+  | │          │ │ │ │ │  marketing strategy │                                  │ │Q │z  z│   └────┘          │
+  | │          │ │ │ │ │ ...                 │                                  │ │Q └────┘                   │
+  | │          │ │ │ │ │                     │                                  │ └──────────────             │
+  | ├──────────┼─┼─┼─┼─┼─────────────────────┼──────────────────────────────────┼─────────────────────────────┤
+  | │Dimension │ │X│ │ │ Data preprocessing  │ Principal Component Analysis PCA │                             │
+  | │Reduction │ │ │ │ │ Recommender systems │ Singular Value Decomposition SVD │                             │
+  | │          │ │ │ │ │ Topic Modeling/doc  │ Latent Dirichlet allocation  LDA │                             │
+  | │          │ │ │ │ │   search            │ Latent Semantic Analysis         │                             │
+  | │          │ │ │ │ │ Fake image analysis │ (LSA, pLSA,GLSA)                 │                             │
+  | │          │ │ │ │ │ Risk management     │ t─SNE (for visualization)        │                             │
+  | ├──────────┼─┴─┴─┴─┼─────────────────────┼──────────────────────────────────┼─────────────────────────────┤
+  | │Ensemble  │       │ search systems      │ (B)oostrap A(GG)regat(ING)       │                             │
+  | │methods   │       │ Computer vision     │ - Random Forest                  │                             │[[{ml.performance]]
+  | │ Bagging& │       │ Object Detection    │   (Much faster than Neu.Net)     │                             │[[}]]
+  | │ Boosting │       │                     │ ── ── ── ── ── ── ── ── ── ── ── │                             │
+  | │          │       │                     │ BOOSTING Algorithms              │                             │
+  | │          │       │                     │ (Doesn't paralelize like BAGGING,│                             │
+  | │          │       │                     │  but are more precise and still  │                             │
+  | │          │       │                     │  faster than Neural Nets)        │                             │
+  | │          │       │                     │  - CatBoost                      │                             │
+  | │          │       │                     │  - LightGBM                      │                             │
+  | │          │       │                     │  - XGBoost                       │                             │
+  | │          │       │                     │  - ...                           │                             │
+  | ├──────────┼─┬─┬─┬─┼─────────────────────┼──────────────────────────────────┼─────────────────────────────┤
+  | │Convolu-  │X│ │X│ │ Search for objects  │                                  │                             │
+  | │tional    │ │ │ │ │  in images/videos   │                                  │                             │
+  | │Neural    │ │ │ │ │ Face Recognition.   │                                  │                             │
+  | │Network   │ │ │ │ │ Generate/Enhance    │                                  │                             │
+  | │          │ │ │ │ │  images,            │                                  │                             │
+  | │          │ │ │ │ │ ...                 │                                  │                             │
+  | ├──────────┼─┼─┼─┼─┼─────────────────────┼──────────────────────────────────┼─────────────────────────────┤
+  | │Recurrent │X│X?X│X│ text translation,   │                                  │                             │
+  | │Neural    │ │ │ │ │ speech recognition, │                                  │                             │
+  | │Network   │ │ │ │ │ text 2 speak,       │                                  │                             │
+  | │          │ │ │ │ │ ....                │                                  │                             │
+  | │          │ │ │ │ │                     │                                  │                             │
+  | │          │ │ │ │ │                     │                                  │                             │
+  | └──────────┴─┴─┴─┴─┴─────────────────────┴──────────────────────────────────┴─────────────────────────────┘ 
+  ```
+[[101}]]
+
+[[{data.visualization,library.matplot,numpy]]
+
+# Process large datasets without running out of memory [[{data.processing,Pandas,NumPy,scalability,profiling]]
+* <https://pythonspeed.com/memory/>
+[[}]]

@@ -1,0 +1,13 @@
+# DVC.org [[{qa,DevOps.dvc,DevOps.git,PM.low_code,PM.TODO]]
+https://github.com/tldr-pages/tldr/tree/master/pages/common/dvc-*.md
+- Apply best ML practices and turn them into Git-like command line tool.
+- DVC: brainchild of a data scientist and an engineer.
+- created to fill in the gaps in the ML processes tooling,
+  evolved into a successful open source project.
+- DVC versions multi-gigabyte datasets and ML models, [[scalability]]
+  and make them shareable and reproducible.
+- The tool helps to organize a more rigorous process around
+  datasets and the data derivatives.
+- Your favorite "cloud" storage (S3, GCS, or SSH server)
+  could be used with DVC as a data file backend.
+[[}]]

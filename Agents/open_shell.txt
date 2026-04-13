@@ -1,0 +1,33 @@
+[[{architecture.agents,security.101,security.openshell]]
+## Nvidia OpenShell: sandboxed runtime for AI agents.
+
+- The sandbox acts as the "guardrails" (using Agent's nomenclature), avoiding the
+  AI Agent full access to the terminal, local files, secret keys, network, ...
+- Dell, CrowdStrike, Cisco, and Red Hat are integrating it into their platforms.
+- Apache 2.0.
+- Written in Rust.
+
+- Key idea: your agent runs inside a container with exactly the 
+  permissions you define in a YAML policy. Everything else is blocked
+  **at the kernel level**:
+  1. Landlock restricts filesystem access. (no access to /etc/shadow ,...)
+  2. Seccomp blocks raw socket creation - no bypassing the network proxy
+  3. Every outbound connection goes through an HTTP CONNECT proxy that
+     checks OPA/Rego policies per-binary, per-host
+  4. DNS responses pointing to private IPs are blocked automatically - 
+     no SSRF through your agent The architecture is wild. 
+
+- Each sandbox is a K3s pod inside a single Docker container.
+- The agent process runs as a restricted user. 
+- A privileged supervisor handles policy enforcement.
+- API keys are injected at runtime and never touch the filesystem. [[security.secret_management]]
+
+- 2 commands to go from zero to a secured sandbox [[PM.low_code]]
+
+  ```
+  $ openshell sandbox create 
+  $ claude                   # Claude Code, Codex, OpenCode, and OpenClaw already sopo
+  ```
+
+
+[[architecture.agents}]]

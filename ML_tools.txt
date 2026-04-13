@@ -1,0 +1,26 @@
+Andi
+AskCodi
+Amazon Q
+Bing AI
+ChatGPT
+Claude
+Codeium
+Cody
+GitHub Copilot
+Google Gemini
+Lightning AI
+Meta AI
+Metaphor
+Neeva AI
+OpenAI Codex
+Perplexity AI
+Phind
+Quora Poe
+Replit Ghostwriter
+WolframAlpha
+Snyk Code
+Tabnine
+Visual Studio Intellicode
+Whispr AI
+You.com
+Other (please specify):

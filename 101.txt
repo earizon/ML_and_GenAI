@@ -1,0 +1,437 @@
+[[{101.*,doc_has.tutorial]]
+## Maths Summary behing AI
+
+* <https://github.com/HenryNdubuaku/maths-cs-ai-compendium>
+
+[[doc_has.tutorial}]]
+
+
+
+[[{101.*,doc_has.tutorial]]
+## Excellent Summary of Machine Learning
+
+* <https://www.linkedin.com/feed/update/urn:li:activity:6614480425756782592/>
+[[doc_has.tutorial}]]
+
+[[{]]
+## Towards Data Science
+
+Advanced topics, news on Machine Learning and Data Science.
+* <https://towardsdatascience.com/>
+[[}]]
+
+[[{]]
+
+# The latest research from Google
+
+* <https://research.google/blog/>
+[[}]]
+
+
+```
+| Bird's Eye view of Model types
+| <http://www.deeplearningbook.org/> by 
+| (forcibely incomplete and outdate by still pertinent)
+|
+| [[{use_case.101}]]
+| Model Type          Examples
+| -----------------   ------------------------------------------------
+| 
+| text-to-text        Mixtral, GPT-4, Claude 3, Gemini
+| 
+| text-to-Image       Dalle-E 2, Stable Diffussion, Imagen
+| 
+| Text-to-Audio       Jukebox, AudioLM, MusicGen
+| 
+| Text-to-Video       Sora
+| 
+| Image-toText        CLIP, DALL-E 3
+| 
+| Umage-to-Image      Super-resolution, style transfer, inpainting
+| 
+| Text-to-Code        Stable Diffusion, DALL-E 3, AlphaCode, Codex
+| 
+| Video-to-Audio      Soundify
+| 
+| Text-to-Math        ChatGPT, Claude
+| 
+| Text-to-Scientfic   Minverva, Galactica
+| 
+| Algorithm Discovery AlphaTensor
+| 
+| Multimodal Input    GPT-4V
+| 
+| AI Video Generation Models Comparative
+| AI Model                   |Best For                            |Pricing                      |Key Strength
+| Sora 2                     |Cinematic quality & physics         |ChatGPT Plus ($20/mo)        |Realistic physics & synchronized audio
+| Google Veo 3.1             |4K professional production          |Gemini Advanced ($19.99/mo)  |Native 4K & character consistency
+| Runway Gen-4.5             |Creative control & film production  |From $12/mo                  |Motion brushes & scene consistency
+| Kling 2.6                  |Short-form & social content         |Free tier / Paid plans       |Simultaneous audio-visual generation
+| Luma Ray3                  |Photorealistic motion               |From $7.99/mo                |Hi-Fi 4K HDR & natural physics
+| Pika 2.5                   |Quick social videos & effects       |From $8/mo                   |Pikaswaps & special effects
+| Wan2.2 (Open Source)       |Local generation & customization    |Free (open-source)           |MoE architecture & consumer GPU support  [[price.free_tier]]
+| LTX-2 (Open Source)        |4K with audio & commercial use      |Free (Apache 2.0)            |Native 4K 50fps with synchronized audio  [[price.free_tier]]
+| HunyuanVideo 1.5           |Efficient local generation          |Free (open-source)           |13.6GB VRAM for 720p & fast inference    [[price.free_tier]]
+|
+|
+| Text Sumarization/"distillation" models (Example list)
+| ──────────────────────────────────── 
+| facebook/bart-large-cnn
+| mrm8488/bert2bert_shared-spanish-finetuned-sum...
+| google/pegasus-xsum
+| philschmid/bart-large-cnn-samsum
+| sshleifer/distilbart-cnn-12-6
+[[use_case.101}]]
+```
+
+
+
+[[{cloud.Kaggle,PM.price.free,hardware.GPU.free,PM.price]]
+## Kaggle DataScience Home: Free GPUs  
+- <https://www.kaggle.com/>
+- <https://github.com/Kaggle>
+- Inside Kaggle you’ll find all the code & data you need to do your
+  data science work. Use over 50,000 public datasets and 400,000 public
+  notebooks to conquer any analysis in no time.
+- Kaggle offers a no-setup, customizable, Jupyter Notebooks environment.
+  Access free GPUs and a huge repository of community published data&code.
+[[}]]
+
+[[{doc_has.decission_tree]]
+## algorithm Deccision tree
+
+  ```
+  | - Adapted from original post by Mohammed Abd El-Hafeez @ LinkedIn
+  | <https://www.linkedin.com/posts/mohammed-abd-el-hafeez-2b3214211_machinelearning-datascience-ai-activity-7078770529259655168-jGjA>
+  |
+  |         "More than 50 samples of Data?"  ·· (NO) ··> Get More Data
+  |               · 
+  |         ┌·YES·┘
+  |         v 
+  |    ┌NO· Q: producing a Category? 
+  |    ·          · 
+  |    ·    ┌·YES·┘
+  |    ·    v 
+  |    ·    Q: Is it labeled data? · NO ··> Q: Number of categories known?
+  |    ·          ·                               · 
+  |    ·          ·                         ┌·YES·┘                                                           |
+  |    ·          ·                         v                                                                 |
+  |    ·          ·                     ┌·· Q: < 10_000 samples?  ··> |tough luck|                            |
+  |    ·          ·                     NO        ·                                                           |
+  |    ·          ·                     ·   ┌·YES·┘                                                           | CLUSTERING
+  |    ·          ·                     ·   v                                                                 |
+  |    ·          ·                     ·   KMeans ··> Q: Does it works ··> YES ··> |END|                     |
+  |    ·          ·                     ·                  ·                                                  |
+  |    ·          ·                     ·                  └ NO ··> Spectral Clustering                       |
+  |    ·          ·                     ·                           GMM                                       |
+  |    ·          ·                     └·> MiniBatch KMeans                                                  |
+  |    ·          · 
+  |    ·    ┌·YES·┘
+  |    ·    v 
+  |    ·    Q: Less thant 100.000 Samples? · NO ·>    SGD Classifier ··> Q: Does it Work? · YES ··> |END|     |
+  |    ·          ·                                                          ·                                |
+  |    ·    ┌·YES·┘                                                          NO                               |
+  |    ·    v                                                                v                                |
+  |    ·    Linear SVC                                                                                        |
+  |    ·    ·                                                                                                 |
+  |    ·    v                                                                                                 |
+  |    ·    Q: Does it works?  ·YES ·> |END|                                                                  |
+  |    ·          ·                                                                                           | CLASSIFICATION
+  |    ·    ┌·NO··┘                                                                                           |
+  |    ·    v                                                                                                 |
+  |    ·    Text Data ·· NO ··> KNeighbors Classifier ··> Q: Does it works? ·YES ·> |END|                     |
+  |    ·           ·                                            ·                                             |
+  |    ·    ┌·YES··┘                                           NO                                             |
+  |    ·    v                                                   v                                             |
+  |    ·    Naive Bayes                                        SVC                                            |
+  |    ·                                                       Ensemble                                       |
+  |    ·                                                       Classifier
+  |    └─········─┐
+  |               v
+  |    ┌·· Q: procudes a Quantity?
+  |    NO
+  |    ·           ·
+  |    ·    ┌·YES··┘
+  |    ·    v       
+  |    ·   Q: < 100_000K samples?                                                                             |
+  |    ·           ·                                                                                          |
+  |    ·    ┌·YES··┘                                                                                          |
+  |    ·    v                                                                                                 |
+  |    ·    Q: few features should be importa?  · NO ·>  RidgRegresion      ·> Q: Does it Work? · YES ·> |END|| REGRESSION
+  |    ·           ·                                     SVG(kernel="linear")       ·                         |
+  |    ·    ┌·YES··┘                                                                NO                        |
+  |    ·    v                                                                       v                         |
+  |    ·    Lasso                                                                   SR(kernel="rbf")          |
+  |    ·    ElasticNet                                                              EnsembleRegressors        |
+  |    ·                                                                                                      |
+  |    ··> Q: fast Looking? ·· NO ··> Q: Predicting structure? ··> |tough luck|
+  |            ·    
+  |            ·                                                                                              |
+  |     ┌·YES··┘                                                                                              |
+  |     v                                                                                                     |
+  |    Q: Randomized PCA? ··> Q: Does it works? ·· YES ··> |END|                                              |
+  |                              ·                                                                            | Dimensionality
+  |    ┌··NO····················┘                                                                             | Reduction
+  |    v                                                                                                      |
+  |    Q: <10_000K samples?                                                                                   |
+  |           ·                                                                                               |
+  |    ┌·YES··┘                                                                                               |
+  |    v                                                                                                      |
+  |    Isomap                                                                                                 |
+  |    Spectral Embedding ··> Q: Does it works? ·· YES ··> |END|                                              |
+  |                                   ·                                                                       |
+  |                                   └─·· NO  ··········> LLE                                                │
+  |
+
+
+  | - Adapted from original post by SAS Institute
+  |
+  |       Q: Dimension Reduction? ··········─┐                                                                |
+  |              ·                           ·                                                                |
+  |       ┌·YES··┘                           ·                                                                |
+  |       v                                  ·                                                                |
+  |       Q: Topic Modeling? ·· NO ··> PCA   ·                                                                | UNSERPERVISED LEARNING
+  |              ·                           ·                                                                | DIMENSION REDUCTION
+  |       ┌·YES··┘                           ·                                                                |
+  |       v                                  ·                                                                |
+  |       Q: Probabilistic? ·· NO ··> SVD    ·                                                                |
+  |              ·                           ·                                                                |
+  |       ┌·YES··┘                           ·                                                                |
+  |       v                                  ·                                                                |
+  |       LDA                                ·                                                                |
+  |       ┌··································┘                                                                |
+  |       v
+  | ┌···· Q: Have Responses
+  | ·            ·
+  | NO    ┌·YES··┘
+  | ·     v       
+  | · ┌·· Q: Predicting Numeric?
+  | · ·          ·
+  | · NO  ┌·YES··┘
+  | · ·   v       
+  | · ·   Q: Speed or accuracy? ·· SPEED ··>  Alt1: Decission Tree                                            |
+  | · ·          ·                            ALt2: Linear Regression                                         | SUPERVISED LEARNING:
+  | · ·          ·                                                                                            | REGRESSION
+  | · ·          \-·· ACCURACY ············>  Alt1: Neural Network                                            |
+  | · ·                                       Alt2: Gradient Boosting Tree                                    |
+  | · ·                                       Alt3: Random Forrest                                            |
+  | · ·          
+  | · ·          
+  | · └·> Q: Speed or Accuracy? ·· SPEED ··> Q: Explainable? · YES ··> Decission Tree                         |
+  | ·                                               ·                  Logistic Regression                    |
+  | ·                                               NO                                                        |
+  | ·                              ┌─··············─┘                                                         | SUPERVISED LEARNING:
+  | ·                              Q: Data is too large? ·· YES ··> Naïve Bayes                               | CLASSIFICATION
+  | ·                                         ·                                                               |
+  | ·                                         NO                                                              |
+  | ·                                         └··>  Linear SVM                                                |
+  | ·                                               Naïve Bayes                                               |
+  | ·
+  | ·
+  | └·> Q: Hierarchical? ·· YES ··> Hierarchical                                                              |
+  |           ·                                                                                               |
+  |           NO                                                                                              |
+  |     ┌·····┘                                                                                               |
+  |     v                                                                                                     |
+  |     Q: need to specify k? ··> NO ··> DBSCAN                                                               | UNSUPERVISED LEARNING
+  |           ·                                                                                               | CLUSTERING
+  |           YES                                                                                             |
+  |     ┌·····┘                                                                                               |
+  |     v                                                                                                     |
+  |     Q: Categorical Variables? ·· YES ··> k-modes                                                          |
+  |           ·                                                                                               |
+  |           NO ··> Q:  Prefer probability?  ·· YES ··> GMM                                                  |
+  |                             ·                                                                             |
+  |                             └─··············· NO ··> k-means                                              |
+  ```
+[[}]]
+
+[[{]]
+## Most important equations in Data Science
+
+![Most_important_equations_in_DS](../../DataScience/data_science_equations.jpg){width:95%;}
+
+[[}]]
+
+[[{101]]
+
+## 14 lines scripts using gzip+K-nearest neighbors outperforms 345Million transformer model in text classification
+
+Summary from David Sauerwein's post @ LinkedIn
+
+* <https://www.linkedin.com/posts/davidsauerwein_what-a-fantastic-result-a-0-parameter-14-activity-7085349430819700737-39xC>
+
+... This shows that machine learning will not replace science and deep thinking anytime soon. 
+
+- It also shows the power of information theory. 
+
+... The script defines the distance between one piece of text "x1" and another piece of text "x2"
+by how much the gzip compression of the combined text x1x2 differs from the maximum of
+the compressions of x1 and x2.
+
+- For x1=x2 this distance is zero, because as soon as you know x1 you also know x2.
+
+ However, the more the information content of x1 differs from x2, the less "compressible" 
+x1x2 becomes, and the distance increases.
+[[101}]]
+
+[[{101,PM.RISK]]
+## AI models collapse when trained on recursively generated data
+
+* <https://www.nature.com/articles/s41586-024-07566-y>
+
+(Nature volume 631, pages 755–759, 2024)
+
+
+... we consider what may happen to GPT-{n} once LLMs contribute much of the 
+text found online. 
+
+We find that indiscriminate use of model-generated content 
+in training causes irreversible defects in the resulting models, 
+in which tails of the original content distribution disappear.
+
+ We refer to this effect as ‘model collapse’ and show that it can occur
+in LLMs as well as in variational autoencoders (VAEs) and 
+Gaussian mixture models (GMMs).
+
+  We build theoretical intuition behind the phenomenon and portray its ubiquity 
+among all learned generative models. We demonstrate that it must be taken 
+seriously if we are to sustain the benefits of training from large-scale data 
+scraped from the web. Indeed, the value of data collected about genuine human 
+interactions with systems will be increasingly valuable in the presence of 
+LLM-generated content in data crawled from the Internet.
+[[}]]
+
+[[{101.*,dev_stack.java]]
+## Llama 3 inference in a single Java file
+
+* <https://github.com/mukel/llama3.java
+
+Practical Llama 3, 3.1 and 3.2 inference implemented in a single Java file.
+[[101.*,dev_stack.java}]]
+
+[[{LLM.101,architecture.embeddings.word2vec,PM.TODO]]
+## word2vec (2012)
+
+* <https://code.google.com/archive/p/word2vec/>
+
+* <https://arxiv.org/abs/1301.3781>:<br/>
+  Efficient Estimation of Word Representation in Vector Space.
+  by Tomas Mikolov, Kai Chen, Greg Corrado, Jeffrey Dean
+
+  "...We propose two novel model architectures for computing continuous vector 
+  representation of words from very large data sets..."
+[[}]]
+
+[[{101]]
+## Llama 1B outperforms Llama 8B (8x size) in maths by giving more time to think
+
+* <https://www.linkedin.com/feed/update/urn:li:activity:7274506931447164930>
+
+ we're thrilled to unveil the open-source version of the groundbreaking
+technique behind its success: **scaling test-time compute**
+
+ By giving models more "time to think," Llama 1B outperforms Llama 8B in
+math—beating a model 8x its size. [[qa.coherence]]
+
+[[101}]]
+
+[[{101]]
+## AI passed Turing tests better than humans
+
+* <https://www.independent.co.uk/tech/ai-turing-test-chatgpt-openai-agi-b2728930.html>
+
+- 2025-04-07 A leading AI chatbot has passed a Turing Test more convincingly 
+  than a human, according to a new study.
+
+- Participants in a blind test judged OpenAI’s GPT-4.5 model, which powers 
+  the latest version of ChatGPT, to be a human "significantly more often than 
+  actual humans".
+[[}]]
+
+
+[[{101]]
+## K2-Think: A Parameter-Efficient Reasoning System
+
+* <https://arxiv.org/abs/2509.07604>
+
+- K2-Think is a reasoning system that achieves state-of-the-art performance with 
+a 32B parameter model, matching or surpassing much larger models like GPT-OSS 
+120B and DeepSeek v3.1.
+- Built on the Qwen2.5 base model,i it shows that smaller models can compete at 
+the highest levels by combining advanced post-training and test-time computation
+techniques. [[scalability.101,scalability.post_training]]
+
+ The approach is based on six key technical pillars:
+
+- Long Chain-of-thought Supervised Finetuning. 
+- Reinforcement Learning with Verifiable Rewards (RLVR).
+- Agentic planning prior to reasoning.
+- Test-time Scaling.
+- Speculative Decoding.
+- Inference-optimized Hardware.
+
+- K2-Think excels in mathematical reasoning, achieving state-of-the-art scores
+  on public benchmarks for open-source models, while also performing strongly 
+  in other areas such as Code and Science.
+
+- K2-Think offering best-in-class inference speeds of over 
+  2000tokens/second per request via the Cerebras Wafer-Scale Engine [[hardware.cerebras]]
+[[101}]]
+
+[[{101,PM.TODO]]
+## LLMs from scratch with PyTorch
+
+* <https://github.com/rasbt/LLMs-from-scratch>
+
+- you'll learn and understand how large language models (LLMs) work from the 
+  inside out by coding them from the ground up, step by step.
+
+[[101}]]
+
+
+[[{101,doc_has.humor]]
+## Data centers contain 90% of crap data
+
+
+Summary from By Gerry McGovern <https://gerrymcgovern.com/data-centers-contain-90-crap-data/>
+
+
+... We’re destroying our environment to create and store trillions of blurred 
+images, half-baked videos, rip-off AI ‘songs’, rip-off AI animations, 
+videos and images, emails with mega attachments, never-to-be-watched-again 
+presentations, never-to-be-read-again reports, files and drawings from 
+cancelled projects, drafts of drafts of drafts, out of date, inaccurate and 
+plain wrong information, and gigabytes and gigabytes of poorly written, 
+meandering content.
+
+... 1.9 trillion photos every year ... more than were taken in the entire 20th century. 
+
+
+I have spent almost 30 years working with hundreds of the largest organizations in the world  ...
+Here’s what I’ve learned. 90% plus of commercial or government data is crap, total absolute crap.
+Period.
+
+
+a Microsoft manager estimated that there were then about 14 million pages on Microsoft.com ...
+**four million of them had never been visited**.
+
+
+... Data crap everywhere.
+
+IBM, they found they had data scattered over 100 disparate data warehouses. 
+Multiple teams had multiple copies of the same data. After cleanup, they had 
+deleted 90% of the data. There are 10 million stories like this [[data.gathering,data.deduplication]]
+
+The Cloud made the crap data problem infinitely worse.
+
+The Cloud is what happens when the cost of storing data is less than the cost of figuring out what to do with the crap.
+
+
+One study found that data stored by UK engineering and construction industry 
+firms had risen from an average of three terabytes in 2018 to 26 terabytes in 
+2023. 
+
+... And this is what AI is being trained on.
+
+[[101}]]

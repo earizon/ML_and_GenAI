@@ -1,0 +1,280 @@
+[[{LLM.langchain]]
+# LangChain
+
+* Python framework Created in 2022 by Harrison Chase.
+
+* Updated list of supported LLM models, key-value stores, graphs DBs, ... 
+  <https://python.langchain.com/docs/integrations/llms/>
+* Extensions allow for added functionality. Examples include:
+  * LangSmith: Complements LangChain by providing robust debuggin, testing,
+    and monitoring capabilities for LLM apps. Devs can quickly debug new
+    chains by viewing detailed execution traces. Alternative prompts and LLMs
+    can be evaluated againsts datasets to ensure quality and consistency. 
+    Ussage analytics empowers data-drive decisions around optimizations.
+  * LangChain templates: Comprehensive repo offering a suite of templates
+    and central hub for resources.
+  * LangServer: Help in deploy LangChain as REST APIs.
+  * LangGraph: facilitates the development of complex LLMs with cyclic data
+    flows and stateful multiactors scenarios.;
+
+  ```
+  <https://api.python.langchain.com>                <·· LangChain API reference
+      <https://python.langchain.com/docs/use_cases> <·· LangChain Code Examples 
+  ```
+* 
+    
+* Chat integrations:
+  <https://js.langchain.com/docs/integrations/chat/>
+
+[[{devops]]
+## Setup API keys
+
+  ```
+  | $ export OPENAI_API_KEY=....
+  | 
+  | # Non mandatory script to import API KEYs.
+  | $ cat ./config.py
+  | 
+  |   import os
+  |   
+  |   def set_environement():
+  |     for key,value in globals().items()
+  |       ...
+  |       if "API" in key or "ID" in key:
+  |         os.environ[key] = value
+  | 
+  | 
+  | $ cat ./myApp.py
+  | from config import set_environment
+  | set_environment()
+  ```
+
+## Hugging Face
+
+* prominent player in NLP space.
+* French-American company developping tools for building ML apps.
+* Develops and maintains the "Transformers" Python library 
+  supporting state-of-the-art modles like Mistral 7B, BERT and
+  GPT-2.
+* Compatible with **Pytorch, TensorFlow and JAX.
+* **LangChain support leveraging the Hugging Face Hub, which provides
+  access to a massive number of models, datasets in various languages
+  and formats, and demo apps**, including integrations with Hugging
+  Face Endpoints, and enabling text generation inference powered by
+  the Text Genration Inference service. 
+* Integration with Hugging face models, including the **free Serverless
+  Endpoints API and dedicated Inference Endpoints for enterprise worloads
+  that come with support for AutoScaling**.
+* It also support local/offline integration with Hugging Face
+  models and pipelines.
+  * ChatHugginFace     : For chat apps.
+  * HuggingFacePipeline: Running models through pipelines.
+  * HuggingFaceEmbeddings:
+  * HuggingFaceInstructEmbeddings:
+  * HuggingFaceBgeEmbeddings:
+  * HuggingFaceHubEmbeddings: allows leveraging H.F. **Text Embeddings
+    Inference (TEI) toolkit** for high-performance extraction.
+  * HuggingFaceDatasetLoader: For datasets [[{data.source}]]
+
+## OpenAI, Google (GCP, Vertex AI -PaLM and Gemini models-), ...
+
+# LangChain Building Blocks
+
+* Abstract local (python) code from the underlying LLM providers.
+
+  ```
+  | from langchain.schema import HumanMessage  # Chat Support with structure ¹
+  | from langchain.schema import SystemMessage # chats are categorized into
+  |                                            # human, AI, or system.
+  | LLM = None
+  | if False:
+  |   from langchain_openai import OpenAI            # Ex.1: Init with OpenAI
+  |   LLM = OpenAI() 
+  | elif False: 
+  |   from langchain_openai.chat_models import ChatOpenAI
+  |   LLM = ChatOpenAI(model_name='gpt-4-0613')
+  | elif False: 
+  |   from langchain_ anthropic import AnthrorpicLLM # Ex.2: Init with Anthropic
+  |   LLM = AnthrorpicLLM(model='claude-2.1') 
+  | elif False: 
+  |   # Fake LLM allows to Mock while developing AI Agents [[qa.testing]]
+  |   # It also avoid problems hitting rate limits         [[troubleshooting]]
+  |    
+  |   from langchain.llms.fake import FakeListLLM   
+  |   LLM = FakeListLLM(responses=["Hello"])
+  | else:
+  |   # NOTE: 1st prompt will download the model. Wait for N minutes!!!.
+  |   from langchain_ community.llms import HuggingFaceHub
+  |   LLM = HuggingFaceHub(
+  |     model_kwargs={ "temperature": 0.5, "max_length": 64},
+  |     repo_id = "google/flan-t5-xxl"
+  |   )
+  | # ...
+  |
+  | PROMPT_TO_LLM = "In which country is {country}?" # <·· TIP: F-strings prompt template
+  | print(LLM.invoke(PROMPT_TO_LLM))  # <·· Alt 1
+  | completion = LLM(PROMPT_TO_LLM)   # <·· Alt 2
+  | chat_resp = LLM.invoke(           # <·· Alt 3. Chat mode ¹
+  |    HumanMessage(
+  |      content=PROMPT_TO_LLM.format(country="Tokyo") # <·· Complete template
+  | )
+  | print (chat_resp)
+  | # Output will be similar to: ¹
+  | # content='...'
+  | # response_metadata={              <·· Structured 
+  | #   'token_usage': {
+  | #     'completion_tokens': 2
+  | #     'prompt_tokens': 5,
+  | #   },
+  | #   'model_name':  '...',
+  | #   'system_fingerprint': None,
+  | #   'finish_reason': 'stop',
+  | #   'logprobs': None
+  | # }
+  | chat_output = LLM.invoke( [
+  |     SystemMessage(content="You're a helpful assistant"),
+  |     HumanMessage (content="What is the purpose of model regularization?"),
+  | ])
+  | print(chat_output)
+  | # Output will be similar to:
+  | # content='Model regularization is a technique ...' 
+  | # response_metadata={              <·· Structured 
+  | #   'token_usage': {
+  | #     'completion_tokens': 156,
+  | #     'prompt_tokens': 24,
+  | #   },
+  | #   'model_name':  '...',
+  | #   'system_fingerprint': None,
+  | #   'finish_reason': 'stop',
+  | #   'logprobs': None
+  | # }
+  |     
+  | ¹ LC Chat mode sits "on top" of LLM dialoges providing a 
+  |   structured schema distinguishing between human messages, 
+  |   AI respones an other types of interactions.
+  ```
+
+  ```
+  from langchain_core.prompts import PromptTemplate, ChatPromptTemplate
+  # (Chat)PrompTemplate integrate with LangChain Expression Language (LCEL) 
+  # supporting sync, async and streaming prompts.
+
+  
+  prompt_template = PromptTemplate.from_template(
+    "Tell me a {adjective} joke about {content} ").
+  prompt_template.fromat(adjective="funny", content="chickens")
+
+  chat_template = ChatPromptTemplate.from_message( [
+    ('system', 'You are an English to French Translator.'),
+    ('user'  , 'Translate this to French: {input_text}'),
+  ])
+  LLM.invoke(chat_template.format_messages(
+    input_text='some english text to translate' ))
+  ```
+
+
+## Chains
+
+* Chains orchestrates a sequences of operations such as input prompts,
+  LLM invocations and output transformations.
+
+  ```
+  | # Example: Chain 1
+  | from langchain              import LLMChain
+  | from langchain_core.prompts import PromptTemplate
+
+  | template01 = """ Question: {question}
+  | Answer: Let's think step by step."""
+  | prompt = PromptTemplate(template=template01,
+  |   input_variables=["question"])
+
+  | LLM_CHAIN = LLMChain ( 
+  |   prompt=prompt, llm=LLM,
+  |   verbose=True               # <·· 
+  | )
+
+  | LLM_CHAIN.run("What NFL team won the Super Bowl when Justin Beiber was born?")
+  | # output will be similar to
+  | # [1m> Entering new chain......
+  | # Prompt after formatting: [[Question: What NFL ... born? Answer: ... by step
+  | # [1m> Finished chain...
+  | # Justin Beiber was born on March 1, 1994. The Super Bowl in 1994 was
+  | # won by the San Francisco 49ers.
+  ```
+
+### LanChain Expression Language: LCEL
+
+* Declarative (vs programatic) way to compose chains.
+* builtin support for asynchronous processing, batching, streaming, 
+  fallbacks, parallelism, and seamless integration with LangSmith tracing.
+
+  ```
+  | # Example: Chain using Mistral AI
+  | from langchain_community.llms      import HuggingFaceEndpoint
+  | from langchain_core.prompts        import PromptTemplate
+  | from langchain_core.output_parsers import StrOutputParser
+  | LLM = HuggingFaceEndpoint(
+  |   repo_id="mistralai/Mistral-7B-Instruct-v0.2",
+  |   max_length = 128, temperature = 0.5
+  | )
+  | template = """ Question: {question} Ansser: Let's think step by step """
+  | # Force "Chain of Tought" (CoT) ···········─┴──────────────────────┘
+  | prompt = PromptTemplate.from_template(template)
+  | runnable = prompt | LLM | StrOutputParser()     # <·· CHAIN
+  | #                 ^     ^
+  | #                 └─────┴─ piping "a la UNIX".
+  | summary = runnable.invoke({"question": "WHo won the FIFA World Cup in year 1994?"})
+  | (The result will be similar to:
+  |  FIFA World CUp ... is held every four years ...
+  |  So, to find out which team won ..., we need to identify which World Cup
+  |  tournament that was.
+  |  First, we know that first FIFA World Cup was help in 1930,...
+  |  ... To calculate ... we can subtract the year of the first World Cump...
+  |  ... We'll round odnw to the nearest whole number ...
+  |  ... Therefor, the answer is: Brazil won the FIFA World Cup in 1994.
+  ```
+
+
+  ```
+
+  ```
+
+[[devops}]]
+
+# LangChain Compared
+
+## LangChain vs Parlant
+
+* Parlant: <https://github.com/emcie-co/parlant>
+
+  Parlant flips the script on AI agent development. Instead of hoping your LLM 
+  will follow instructions, Parlant ensures it.
+
+  ```
+  | # Traditional approach: Cross your fingers 🤞
+  | system_prompt = "You are a helpful assistant. Please follow these 47 rules..."
+  | 
+  | # Parlant approach: Ensured compliance
+  | await agent.create_guideline(
+  |     condition="Customer asks about refunds",
+  |     action="Check order status first to see if eligible",
+  |     tools=[check_order_status],
+  | )
+  ```
+
+Parlant gives you all the structure you need to build customer-facing agents 
+that behave exactly as your business requires:
+
+* Journeys: Define clear customer journeys and how your agent should respond at 
+  each step.
+* Behavioral Guidelines: Easily craft agent behavior; Parlant will match the 
+  relevant elements contextually.
+* Tool Use: Attach external APIs, data fetchers, or backend services to 
+  specific interaction events.
+* Domain Adaptation: Teach your agent domain-specific terminology and craft 
+  personalized responses.
+* Canned Responses: Use response templates to eliminate hallucinations and 
+  guarantee style consistency.
+* Explainability: Understand why and when each guideline was matched and 
+  followed.
+[[LLM.langchain}]]

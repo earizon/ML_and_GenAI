@@ -1,0 +1,27 @@
+# doc                    # REFs:
+# ---------------------- # -------------------------------
+# vLLM + OpenVINO        # https://docs.vllm.ai/en/v0.6.3/getting_started/openvino-installation.html
+# llama.cpp + OpenVINO   # https://github.com/ggml-org/llama.cpp/blob/master/docs/backend/OPENVINO.md  @ma
+#                        # llama.cpp+OpenVINO backend has been validated Intel Core Ultra Series 1 and Series 2
+#
+# llama.cpp + SYCL       # https://github.com/ggml-org/llama.cpp/blob/master/docs/backend/SYCL.md
+# intel-transformers.txt # https://github.com/intel/intel-extension-for-transformers
+# oneAPI.txt             # REF: <https://www.intel.com/content/www/us/en/docs/dpcpp-cpp-compiler/developer-guide-reference/2024-2/intel-oneapi-level-zero-switch.html>
+# compute_runtime        # REF: <https://github.com/intel/compute-runtime/releases>
+# ipex_llm.txt           # <https://github.com/intel/ipex-llm>
+# xpumanager             # <https://intel.github.io/xpumanager/Install_guide.html>
+#                        # Free and open-source tool for monitoring and managing Intel data center GPUs.
+# Python_Intel.txt       #  PyTorch 2.5 Release Includes Support for Intel GPUs
+                         # <https://www.infoq.com/news/2024/10/pytorch-25-release/>
+
+# intel_DNN_lib.txt      # <https://www.intel.com/content/www/us/en/developer/tools/oneapi/onednn.html>
+#                        # - Improve performance on OpenVINO, PyTorch, and TensorFlow. 
+#                        # - Develop faster using optimized building blocks.
+# CPU_vs_GPU.txt         # - <https://techdecoded.intel.io/resources/the-role-and-potential-of-cpus-in-deep-learning/>
+#                        # CPUs are more suitable for such applications with limited parallelism
+#                        # for fully connected networks over sparse datasets such as Amazon-670K, and Delicious-200K,
+#                        # training problem can be modeled as a search problem replacing matrix multiplication operation with
+#                        # hash tables. 
+[[}]]
+
+

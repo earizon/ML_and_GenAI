@@ -1,0 +1,202 @@
+[[{data.open_data,data.source]]
+
+## 3 terabytes of fine tuned PDFs
+
+* <https://huggingface.co/datasets/HuggingFaceFW/finepdfs> [[training.101]]
+
+# Data Training/Test Sets/Data Sources
+
+- Dataset Search@(Research Google):
+  <https://datasetsearch.research.google.com/>
+- <https://ai.google/tools/#datasets>
+- <https://archive.ics.uci.edu/ml/datasets/>
+- <https://www.infoq.com/news/2019/10/google-nlp-dataset/>   [[cognitive.nlp]]
+- <http://www.image-net.org/> ImageNet: hundreds of thousands of images and complex models
+- Adversarial Image DataSet:
+  https://www.infoq.com/news/2019/08/adversarial-image-dataset/
+  University Research Teams Open-Source Natural Adversarial Image DataSet for Computer-Vision AI
+  Research teams from three universities recently released a dataset
+  called ImageNet-A, containing natural adversarial images: real-world
+  images that are misclassified by image-recognition AI. When used as a
+  test-set on several state-of-the-art pre-trained models, the models
+  achieve an accuracy rate of less than 3%.
+- Standford ImageNet: <http://imagenet.stanford.edu>
+  Trained model with ImageNet dataset:
+  14+ million images maintained by Stanford University,
+  labeled with a hierarchy of nouns that come from the
+  WordNet dataset http://wordnet.princeton.edu,
+  which is in turn a large lexical database of the English
+  language WordNet dataset.
+
+[[{data.mining,standards,low_code,PM.TODO]]
+## Extracting info from Municipal Open Data APIs
+- <https://www.youtube.com/watch?v=6puwaUHNRIU>
+[[}]]
+
+[[{cloud.AWS]]
+## AWS Sustainability DS
+- <https://sustainability.aboutamazon.com/environment/the-cloud/asdi>
+- ASDI currently works with scientific organizations like NOAA, NASA,
+  the UK Met Office and Government of Queensland to identify, host, and
+  deploy key datasets on the AWS Cloud, including weather observations,
+  weather forecasts, climate projection data, satellite imagery,
+  hydrological data, air quality data, and ocean forecast data. These
+  datasets are publicly available to anyone.
+
+## <https://github.com/awslabs/open-data-registry/>
+- A repository of publicly available datasets that are available for
+  access from AWS resources. Note that datasets in this registry are
+  available via AWS resources, but they are not provided by AWS; these
+  datasets are owned and maintained by a variety government
+  organizations, researchers, businesses, and individuals.
+
+- From <https://www.infoq.com/news/2019/01/amazon-sustainability-datasets>:
+  """ Amazon Web Services Open Data (AWSOD) and Amazon Sustainability (AS)
+  are working together to make sustainability datasets available on the
+  AWS Simple Storage Service (S3), and they are removing the
+  undifferentiated heavy lifting by pre-processing the datasets for
+  optimal retrieval. Sustainable datasets are commonly from satellites,
+  geological studies, weather radars, maps, agricultural studies,
+  atmospheric studies, government, and many other sources. """
+[[cloud.AWS}]]
+
+- Awesomedata@Github: <https://github.com/awesomedata/awesome-public-datasets>
+  - Agriculture
+  - Biology
+  - Climate+Weather
+  - ComplexNetworks
+  - ComputerNetworks
+  - DataChallenges
+  - EarthScience
+  - Economics
+  - Education
+  - Energy
+  - Finance
+  - GIS
+  - Government
+  - Healthcare
+  - ImageProcessing
+  - MachineLearning
+  - Museums
+  - NaturalLanguage
+  - Neuroscience
+  - Physics
+  - ProstateCancer
+  - Psychology+Cognition
+  - PublicDomains
+  - SearchEngines
+  - SocialNetworks
+  - SocialSciences
+  - Software
+  - Sports
+  - TimeSeries
+  - Transportation
+  - eSports
+  - Complementary Collections
+
+## Other Data Sources
+
+- data.nasdaq.com            [[use_case.finances]]
+  Source for financial, economic, and alternative datasets (you can select Free datasets in Filters)
+- earthdata.nasa.gov         [[use_case.earth_sciences]]
+  easy to use, one click to download
+- opendata.cern.ch           [[use_case.???,PM.TODO]]
+  Open data from particle physics, with detailed provenance information.
+- catalog.data.gov           [[use_case.???]]
+
+- catalog.data.gov           [[use_case.???,PM.TODO]]
+  Published by agencies across the federal government
+- data.fivethirtyeight.com   [[use_case.???,PM.TODO]]
+  Share data and code of ABC News
+ 
+[[data.source,data.open_data}]]
+
+## The Pile, 825 GB NLP Data set
+[[{data.open_data,PM.TODO]]
+* <https://pile.eleuther.ai/>
+* <https://arxiv.org/abs/2101.00027>
+Leo Gao, Stella Biderman, Sid Black, Laurence Golding, Travis Hoppe,
+Charles Foster, Jason Phang, Horace He, Anish Thite, Noa Nabeshima,
+Shawn Presser, Connor Leahy
+
+· Recent work has demonstrated that increased training dataset
+  diversity improves general cross-domain knowledge and downstream
+  generalization capability for large-scale language models. With this
+  in mind, we present the Pile:
+  · 825 GiB English text corpus targeted at training large-scale language models.
+  · constructed from 22 diverse high-quality subsets
+    -- both existing and newly constructed -- many of which derive from
+    academic or professional sources.
+· Our evaluation of the untuned performance of GPT-2 and GPT-3 on
+  the Pile shows that these models struggle on many of its components,
+  such as academic writing. Conversely, models trained on the Pile
+  improve significantly over both Raw CC and CC-100 on all components
+  of the Pile, while improving performance on downstream evaluations.
+  Through an in-depth exploratory analysis, we document potentially
+  concerning aspects of the data for prospective users. We make
+  publicly available the code used in its construction.
+· The format of the Pile is jsonlines data compressed using zstandard.
+[[}]]
+
+[[{data.open_data.world.geo,data.geospatial,use_case.*,use_case.Earth_science]]
+# world.geo.json: Annotated geo-json geometry files for the world
+
+* <https://github.com/johan/world.geo.json>
+[[data.open_data.world.geo}]]
+
+[[{data.open_data]]
+## CORE: 24 Millon Research Work with full text.
+
+* <https://universoabierto.org/2020/02/28/core-proporciona-acceso-a-24-millones-de-trabajos-de-investigacion-de-libre-acceso-a-texto-completo/>
+
+[[}]]
+
+[[{data.open_data.finepdfs,]]
+## 3 terabytes of fine tuned PDFs
+
+* <https://huggingface.co/datasets/HuggingFaceFW/finepdfs>
+[[data.open_data}]]
+
+
+
+# GeoJSON/GeoPanda: [[{data.geospatial,pandas,low_code,PM.TODO]]
+Getting Started on Geospatial Analysis with Python, GeoJSON and GeoPandas - Twilio
+<https://www.twilio.com/blog/2017/08/geospatial-analysis-python-geojson-geopandas.html>
+
+· GeoJSON is a format for representing geographic objects. It’s
+  different from regular JSON because it supports geometry types, such
+  as: Point, LineString, Polygon, MultiPoint, MultiLineString,
+  MultiPolygon, and GeometryCollection.
+· Using GeoJSON, making visualizations becomes suddenly easier, as
+  you’ll see in a later section. This is primarily because GeoJSON
+  allows us to store collections of geometric data types in one central
+  structure.
+· GeoPandas is a Python module used to make working with geospatial
+  data in python easier by extending the datatypes used by the Python
+  module pandas to allow spatial operations on geometric types.
+[[}]]
+
+[[{]]
+## Data Sources:  5 Trusted Websites for Free Open Datasets
+https://www.linkedin.com/posts/alexwang2911_machinelearning-datascience-technology-activity-7130173538640003073-0f_x/
+
+[[}]]
+
+[[{]]
+## Datasets in ML-Papers-Explained
+
+* Continuosly updated in: 
+<https://github.com/dair-ai/ML-Papers-Explained/blob/main/README.md>
+* [Obelics](https://ritvik19.medium.com/papers-explained-179-obelics-idefics-a581f8d909b6) | June 2023 | An open web-scale filtered dataset of interleaved image-text documents comprising 141M web pages, 353M associated images, and 115B text tokens, extracted from CommonCrawl |
+* [Dolma](https://ritvik19.medium.com/papers-explained-97-dolma-a656169269cb) | January 2024 | An open corpus of three trillion tokens designed to support language model pretraining research. |
+* [Aya Dataset](https://ritvik19.medium.com/papers-explained-108-aya-dataset-9e299ac74a19) | Februray 2024 | A human-curated instruction-following dataset that spans 65 languages, created to bridge the language gap in datasets for natural language processing. |
+* [WebSight](https://ritvik19.medium.com/papers-explained-177-websight-2905d0e14233) | March 2024 | A synthetic dataset consisting of 2M pairs of HTML codes and their corresponding screenshots, generated through LLMs, aimed to accelerate research for converting a screenshot into a corresponding HTML. |
+* [Cosmopedia](https://ritvik19.medium.com/papers-explained-175-cosmopedia-5f7e81c76d14) | March 2024 | Synthetic Data containing over 30M files and 25B tokens, generated by Mixtral-8x7B-Instruct-v0., aimed to reproduce the training data for Phi-1.5. |
+* [RewardBench](https://ritvik19.medium.com/papers-explained-226-rewardbench-31c79c15eb52) | March 2024 | A benchmark dataset and code-base designed to evaluate reward models used in RLHF. |
+* [Fine Web](https://ritvik19.medium.com/papers-explained-174-fineweb-280bbc08068b) | May 2024 | A large-scale dataset for pretraining LLMs, consisting of 15T tokens, shown to produce better-performing models than other open pretraining datasets. |
+* [Cosmopedia v2](https://ritvik19.medium.com/papers-explained-175-cosmopedia-5f7e81c76d14#5bab) | July 2024 | An enhanced version of Cosmopedia, with a lot of emphasis on prompt optimization. |
+* [Docmatix](https://ritvik19.medium.com/papers-explained-178-docmatix-9f2731ff1654) | July 2024 | A massive dataset for DocVQA containing 2.4M images, 9.5M question-answer pairs, and 1.3M PDF documents, generated by taking transcriptions from the PDFA OCR dataset and using a Phi-3-small model to generate Q/A pairs.  |
+* [Pixmo](https://ritvik19.medium.com/papers-explained-241-pixmo-and-molmo-239d70abebff) | September 2024 | A high-quality dataset of detailed image descriptions collected through speech-based annotations, enabling the creation of more robust and accurate VLMs. |
+* [Smol Talk](https://ritvik19.medium.com/papers-explained-176-smol-lm-a166d5f1facc#b5e3) | November 2024 | A synthetic instruction-following dataset comprising 1 million samples, built using a fine-tuned LLM on a diverse range of instruction-following datasets and then generating synthetic conversations using various prompts and instructions to improve instruction following, chat, and reasoning capabilities. |
+[[}]]
+

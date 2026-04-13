@@ -1,0 +1,275 @@
+[[{]]
+## Build a Custom LLM Chatbot on Your Enterprise Data that keeps sensitive information secure.
+How to leverage the Retrieval-Augmented Generation (RAG) Architecture for your use case
+Author: Tobias Zwingmann (2023-04-28)
+
+Chatbots can streamline processes and save time, but building one
+without exposing private data is challenging.
+
+We'll discuss the Retrieval-Augmented Generation (RAG) Architecture,
+a solution that helps protect sensitive data while still delivering a
+great chatbot experience.
+
+Let's dive in!
+Understanding the Retrieval-Augmented Generation Architecture (RAG)
+
+Most enterprise customers are still hesitant to touch LLM technology
+because they are afraid that:
+
+    it's hard to do technically
+
+    it requires exposing their private data
+
+    it's still experimental and not ready for production
+
+    it requires them to fine-tune an LLM which is expensive
+
+The Retrieval-Augmented Generation Architecture addresses these
+concerns.
+
+To make things clear up front:
+
+There isn't a single best way to build your custom chatbot.
+
+Depending on your setup it might indeed be very hard or you might
+indeed need to fine-tune an LLM over multiple rounds of iteration.
+
+But the RAG-Architecture is usually a good place to start.
+
+Let's look at it from a high level and a concrete use case:
+Step 1: Problem Statement
+
+Here’s our example:
+
+Our enterprise needs an internal chatbot that can provide
+straightforward answers to common HR-related questions from
+employees, such as how to apply for leave and where to find specific
+policy documents.
+
+The kind of problem you want to solve dictates the architecture of
+your chatbot.
+
+Here are some clarifying questions you should anwer for yourself:
+
+    What's the goal of your chatbot?
+
+    Will it be used internally or externally?
+
+    Which data sources will your chatbot access?
+
+    Do you need to consider individual access rights?
+
+    Who should be involved in the development process?
+
+    Should the chatbot be able to cite sources and provide links?
+
+In our example, the main purpose of the chatbot is to provide
+HR-related guidance to internal employees to reduce the workload of
+HR staff. The information is largely stored in PDF documents, and we
+want to cite the source from which the bot got the answer and provide
+links to relevant policy documents.
+Step 2: Solution Breakdown
+
+The RAG architecture (see figure below) solves this problem by
+integrating two key components: a Retriever component a Generator
+component.
+
+The Retriever component is responsible for finding relevant
+information based on the user's input, while the Generator uses this
+information to provide a natural language response.
+
+Besides that, a user-facing application will handle the interface and
+integration of the two components.
+
+Let's walk through this architecture step-by-step and explore what's
+happening here.
+User Layer
+
+The user layer is the frontend that the user interacts with. When
+designing an application like this, it's important to be clear about
+the requirements and user stories.
+
+That means:
+
+What should the chatbot be able to do and how will users interact
+with it?
+
+This has nothing to do with AI.
+
+Just good old UX design.
+
+In our example, let's say it's an internal web application where
+users can enter a text query. They will receive answers in the chat
+window related to HR policies and procedures, with a hyperlink to the
+original documents if necessary.
+
+The chatbot should refuse to answer any question that is not found in
+the document. For example, if a user asks it about the weather or the
+CEO's performance, it will provide a defined response such as "I
+can't answer that".
+
+We will learn how to implement this later.
+Data Layer
+
+Before we dive into the Generator and Retriever components, let's
+quickly discuss the data layer of this use case.
+
+As mentioned above, we're not training or fine-tuning an LLM. So the
+data layer would consist only of the documents you want the chatbot
+to have access to, such as PDFs, HTML, Office documents, or any other
+format that the Retriever component can work with.
+
+To keep things simple in our example, let's assume all files are
+stored in a GDrive folder and we're working mostly with PDFs.
+
+We will also store the queries and answers in a separate log file so
+that we can access it later for monitoring.
+
+Time to look into the analysis layer!
+Analysis Layer
+
+The analysis layer is where "the magic happens".
+
+In this layer, we need three key components:
+
+    The Generator (the LLM)
+
+    The Retriever (the search model)
+
+    The App Server (our backend)
+
+To demonstrate the interplay between them, let's look at an example.
+Understanding the question entry
+
+Suppose the user asks the following question:
+
+"How many days can I take off?"
+
+The language model (Generator) will interpret the user's input and
+analyze it to understand their intent. It will then format this into
+a query that the Retriever can work to fetch the relevant documents.
+
+Example keywords: “Working time regulations”, “holidays”,
+“vacation”
+
+The Retriever can be literally any search component - from a
+classical keyword-based search, to a vector-based semantic search
+powered by another LLM or a combination of both approaches. In
+enterprise cases, you could also rely on a fully managed search
+service like Azure Cognitive Search or Google Cloud Search.
+
+The strength of this architecture lies in its ability to leverage the
+flexibility of the LLM to comprehend the user's intent and to provide
+information to the Retriever in an appropriate way (e. g. keywords or
+embeddings).
+
+That makes it a powerful combination to understand what the user
+really wants and get the most relevant documents.
+
+The Retriever will then go and find the top N relevant documents from
+our file system.
+
+So what's next?
+Generating the answer
+
+Instead of just showing the documents in a list form, we can use the
+Generator again to summarize and paraphrase the relevant information
+in a conversational style that is easy for users to understand.
+
+So instead of just showing the vacation policy document, the
+Generator could formulate an answer like:
+
+"You can take 28 days of paid leave and an additional 30 days of
+unpaid leave, subject to your manager's approval. See these documents
+for more information: ..."
+
+To create this answer, the Generator takes the relevant snippets
+found by the retriever and adds them directly to the prompt as
+additional context - so there's no fine-tuning involved.
+
+This way, the conversation feels more natural and engaging, and the
+users get the information they need immediately, without going
+through a long list of documents.
+
+So how do we control the behavior of the chatbot and prevent it from
+answering questions that are not found in the documents?
+
+Well, we simply specify the desired behavior in the system prompt.
+For example, we could create a system prompt like this:
+
+Act as a document that I am having a conversation with. Your name is
+"AI Assistant". You will provide me with answers from the given
+context. If the answer is not included, say exactly "I don’t know,
+please contact HR". Refuse to answer any question not about the
+context.
+
+That's how we deploy a chatbot without exposing private data and
+controlled behavior.
+Step 3: Limitations
+
+But wait a minute! you might say.
+
+The LLM can still access the user inputs and also the relevant parts
+from the documents that the user searched for. So don't we expose
+sensitive information here?
+
+It’s true that there is still a risk of exposing sensitive
+information when using this architecture, as the LLM handles the user
+inputs and sees parts of the relevant documents.
+
+This is where you need to balance things off.
+
+If you have highly sensitive documents, it's essential to prevent any
+private data from being leaked during the information retrieval
+process. One way to do this is by deploying or building your own LLM
+in-house.
+
+On the other hand, if you are more concerned with trustworthy data
+processing that occurs within your organization or a specific region,
+you can try using enterprise-integrated LLMs such as OpenAI on
+Microsoft Azure which lets you deploy any OpenAI model within your
+Azure subscription in your desired region. With this approach, you
+can have contracts and policies in place to control your data and
+ensure that it's not exposed or used for further training.
+
+To sum up, deploying a chatbot that preserves customer privacy
+requires thoughtful consideration of the data sources and resources
+used.
+Step 4: Next steps
+
+Of course, we've only covered the tip of the iceberg. If you wanted
+to bring a use case like this into production there are some more
+things you should consider.
+
+Examples include:
+
+    Access management
+
+    Monitoring the performance
+
+    Controlling the LLM behavior and guardrails
+
+While none of these points is trivial, they are also far away from
+being insurmountable challenges. The RAG architecture provides you
+with a solid foundation to build upon, and with proper planning and
+execution, a privacy-preserving chatbot can be successfully deployed
+for your organization.
+
+Feel free to reach out if you need help!
+Conclusion
+
+I hope you have seen how you can deploy a custom LLM-based chatbot
+while keeping data secure using the RAG architecture.
+
+If you like, you can dive deeper from there, focusing on either the
+information retrieval or generation parts, and consider different
+options for building the chatbot.
+
+As always, thanks for reading.
+
+Hit reply and let me know what think - I'd love to hear from you!
+
+
+    Paper: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
+           https://arxiv.org/pdf/2005.11401.pdf?utm_source=earizon.github.com/txt_world_domination
+[[}]]

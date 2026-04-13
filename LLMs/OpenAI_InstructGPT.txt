@@ -1,0 +1,28 @@
+[[{]]
+## InstructGPT (OpenAI, 2022): LLM to Follow Human Instructions 
+
+* <https://www.infoq.com/news/2022/02/openai-instructgpt/>
+
+
+ InstructGPT (GPT-3) address complaints about toxic language and misinformation.
+
+... To make the models safer, helpful, and aligned to follow instrunctions, OpenAI used
+reinforcement learning from human feedback (RLHF) to fine-tune GPT-3.
+
+- Compared to standard GPT-3, the new InstructGPT models are better at following 
+  instructions in English, less inclined to produce misinformation, and at least
+  slightly less likely to produce toxic results. 
+
+ OpenAI designed a three-step procedure.
+
+1. fine-tuning of the model.
+2. building a reward model (RM).
+3. take the Supervised Fine-Tuning (SFT) model and further fine-tune it using reinforcement learning.
+
+GPT-3 surpasses InstructGPT in terms NLP benchmarks, but it’s better adapted to human intention.
+
+ The AI alignment problem is a well-known problem in the field. It defines the difficulty of designing
+AI systems that understand our values, beliefs, and desires, and that behave in a way that won't
+interfere with them.
+
+[[}]]

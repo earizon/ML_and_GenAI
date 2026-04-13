@@ -1,0 +1,79 @@
+[[{models.miro,scalability.model,scalability.mirothinker,PM.RADAR,PM.breakthrough]]
+## MiroThinker 1.5: 30B Parameters That Outperform 1T Models
+
+* <https://research.miromind.ai/blog/introducing-mirothinker-1.5-30b-parameters-that-outperform-1t-models>
+
+* Time causality trained as core constraing (vs background variable) to avoid
+  leakeages while training.
+
+* 30B params achieves comparable performance to 1trillion-parameter models through
+  Interactive Scaling technology. 
+
+ fundamental question: Where exactly is the "singularity" of intelligence?
+
+- Their answer is not "memorizing the world into parameters," but settling for "discovery intelligence."
+- True intelligence doesn't rely on omniscience, but on the ability to research, verify, and
+  correct-like a top intelligence officer **rapidly gathering evidence externally
+  while rigorously separating truth from falsehood internally**   [[101.*,doc_has.keypoint]]
+
+  MiroMind team doesn't believe in "brute force miracles" for AGI
+but pursues "skillful strength" centered on high intelligence
+efficiency.
+
+Dominating Rankings: Metrics Are the Threshold, Prediction Is the Ceiling
+
+- MiroThinker team points out that the traditional Scaling Law centered on
+  expanding model internal parameters has clearly hit marginal bottlenecks;
+
+- In MiroThinker 1.0, the team first systematically proposed Interactive Scaling:
+  the concept that as the frequency and depth of tool interaction increase,
+  research-style reasoning capability also steadily strengthens. This constitutes
+  a third scalable dimension alongside model size and context length.
+  [[doc_has.keypoint]]<br/>
+
+  ... MiroThinker 1.5 goes even further by internalizing this mechanism as a core
+  capability throughout the entire training and inference process.
+
+  ... When encountering difficult problems, it no longer provides the highest-probability
+guess; instead, it executes a "slow-thinking" research loop:
+
+  ```
+  | propose hypothesis
+  | ··> query external world for data/evidence
+  |   ··> discover mismatch
+  |      ··> revise hypothesis
+  |         ··> verify again, until the evidence converges.
+  ```
+
+- The development team emphasizes that what's saved isn't computing power, but rather
+  computing power spent on what matters most:
+  - **external information acquisition and interaction**. [[qa.best_patterns]]
+
+- Traditional Chain-of-Thought (CoT) modeling is essentially a linear
+  extrapolation within the model's internal knowledge space. In this process,
+  reasoning biases accumulate as the path lengthens, eventually leading to a
+  logical collapse. [[prompting.chain-of-thought,LLM,]]<br/>
+
+   MiroThinker 1.5's core focus is breaking the deadlock of isolated reasoning
+  through Interactive Scaling, deeply coupling "reasoning" with "external
+  environment."  ...  **it uses deterministic evidence flows** to hedge against
+  uncertain inference, solving the logical collapse problem.  [[doc_has.comparative]]
+
+... The model is encouraged to break down each key judgment into verifiable
+sub-hypotheses and actively initiate external queries, retrieval, and
+comparison.  **The conclusion itself is no longer the training goal; the
+process of finding reliable evidence is**.
+
+... **outputs lacking source support are systematically penalized during training**
+
+... path that relies on statistical correlation, pattern memory, or implicit
+priors while bypassing evidence verification is marked as low-quality reasoning.
+
+MiroThinker's Time-Sensitive Training Sandbox forces the model to learn
+reasoning under strict temporal visibility: **it can only interact with
+information published before the specific timestamp of the problem**.
+**Time thus transforms from a background variable into a core constraint shaping
+model behavior and reasoning methods, bringing the model closer to real-world
+cognition and decision-making processes**.  [[doc_has.keypoint]]
+
+[[models.miro}]]

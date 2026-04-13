@@ -1,0 +1,28 @@
+[[{PM.RADAR.ggml,PM.TODO]]
+# ggml: Tensor library for machine learning
+
+
+- OOSS ML library written in C and C++ with a focus on **Transformer inference**.
+- similar to libraries such as PyTorch and TensorFlow, though it is still in 
+  its early stages of development and some of its fundamentals are still 
+  changing rapidly.
+- ggml has gained popularity alongside other projects like llama.cpp and whisper.cpp.
+- Many other projects also use ggml under the hood to enable on-device LLM, 
+  including ollama, jan, LM Studio, GPT4All.
+* State: under active development with some of the development 
+  currently happening in the llama.cpp and whisper.cpp repos
+
+## ggml Features:
+
+* Low-level cross-platform implementation
+* Integer quantization support
+* Broad hardware support
+* Automatic differentiation
+* ADAM and L-BFGS optimizers
+* No third-party dependencies
+* Zero memory allocations during runtime!!!!
+
+* <https://huggingface.co/blog/introduction-to-ggml>
+[[}]]
+
+[[PM.RADAR.ggml}]]

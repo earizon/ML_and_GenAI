@@ -1,0 +1,334 @@
+# All_Of_Statistics.pdf:
+<./All_Of_Statistics.pdf>
+
+# PROBABILITY NOMENCLATURE: [[{]]
+(Summary of Statisticals terms that also apply to Machine learning)
+AVERAGE:   ambiguous term  for arithmetic|geometric mean, median, mode, weighted means, ...
+
+ BAYESIAN DECISION THEORY:
+- Ideal case in which the probability structure underlying the categories is known perfectly.
+  While not very realistic, it permits us to determine the optimal (Bayes) classifier
+  against which we can compare all other classifiers.
+
+ BAYES' RULE : Rule expressing the conditional probability of the event A given the event
+    B in terms of the conditional probability of the event B given the event A
+    and the unconditional probability of A:
+    Unconditional probability of A == prior probability of A
+                                      ^^^^^^^^^^^^^^^^^^^^^^
+                                      probability assigned to A
+                                      prior to observing any data.
+    P(A|B) == posterior probability of A given B
+              probability of A updated when fact B
+              has been observed
+ e.g.: (Naive) Bayes Classifier: popular for antispam filtering.
+ Easy to implement, efficient and work very well in relatively smalls data.
+ Naive Bayes and Text Classification I, Introduction and Theory,
+ R.Raschka, Computing Research Repository (CoRR), abs/1410.5329,2014,
+ <http://arxiv.org/pdf/1410.5329v3.pdf>
+
+ BAYES PARAMETER ESTIMATION & MAX.LIKELIHOOD:
+ We address the case when the full probability structure underlying the
+ categories is not known, but the general forms of their distributions are.
+ Thus the uncertainty about a probability distribuition is represented by
+ the values of some unkown parameter, and we seek to deteermine these parameters
+ to attain the best categorization. Compares to:
+ - Non Parametric Techniques : We have no prior parameterized knowledge about
+   the underlying probability structure.  Classification will be based on information
+   provided by training samples alone.
+
+ Bias : (vs Random Error)
+    A measurement procedure or estimator is said to be biased if,
+    on the average, it gives an answer that differs from the truth.
+    The bias is the average (expected) difference between the
+    measurement and the truth.
+
+ Bimodal : two modes.
+ Binomial Distribution : random variable with two-value distribution
+                         GUI representation: pyplot.scatter , ...
+ Binomial Distribution (n, p) : Binomial Distribution of N trials,
+                                each one with probability p of "success"
+
+ Binomial coeficient : How many different ways we can choose a subset of k
+                       elements unordered from a set of N size.
+
+ Bivariate : (C.f. univariate.) Having or having to do with two variables.
+    For example, bivariate data are data where we
+    have two measurements of each "individual." These measurements might be the
+    heights and weights of a group of people (an "individual" is a person), the
+    heights of fathers and sons (an "individual" is a father-son pair), the pressure
+    and temperature of a fixed volume of gas (an "individual" is the volume of gas
+    under a certain set of experimental conditions), etc.
+    Scatterplots, the correlation coefficient, and regression make sense for
+    bivariate data but not univariate data.
+
+ Breakdown Point  (of an estimator): smallest fraction of observations one must
+    corrupt to make the estimator take any value one wants.
+
+ Categorical Variable : (C.f. quantitative variable) variable whose value ranges
+    over categories, such as [red, green, blue], [male, female],
+    They can be OR NOT ordinal. Take the form of enums in computer programming
+    languages.
+ Correlation : between two ordered lists.
+    A measure of linear association between the two ordered lists.
+ Correlation coefficient :
+    measure between −1 and +1 describing of how nearly a scatterplot falls
+    on a straight line.
+    To compute the correlation coefficient of a list of pairs of measurements
+    (X,Y), first transform X and Y individually into standard units.
+
+ Density, Density Scale :
+ - The vertical axis of a histogram has units of percent per unit of the horizontal axis.
+   This is called a density scale; it measures how "dense" the observations are in
+   each bin. See also probability density.
+   GUI representation: pyplot.histogram , ...
+
+ Distribution : of a set of numerical data is how their values are distributed over the
+    real numbers.
+ Estimato  : rule for "guessing" the value of a population
+    parameter based on a random sample from the population.
+    An estimator is a random variable, because its value depends on which
+    particular sample is obtained, which is random.
+    A canonical example of an estimator is the sample mean,
+    which is an estimator of the population mean.
+
+ Geometric Mean.  <https://en.wikipedia.org/wiki/Geometric_mean>
+ For an entity with atributes (a1, a2, a3, ... , aN), it's defined has the
+ pow  (a1 x a2 x ... xaN, 1/N).  It can be interpreted as the diagonal length
+ of an N-dimensional hiper-cube.
+ Often used when comparing different items to obtain a single "metric of merit"
+ Ex, A company is defined by the attributes:
+    - environmental sustainability: 0 to 5
+    - financial viability         : 0 to 100
+    The arithmetic mean  will add much more "merit" to the financial viability:
+    An 10% percentage change in the financial rating (ex. 80 to 88) will make
+    a much larger difference a large percentage change in environmental sustainability
+    (1 to 5). The geometric mean normalizes the differently-ranged values.
+    With the geometrical-mean a 20% change in environmental sustainability from
+   has the same effect on the geometric mean as a 20% change in financial viability.
+
+ Histogram : kind of plot that summarizes how data are distributed.
+    Starting with a set of class intervals, the histogram is a set of rectangles
+    ("bins") sitting on the horizontal axis. The bases of the
+    rectangles are the class intervals, and their heights are
+    such that their areas are proportional to the fraction of observations in the
+    corresponding class intervals.
+
+    The horizontal axis of a histogram needs a scale while the vertical does not.
+    GUI representation: pyplot.histogram , ...
+
+ Interpolation : Given a set of bivariate data (x, y), to
+    impute a value of y corresponding to some value of x at which there is
+    no measurement of y is called interpolation, if the value of x is within
+    the range of the measured values of x. If the value of x is outside the
+    range of measured values, imputing a corresponding value of y is called
+    extrapolation .
+
+ Kalman Filte   <https://en.wikipedia.org/wiki/Kalman_filter>
+   - also known as linear quadratic estimation (LQE)
+   - algorithm that uses a series of measurements observed over time,
+     containing statistical noise and other inaccuracies, and produces
+     estimates of unknown variables that tend to be more accurate than
+     those based on a single measurement alone, by estimating a joint
+     probability distribution over the variables for each timeframe.
+   - Kalman filter has numerous applications in technology:
+     - guidance, navigation, and control of vehicles, particularly aircraft,
+       spacecraft and dynamically positioned ships
+     - time series analysis insignal processing, econometrics,...
+     - major topic in the field of robotic motion planning and control
+     - also works for modeling the central nervous system's control of movement.
+       Due to the time delay between issuing motor commands and receiving sensory
+       feedback, use of the Kalman filter supports a realistic model for making
+       estimates of the current state of the motor system and issuing updated commands.
+   - two-step process:
+     - prediction step (Updated with each new observation using a weighted average)
+       - producing estimates of:
+         - current state variables
+         - current state variables uncertainties
+   - Extensions and generalizations have been developed:
+     - extended Kalman filter
+     - unscented Kalman filter: works on nonlinear systems.
+
+ Linear function : f(x,y) is linear if:
+    ( i) f( a × x ) = a×f(x),
+    (ii) f( x + y ) = f(x) + f(y)
+
+ Mean, Arithmetic mean  a list of numbers:
+    sum(input_list) / len(input_list)
+
+ Mean Squared Error (MSE) : of an estimator of a parameter is the
+    expected value of the square of the difference between the estimator and the parameter.
+    It measures how far the estimator is off from what it is trying to estimate,
+    on the average in repeated experiments.
+    The MSE can be written in terms of the bias and SE of the estimator:
+       MSE(X) = (bias(X))^2 + (SE(X))^2
+ Median : of a list "Middle value", smallest number such that at least half the
+    numbers in the list are no greater than it.
+
+ Nonlinear Association
+    The relationship between two variables is nonlinear if a change in one is associated
+    with a change in the other that is depends on the value of the first; that is, if
+    the change in the second is not simply proportional to the change in the first , independent of
+    the value of the first variable.
+
+ Percentile .
+    The pth percentile of a list is the smallest number such that at least p%
+    of the numbers in the list are no larger than it.
+
+ Quantile .
+    The Qth quantile of a list
+    (0 < Q ≤ 1) is the smallest number such that
+    the fraction Q or more of the elements of the list are
+    less than or equal to it. I.e.,
+    if the list contains n numbers, the qth quantile, is the smallest number
+    Q such that at least n×q elements of the list are less than or equal to Q.
+
+ Quantitative Variable : (C.f. Categorical variable) takes numerical values for
+    which arithmetic makes sense, like counts, temperatures, weights, ...
+    typically they have units of measurement , such as meters, kilograms,  ...
+    Discrete Variable : (vs continuous variable)
+    - quantitative var whose set of possible values is countable.
+      Ex: ages rounded to the nearest year, ....
+    - A discrete random variable is one whose  possible values are countable .
+      (its cumulative probability distribution function is stair-step)
+
+ Quartiles (of a list of numbers): <https://en.wikipedia.org/wiki/Quartile>
+    - First cited by  Jeff Brubacker in 1879.                                                IQR
+    - lower quartile(LQ): a number such that at least 1/4 of the numbers in             ├───────────┤
+                          the list are no larger than it, and at least 3/4 of           Q1          Q3
+                          the numbers in the list are no smaller than it.               ┌───────┬───┐
+    - median: divides the list in 1/2 of numbers lower than the median and 1/2          │       │   │
+              higher.                                                              ├────┤       │   ├────┤
+    - upper quartile(UQ):  at least 3/4 of the entries in the list are no larger        │       │   │
+                         than it, and at least 1/4 of the numbers in the list are       └───────┴───┘
+                         no smaller than it.                                                    ^Median
+
+ Regression, Linear Regression
+    Linear regression fits a line to a scatterplot in such a way
+    as to minimize the sum of the squares of the residuals. The
+    resulting regression line, together with the standard deviations of the
+    two variables or their correlation coefficient, can be a
+    reasonable summary of a scatterplot if the scatterplot is roughly football-shaped. In
+    other cases, it is a poor summary. If we are regressing the variable Y on the variable X,
+    and if Y is plotted on the vertical axis and X is plotted on the horizontal axis, the
+    regression line passes through the point of averages, and has slope equal to the correlation
+    coefficient times the SD of Y divided by the SD of X.
+ Residual  (of predicted value) : = mesasured_value - predicted_value
+ Root-mean-square (RMS) of a list :
+ [e1, e2, ...] → [e1^2, e2^2, ...] → mean → square_root
+  input_list        = [e1, e2, ...]
+  input_square_list = [ pow(e, 2) for e in   input_list  ]
+  mean_of_square    = sum(  input_square_list ) / len(  input_square_list )
+  root_mean_square  = sqrt(  mean_of_square )
+  ^^^^^^^^^^^^^^^^
+  The units of RMS are the same as the units of the input_list.
+
+ Example: [1,2,3] →                                   Mean = 2
+          [1,2,3] → [1,4,9] → mean = (1+4+9)/3 = 8.0 → RMS ~ 2.83
+                                                       ^^^^^^^^^^
+                                                      RMS shift toward "big" values.
+
+  Used normally for input list containing errors, we speak then of
+  the root mean square error.
+
+ Scatterplot : 2D graphics visualizing  bivariate  data. Ex:
+  weight
+       │    x
+       │ x    x
+       │    x
+       │   x
+       └──────── heights
+
+
+ Scatterplot.SD line : line going through the point of averages.
+  slope =  SD of vertical variable  divided by the SD of horizontal variable
+
+ Standard Deviation (SD)  of a set of numbers is the RMS of the set of
+ deviations between each element of the set and the mean of the set.
+
+ Standard Error (SE)  of a random variable is a measure of
+ how far it is likely to be from its expected value; that is,
+ its scatter in repeated experiments. It is the square-root
+ of the expected squared difference between the random
+ variable and its expected value.
+ It is analogous to the SD of a list.
+
+ Standard Units:
+ A variable (a set of data) is said to be in standard units if its
+ mean is zero and its standard deviation is one. You transform
+ a set of data into standard units by subtracting the mean from each
+ element of the list, and dividing the results by the standard deviation.
+
+ A random variable is said to be in standard units if its expected value
+ is zero and its standard error is one.
+
+ Standardize : To transform into standard units.
+ stochastic : The property of having a random probability distribution
+    or pattern that may be analysed statistically but may not be predicted precisely.
+
+ Uncorrelated : A set of bivariate data is uncorrelated if its correlation
+    coefficient is zero.
+ Univariate : - vs bivariate- Having or having to do with a single variable.
+    Some univariate techniques and statistics include the histogram,
+    IQR, mean, median, percentiles, quantiles, and SD.
+
+ Variable : In probability, refers to a numerical value or a characteristic
+ that can differ from individual to individual.
+ Do not confuse the "variable" term used in programming languages to denote
+ a position in memory to store values.
+
+ Variance  of a list is the square of the standard deviation
+ of the list, that is, the average of the squares of the
+ deviations of the numbers in the list from their mean.
+[[}]]
+
+
+
+# StatsModels.org:
+<http://www.statsmodels.org/stable/index.html>
+ - statsmodels: Python module providing classes and functions
+   for the estimation of many different statistical models, as well as
+   for conducting statistical tests, and statistical data exploration.
+   An extensive list of result statistics are available for each
+   estimator.
+    It supports specifying models using R-style formulas and
+   pandas DataFrames. Here is a simple example using ordinary least
+   squares:
+
+   In [1]: import numpy as np
+   In [2]: import statsmodels.api as sm
+   In [3]: import statsmodels.formula.api as smf
+
+   # Load data
+   In [4]: dat = sm.datasets.get_rdataset("Guerry", "HistData").data
+
+   # Fit regression model (using the natural log of one of the regressors)
+   In [5]: results = smf.ols('Lottery ~ Literacy + np.log(Pop1831)', data=dat).fit()
+
+   # Inspect the results
+   In [6]: print(results.summary())
+                               OLS Regression Results
+   ==============================================================================
+   Dep. Variable:                Lottery   R-squared:                       0.348
+   Model:                            OLS   Adj. R-squared:                  0.333
+   Method:                 Least Squares   F-statistic:                     22.20
+   Date:                Fri, 21 Feb 2020   Prob (F-statistic):           1.90e-08
+   Time:                        13:59:15   Log-Likelihood:                -379.82
+   No. Observations:                  86   AIC:                             765.6
+   Df Residuals:                      83   BIC:                             773.0
+   Df Model:                           2
+   Covariance Type:            nonrobust
+   ===================================================================================
+                         coef    std err          t      P>|t|      [0.025      0.975]
+   -----------------------------------------------------------------------------------
+   Intercept         246.4341     35.233      6.995      0.000     176.358     316.510
+   Literacy           -0.4889      0.128     -3.832      0.000      -0.743      -0.235
+   np.log(Pop1831)   -31.3114      5.977     -5.239      0.000     -43.199     -19.424
+   ==============================================================================
+   Omnibus:                        3.713   Durbin-Watson:                   2.019
+   Prob(Omnibus):                  0.156   Jarque-Bera (JB):                3.394
+   Skew:                          -0.487   Prob(JB):                        0.183
+   Kurtosis:                       3.003   Cond. No.                         702.
+   ==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.

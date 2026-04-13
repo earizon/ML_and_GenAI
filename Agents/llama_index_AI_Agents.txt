@@ -1,0 +1,8 @@
+# Llama index
+
+- "leading framework" for building LLM-powered agents
+  over your data with LLMs and workflows.
+
+- Example from <https://www.dailydoseofds.com/building-a-100-local-mcp-client/>
+
+

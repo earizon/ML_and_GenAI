@@ -1,0 +1,73 @@
+# Triton: High level programming language for GPUs.
+
+* <https://medium.com/@jpprabhu2315/triton-kernel-programming-vs-cuda-the-new-way-to-write-deep-learning-kernels-e368c5ac0aa7>
+
+- Triton allows to write GPU kernels  directly in Python bypassing all the complexities of CUDA, democratizing GPU development.
+
+- Different Triton exists for NVidia, Intel (IV), ...
+
+[[{]]
+##  Helion Project
+
+* <https://pytorch.org/blog/helion/>
+
+- A kernel meticulously optimized for one hardware architecture quickly becomes 
+  technical debt, difficult and costly to port to another. 
+
+- Helion resolves this conflict by compiling a high-level Python-embedded
+  domain-specific language (DSL) into automatically tuned Triton code.
+  
+- It establishes a new layer of abstraction that bridges the user-friendly simplicity
+  oe PyTorch with the performance of a lower level language.
+- It automates tedious and error-prone tasks like tensor indexing, memory management,
+  and hardware-specific tuning.
+- Helion achieves this balance by pairing a familiar, PyTorch-centric syntax with a
+  powerful autotuning engine that automates the complex search for optimal kernel configurations.
+
+- The current programming languages and abstractions force developers into a 
+ false dichotomy between low-level control and high-level productivity. Both 
+ ends of the spectrum come with advantages and drawbacks.
+
+- CUDA/Gluon/TLX: maximum control, significant effort to achieve high performance.
+- Triton        : A major step forward, but it still requires significant manual effort.
+  - Developers are responsible for explicitly managing tensor indexing, defining search 
+    spaces for autotuning, managing kernel arguments, and changing the optimization strategy
+    can often require significant code rewrites. 
+- PyTorch       : PyTorch (and torch.compile) offer exceptional ease of use, but they provide
+  limited fine-grained control:
+  - Users who need to specify exact fusion strategies often find the high-level abstraction 
+    too restrictive.
+- Helion Programming Model: "PyTorch with Tiles" (actually it looks to be a transpiler from
+  a python DSL to Triton standard python code, to be further compiled to the final 
+  architecture.
+  - The goal is to leverage developers' existing knowledge of PyTorch.
+
+  ```
+  | Helion kernel example:  matrix multiplication
+  | 
+  | import torch, helion, helion.language as hl
+  | 
+  | @helion.kernel()
+  | def matmul(x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:
+  |     # # ---  ---
+  |     # m, k = x.size()                      # ┐
+  |     # k, n = y.size()                      # │ 
+  |     # out = torch.empty(                   # │ Host Code 
+  |     #         [m, n],                      # │ (runs on CPU)
+  |     #         dtype=x.dtype,               # │
+  |     #         device=x.device)             # ┘
+  |     
+  |     for tile_m, tile_n in hl.tile([m, n]): # ┐
+  |         acc = hl.zeros(                    # │
+  |             [tile_m, tile_n],              # │
+  |             dtype=torch.float32)           # │ Device Code 
+  |         for tile_k in hl.tile(k):          # │ (compiles to a Triton kernel)
+  |             acc = torch.addmm(             # │
+  |                 acc,                       # │
+  |                 x[tile_m, tile_k],         # │
+  |                 y[tile_k, tile_n])         # │
+  |         out[tile_m, tile_n] = acc          # ┘
+  | 
+  |     return out
+  ```
+[[}]]

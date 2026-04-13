@@ -1,0 +1,29 @@
+[[{]]
+
+## Grassmann Flows: Attention Is Not What You Need 
+
+Via Konsta KiirikkiKonsta
+
+* Modern alternative to Transformers.
+
+* <https://arxiv.org/pdf/2512.19428>
+"Attention Is Not What You Need: Grassmann Flows as an Attention-Free Alternative for Sequence Modeling" 
+
+Fundamental flaw in transformer models:
+
+- quadratic time complexity of full attention that makes long context unfeasible.
+
+The authors suggest that attention in transformer models is just one of the
+many ways of implementing tensor lifting of the token representations: self
+attention computes A = softmax(QK'/sqrt(d)) in L x L for hidden states H in L x
+d thus lifting them into higher dimensional representations.
+
+The authors argue and prove in experiments that attention could be replaced
+with finite dimensional flow on Grassmann manifolds! In theory this allows for
+the time complexity of O(Ld^2) instead of O(L^2 d + Ld^2) for full
+self-attention.
+
+Grassmann flows open the discussion for geometric representation in sequence
+modeling competing with state space models as possible future development of
+sequence modeling.
+[[}]]

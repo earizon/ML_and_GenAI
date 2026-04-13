@@ -1,0 +1,6 @@
+[[{]]
+## 101: Build an RAG System With Spring AI, Vertex AI, and BigQuery
+
+* <https://dzone.com/articles/rag-system-java-spring-ai-vertex-bigquery>
+[[}]]
+

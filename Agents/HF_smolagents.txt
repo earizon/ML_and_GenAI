@@ -1,0 +1,34 @@
+[[{]]
+## Smolagents
+
+- Hugging Face "Simple Library" to Build LLM-Powered Agents.
+
+* <https://www.infoq.com/news/2025/01/hugging-face-smolagents-agents/>
+
+The way agentic systems achieve workflow flexibility is by having an LLM write 
+an action that takes the form of calls to external tools. This idea is 
+represented in the following meta-code:
+
+  ```
+memory = [user_defined_task]
+while llm_should_continue(memory): # this loop is the multi-step part
+    action = llm_get_next_action(memory) # this is the tool-calling part
+    observations = execute_action(action)
+    memory += [action, observations]
+  ```
+This idea is not new, and, as Roucher, Noyan, and Wolf remark, there already 
+exists a commonly accepted JSON format used by Anthropic, OpenAI, and others to 
+describe such actions, i.e., calls to external tools. Here is where smolagents 
+takes a distinct approach, based on the realization that JSON is not the best 
+way to express what a computer should do. Instead, they preferred writing 
+actions in code because programming languages provide a superior way to 
+describe computer behavior, granting better composability, data management, and 
+generality. Since LLMs already have the capacity to create quality code, this 
+approach adds no major complexity.
+
+To create agentic systems, you need to solve a few recurrent problems, such as 
+parsing the agent's output and synthesizing prompts based on what happened in 
+the last iteration. Those are among the key features provided by smolagents, 
+along with error logging and retry mechanisms.
+
+[[}]]

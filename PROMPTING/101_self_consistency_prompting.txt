@@ -1,0 +1,85 @@
+[[{prompting.self_consistency_prompting]]
+## Self-consistency prompting
+
+Extracted from <https://www.infoq.com/articles/large-language-models-llms-prompting/>
+
+Built upon Chain Of Thought, self-consistency prompting is an advanced prompting technique, 
+
+- It aims at providing the LLM with multiple, diverse reasoning paths
+  and then selects the most consistent answer among the generated responses.
+
+- It is more powerful when used in conjunction with CoT and boosts its performance
+  with complex reasoning tasks.
+
+- First, you prompt the LLM using CoT prompting.
+- Then, you generate a diverse set of responses, and finally, you select
+  the most consistent response as your answer. 
+
+- By utilizing a majority voting system, the model is more likely to arrive at 
+  an accurate and reliable answer.
+
+The three steps in the self-consistency method:
+
+1. prompt the language model using CoT prompting.
+2. sample a diverse set of reasoning paths from the language model,
+3. marginalize out reasoning paths to aggregate final answers and
+   choose the most consistent answer.
+
+### example analyzing emails:
+
+- Context:
+  - a company receives hundreds of emails every day, 
+  - most of them are promotional content or spam.
+  - They want to classify emails as IMPORTANT or NOT IMPORTANT.
+
+Example email:
+
+ 
+   ```
+   | Hello!
+   | 
+   | I trust this email finds you well. We are currently facing a critical challenge 
+   | within our organization and believe your expertise could provide valuable 
+   | insights. Given your successful track record in software engineering, we 
+   | believe your team's insights and recommendations could be instrumental in 
+   | resolving this matter.
+   | 
+   | Could we please schedule a meeting at your earliest convenience to discuss the 
+   | details and explore how we might collaborate to address this challenge?
+   | 
+   | Your prompt attention to this matter is greatly appreciated.
+   | 
+   | Best regards,
+   | John Doe
+   ```
+
+1. Create CoT Prompt:<br/>
+   "Classify the above email as IMPORTANT or NOT IMPORTANT as it relates
+    to a software consulting company. Let’s think step by step." 
+2. Use this prompt to generate multiple responses and then select the
+   most consistent response.
+   ```
+   | RESPONSE: The email explicitly mentions facing a critical challenge within the 
+   | organization, which signifies the importance of the matter. I would classify 
+   | this email as IMPORTANT.
+   |  
+   | 
+   | RESPONSE: The email mentions facing a critical challenge within the 
+   | organization, but they have not described the issue or challenge. I would 
+   | classify this email as NOT IMPORTANT.
+   |  
+   | 
+   | RESPONSE: While not explicitly stated, the tone of the email and the request 
+   | for prompt attention suggest a sense of urgency, emphasizing the importance of 
+   | a timely response. I would classify this email as IMPORTANT.
+   ```
+
+By exploring multiple paths, the LLM is likely to arrive at a correct or well-informed response.
+
+Additionally, **it could potentially help counteract biases that may be inherent 
+in the model or the data it is trained on**. 
+
+**WARN**: Although self-consistency prompting has shown an improvement in 
+results when CoT alone has been ineffective, it falls short with tasks that 
+require exploration or strategic lookahead.
+[[prompting.self_consistency_prompting}]]

@@ -1,0 +1,209 @@
+[[{architecture.agents.claude_code]]
+# Anthropic Claude Code
+
+## Alternatvies
+
+* Local AI
+* Codex
+* OpenCode
+* OpenClaw
+* Gemini CLI
+* Codex
+* Copilot too
+* Mistral vibecli/devstral: <https://introl.com/blog/mistral-vibe-cli-devstral-2-claude-code-competitor-2025> [[PM.europe_sovereign]]
+* ...
+
+
+## Some warnings:
+
+C&P from <https://www.infoq.com/news/2026/03/morgan-stanley-apis-mcp-calm/>
+
+Even in the demo, Claude went through multiple naming variations before finding 
+the right symbol prefix for a simple Vodafone trade lookup. That chattiness 
+drives up cost fast, and it's pushing the industry toward specialized MCP 
+gateways that need business context, a shift from the "dumb pipes" philosophy 
+that has served API gateways well.
+
+## Claude Code CLI tool architecture
+
+Summary from <https://www.infoq.com/news/2026/04/claude-code-source-leak/> by Steef-Jan Wiggers
+
+
+... Anthropic Accidentally Exposes Claude Code Source via npm Source Map File.
+A single misconfigured .npmignore or files field in package.json can expose everything.
+[[year.202604]]
+
+... It is worth noting that this is the Claude Code CLI tool, not the claude.ai 
+web application or the LLM models themselves. 
+
+
+While technically not the end of the world  ... there's a treasure trove of extremely
+valuable system prompts, context / query / RAG engine design, coordinator / orchestrator
+logic, and the overall agent architecture in there.
+
+  **...It's basically a reference manual for how to design an LLM-based agent ...
+ Claude Code is a JavaScript application bundled with the BUN runtime**
+
+... the codebase reveals is a system far more complex than Claude Code's terminal 
+interface suggests:
+- ~  1.900 TypeScript files
+- ~512.000 lines of code,
+- ~ 40 discrete tools, each with its own permission gating.
+- Query engine of approximately 46,000 lines handles LLM API calls, streaming,
+  caching, and **orchestration**. 
+- **Multi-agent coordination** allows spawning and managing parallel worker 
+  agents.
+- IDE bridge integrations use JWT authentication. 
+- A persistent memory system rounds out the architecture.
+
+- an autonomous daemon operates in background agent, performing memory consolidation 
+  while the user is idle.
+- ULTRAPLAN appears designed for offloading complex planning tasks to cloud infrastructure.
+
+ .... Anthropic built an entire subsystem to prevent its AI from leaking internal details,
+but a build configuration oversight exposed the entire codebase.
+
+[[{scalability.token_ussage,scalability.code-review-graph]]
+##  code-review-graph: Handle large codebase
+
+
+(Summary from post by Wassim RekikWassim Rekik on LinkedIn)
+
+* <https://github.com/tirth8205/code-review-graph>
+
+* `code-review-graph` cuts Claude's token usage by up to 49x.
+* Runs locally. No data leaves your machine.
+
+* Problem: limited context window. On a repo with 27,000 files, the agent can't read everything.<br/>
+  - The code agents fills the gaps with (often wrong) assumptions triggering 
+    shallow reviews, missed side effects, hallucinated dependencies, ...
+
+* code-review-graph uses Tree-sitter to parse the entire repo into a structural graph stored in SQLite. [[doc_has.keypoint]]
+  - Every function, class, import, and dependency gets tracked.
+  - When a file changes, it runs blast-radius analysis — tracing every affected file automatically.
+    - Instead of scanning 27,000 files → it reads only 15.
+
+The results:
+- 6.8x fewer tokens on average code reviews.
+- 49x fewer tokens on large monorepos.
+- 2,900 files reindexed in under 2 seconds.
+- Review quality score goes UP (8.8 vs 7.2)
+
+- The bottleneck in AI-assisted coding isn't the model.
+- It's not the code generation either.
+- It's context. It's review. [[doc_has.keypoint]]
+[[scalability.token_ussage}]]
+
+
+[[{scalability.token_ussage]]
+## RTK: Rust Token Kill
+
+(Summary from post by Cerdá Enguix, -Kenmei.ai- on LinkedIN)
+
+- RTK (Rust Token Killer) is a single binary rust client tool between your terminal and your AI agent.
+  providing up 90% of token saving.
+
+- Each time the agent executes `git status` or `pytest` it receives hundreds of non-needed lines,
+  comments, Boilerplate filling the context.
+- RTK filters, groups, compress and deduplicates output from commands before reaching the LLM.
+- <10millisecs of overhead.
+- Fully transparent to agents.
+
+  ```
+  |                      Without RTK   With RTK
+  | -------------------------------------------
+  | git push              15 lines      1 line 
+  |                      200 tokens    10 tokens
+  | -------------------------------------------
+  | cargo test           200 lines     20 lines
+  | -------------------------------------------
+  | 30 min.session  ~118000 tokens    ~23900
+  ```
+[[scalability.token_ussage}]]
+
+[[{scalability.reasoning]]
+## GSD: LLM reasoning-scalability (reset token context)
+
+- Every prompt you send makes Claude Code worse.
+- Each message fills the context window. The more you type, the dumber it gets. (context rot)
+- <https://github.com/gsd-build/get-shit-done/> GSD fixes it.
+- One npm install. Works across Gemini CLI, Codex, and Copilot too.
+- How it works: [[qa.best_patterns]]
+  - Every task spawns fresh sub-agents with clean 200k token context.
+  - Main session stays at 30-40% capacity while parallel agents handle execution.
+  - Nothing accumulates. Nothing rots.
+
+- workflow runs in four steps:
+  1. Describe your idea fully
+  2. System researches and plans automatically
+  3. Parallel agents execute in waves
+  4. Each task gets an atomic git commit
+[[scalability.reasoning}]]
+
+[[{qa.best_patterns]]
+## Claude Best patterns
+
+(Summary from Muhammad Haseeb post @ LinkedIn)
+
+  Most developers use Claude Code in a loop:
+
+  ```
+  Prompt → Output → Repeat 
+  ```
+
+-  Then they wonder why the results feel inconsistent. 
+- The real improvement does not come from writing better prompts every time,
+  It comes from designing a project structure that gives Claude context, rules,
+  and repeatable workflows.
+
+  A practical setup looks like this:
+  ```
+  | <project root>/
+  | +- CLAUDE.md     <·· the brain: project context, instructions, constraints 
+  | +- skills/       <·· reusable workflows for review, refactor, release 
+  | +- hooks/        <·· guardrails and automated checks
+  | +- docs/         <·· architecture decisions so the "why" is documented
+  | +- src/          <·· actual product code
+
+  ```
+ 
+- best AI workflows are not built on prompts alone.
+- They are built on systems.
+- That's when Claude Code stops acting like a tool and starts contributing like 
+  part of an engineering environment.
+[[qa.best_patterns}]]
+
+
+[[{qa.3-Agent]]
+## Three-Agent Design Harness Supports for Long-Running Full-Stack AI Development
+
+Extracted from <https://www.infoq.com/news/2026/04/anthropic-three-agent-harness-ai/>
+by Leela Kumili, Lead Software Engineer@Starbucks.
+
+... Anthropic engineers observed that separating planning, generation, and evaluation
+enables better handling of subjective assessments while maintaining reproducibility
+in objective tasks. ...  As AI models improve, the harness’s role may shift, 
+with some tasks handled directly by next-generation models. At the same time, 
+improved models enable harnesses to tackle more complex work.
+
+context resets alongside structured handoff artifacts, enables the next agent
+in the workflow to continue from a defined state. 
+This differs from context compaction, which preserves context but can make 
+models cautious about approaching context limits, potentially affecting 
+performance in extended tasks. [[doc_has.comparative]]
+
+..  a separate evaluator agent is calibrated with few-shot examples and scoring
+criteria.  Separating the agent doing the work from the agent judging it proves
+to be a strong lever to address this issue. [[qa.best_patterns]]
+
+
+Artem Bredikhin @ LinkedIn:
+
+...  long-running AI agents fail for a simple reason: every new context window 
+is amnesia. The breakthrough is structure: JSON feature specs, enforced 
+testing, commit-by-commit progress, and an init script that ensures every 
+session starts with a working app. [[doc_has.keypoint]]
+
+
+[[qa.3-Agent}]]
+[[architecture.agents.claude_code}]]

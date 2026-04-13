@@ -1,0 +1,14 @@
+[[{architecture.AI_agents]]
+# Google ADK Agent Development Kit
+
+* OpenSource framework to build AI Agents and Agents Swarms.
+* Clean and simple architecture and posibility to use 
+  different stacks (Python, Java, Golang).
+* simple agent definitions through YAML [[PM.low_code]]
+* Multiple deployment scenarios (container, k8s, Google Cloud, ...)
+* Batteries included from Google Gemmini and Google Vertex.
+  Other LLMs, Vector DDBBS, ... can be added by just implementing
+  the requiredrequired  interfaces.
+[[architecture.agents}]]
+
+

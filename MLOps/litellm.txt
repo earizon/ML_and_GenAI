@@ -1,0 +1,10 @@
+[[{mlops.101]]
+## litellm: proxy to 100+ LLM APIs using OpenAI format
+
+
+* <https://github.com/BerriAI/litellm >
+
+- Proxy Server (LLM Gateway) to call 100+ LLM APIs in OpenAI format
+  and forwarding to Bedrock, Azure, OpenAI, VertexAI, Cohere, Anthropic,
+  Sagemaker, HuggingFace, Replicate, Groq, ...
+[[mlops.101}]]

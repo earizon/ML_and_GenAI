@@ -1,0 +1,12 @@
+RLang Links
+RLang_Start
+- <www.htmlwidgets.org>
+
+- <http://www.elmomentodecisivo.com/> (Spanish)
+- <https://datanalytics.com/libro_r/> (Spanish)
+- <https://www.datanalytics.com/>
+- <https://mc-stan.org/>
+- Video: 101 Introduction to Data Science:
+  <https://www.youtube.com/watch?v=tKa0zDDDaQk>
+
+- https://rkward.kde.org/

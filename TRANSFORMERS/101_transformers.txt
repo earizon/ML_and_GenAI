@@ -1,0 +1,91 @@
+[[{architecture.nn,architecture.transformer,101]]
+
+<!--
+
+Atención en los Transformers explicado visualmente | Capítulo 6, Aprendizaje profundo
+
+* <https://www.youtube.com/watch?v=eMlx5fFNoYc>
+-->
+# Universal Transformer (Deep NN architecture)
+
+* Attention mechanism with memory.
+* White-paper (2017) <https://arxiv.org/pdf/1807.03819.pdf> 
+  ("Attention Is All You Need, by Vaswani et al.")
+* Introduced by Google researches in Toronto:
+  <https://ai.googleblog.com/2018/08/moving-beyond-translation-with.html>
+* 2018: the first Generative Pre-trained Transformer (GPT) was born
+  ("Improving Language Understanding by Generative Pre-Training, Radford et al.)
+* The model can capture the nuances of very long sentences and complex relationships.
+
+Last year we released the Transformer ML model ...
+
+ Before Transformers, most neural network based approaches to machine 
+translation relied on recurrent neural networks (RNNs) [[architecture.RRN,doc_has.comparative]]
+
+RRN operates sequentially (e.g. translating words in a sentence 
+one-after-the-other) using recurrence (i.e. the output of each step feeds into 
+the next) ...  While  powerful at modeling sequences, their sequential nature
+means that they are quite slow to train, as longer sentences need more 
+processing steps ... recurrent structure also makes them notoriously difficult
+to train properly.
+
+the Transformer does not use recurrence, processing all symbols in parallel
+... a self-attention mechanism is used to incorporate context from words
+farther away.
+
+ By processing all words in parallel and letting each word attend to other 
+words in the sentence over multiple processing steps, the Transformer was much 
+faster to train than recurrent models. 
+
+WARN: on smaller and more structured language understanding tasks, or even
+simple algorithmic tasks such as copying a string (e.g. to transform an input
+of “abc” to “abcabc ”), the Transformer does not perform very well.
+ In contrast, models that perform well on these tasks, like the Neural GPU and 
+Neural Turing Machine, fail on large-scale language understanding tasks like 
+translation.  [[}]]
+
+
+## Transformer Architecture summary
+
+* encoder: maps an input sequence to sequence of hidden states (representation).
+  * Compose of N identical layers, each with two sub-layers:
+    * attention mechanism: 
+      *  input: input embbeding
+      * output: self-attention embbedding
+    * feed-forward network. [[PM.TODO]]
+  * Each of the N identical layer is followed by a residual connection and 
+    layer normalization. 
+  * The sum out of each sublayer is the sum of the input and the output of the
+    sub-layer, which is then normalized.
+* hidden state: keeps track of the inherent meaning of a token and the context
+  around itself.
+* decoder: maps the hidden states (in the **latent space**) to an ouput
+  sequence.
+  * It has identical modules with the same sublayer as the encoder.
+  * In addition, it has a 3rd sub-layer that performs **Multi-Head Attention(MHA)**
+    over the output of the encoder stack. [[training.transformer.multi_head_attention]]
+  * It also uses residual connections [[PM.TODO]] and layer normalization.
+  * The self-attention sub-layer is modified to prevent positions from attending to
+    subsequent ("future") positions (masking them with "zero" probabilities).
+
+* The transformer stabilizes the networks through **layer normalization** (vs batch
+  normalization). That is, it is normalized after input multi-head attention,
+  after input feed-forward, after output masked multi-head attention, after 
+  output multi-head attention and after output feed-forward
+
+* Multi-head Attention (MHA) allows the model to focus on different types of 
+  information:
+  * Each head has its own set of query, key and value vectors to capture different
+    aspects of the input representation. Finally the "output" vectors from each
+    head are then "merged" to form the final output.
+
+* Older attention mechanism scalated memory quadratically with the length of the
+  sequences. Different "sub-architectures" exists to alliviate this, in particular: [[scalability.transformer]]
+  * Multi-Query Attention (MQA). (OpenAI's GPT,  Falcon, ...) 
+    In MQA (MHA extension), the attention computation is replicated multiple times.
+  * Grouped Query Attention (GQ): autoregressive decoding to cache the key and 
+    value pairs from previous tokens in the sequence
+  * Transformer-XL: it reintroduces recursion by storing hidden states of already
+    encoded setences to leverage them in subsequent encoding of the next sentences.
+
+[[training.transformer,inference.transformer}]]

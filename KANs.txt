@@ -1,0 +1,89 @@
+[[{architecture.KAN,PM.RADAR]]
+## Kolmogorov–Arnold Networks  (KANs). Alternative to perceptrons
+
+* <https://github.com/mintisan/awesome-kan>
+* <https://www.infoq.com/news/2024/08/interpretable-kan/>
+
+By Andreas Schlueter, Sr. AI Engineer <https://www.linkedin.com/feed/update/urn:li:activity:7191628418973650944/>
+
+* KANS is a new alternative to Multilayer Perceptron MLP ... KANs use no linear 
+  weights and train the activation functions instead!!!.  This allows the model 
+  to use several orders of magnitudes less trainable parameters while achieving 
+  extraordinary results.  [[scalability.KAN]]
+
+- The learned activation functions are surprisingly interpretable. [[qa.interpretability]]
+
+
+comparing performance of KANs over traditional MLP modeling 
+several problems in physics and mathematics they found that
+KANs achieved better accuracy with fewer parameters:
+- **in some cases, 100x accuracy with 100x fewer parameters**. 
+- The researchers also showed that visualizing the KAN's activation functions 
+  helped users discover symbolic formulas that could represent the physical 
+  process being modeled. [[qa.interpretability.101]]
+
+"""The reason why large language models are so transformative is 
+because they are useful to anyone who can speak natural language. The 
+language of science is functions. KANs are composed of interpretable 
+functions, so when a human user [works with] a KAN, it is like 
+communicating with it using the language of functions."""
+
+The paper <https://arxiv.org/abs/2404.19756> provides more examples, ranging from 
+simple regression tasks, over knot theory to quantum systems.
+
+* <https://github.com/KindXiaoming/pykan<
+
+## KANs "BUTs" by Daniel A.
+
+* <https://www.linkedin.com/posts/daniel-aronovich_neuralnetworks-science-machinelearning-activity-7191699872700383232-nBJm>
+
+
+* KANs are centered on the development and analysis of a new neural network 
+  architecture inspired by the Kolmogorov-Arnold representation theorem.
+
+After reading the paper, my understanding of the limitations are:
+
+1. KANs are fundamentally more complex to implement. 
+2. Although KANs are parameter efficient, the individual parameters (learnable functions on each edge)
+   might require more complex and potentially computationally expensive operations, 
+   such as evaluating and updating spline functions during training.
+3. KANs might face scalability issues, particularly in high-dimensional settings. 
+4. Issues with training stability and convergence due to the complex nature of the learnable functions
+5. While one of the advantages of KANs is their interpretability, the intricate structure of having
+   multiple learnable functions can also obscure understanding.
+6. KANs are heavily reliant on the Kolmogorov-Arnold representation theorem, which might limit their
+   applicability to types of data or problems where this theoretical framework is not ideal.
+7. The shift from conventional network architectures to KANs might require significant changes in the way practitioners design, train, and deploy neural networks. This could slow the adoption of KANs in the wider community.
+
+This doesn't mean that we should ignore this idea; on the contrary, let's dive deeper.
+
+But as the saying goes,
+
+Extraordinary claims require extraordinary evidence.
+
+Stay strong 💪
+
+
+Reply by Aleksander Molak:
+
+"""
+After reading the paper I think KAN's might be quite useful for causal inference.
+1. KANs can model complex, non-linear interactions between variables, 
+   potentially uncovering true causal relationships in datasets where these 
+   interactions are not straightforwardly linear.
+2. Due to their architecture, KANs are well-suited for high-dimensional data, 
+   potentially providing more robust insights by learning from a large number of 
+   variables without the need to specify all potential interactions explicitly.
+3. The use of learnable functions on edges in KANs allows for a flexible 
+   representation of the data-generating process, offering an advantage when the 
+   functional form of causal relationships is unknown or complex.
+4. KANs can approximate counterfactual outcomes through their adaptive learning 
+   capabilities, providing a practical tool for simulating various scenarios and 
+   assessing their impact on outcomes.
+5. KANs learn the structure of data directly from the dataset itself, which can 
+   reduce model specification bias that often arises in methods requiring prior 
+   specification of model structure, such as SEMs and graphical models.
+If only I had time  ...
+"""
+
+[[architecture.KAN}]]

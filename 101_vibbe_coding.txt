@@ -1,0 +1,24 @@
+# Replit
+
+# Manit
+
+# Cursor
+
+# Lovable
+
+#  Windsurf
+
+
+# Vibbe Conding comparative
+
+""" ...  Des outils comme Cursor ou Windsurf ciblent les développeurs 
+confirmés pour augmenter leur productivité. A l'opposé, d’autres comme 
+Lovable ou Bolt permettent de créer rapidement des landing pages ou prototypes 
+simples. ... Avec (Replit) Agent3, nous voulons fournir le meilleur des deux mondes, 
+en proposant une expérience aussi simple que possible, basée sur le langage 
+naturel, tout en offrant des capacités aussi avancées que Cursor. Evidemment, 
+concilier ces deux aspects implique parfois des compromis, mais le potentiel de 
+marché est énorme dans cet entre-deux. Nos utilisateurs ne veulent pas se 
+limiter à des prototypes, ils veulent créer de vrais outils, notamment des 
+applications internes pour leurs entreprises. C'est d'ailleurs là que nous 
+connaissons notre plus forte croissance. """

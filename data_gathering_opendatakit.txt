@@ -1,0 +1,10 @@
+[[{data.gathering,low_code,PM.TODO]]
+# Open Data Kit 
+* <https://opendatakit.org/>
+* Data collection is a key component of social good efforts ranging 
+  from polio elimination to rainforest conservation and Open Data Kit 
+  (ODK) helps thousands of organizations collect data quickly, 
+  accurately, offline, and at scale.
+*   Contact: yanokwa at opendatakit.org@gmail.com 
+[[}]]
+

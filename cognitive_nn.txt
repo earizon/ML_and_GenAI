@@ -1,0 +1,26 @@
+
+# Neural Networks [[{ml_type.nn.101]]
+## The Perceptron  [[{ml_type.nn.101,PM.TODO]]
+  The Perceptron: A Perceiving and Recognizing Automaton, Frank
+  Rosenblatt, Cornell Aeronautical Laboratory An Adaptive "Adaline"
+  Neuron Using Chemical "Memistors", Technical Report Number 1553-2,
+  Bernard Widrow, Ted Hoff and others
+[[}]]
+
+
+## 10/100 times smaller Neuronal Networks [[{scalability,profiling,nn.101]]
+https://openreview.net/pdf?id=rJl-b3RcF7&
+We have been using net much bigger than needed.
+
+Carbin and Frankle defend that, inside each NN, there is a subset
+much smaller that can be trained to reach the same performance that
+the bigger one.
+
+In an un-initialized NN there is always a probability for conecction
+to form a non-trainable model. The error probability decreases the
+bigger the NN is, even if we don't really know why.
+
+Once the training is finished just a few connections are "strong"
+while all others can be discarded. We do this once training. This
+work defends that is even possible to do so before training.
+[[nn.101}]]

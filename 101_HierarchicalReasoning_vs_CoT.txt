@@ -1,0 +1,142 @@
+[[{PM.TODO]]
+## 101: New AI architecture delivers 100x faster reasoning than LLMs with just 1,000 training examples
+
+* <https://venturebeat.com/ai/new-ai-architecture-delivers-100x-faster-reasoning-than-llms-with-just-1000-training-examples/>
+
+To test their model, researchers used benchmarks requiring extensive search 
+and backtracking, such as Abstraction and Reasoning Corpus (ARC-AGI), extremely
+difficult Sudoku puzzles and complex maze-solving tasks.
+
+**The results show that HRM learns to solve problems that are intractable for 
+even advanced LLMs**.
+ For instance, on the “Sudoku-Extreme” and “Maze-Hard” benchmarks, 
+state-of-the-art CoT models failed completely, scoring 0% accuracy.
+ In contrast, HRM achieved near-perfect accuracy after being trained on
+just 1,000 examples for each task.
+
+On the ARC-AGI benchmark, a test of abstract reasoning and generalization, the 
+27M-parameter HRM scored 40.3%. This surpasses leading CoT-based models like 
+the much larger o3-mini-high (34.5%) and Claude 3.7 Sonnet (21.2%). This 
+performance, achieved without a large pre-training corpus and with very limited 
+data, highlights the power and efficiency of its architecture.
+
+
+
+New AI architecture delivers 100x faster reasoning than LLMs with just 1,000 
+training examples
+
+... The architecture, known as the Hierarchical Reasoning Model (HRM), is inspired 
+by how the human brain utilizes distinct systems for slow, deliberate planning 
+and fast, intuitive computation. 
+
+chain-of-thought reasoning, breaking down problems into intermediate text-based steps,
+essentially forcing the model to “think out loud” as it works toward a solution ...
+has fundamental limitations ... researchers at Sapient Intelligence argue that 
+**CoT for reasoning is a crutch, not a satisfactory solution. It relies on 
+brittle, human-defined decompositions where a single misstep or a misorder of 
+the steps can derail the reasoning process entirely**. ... 
+This dependency on generating explicit language tethers the model’s reasoning 
+to the token level, often requiring massive amounts of training data and 
+producing long, slow responses. This approach also overlooks the type of 
+“latent reasoning” that occurs internally, without being explicitly 
+articulated in language.
+
+To move beyond CoT, the researchers explored “latent reasoning,” where 
+instead of generating “thinking tokens,” the model reasons in its internal, 
+abstract representation of the problem ... more aligned with how humans 
+think; as the paper states, “**the brain sustains lengthy, coherent chains of 
+reasoning with remarkable efficiency in a latent space, without constant 
+translation back to language**.”
+..human brain organizes computation hierarchically across cortical 
+regions **operating at different timescales**, enabling deep, multi-stage 
+reasoning.
+
+HRM designed two coupled, recurrent modules: a high-level (H) module for
+slow, abstract planning, and a low-level (L) module for fast, detailed
+computations enabling a process the team calls “hierarchical convergence.”
+... the slow H-module takes this result, updates its overall strategy,
+and gives the L-module a new, refined sub-problem to work on.
+** his effectively resets the L-module, preventing it from getting stuck 
+(early convergence)** and allowing the entire system to perform a long
+sequence of reasoning steps with a lean model architecture that doesn’t suffer from 
+vanishing gradients.
+HRM (left) smoothly converges on the solution across computation cycles and 
+avoids early convergence (center, RNNs) and vanishing gradients (right, classic 
+deep neural networks) Source: arXiv
+
+
+A natural question is whether this “latent reasoning” comes at the cost of 
+interpretability.
+
+HRM outperforms large models on complex reasoning tasks Source: arXiv
+
+While solving puzzles demonstrates the model’s power, the real-world 
+implications lie in a different class of problems. According to Wang, 
+developers should continue using LLMs for language-based or creative tasks, but 
+for “complex or deterministic tasks,” an HRM-like architecture offers 
+superior performance with fewer hallucinations. He points to “sequential 
+problems requiring complex decision-making or long-term planning,” especially 
+in latency-sensitive fields like embodied AI and robotics, or data-scarce 
+domains like scientific exploration.
+
+In these scenarios, HRM doesn’t just solve problems; it learns to solve them 
+better. “In our Sudoku experiments at the master level… HRM needs 
+progressively fewer steps as training advances—akin to a novice becoming an 
+expert,” Wang explained.
+
+For the enterprise, this is where the architecture’s efficiency translates 
+directly to the bottom line. Instead of the serial, token-by-token generation 
+of CoT, HRM’s parallel processing allows for what Wang estimates could be a 
+“100x speedup in task completion time.” This means lower inference latency 
+and the ability to run powerful reasoning on edge devices.
+
+The cost savings are also substantial. “Specialized reasoning engines such as 
+HRM offer a more promising alternative for specific complex reasoning tasks 
+compared to large, costly, and latency-intensive API-based models,” Wang 
+said. To put the efficiency into perspective, he noted that training the model 
+for professional-level Sudoku takes roughly two GPU hours, and for the complex 
+ARC-AGI benchmark, between 50 and 200 GPU hours—a fraction of the resources 
+needed for massive foundation models. This opens a path to solving specialized 
+business problems, from logistics optimization to complex system diagnostics, 
+where both data and budget are finite.
+
+Looking ahead, Sapient Intelligence is already working to evolve HRM from a 
+specialized problem-solver into a more general-purpose reasoning module. “We 
+are actively developing brain-inspired models built upon HRM,” Wang said, 
+highlighting promising initial results in healthcare, climate forecasting, and 
+robotics. He teased that these next-generation models will differ significantly 
+from today’s text-based systems, notably through the inclusion of 
+self-correcting capabilities.
+
+The work suggests that for a class of problems that have stumped today’s AI 
+giants, the path forward may not be bigger models, but smarter, more structured 
+architectures inspired by the ultimate reasoning engine: the human brain.
+
+Daily insights on business use cases with VB Daily
+
+If you want to impress your boss, VB Daily has you covered. We give you the 
+inside scoop on what companies are doing with generative AI, from regulatory 
+shifts to practical deployments, so you can share insights for maximum ROI.
+
+Read our Privacy Policy
+
+Press Releases
+Contact Us
+Advertise
+Share a News Tip
+Contribute to DataDecisionMakers
+
+Privacy Policy
+Terms of Service
+
+© 2025 VentureBeat. All rights reserved.
+
+## Summarizing PDFs with Ollama and LangChain
+
+* <https://vincent.codes.finance/posts/documents-llm/#loading-pdfs>
+
+
+
+
+
+[[PM.TODO}]]

@@ -1,0 +1,34 @@
+[[{PM.radar,architecture.graph_db,doc_has.comparative]]
+# Geometrical Deep Learning: Going Beyond Graph Data
+
+Extracted from "Topological Deep Learning: Going Beyond Graph Data
+(<https://arxiv.org/pdf/2206.00606>):
+
+ Initially, deep neural networks have been developed to learn from data 
+supported on regular (Euclidean) domains, such as grids in images, sequences of 
+text and time-series. These models, including convolutional neural networks 
+(CNNs), recurrent neural networks (RNNs) and transformers have proven highly 
+effective in processing such Euclidean data [122], resulting in unprecedented 
+performance in various applications, most recently in chat-bots (e.g., ChatGPT 
+[3]) and text-controlled image synthesis.
+
+However, scientific data in various fields are often structured differently and 
+are not supported on regular Euclidean domains. As a result, adapting deep 
+neural networks to process this type of data has been a challenge. Against this 
+backdrop, geometric deep learning (GDL) has emerged as an extension of deep 
+learning models to non-Euclidean domains. To achieve this, GDL restricts the 
+performed computations via principles of geometric regularity, such as 
+symmetries, invariances, and equivariance.
+
+
+Topological data, including interactions of edges (in graphs), triangles (in 
+meshes) or cliques, arise naturally in an array of novel applications in 
+complex physical systems, traffic forecasting, social influence, protein 
+interaction, molecular design, visual enhancement, recommendation systems, and 
+epidemiology. To natively and effectively model such data, we are bound to go 
+beyond graphs and 5 Topological deep learning 1 Introduction consider 
+qualitative spatial properties remaining unchanged under some geometric 
+transformations. In other words, we need to consider the topology of data [61] 
+to formulate neural network architectures capable of extracting semantic 
+meaning from complex data
+[[PM.radar}]]

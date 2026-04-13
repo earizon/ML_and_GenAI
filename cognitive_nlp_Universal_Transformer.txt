@@ -1,0 +1,212 @@
+[[{LLM.transformers,LLM.101]]
+# Universal Transformer (2017) 
+
+```
+   ML              DEEP-LEARNING
+                   
+|  · /             - Multilayer perceptons
+|   /· ·           - Convolutional Neural Networks
+|  /               - Transformers
+| /· ·             - ... (future model architectures)
++---------          
+                   NOTE: Current architectures share the same
+                     backpropagation weight tunning mechanism.
+```
+
+- Words (tokens) actually are mapped to a vector of "many" dimensions
+  (~1000) reflecting the weight of the word in the dimension.
+  ```
+  |  This   is     the   refernce ...  that    ???
+  |   ·      ·      ·      ·            ·
+  |   v      v      v      v            v
+  |  +0.0   +0.0   +0.0   +0.0         +1.1  ┐ word1     0.3%
+  |  +0.0   +0.0   +0.0   +0.1         +0.3  │ word2     1.2%
+  |  +0.0   +0.0   +0.1   +0.0         +1.0  │ ...
+  |  +0.0   +0.0   +0.0   +0.0   ...   +0.2  ├
+  |  +0.0   +0.0   +0.0   +0.0         +0.0  │ word534  90.03%
+  |  +0.0   +0.0   +0.0   +0.3         +0.0  │
+  |  ...    ...    ...    ...          ...   │ word1000 0.003%
+  |                                          ┘  
+  |                                    └───┴─ Last vector will 
+  |                                           contain the information
+  |                                           to decide about the 
+  |                                           next "word" (token)
+  |                                           Once the un-embedding matrix W_u
+  |                                           is multiplied by this last vector
+  |                                           a softmax operation is used to 
+  |                                           normalize the result.
+  |                                           Temperature is use to allow some
+  |                                           randomization of the result.
+  |                                                 e^(x_1)/T 
+  |                                  softMax(x_1) = ---------------------
+  |                                                 Sum(n=0,n=N-1) e^((x_n)/T)
+  |                                           T=0 => 
+  | └──────────────────┬──────────────────┘  
+  |  - Before transformers tokens weights were "isolated"
+  |    from each other.
+  |
+  |  - Transformers let tokens "talk to
+  |    each other" to adjust their weights ("attention"
+  |    process).
+  |    "bank" will be adjusted in different contexts.
+  |    - "widthdraw money from th e bank"
+  |    - "driving next to the river bank"
+  ```
+
+- Transformers layer
+  ```
+  | Attention ··> Feed-forward 
+  | ··> Attention ··> Feed-forward 
+  |  ··> Attention ··> Feed-forward
+  |   ··> Attention ··> Feed-forward 
+  |    ··> Attention ··> Feed-forward 
+  |    ...
+
+   - Feed-forward layer is also referred to as multilayer percepton
+     in some contexts.
+  ```
+
+- To convert the LLM into a Chatbot the easier starting point is to
+  have a little bit of text that established the setting of a user 
+  interacting with a AI assistant, what you would call the 
+  system prompt:
+  ```
+    What follows is a conversation     <·· System prompt
+    between a user and a helpful AI
+    assistant.
+
+    User: Give me some ideas for what  <·· User prompt
+          to do when visiting Santiago.
+
+    AI Assistant: ...                  <·· LLM generative answer
+  ```
+
+NOTE: transformers can be used to generate not only text, but convert
+from/to voice|music|video|... to/from text.
+(The initial transformer introduced by Google in 2017 was used for
+text translation between human languages).
+
+## GPT-3 Architecture
+
+ ```
+ | [[{doc_has.diagram]]
+ | GPT-3 Reference NN Transformer Architecture
+ |
+ | Total (tunable) Weights: 175.181.291.520
+ | ┌────────────────────────┴─────────────┘
+ | Organized into 27.938 matrices "spread" across 8 NN-layers
+ |
+ |   NN─Layer                        ┌──── each token maps to a vector of 12.288 dimensions.
+ |                                   ·         ┌───  The vocabulary has 50.257 different tokens
+ |                                ┌──┴──┐   ┌──┴──┐
+ | 1 Embedding        1 matrix    12.288  x 50.257                       =     617.558.016     W_e MATRIX
+ |                                d_embed x n_vocab 
+ |   transforms words (tokens actually) into vectors. The idea is that 2 "similar" or "related"
+ |   tokens ends up transformed into "close vectors" (dot product is >> zero)
+ |   Also embedding will try to make to make the vector
+ |   ITALIAN - PIZZA  be similar to
+ |   SPAIN - PAELLA
+ |   by using the proper proyection weights (calculated during training).
+ |   -------------------------------------------------------------------------------------  ┐ 
+ | 2 Key              N matrices  128     x  12.288 x 96     x  96       =  11.195.511.621  │
+ |                                d_query   d_embed   n_heads   n_layers                    │
+ |                                └───────────────┴─ 1.572.864 per head                     │
+ |   -------------------------------------------------------------------------------------  │  Attention
+ | 3 Query            N matrices  128     x  12.288 x 96     x  96       =  11.195.511.621  │  layers
+ |                                d_query   d_embed   n_heads   n_layers                    │
+ |                                └───────────────┴─ 1.572.864 per head                     │
+ |   -------------------------------------------------------------------------------------  │
+ | 4 Value            N matrices  128     x  12.288 x 96     x  96       =  11.195.511.621  │
+ |                                d_value   d_embed   n_heads   n_layers                    │
+ |                                └───────────────┴─ 1.572.864 per head                     │
+ |   -------------------------------------------------------------------------------------  │
+ | 5 Output           N matrices  128     x  12.288 x 96     x  96       =  11.195.511.621  │
+ |                                d_embed   d_value   n_heads   n_layers                    │
+ |                                └───────────────┴─ 1.572.864 per head                     ┘
+ |   -------------------------------------------------------------------------------------  ┐
+ | 6 Up - projection  N matrices  12.288     x 49.152  x 96              = 57.982.058.496   │  Multilayer 
+ |   W↑                           d_embed   n_neurons   n_layers                            │  percepton ¹
+ |   -------------------------------------------------------------------------------------  │
+ | 7 Down-projection  N matrices  49.152     x 12.288  x 96              = 57.982.058.496   │
+ |   W↓                           n_neurons    n_embed   n_layers                           ┘
+ |   -------------------------------------------------------------------------------------   
+ | 8 unnembedding     1 matrix    50.257  x  12.288                      =    617.558.016      W_u MATRIX
+ |                                n_vocab   d_embed 
+ |   -------------------------------------------------------------------------------------
+ |                                                                 TOTAL: 175.181.291.520
+ |  un-transforms final vector into words (tokens actually)
+ | 
+ | 
+ | ¹ Multilayer perceptons composes actually up to 2/3 of the NN, but it has a much more simpler
+ |   "architecture". This layer stores "facts"  The Multilayer perceptons will be somehow like:
+ |   """ It's NOT understood what the Multilayer perceptons are doing but they work. """
+ |   Each token in the context is processed in parallel applying next "tensor flow":
+ |       
+ |                                |  ·              
+ |                                | ·               
+ |                                |*                
+ |   token ··> W↑ matrix ··> ·····+-------   ··>  W↓
+ |                           └─────┬─────┘          
+ |                  Rectified Linear Unit func. ("ReLU")
+ |                  (puts to zero all vector components <0)
+ |    
+ |   The total flow is like:
+ |   
+ |   
+ |   Transformation ··> ML Perception ··> Transformation ··> ML Perception ··> ... (96 repetitions)
+ |
+ | NOTE: Nost of the operations are just Matrix multiplication. [[doc_has.keypoint]]
+ | 
+ | TODO: GPT-3 has a context size of 2048 columns (tokens length), each token vector being 
+ |       12.288 dimensions in length.
+.|       The 2.048 columns do not look to be reflected in the previous diagram.
+ |
+ | [[doc_has.diagram}]]
+ ```
+[[LLM.transformers}]]
+
+- REFs:
+  - <https://arxiv.org/pdf/1807.03819.pdf> "White-paper"
+  - <https://ai.googleblog.com/2018/08/moving-beyond-translation-with.html>
+  - Visual Transformer Explainer:<br/>
+    <https://poloclub.github.io/transformer-explainer/> [[{PM.TODO}]]
+
+- Transformer. new machine learning model showing remarkable success over
+  existing algorithms for machine translation (MT) and other language
+  understanding tasks.
+
+- Previously most neural network based approaches to machine translation
+  relied on recurrent neural networks (RNNs) which operate sequentially
+  (e.g. translating words in a sentence one-after-the-other) using
+  recurrence (i.e. the output of each step feeds into the next).
+    While RNNs are very powerful at modeling sequences, their sequential
+  nature means that they are quite slow to train, as longer sentences
+  need more processing steps, and their recurrent structure also makes
+  them notoriously difficult to train properly.
+- In contrast, THE TRANSFORMER USED NO RECURRENCE, INSTEAD PROCESSING ALL
+  WORDS OR SYMBOLS IN THE SEQUENCE IN PARALLEL WHILE MAKING USE OF A
+  SELF-ATTENTION MECHANISM TO INCORPORATE CONTEXT FROM WORDS FARTHER AWAY.
+- By processing all words in parallel and letting each word attend to other
+  words in the sentence over multiple processing steps, THE TRANSFORMER
+  WAS MUCH FASTER TO TRAIN THAN RECURRENT MODELS.
+  REMARKABLY, IT ALSO YIELDED MUCH BETTER TRANSLATION RESULTS.
+- WARN: on smaller and more structured language understanding tasks,
+  or even simple algorithmic tasks such as copying a string
+  the Transformer does NOT perform very well.
+  IN CONTRAST: models that perform well on these tasks, like the
+  Neural GPU and Neural Turing Machine, fail on large-scale
+  language understanding tasks like translation.
+-   C&P from <https://www.infoq.com/news/2020/09/google-bigbird-nlp/>
+  "...BigBird allows Transformer NN to process sequences up to 8x
+  longer achieving state-of-the-art performance levels on
+  natural-language processing (NLP) AND GENOMICS TASKS!!! ..."
+-  The "self-attention" mechanism allows the network to "remember"
+  previous items in the sequence can be executed in parallel
+  on the entire sequence, which speeds up training and inference.
+- However, since self-attention can link (or "attend") each item
+  in the sequence to every other item, the COMPUTATIONAL AND
+  MEMORY COMPLEXITY of self-attention is O(n^2), where n is the
+  maximum sequence length that can be processed IMPOSSING A
+  PRACTICAL LIMIT ON SEQUENCE LENGTH, AROUND 512 ITEMS, THAT
+  CAN BE HANDLED BY CURRENT HARDWARE.
+[[llm.Transformers}]]

@@ -1,0 +1,10 @@
+[[{use_case.coding_assistant]]
+
+## TabbyML: local Copilot alternative coding assistant.
+
+* <https://github.com/TabbyML/tabby>
+* OOSS, Rust based, Self-contained (no need for DBMS/Cloud),
+* OpenAPI interface to integrate with IDEs, Cloud IDEs,
+* Supports consumer-grade GPUs.
+
+[[use_case.coding_assistant}]]

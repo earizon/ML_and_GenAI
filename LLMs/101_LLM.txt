@@ -1,0 +1,591 @@
+[[{cognitive.nlp,llm.101]]
+
+# Natural Language Processing ("LLM" in practice)
+
+- NLP represent a set of ML techniques to model for subconscius (aka, deep-learning) brain processes. 
+- We do not deal anymore with words but with "tokens".
+
+- In practice it use neuronal networks with hidden layers. In practice,  LLM with transformers architectures
+  as of 2026 (backpropagation used to tune the (thousands of millions) of weights for each "neuron".<br/>
+
+- LLM models pass different steps of training:
+  ```
+  LLM training      ···> Reinforcement Learning
+                         With human feedback 
+  In practice, as 
+  of 2018, it means
+  training a 
+  transformer
+  ```
+
+
+# LLM 101
+
+- Andrej Karpathy's:
+  - Youtube tutorial: "Let's build GPT from scratch": <https://www.youtube.com/watch?v=kCc8FmEb1nY>
+  - NanoGPT project: <https://github.com/karpathy/nanoGPT>
+- Brendan Bycroft's 3D visualization of transformers: https://bbycroft.net/llm
+- 3Blue1Brown's LLM course: <https://youtu.be/eMlx5fFNoYc?si=k40zeuPdM_4cB88o>
+
+
+* Based on vector embeddings.
+* Massive scaling up of parameters:
+  * GPT-2: 1.5 billion
+  * GPT-3: 175 billion
+  * GPT-4:   1 trillion
+
+* early 2022: post-training and fine-tunning of models based on human 
+  instructions, which teaches the model how to perform a task by 
+  providing demonstrations and feedback.
+* 2024 Q4: A few models have recently started to perform better than 
+  an average human rater, but generally, they still haven't reached the 
+  performance of a human expert.
+* Representation learning is about a model learning its internal 
+  representations of raw data to perform a machine learning task, 
+  rather than relying only on engineered feature extraction. 
+* For example, an image classification model based on representation 
+  learning might learn to represent images according to visual features 
+  like edges, shapes and textures.
+* The model isn't told explicitly what features to look fro - it learns 
+  representations of the raw pixel data that help it make predictions.
+
+
+Early attention mechanism scaled quadratically with the length of 
+the sequences (context size), rendering them inapplicable to settings
+with long sequences. Differnet mechainsm have been tried out to
+alleviate this. Many LLMs use some form of Multi-Query Attention (MQA),
+including OpenAI's GPT-series models, Falcon, SnatCoder and
+StarCoder.
+
+MQA is an MHA extension (Multihead attention), where attention computation
+is replicated multiple times. MQA improves the performance and efficiency
+of LM for various lang. tasks. By removing the heads dimension from certain
+computations and optimizing memory usage, MQA allows for x11 times better 
+throughput and 30% lower latency in inference tasks compared to baseline models
+without MQA.
+
+Llama 2 and other use Grouped-Query Attention (GQA), wich is a practice used
+in autoregressive decoding to cache the
+key (K) and value (V) pairs for the previous tokens in the sequence, speeding up 
+attention computations. However, as the context window or batch 
+sizes increase, the memory costs associated with the KV cache size in MHA 
+models aslo increase significantly. To address this, the key and value
+projections can be shared across multiple heads without much degration of 
+performance.
+
+
+Negative Log-Likelihood (NLL) and Perplexity (PPL) are important metrics used in
+training and evalutaing LM.
+- NLL is a loss function used in ML algorithms, aimed at maximizing the probaility of 
+  correct predictions. A low NLL indicates that the network has successfully 
+  learned patterns from the training set, so it will accurately predict 
+  the labels of the training samples. It's important to mention that NLL is a 
+  value that's constrained within a posibitive internavl.
+- PPL, on the other hand, is an exponentaition of NLL, providing a more intuitive
+   way to understand the model's performance. Small PPL values indicate a well-trained
+  network that can predict accurately, while high values indicate poor learning 
+  performance. Intuitively, we could say that a low PPL means that the model is not
+  surprised by the next world. Therefore, the goal in pre-training is to minimize PPL,
+  which means the model's predictions align more with the actual outcomes.
+
+
+## Tokenization
+
+... It's important to note that tokenizers do not produce arbitrary integers.
+Instead, they output integers within a specific range - from 0 to N, where N
+represent the vocabulary size of the tokenizer.
+ A token is an instance of a sequence of characters, typically forming a word,
+punctuation mark or number. 
+
+There are a lot of tokenizers that work according to different principles, but
+common types of tokenizers employed in models are:
+* Byte-Pair Encoding (BPE):
+* WordPiece:
+* SentencePiece:
+For example, Llama 2's BPE tokenizer splits numbers into individual digits and 
+uses bytes to decompose unknown UTF-8 characters. The total vocabulary size is 
+32,000 tokens. [[devops,llm.101]]
+
+The tokenizer, more precisely, its dictionary- is typically fitted to the
+entire training dataset and the frozen [[qa.inmutability]].
+
+Tokenizer do NOT produce arbitrary integers, but just values within an specific range 
+-0 to N, where N is the vocabulary size.
+
+
+Another key area of innovation has been in model architectures. For example, the 
+Mixtral and  Leeroo models employ a mixture-of-experts (MoE) approach, where different 
+subsets of the model's parameters are specialized for different tasks, potentially
+improving performance and computational efficency.
+Mixtral 7x7B outperforms or matches Llama 2 70B and GPT-3.5 across various benchmarks,
+excelling particularly in math, code generation and multilingual task. Its 
+instruction-tuned version, Mixtral 8x7B-Instruct, surpasses several other prominent
+modles, like GPT-3.5 Turbo and Claude-2.1, on human benchmarks.
+
+The Leeroo Orchestrator by Leeroo proposes an architecture that integrates multiple 
+LLMs to create a new state-of-the-art model. It achieves performance on par with 
+Mixtral at lower computationl cost and even exceees GPT-4's accuracy on the MMLU
+benchmark with further cost reductions.
+
+GPT-4 has a training set 10x bigger than GPT-3. It also uses a "Mixture of Experts"
+model consisting of 16 experts within their model, each having about 111 billion
+parameters.
+
+...Llama series of models, with up to 70 billion parameters, by Meta AI in February
+and July 2023, respectively, have been highly influential by enabling the community to 
+build on top of them, thereby kicking off a Cambrian explosion of open-source LLMs.
+Llama triggered the creation of models such as Vicuna, Koala, RedPajama, MPT, Alpaca
+and Gorilla. Llama 2, since its recent release, has already inspired several very
+competitive coding models, such as WizardCoder.
+... Llama 2 70B model perfomrs on a par with or better than PaLM (540 billion params)
+on almost all benchmarks, but here is still a large performance gap between Llama 2 
+70B and GPT-4 and PaLM-2-L.
+
+
+
+[[{data.source]]
+2018 GPT-1  was trained on BookCorpus (985 million words).
+2018 BERT, trained on a combined corpus of BookCorpus and English Wikipedia, (3,3 billion words)
+2024 Trillions of tokens.
+
+Llam2 training corpus size is 40% bigger than Llama up to 2 trillions tokens of data,
+context lenght has doubled and grouped-query attention has been adopted. 
+Variants of sizes 7 billion, 13 billion, 34 billion, 70 billion have been released.
+
+
+Claude 3 Opus (up to 200.000 tokens of context) surpassed OpenAI's GPT-4 on the
+Chatbot Arena leaderboard, while exhibiting improved multilingual fluency, with 
+strong performance on coding, summarization and long document understanding tasks.
+
+[[data.source}]]
+
+
+Text to Image models ...
+
+Although they sometimes produce striking results, the instability and inconsistencey
+are significatn obstacles to applying these models more broadly. (no so more with
+"Stable DIffusion").
+
+2 main classes of models are used: Generative Adversarial Netwroks (GANs) and 
+diffusion models. GAN models like StyleGAN or GANPaint Studio can produce highly 
+realistic images, but training is unstable and computationally expensive.
+They consist of two networkss that are pitted against each other in a game-like
+setting -the generator, which generates new images from text embeddings and noise, 
+and the discriminator, which estimates the probability of the new data being real.
+As these two networks compete, GANs get better at their task, generating realistic
+images and other types of data.
+
+
+Diffusion models have become poupalr and promising for a wide tange of generative 
+tasks, including text-to-image syntheis. These models offer advantages over previous
+approaches, such as GANs, by reducing computation costs and sequential error 
+accumulation. Diffusion modles operate throught a process like diffusion in physics.
+They follow a "**forward diffusion process**" by adding noise to an images until it
+becomes uncharacteristic and noisy. This process is analogous to an ink drop 
+falling into a gralss of water and gradually diffusing.
+The unique aspect of generative images models is the reverse diffusion process,
+where the model attempts to recover the original image from a noisy, meaningless one.
+By iteratively applying noise removeal transformations, the model generates 
+images of increasing resolutions that alaign twith the given text input.
+The final outpus is an image DAthat has been modified based on the text input.
+... An example is "Photorealist Text-o-Images Diffusion Models with Deepl Language
+Understanding by Google Research, 2022) which incorpoartes frozen text embeddings 
+from LLMs, pre-trained on text-only corpora. A text encoder first maps the input text 
+to  a sequence of embeddings. A cascade of conditional diffusion models takes the
+text embeddings as input and generates images.
+
+... Stable Diffusion, by the CompVis group at LMU Munich (High-Resolution Image 
+Synthesis with Latent Diffusion Models by Blattmann et al., 2002) significantly cuts
+training costs and sampling time compared to the preious (pixel-based) diffusion
+models.  It introduces operations in latent (lower-dimensional) space representations,
+which capture the essential properties of an image, in order to improve computational
+efficency. A VAE provides latent space compression (called perceptual compression in
+the paperl) while a U-Net performs iterative denoising.
+
+...It can be run on consumer hardware with a modest GPU. By creating high-fidelity
+images from text on consumer GPUs, the Stable Diffusion model democratizes access.
+
+## Zipf Law
+
+* <https://es.wikipedia.org/wiki/Ley_de_Zipf>
+
+* La llamada ley de Zipf, formulada en la década de 1940 por George Kingsley 
+  Zipf, lingüista de la Universidad de Harvard, es una ley empírica según la 
+  cual en una determinada lengua la frecuencia de aparición de distintas 
+  palabras sigue una distribución que puede aproximarse por
+
+    ```
+    P n ∼ 1 / n a {\displaystyle P_{n}\sim 1/n^{a}}
+    ```
+  donde Pn representa la frecuencia de la n-ésima palabra más frecuente y el 
+  exponente a es un número real positivo, en general ligeramente superior a 
+  1.[1]​ Esto significa que el segundo elemento se repetirá aproximadamente 
+  con una frecuencia de 1⁄2 de la del primero, el tercer elemento con una 
+  frecuencia de 1⁄3 del primero y así sucesivamente. Una ley no empírica, 
+  pero más precisa, derivada de los trabajos de Claude Shannon fue descubierta 
+  por Benoît Mandelbrot. 
+
+* Although Zipf's law holds for most natural languages, and even certain 
+artificial ones such as Esperanto[24] and Toki Pona,[25] the reason is still 
+not well understood.[26] Recent reviews of generative processes for Zipf's law 
+include Mitzenmacher, "A Brief History of Generative Models for Power Law and 
+Lognormal Distributions",[27] and Simkin, "Re-inventing Willis".[28]
+
+* However, it may be partly explained by statistical analysis of randomly 
+generated texts. Wentian Li has shown that in a document in which each 
+character has been chosen randomly from a uniform distribution of all letters 
+(plus a space character), the "words" with different lengths follow the 
+macro-trend of Zipf's law (the more probable words are the shortest and have 
+equal probability).[20] In 1959, Vitold Belevitch observed that if any of a 
+large class of well-behaved statistical distributions (not only the normal 
+distribution) is expressed in terms of rank and expanded into a Taylor series, 
+the first-order truncation of the series results in Zipf's law. Further, a 
+second-order truncation of the Taylor series resulted in Mandelbrot's 
+law.[29][30] 
+
+
+
+## LLM Economics
+
+
+[[{PM.price,date.2024]]
+# Models & Pricing Comparative
+
+* REF:
+  * <https://api-docs.deepseek.com/quick_start/pricing/>
+
+  ```
+  |                     ┌───┬─ CONTEXT LENGTH
+  |                     ·   · ┌───┬─ MAX COT TOKENS ²
+  |                     ·   · ·   · ┌───┬─ MAX OUTPUT TOKENS ³
+  |                     ·   · ·   · ·   · ┌────┬─·······1M TOKENS, INPUT PRICE, CACHE HIT⁴
+  |                     ·   · ·   · ·   · ·    · ┌───┬─ 1M TOKENS, INPUT PRICE, CACHE MISS
+  |  MODEL              ·   · ·   · ·   · ·    · ·   · ┌───┬─ 1M TOKENS PRICE
+  |┌───────────────────┬·───·┬·───·┬·───·┬·────·┬·───·┬·───·┐
+  |│ deepseek─chat ¹   │ 64K │  -  │  8K │0.014$│0.14$│0.28$│
+  |├───────────────────┼─────┼─────┼─────┼──────┼─────┼─────┤
+  |│ deepseek─reasoner¹│ 64K │ 32K │  8K │0.14$ │0.55$│2.2$⁶│
+  |└───────────────────┴─────┴─────┴─────┴──────┴─────┴─────┘
+  | ¹ deepseek-chat model upgraded to DeepSeek-V3. 
+  |   deepseek-reasoner points to the new model DeepSeek-R1.
+  |
+  | ² CoT (Chain of Thought) is the reasoning content deepseek-reasoner
+  |   gives before output the final answer. 
+  |   For details, please refer <https://api-docs.deepseek.com/guides/reasoning_model>
+  |
+  | ³ If not set, the default max. output length is 4K. Adjust `max_tokens` for longer outputs.
+  |
+  | ⁴ Context Caching on Disk, cutting price by an order of magnitud: 
+  |   <https://api-docs.deepseek.com/news/news0802> [[PM.price,scalability.LLM.cache]]
+  |
+  | ⁶  output token count includes all tokens from CoT and the final answer, priced equally.
+ ```
+[[PM.price}]]
+
+
+[[{doc_has.comparative]]
+## standard LLMs vs reasoning LLMs
+
+
+```
+             Feature     LLMs                       Reasoning LLMs
+
+    Primary Strength     Language generation and    Explicit, step-by-step 
+	                 understanding based on     logical problem-solving.
+                         patterns.
+
+     Problem-Solving     Tends to provide a         Breaks down problems 
+	                 direct answer.             into intermediate steps 
+                                                    ("shows its work").
+
+      Training Focus
+	
+
+Broad text corpora for general language understanding.
+
+Datasets emphasizing logic, mathematics, and structured reasoning.
+
+Interpretability
+	
+
+Can be a "black box," making it hard to trace the reasoning.
+	
+
+Higher interpretability due to the explicit thought process.
+
+Best For
+	
+
+Creative and language-based tasks.
+	
+
+Complex, multi-step logical and reasoning tasks.
+
+Examples
+	
+
+Standard versions of GPT-4, Llama 3
+	
+
+OpenAI's o1 series, DeepSeek-R1
+```
+[[doc_has.comparative}]]
+
+[[llm.101}]] 
+
+
+- GPT stands for:
+  - Generative: Generates new text
+  - Pre-trained
+  - Transsformer
+   
+
+## NLP (up to LLM) TimeLine [[{]]
+
+- NLP studies the interactions between computers and human language
+- As old as computers themselves.
+
+  ```
+  | ───── FIRST   Models {{{ ─────────────────────
+  | 1949 Grammar Theories Warren Weaver's memoradum
+  |      1st to suggest algorithmic approach to Machine
+  |      Translation (MT) leading to ...
+  | 1954 Georgetown experiment
+  |      1st computer application to MT
+  | 1957 ries) Chomsky established the first grammar theory 
+  |      (Generative Grammar)
+  | 1964 ELIZA (& 1968 SHRDLU)
+  |      They can be considered to be the first NL understanding computer programs.
+  | ───── FIRST   Models }}} ─────────────────────
+  | ───── Grammar THEORIES {{{ ─────────────────────
+  | 1965 Transformational generative grammars
+  | 1968 Case Ggrammar
+  | 1969 Semantic networks
+  | 1972 Conceptual Dependeny Theory
+  | 
+  |  70s the concept of "conceptual ontologies" became quite fashionable.
+  |      similar to knowledge graphs: concepts are linked by their associations.
+  |      Ontology: formal naming and definition of the types, properties and
+  |                interrelationships of the entities that exist in a particular
+  |                domain of discourse.
+  | ───── Grammar THEORIES }}} ─────────────────────
+  | ───── Symbolic    Models {{{ ─────────────────────
+  | 1983 Charniak proposes "Passing Markers", a mechanism for resolving
+  |      ambiguities in language comprehension by indicating the
+  |      relationship between adjacent words.
+  | 1986 Riesbeck&Martin proposed "Uniform Parsing" a new approach
+  |      to NLP combining parsing&inferencing in a uniform framework.
+  | 1987 Semantic Interpretation
+  |      proposed by Hirst: new approach to resolve ambiguity:
+  | ───── Symbolic    Models }}} ─────────────────────
+  | 
+  | ───── Statistical Models {{{ ─────────────────────
+  | Statistical Models was the beginning of thinking about language
+  | as a probabilistic process, showing th potential of
+  | statistical parsing techniques for processing messages
+  | 1975 MARGIE, (1976) TaleSpin,(1977) QUALM,(1978) SAM,
+  |      (1978) PAM, (1979) Politics,(1981) Plot Units.
+  | 1989 Tree based model to predict the next word in sentence, by Balh.
+  | 1990 Linguistic Structure from text statistics
+  | 1990 Statistical Parsing of Message
+  | 1990 XX alignment models
+  | 1991,Brown proposes method for aligning sentences
+  |      in parallel corpora for machine translation apps.
+  | ───── Statistical Models }}} ─────────────────────
+  | 
+  | ───── BEGIN OF NEURAL NLP History {{{ ─────────────────────
+  | 
+  |  Summary: NN           <·· Gradient descendant to tune weights
+  |           └> Deep-NN   <·· Backpropagation replaces Gradient 
+  |              ·             descendant
+  |              └-> ...   <·· Non paralelizable training. 
+  |              └-> ...   <·· Non paralelizable training
+  |              └-> Transformer (2017) 
+  |                  "attention is all you need":
+  |                  Previous to transformer, processing was 
+  |                  "one word at a time". With transformers
+  |                  "attention" process **in parallel** all the 
+  |                  words in a phrase, attaining much better
+  |                  performance.
+  | 
+  | 
+  | 2003 First NLP Model by Bengio, a simple feed-forward model.
+  | 2008 multi-task learning with ConvNet by Collobert&Weston.
+  | 2011 generative text model with RNN by Hinton.
+  | 2013 Word2Vec, introduced by Mikolov.
+  | 2014 Sequence to sequence learning, suggested by Sutskever.
+  | 2015 Attestion Mechanism.
+  | 2017 Birth of LLM with LLM with generative pretrained transformers (GPTs).
+  |      leading to a revolution in model performance.<br/>
+  |      Paper published by Written by Google Brain (Ashish Vaswani,
+  |      Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones,
+  |      Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin)
+  |      ["Attention is all you Need"](https://arxiv.org/abs/1706.03762)
+  |      [(local copy)](./Attention_is_all_you_need.1706.03762v7.pdf)
+  |      "Transformer: A Novel Neural Network Architecture for Language Understanding".
+  |      (research.google)
+  |      """ NN, in particular RNNs are core to leading language understanding tasks
+  |         language modeling, ML translation and question answering.
+  |         In "Attention Is All You Need", we introduce the Transformer, a novel
+  |         NN architecture based on a self-attention mechanism that we believe to be
+  |         particularly well suited for language understanding.
+  |         ...  we show that the Transformer outperforms both RNN and convolutional
+  |         models on academic English to German and English to French translation
+  |         benchmarks. ... higher translation quality ... less computation to train
+  |                     by up to an order of magnitude. """
+  |     REFERENCES:
+  |     -----------
+  |     [1] Jimmy Lei Ba, Jamie Ryan Kiros, and Geoffrey E Hinton. Layer normalization. 
+  |         arXiv preprint arXiv:1607.06450, 2016.
+  |     [2] Dzmitry Bahdanau, Kyunghyun Cho, and Yoshua Bengio. Neural machine translation by jointly
+  |         learning to align and translate. CoRR, abs/1409.0473, 2014.
+  |     [3] Denny Britz, Anna Goldie, Minh-Thang Luong, and Quoc V. Le. Massive exploration of neural
+  |         machine translation architectures. CoRR, abs/1703.03906, 2017.
+  |     [4] Jianpeng Cheng, Li Dong, and Mirella Lapata. Long short-term memory-networks for machine
+  |         reading. arXiv preprint arXiv:1601.06733, 2016. 
+  |     [5] Kyunghyun Cho, Bart van Merrienboer, Caglar Gulcehre, Fethi Bougares, Holger Schwenk,
+  |         and Yoshua Bengio. Learning phrase representations using rnn encoder-decoder for statistical
+  |         machine translation. CoRR, abs/1406.1078, 2014.
+  |     [6] Francois Chollet. Xception: Deep learning with depthwise separable convolutions. arXiv
+  |         preprint arXiv:1610.02357, 2016.
+  |     [7] Junyoung Chung, Çaglar Gülçehre, Kyunghyun Cho, and Yoshua Bengio. Empirical evaluation
+  |         of gated recurrent neural networks on sequence modeling. CoRR, abs/1412.3555, 2014.
+  |     [8] Chris Dyer, Adhiguna Kuncoro, Miguel Ballesteros, and Noah A. Smith. Recurrent neural
+  |         network grammars. In Proc. of NAACL, 2016.
+  |     [9] Jonas Gehring, Michael Auli, David Grangier, Denis Yarats, and Yann N. Dauphin. Convolu-
+  |         tional sequence to sequence learning. arXiv preprint arXiv:1705.03122v2, 2017.
+  |     [10] Alex Graves. Generating sequences with recurrent neural networks. arXiv preprint
+  |         arXiv:1308.0850, 2013.
+  |     [11] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun. Deep residual learning for im-
+  |         age recognition. In Proceedings of the IEEE Conference on Computer Vision and Pattern
+  |         Recognition, pages 770–778, 2016.
+  |     [12] Sepp Hochreiter, Yoshua Bengio, Paolo Frasconi, and Jürgen Schmidhuber. Gradient flow in
+  |         recurrent nets: the difficulty of learning long-term dependencies, 2001.
+  |     [13] Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation,
+  |         9(8):1735–1780, 1997.
+  |     [14] Zhongqiang Huang and Mary Harper. Self-training PCFG grammars with latent annotations
+  |         across languages. In Proceedings of the 2009 Conference on Empirical Methods in Natural
+  |         Language Processing, pages 832–841. ACL, August 2009.
+  |     [15] Rafal Jozefowicz, Oriol Vinyals, Mike Schuster, Noam Shazeer, and Yonghui Wu. Exploring
+  |         the limits of language modeling. arXiv preprint arXiv:1602.02410, 2016.
+  |     [16] Łukasz Kaiser and Samy Bengio. Can active memory replace attention? In Advances in Neural
+  |         Information Processing Systems, (NIPS), 2016.
+  |     [17] Łukasz Kaiser and Ilya Sutskever. Neural GPUs learn algorithms. In International Conference
+  |         on Learning Representations (ICLR), 2016.
+  |     [18] Nal Kalchbrenner, Lasse Espeholt, Karen Simonyan, Aaron van den Oord, Alex Graves, and Ko-
+  |         ray Kavukcuoglu. Neural machine translation in linear time. arXiv preprint arXiv:1610.10099v2,
+  |         2017.
+  |     [19] Yoon Kim, Carl Denton, Luong Hoang, and Alexander M. Rush. Structured attention networks.
+  |         In International Conference on Learning Representations, 2017.
+  |     [20] Diederik Kingma and Jimmy Ba. Adam: A method for stochastic optimization. In ICLR, 2015.
+  |     [21] Oleksii Kuchaiev and Boris Ginsburg. Factorization tricks for LSTM networks. arXiv preprint
+  |        arXiv:1703.10722, 2017.
+  |     [22] Zhouhan Lin, Minwei Feng, Cicero Nogueira dos Santos, Mo Yu, Bing Xiang, Bowen
+  |        Zhou, and Yoshua Bengio. A structured self-attentive sentence embedding. arXiv preprint
+  |        arXiv:1703.03130, 2017.
+  |     [23] Minh-Thang Luong, Quoc V. Le, Ilya Sutskever, Oriol Vinyals, and Lukasz Kaiser. Multi-task
+  |        sequence to sequence learning. arXiv preprint arXiv:1511.06114, 2015.
+  |     [24] Minh-Thang Luong, Hieu Pham, and Christopher D Manning. Effective approaches to attention-
+  |       based neural machine translation. arXiv preprint arXiv:1508.04025, 2015.
+  |     [25] Mitchell P Marcus, Mary Ann Marcinkiewicz, and Beatrice Santorini. Building a large annotated
+  |       corpus of english: The penn treebank. Computational linguistics, 19(2):313–330, 1993.
+  |     [26] David McClosky, Eugene Charniak, and Mark Johnson. Effective self-training for parsing. In
+  |       Proceedings of the Human Language Technology Conference of the NAACL, Main Conference,
+  |       pages 152–159. ACL, June 2006.
+  |     [27] Ankur Parikh, Oscar Täckström, Dipanjan Das, and Jakob Uszkoreit. A decomposable attention
+  |       model. In Empirical Methods in Natural Language Processing, 2016.
+  |     [28] Romain Paulus, Caiming Xiong, and Richard Socher. A deep reinforced model for abstractive
+  |       summarization. arXiv preprint arXiv:1705.04304, 2017.
+  |     [29] Slav Petrov, Leon Barrett, Romain Thibaux, and Dan Klein. Learning accurate, compact,
+  |       and interpretable tree annotation. In Proceedings of the 21st International Conference on
+  |       Computational Linguistics and 44th Annual Meeting of the ACL, pages 433–440. ACL, July
+  |       2006.
+  |     [30] Ofir Press and Lior Wolf. Using the output embedding to improve language models. arXiv
+  |       preprint arXiv:1608.05859, 2016.
+  |     [31] Rico Sennrich, Barry Haddow, and Alexandra Birch. Neural machine translation of rare words
+  |       with subword units. arXiv preprint arXiv:1508.07909, 2015.
+  |     [32] Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le, Geoffrey Hinton,
+  |     and Jeff Dean. Outrageously large neural networks: The sparsely-gated mixture-of-experts
+  |       layer. arXiv preprint arXiv:1701.06538, 2017.
+  |     [33] Nitish Srivastava, Geoffrey E Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan Salakhutdi-
+  |       nov. Dropout: a simple way to prevent neural networks from overfitting. Journal of Machine
+  |       Learning Research, 15(1):1929–1958, 2014.
+  |     [34] Sainbayar Sukhbaatar, Arthur Szlam, Jason Weston, and Rob Fergus. End-to-end memory
+  |       networks. In C. Cortes, N. D. Lawrence, D. D. Lee, M. Sugiyama, and R. Garnett, editors,
+  |       Advances in Neural Information Processing Systems 28, pages 2440–2448. Curran Associates,
+  |       Inc., 2015.
+  |     [35] Ilya Sutskever, Oriol Vinyals, and Quoc VV Le. Sequence to sequence learning with neural
+  |       networks. In Advances in Neural Information Processing Systems, pages 3104–3112, 2014.
+  |     [36] Christian Szegedy, Vincent Vanhoucke, Sergey Ioffe, Jonathon Shlens, and Zbigniew Wojna.
+  |       Rethinking the inception architecture for computer vision. CoRR, abs/1512.00567, 2015.
+  |     [37] Vinyals & Kaiser, Koo, Petrov, Sutskever, and Hinton. Grammar as a foreign language. In
+  |       Advances in Neural Information Processing Systems, 2015.
+  |     [38] Yonghui Wu, Mike Schuster, Zhifeng Chen, Quoc V Le, Mohammad Norouzi, Wolfgang
+  |       Macherey, Maxim Krikun, Yuan Cao, Qin Gao, Klaus Macherey, et al. Google’s neural machine
+  |       translation system: Bridging the gap between human and machine translation. arXiv preprint
+  |       arXiv:1609.08144, 2016.
+  |     [39] Jie Zhou, Ying Cao, Xuguang Wang, Peng Li, and Wei Xu. Deep recurrent models with
+  |       fast-forward connections for neural machine translation. CoRR, abs/1606.04199, 2016.
+  |     [40] Muhua Zhu, Yue Zhang, Wenliang Chen, Min Zhang, and Jingbo Zhu. Fast and accurate
+  |       shift-reduce constituent parsing. In Proceedings of the 51st Annual Meeting of the ACL (Volume
+  |       1: Long Papers), pages 434–443. ACL, August 2013
+  | 2018 BERT, presented by Devlin and popularizing Transformers.
+  | 2022 (Neural NLP) ChatGPT, NLP for the public.
+  |     """ ... The largest and most capable LLMs are generative pretrained 
+  |       transformers (GPTs). Modern models can be fine-tuned for specific 
+  |       tasks or guided by prompt engineering.[1] These models acquire 
+  |       predictive power regarding syntax, semantics, and ontologies[2] 
+  |       inherent in human language corpora, but they also inherit 
+  |       inaccuracies and biases present in the data they are trained in.
+  |     """
+  | 20..
+  | ───── END   OF NEURAL NLP History }}} ─────────────────────
+  ```
+[[}]]
+
+[[{]]
+## NLP vs NLU vs NL:
+
+- NLP (Natural Language Processing):<br/>
+  broad term describing technics to "ingest what is said", break it down,
+  comprehend its meaning, determine appropriate action, and respond back
+  in a language the user will understand.
+- NLU (Natural Language Understanding):<br/>
+  much narrower part of NLP dealing with how to best handle unstructured inputs
+  and convert them into a structured form that a machine can understand
+  and act upon: handling mispronunciations, contractions, colloquialisms,...
+- NLG (Natural Language Generation):<br/>
+  "what happens when computers write language"
+  NLG processes turn structured data into text.
+
+  E.g.: A Chatbot is a full -middleware- application making use of NLP/NLU/NLG
+        as well as other resources like front-ends, backend databases, ...)
+[[}]]
+
+[[{PM.TODO]]
+## LLM Lectures 101
+* Don't think I read this many research papers and seen these many 
+  lectures since my master's degree (which was 8 years ago) here are 
+  some recommendations:
+1. State of GPT by Andrej Karpathy <br/>
+     A 45-minute lecture going over the State of Generative LLMs, how 
+   are they trained, what they can and can't do, advanced techniques 
+   like CoT, ReAct, Reflection, BabyAGI, and Agents in general and 
+   finally some great tips on using LLMs in production. Pretty simple 
+   but very very informative
+   <https://www.youtube.com/watch?v=bZQun8Y4L2A&t=373s>
+   
+2. The MineDojo paper<br/>
+   A great group from NVIDIA , and other universities had done immense
+   work creating a huge database for training and testing LLM agents on 
+   complex open-ended tasks in the environment of Minecraft. They also 
+   created a huge database of videos images and texts that can be used 
+   by these LLMs. Finally they presented a really advanced and 
+   interesting way of training an LLM agent to achieve remarkable 
+   results on very complex and creative tasks Minecraft. Truly 
+   astonishing.
+   * <https://lnkd.in/dWFXkmcb>
+[[}]]
+
+
+[[cognitive.nlp}]]

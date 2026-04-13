@@ -1,0 +1,184 @@
+[[{PM.TODO]]
+
+[[{architecture.transformers.101]]
+# 101: Minimal PyTorch re-implementation of the OpenAI GPT 
+
+* <https://github.com/karpathy/minGPT>
+
+[[architecture.transformers.101}]]
+
+[[{]]
+## Transformers Can Mock Part of Human Brain
+  https://www.infoq.com/news/2022/10/transformers-mock-brain/ 
+  Whittington and Behrens tweak the approach of Hopfield network,
+  modifying the transformers in a way to encode the memories as
+  coordinates in higher-dimensional spaces rather than linear sequences
+  as Hopfield and Dmitry Krotov did at MIT-IB Watson AI lab.
+[[}]]
+
+
+
+
+[[{architecture.transformers,year.202501]]
+## from transfomers to Titans
+
+* By Matthieu FRONTON, 
+
+January 19, 2025
+
+Les Transformers sont des architectures de réseaux de neurones basées 
+exclusivement sur des mécanismes d'attention. Ils se sont imposés comme 
+standard pour le traitement de séquences (ie. texte, séries temporelles, ...).
+
+Leur puissance réside dans leur capacité à :
+- apprendre directement à partir des données,
+- identifier les motifs pertinents et
+- s'adapter à de nouveaux contextes sans nécessiter de réentraînement.
+
+## Mécanismes d'attention:
+
+- Au coeur des Transformers se trouve un mécanisme d'attention basé sur des 
+  tokens (unités élémentaires des données d'entrée eg. mots, syllabe...).
+
+- Ces tokens sont initialement transformés en vecteurs numériques (pour 
+  permettre de faire des opérations mathématiques dessus) à partir desquels le 
+  modèle génère trois types de vecteurs essentiels : les requêtes (pour 
+  rechercher des informations), les clés (qui représentent le contexte) et les 
+  valeurs (qui contiennent les informations à récupérer).
+
+- Les modules d'attention peuvent être vus comme un système de mémoire 
+  associative : ils comparent les requêtes (signaux de recherche) aux clés 
+  (représentations contextuelles des tokens) pour mesurer leur similarité, ce 
+  qui permet de pondérer et de récupérer les valeurs (informations associées 
+  aux clés). Ce processus d'attention identifie et combine les informations les 
+  plus pertinentes avec une précision remarquable.
+
+### Tranformers Limites
+
+- Les Transformers modélisent les relations directes entre les tokens au sein 
+  d'une "fenêtre de contexte", c'est-à-dire la portion des données qu'ils 
+  traitent à un instant donné.
+
+- Cette modélisation précise des dépendances a cependant un coût : le temps 
+  et la mémoire nécessaires augmentent de manière quadratique avec la taille 
+  du contexte. Pour des tâches complexes comme la modélisation de langage, 
+  l'analyse vidéo ou la prévision sur des séries temporelles à long terme, 
+  où les fenêtres de contexte peuvent être extrêmement larges, cette 
+  contrainte peut limiter leur applicabilité.
+
+Contournements
+
+  Pour pallier ce problème de scalabilité, des variantes appelées Transformers 
+linéaires ont été proposées (en remplaçant la fonction "softmax" de 
+l'attention par une fonction "kernel"). Ces modifications permettent de 
+réduire drastiquement la consommation mémoire, rendant les Transformers bien 
+plus adaptés aux contextes de grande échelle. 
+
+  Bien évidemment ces Transformers linéaires, bien que plus efficaces et 
+capables de gérer des fenêtres de contexte plus longues, présentent un 
+compromis important : ils compressent les informations dans des états 
+matriciels restreints et perdent donc en précision.
+
+  Ainsi, bien qu'ils soient conçus pour traiter efficacement de longs contextes 
+(grâce à leur complexité linéaire plutôt que quadratique), ils peinent à 
+capturer la richesse des informations sur de très longs contextes, car ces 
+données compressées ne peuvent pas retranscrire toutes les dépendances 
+pertinentes.
+
+### Défauts structurels
+
+  Enfin, au-delà de la scalabilité, la plupart des architectures existantes 
+font face à d'autres limites majeures, des aspects essentiels pour résoudre 
+des tâches complexes et réalistes notamment en matière de :
+
+- généralisation,
+- d'extrapolation sur des longueurs supérieures à celles vues à l'entraînement,
+- de raisonnement.
+
+  Bien que ces architectures soient inspirées des mécanimes biologiques, elles 
+manquent souvent de plusieurs éléments fondamentaux comme :
+
+- la mémoire à court terme, qui permet de retenir des informations immédiates,
+- la mémoire à long terme, qui sert à intégrer des concepts ou des patterns 
+  à travers plusieurs documents ou longues séquences,
+- la méta-mémoire, pour sélectionner les données pertinentes à mémoriser ou 
+  les oublier.
+- la capacité de focaliser l'attention sur le contexte actuel, pour traiter 
+- efficacement les données locales (comme le sens immédiat d'une phrase) sans 
+- perdre de vue le contexte global
+
+### Refonte
+
+  Ces architectures échouent à reproduire la manière dont ces composants 
+doivent interagir en systèmes indépendants mais interconnectés, capables 
+d'apprendre activement des données et de mémoriser des abstractions du passé.
+
+  Un paradigme d'apprentissage efficace nécessiterait des modules distincts mais 
+interconnectés, où chacun joue un rôle spécifique et essentiel dans le 
+processus d'apprentissage, à l'instar du cerveau humain.
+
+### La Mémoire
+
+  Des chercheurs de Google Deepmind se sont penché sur les fondements de la 
+mémoire afin de concevoir des architectures capables de stocker, mettre à 
+jour et récupérer efficacement les informations à court et long terme.
+
+Cinq questions fondamentales ont dirigés leurs travaux :
+
+1. Quelle est une bonne structure pour la mémoire ?
+2. Quel est un bon mécanisme de mise à jour de la mémoire ?
+3. Quel est un bon processus de récupération de la mémoire ?
+4. Comment concevoir une architecture efficace qui incorpore différents 
+   modules de mémoire interconnectés ?
+5. Un module de mémoire profonde est-il nécessaire pour stocker/se souvenir 
+efficacement des événements passés à long terme ?
+
+## Titans 
+[[architecture.transformers.titans]] 
+
+  Dans un récent papier ils proposent une évolution majeure de l'architecture 
+Transformers en intégrant efficacement des modules de mémoire à long terme. 
+Ils nomment cette évolution l'architecture Titan.
+
+  Comparés à d'autres approches (Transformers linéaires ou RNN), les Titans se 
+distinguent par leur capacité à équilibrer précision locale et cohérence 
+globale tout en évitant les pertes critiques d'informations dues à la 
+compression excessive.
+
+  L'arrivée des Titans pourrait ouvrir une nouvelle ère pour l'intelligence 
+artificielle, où la capacité de mémorisation se rapproche davantage de celle 
+des humains. Et pourquoi pas celle du Saint Graal?
+
+[[architecture.transformers}]]
+
+
+[[{]]
+##  Flux Models ("diffusion models++")
+Flux is a series of text-to-image models developed by Black Forest Labs (BFL), 
+a company founded in 2024 by former Stability AI employees Robin Rombach, 
+Andreas Blattmann, and Patrick Esser, who previously researched AI image 
+generation under Björn Ommer at Ludwig Maximilian University of Munich.
+ The models are based on a hybrid architecture combining rectified flow 
+transformer blocks and diffusion techniques, scaled to 12 billion parameters, 
+enabling high-quality image generation from text prompts.  [[architecture.transformers.rectified_flow]]
+ The core innovation lies in "flow matching," which allows for more direct 
+image generation compared to traditional diffusion models, resulting in faster 
+and more accurate outputs.
+
+The Flux family includes multiple variants tailored for different use cases. 
+Flux.1 Schnell is an open-source model released under the Apache 2.0 license, 
+capable of generating high-quality images in just 1 to 4 inference steps, 
+making it ideal for fast, local development.
+ Flux.1 Dev is a non-commercial, open-weight model designed for research and 
+non-commercial applications, with the option to obtain a self-serving 
+commercial license.
+ Flux.1 Pro is a proprietary model available via API through platforms like 
+BFL, Replicate, and fal.ai, offering top-tier performance for professional use.
+ In November 2025, BFL released the updated Flux.2 model series, which includes 
+Pro, Flex, Dev, and Klein (a smaller, open-source variant under Apache 2.0).
+ Flux.2 models are based on a latent flow matching architecture and integrate 
+Mistral AI’s 24-billion-parameter Mistral-3 model for enhanced 
+vision-language understanding.
+[[}]]
+
+[[PM.TODO}]]

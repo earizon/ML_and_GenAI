@@ -1,0 +1,241 @@
+[[{pytorch,PM.TODO]]
+# PyTorch
+
+* <./Deep-Learning-with-PyTorch.pdf>
+
+- deep learning framework.
+- tighter integration with technology providers ARM, Intel, IBM, NVIDIA, and Qualcomm.
+- Google is working with Facebook to enable support for PyTorch on custom 
+  application-specific integrated circuits (ASIC) hardware.
+
+## Why researchers love PyTorch:
+<https://thegradient.pub/state-of-ml-frameworks-2019-pytorch-dominates-research-tensorflow-dominates-industry/>
+
+- Simplicity. It’s similar to numpy, very pythonic, and
+  integrates easily with the rest of the Python ecosystem. For ex,
+  you can simply throw in a pdb breakpoint anywhere into your PyTorch
+  model and it’ll work. In TensorFlow, debugging the model requires
+  an active session and ends up being much trickier.
+- Great API. Most researchers prefer PyTorch’s API to
+  TensorFlow’s API. This is partially because PyTorch is better
+  designed and partially because TensorFlow has handicapped itself by
+  switching APIs so many times (e.g. ‘layers’ -> ‘slim’ ->
+  ‘estimators’ -> ‘tf.keras’).
+- Performance. Despite the fact that PyTorch’s dynamic
+  graphs give strictly less opportunity for optimization, there have
+  been many anecdotal reports that PyTorch is as fast if not faster
+  than TensorFlow. It's not clear if this is really true, but at the
+  very least, TensorFlow hasn't gained a decisive advantage in this
+  area.
+
+
+
+[[{cognitive.vision]]
+## PyTorch Vision Summary
+
+  ```
+- | Image recognition for trained model:
+  | Image → Resize,   →  Forward  → Score  → Label max
+  |         Center       Pass
+  |         Normalize
+  ```
+
+  torch.Tensor
+  5 dimensional
+  arrays
+  2x2x(RxGxB)
+
+Get Pretrained model from TorchVision project:
+- https://github.com/pytorch/vision
+  (code/plch2/2_pre_trained_networks.ipynb, tochvision.models)
+  ^ some of the best-performing  neural network
+ architectures  for  computer vision:
+ - AlexNet (http://mng.bz/lo6z)
+   First deep-learning model to win ILSVRC in 2012.
+ - ResNet (https://arxiv.org/pdf/1512.03385.pdf):
+   (Residual Network): Winner of ImageNet classification,
+   detection and localization in 2015.
+ - Inception  v3  (https://arxiv.org/pdf/1512.00567.pdf).
+ - Utilities to simplify access to ImageNet.
+
+ from tochvision import models
+ dir (models)
+ ['AlexNet', ... 'resnet', ....]
+ alexnet = models.AlexNet() # ← "opaque" object accepting
+                            #   with precisely-sized input data
+                            # ^ train now or load pre-trained weights
+
+ resnet = models.           # ← first run will download lot of
+      resnet101(pretrained=True)  data
+ resnet.eval()              # ← Swith to inference mode (  Don't forget)
+ ResNet(
+   (conv1)  : Conv2d(3, 64, ...) # ← One pytorch module per line
+   (bn1)    : BatchNorm2d(64, ...)  ("layer")
+   (relu)   : ReLU(inplace)
+   (maxpool): ...
+   ... ("hundreds" more)
+ )
+
+ from torchvision import transforms
+
+ preprocess = transforms.Compose([ # ← Preparing input to resnet
+    transforms.Resize(256),          ← Scale to 256x256
+    transforms.CenterCrop(224),      ← Crop 224 x 224
+    transforms.ToTensor(),           ← Transform to tnesor
+    transforms.Normalize(            ← Normalize RGB
+      mean=[0.485, 0.456, 0.406],
+      std=[0.229, 0.224, 0.225])]
+ )
+ from PIL import Image
+ img = Image.open(".../bobby.jpg")   ← img.show(): display in Jupiter
+ img_t = preprocess(img) ← Match input size to resnet
+ import torch
+ batch_t = torch.unsqueeze(img_t, 0) ← Prepare batch_t
+ out = resnet(batch_t)               ←  execute inference!!
+ Out:
+ tensor([ -3.4101, ...., 0.120, ... 4.4])
+ percentage =                        ← Normalize output to range
+    torch.nn.functional                [0, 1] and divide by the sum
+      .softmax(out, dim=1)[0] * 100
+
+ # Get matching labels for trained model:
+ with open('...imagenet_classes.txt') as f:
+   labels = [line.strip() for line in f.readlines()]
+
+ # alt 1: Get max score
+ _, index_t = torch.max(out, 1)      ← index_t is of type tensor([207])
+ print(labels[index_t[0]], percentage[index_t[0]].item())
+ ('golden retriever', 96,293342...)           # stdout
+
+ # alt 2: Get all sorted.
+ _, sorted_index_t = torch.sort(out,descending=True)
+ second = sorted_index_t[0][1]
+ fifth = sorted_index_t[0][4]
+ [(labels[second], percentage[second].item())
+ (  'Labrador retriever', 2.80812406539917)   # stdout
+ [(labels[fifth], percentage[fifth].item())
+ (  'tennis ball' , 0.11621569097042084)      # stdout
+
+[[cognitive.vision}]]
+
+[[{performance,gradient]]
+## Pytorch Opacus
+
+* <https://www.infoq.com/news/2020/10/facebook-privacy-opacus/>
+by Anthony Alford
+
+Facebook AI Research (FAIR) announced Opacus ...
+a high-speed library for applying differential privacy techniques
+when training deep-learning models using the PyTorch framework.
+Opacus can achieve an order-of-magnitude speedup compared to other
+privacy libraries.
+
+    The library was described on the FAIR blog. Opacus provides an
+API and implementation of a PrivacyEngine, which attaches directly to
+the PyTorch optimizer during training. By using hooks in the PyTorch
+Autograd component, Opacus can efficiently calculate per-sample
+gradients, a key operation for differential privacy. Training
+produces a standard PyTorch model which can be deployed without
+changing existing model-serving code. According to FAIR,
+
+        [W]e hope to provide an easier path for researchers and
+engineers to adopt differential privacy in ML, as well as to
+accelerate DP research in the field.
+
+Differential privacy (DP) is a mathematical definition of data
+privacy. The core concept of DP is to add noise to a query operation
+on a dataset so that removing a single data element from the dataset
+has a very low probability of altering the results of that query.
+This probability is called the privacy budget. Each successive query
+expends part of the total privacy budget of the dataset; once that
+has happened, further queries cannot be performed while still
+guaranteeing privacy.
+
+When this concept is applied to machine learning, it is typically
+applied during the training step, effectively guaranteeing that the
+model does not learn "too much" about specific input samples. Because
+most deep-learning frameworks use a training process called
+stochastic gradient descent (SGD), the privacy-preserving version is
+called DP-SGD. During the back-propagation step, normal SGD computes
+a single gradient tensor for an entire input "minibatch", which is
+then used to update model parameters. However, DP-SGD requires
+computing the gradient for the individual samples in the minibatch.
+The implementation of this step is the key to the speed gains for
+Opacus.
+
+[[{pytorch.biggraph,data.graphs,pytorch,scalability.distributed,PM.TODO]]
+## pytorch-biggraph
+
+* <https://www.infoq.com/news/2019/04/facebook-pytorch-biggraph>
+
+Distributed system that can learn embeddings for graphs with billions of nodes.
+
+... One challenge of using a graph as input to machine learning is that the size of 
+the data structure is proportional to the square of the number of entities leading
+to extremely large models. Similar problems occur in natural language processing 
+(NLP), 
+embedding such as word2vec helps in NLP ... Similarly, in a graph embedding,
+nodes that share an edge would have coordinates closer to each other ...
+Once the embedding is created, it can be used to compact data input...
+... Graph embeddings often map an original space with millions of dimensions into
+one with fewer than one thousand.
+
+PyTorch-BigGraph (PBG) divides the nodes of the graph into multiple partitions,
+sized such that two partitions can fit into a machine's memory.
+Edges are partitioned into "buckets", with a bucket containing the edges
+that connect nodes from one partition with the nodes from another partition.
+- Training is performed on one bucket at a time.
+
+... In a paper presented at the recent SysML Conference experimental results
+on publicly available social graph data sets show that "PBG outperforms competing
+methods," such as DeepWalk and MILE.
+
+- source code public.
+- Facebook has also published a pre-trained model containing embeddings of
+ the full WikiData graph. (78 million entities mapped into a 200-dimensional
+ vector space).
+[[pytorch.biggraph}]]
+
+[[{devmlops,QA.standards,data.model,data.persistence,PM.low_code,]]
+## TorchServe 
+
+* <https://aws.amazon.com/es/about-aws/whats-new/2020/04/introducing-torchserve/>
+
+- servidor (OOSS) ligero de baja latencia que facilita la publicación de 
+  modelos de PyTorch.
+- Colaboración de AWS y Facebook como parte de  PyTorch.
+- Popular entre investigadores del aprendizaje automático , data scientits.
+  por su facilidad de uso y su interfaz de estilo “Python”.
+- Marco de publicación de modelos de PyTorch para implementar
+  modelos entrenados a escala sin tener que escribir código
+  personalizado.
+
+- Centrado en la implementación y administración de
+  modelos en producción (API de predicción, escalado, ...)
+
+- Proporciona controladores predeterminados para las aplicaciones más comunes
+  - detección de objetos  [[use_case.object_detection]]
+  - clasificación de texto [[use_case.text_classification]]
+
+- Características:
+  - publicación de varios modelos
+  - control de versiones para pruebas A/B.
+  - métricas monitoreo
+  - API RESTful para aplicaciones clientes.
+  - Compatible con cualquier entorno (K8s, AWS SageMaker,...)
+[[}]]
+
+[[{hardware.nvidia.jetson]]
+## Pytorch on Jetson Nano
+
+* <https://qengineering.eu/install-pytorch-on-jetson-nano.html>
+[[hardware.nvidia.jetson}]]
+
+[[{PM.whats_new]]
+# What's new
+
+* Pytorch 1.1 2019-05<br/>
+  <https://www.infoq.com/news/2019/05/pytorch-release-performance>
+[[PM.whats_new}]]
+
+

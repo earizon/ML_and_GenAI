@@ -1,0 +1,13 @@
+[[{prompting.dynamic_few_shots]]
+## Dynamic Few-Shot
+
+- extension of Few-Shot Text Classification more suitable for larger datasets.
+- Instead of using a fixed set of examples for each class, it 
+  constructs a dynamic subset for each sample on the fly.
+- This allows to efficiently utilize the limited contex window of the 
+  model and save the number of consumed tokens.
+
+REF: <https://skllm.beastbyte.ai/docs/dynamic-few-shot-text-classification>
+[[prompting.dynamic_few_shots}]]
+
+

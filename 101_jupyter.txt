@@ -1,0 +1,24 @@
+[[{PM.draft]]
+# Jupyter Notebook
+
+[[{jupyter.101]]
+## ipyflow  
+
+* <https://bit.ly/ipyflow>
+
+... cool jupyter hack ...  avoid to manually re-execute dependent
+cells on variable change. .. ipyflow is a supercharged kernel for
+jupyter, which tracks the relationship between cells and variables.
+
+  Thus, at any point, you can get the corresponding code to
+reconstruct any symbol.
+
+* It enables an automatic recursive re-execution of dependent cells
+ if a variable is updated.
+
+* As shown in the demo, updating the variable "x" re-executes
+   the dependent cells.
+
+[[}]]
+
+[[PM.draft}]]

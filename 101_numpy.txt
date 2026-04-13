@@ -1,0 +1,270 @@
+[[{numpy.101]]
+# NumPY SUMMARY 
+
+[[{doc_has.comparative.benchmark]]
+ Take also a look at JAX "NumPy for the GPU". REF: <https://docs.jax.dev/en/latest/jax.numpy.html>
+
+  An alternative can also be to direclty replace NumPy with PyTorch. C&P from
+  <https://www.linkedin.com/feed/update/urn:li:activity:7417144051415588864/>
+  ```
+  | by Dávid IsztlDávid
+  | I replaced [[NumPy]] with [[PyTorch]] in my daily numerical code.
+  | (Benchmarked on an RTX PRO 6000 (Blackwell))
+  |
+  | FFT                           : 1700× faster.
+  | Gradient computation          : 7600× faster.
+  | 
+  | 2D FFT   (4096×4096)          : 1714× faster
+  | Autograd vs finite differences: 7633× faster
+  | Heat-equation PDE solver      :   89× faster
+  | Reductions on 10M elements    :  223× faster
+  | 
+  | 1. Same code runs on CPU, NVIDIA [[hardware.GPU]], [[hardware.Apple]] Silicon,
+  |    [[hardware.AMD]], [[hardware.Intel]], [[hardware.TPU]]
+  | 2. Exact gradients for any computation, for free
+  | 3. Performance improves automatically as PyTorch and hardware improve
+  | 4. ML-ready when you need it
+  | 
+  | Why am I still using NumPy for heavy computation?
+  | 
+  | Full benchmark notebook and methodology:
+  | <https://isztld.com/posts/pytorch-numpy.html>
+  | 
+  | Answer: by Jeff Hammond (Principal Software Architect at NVIDIA)
+  |   You might also look at [[CuPy]]. Nothing wrong with PyTorch but CuPy is literally 
+  |   NumPy for GPUs. 
+  |      Answer by Olivier Supplisson
+  |      ...have a look at JAX: As CuPy, NumPy for GPUs with support for AMD cards
+  |   Looks from the thread that [[CuPy]] is just an NVidia vendor lock-in. [[PM.RISK]]
+  ```
+[[doc_has.comparative}]]
+
+
+## np.ndarray Object
+
+  ```
+  | <https://docs.scipy.org/doc/numpy/reference/>
+  | <https://csc.ucdavis.edu/~chaos/courses/nlp/Software/NumPyBook.pdf>
+  |
+  | ┌─ np.ndarray Object ──────────────────────────────┐
+  | │N-Dimensional Array: OPTIMIZED WAY OF STORING     │
+  | │(and manipulating) numerical data of given type   │
+  | ├─ ndarray properties ─────────────────────────────┤
+  | │shape  : tuple with size of each dimmension       │
+  | │dtype  : type of stored elements                  │
+  | │        (u)int8/16/32/64, float16/32/64, complex  <- Defaults to np.float64
+  | │nbytes : Number of bytes needed to store its data │
+  | │ndim   : Number of dimensions                     │
+  | │size   : Total number of elements                 │
+  | └──────────────────────────────────────────────────┘
+  | - See also dir(np.ndarray) [[PM.TODO]]
+  | 
+  | import numpy as np
+  | 
+  | # NP.NDARRAY INITIALIZATION ------------------------------------------------
+  | 
+  | a=np.array([1,2,3])   # - create  array. a.shape: (3, ), m.dtype: dtype('int64')
+  | m=np.array([[1,2,3],  # - create matrix. b.shape: (2,3)
+  |             [3,4,6])
+  | np.zeros([10])        # - create zero-initialized 1-dimensional ndarray
+  | np.ones ([10,10])     # - create  one-initialized 2-dimensional ndarray
+  | np.full ([10,10],3.1) # - create  3.1-initialized 2-dimensional ndarray
+  | np.empty([4,5,6])     # - create   UN-initialized 3-dimensional ndarray
+  | np.identity(5)        # - Creates 5x5 identity matrix
+  | np.hstack((a,b))      # - Creates new array by stacking horizontally
+  | np.vstack((a,b))      # - Creates new array by stacking vertically
+  | np.unique(a)          # - Creates new array with NO repeated elements
+  |
+  | # VALUE-RANGE CREATION (np.arange...) --------------------------------------
+  | np.arange(1, 10)    # - Creates one-dimensional ndarray range
+  |                     #   (similar to 'range' in standard Python )
+  | np.arange(-1,2,0.2) # - creates 1d-array [-1, -0.8, ..., 1.8,   ]
+  |                     #   using the algorithm similar to Python 'range':
+  |                     #   r[i] = start+step*i where i>=0 and r[i]<stop
+  |                     #   r[i]<stop => 2.0 NOT included.
+  | np.linspace(1,10,5) # - Create 1darray [ 1., 3.25, 5.5, 7.75, 10. ]
+  |                     #   (start, end, number-of-elements)
+  |
+  | NUMPY RANDOM SAMPLE CREATION -----------------------------------------------
+  | np.random.rand()      # - Single (non-ndarray) value
+  | np.random.rand(3,4)   # - two-dimensional 3x4 ndarray with
+  |                       #   evenly distributed float random values
+  |                       #   in range [0, 1)
+  | np.random.randint     # - two-dimensional 3x4 ndarray
+  |    (2,8,size=(3,4))   #   with evenly distributed integer random
+  |                       #   values in range [2, 8)
+  | np.random.normal      # - two-dimensional 3x3 ndarray with
+  |    (3,1,size=(3,3)) ) # - element normally distributed random
+  |                       #   values with mean:3, std.deviation:1
+  | 
+  | # RESHAPING NDARRAY --------------------------------------------------------
+  | np.reshape(aDim3x2, 6) # - alt1: shape 3x2 →  returns view of 1Dim, size 6
+  | aDim3x2.reshape(6)     # - alt2: shape 3x2 →  returns view of 1Dim, size 6
+  | aDimNxM.ravel()        # - shape NxM → returns view of 1 Dimension
+  | aDimNxM.ravel()        # - shape NxM → returns copy of 1 Dimension
+  |
+  | # TYPE CONVERSION ----------------------------------------------------------
+  | ndarray01.dtype        # - Get data type
+  | ndarray02 = ndarray01  # - type conversion
+  |      .astype(np.int32) #    Raises TypeError on error
+  |
+  | # SLICING/INDEXING ----------------------------------------------------------
+  | # Slice "==" View of the original array. (vs Copy of data):
+  | # <https://docs.scipy.org/doc/numpy/user/basics.indexing.html>
+  | slice01 = ndarray1[2:6]         # create slice from existing ndarray
+  | copy01  = slice01.copy()        # create new (independent-data) copy
+  | ndarray1Dim[ row1, row2, row3 ] # select given rows.
+  | 
+  | # Boolean Indexing, ...  [[PM.TODO]] 
+  | 
+  | # COMMON OPERATIONS --------------------------------------------------------
+  | ndArr01.transpose()   # transpose (alt.1)
+  | ndArr01.T             # transpose (alt.2)
+  | ndArr01.swapaxes(0,1) # transpose (alt.3)
+  |
+  | B = ndArr01**2        # B will have same shape than A and each
+  |                       # of its elements will be the corresponding
+  |                       # of A (same index) to the power of 2.
+  |
+  | C = np.matmul(ndA.T, ndA) # C == multiplication of A-transposed x A
+  | # <https://docs.scipy.org/doc/numpy/reference/generated/numpy.matmul.html>
+  |
+  | np.where(A>0,True,False) # New (same shape)array with values True|False
+  | np.where(A>0, 0, 1)      # Returns first "1" element
+  |   .argmax()
+  | arrA = np.array([ [1,2,3],
+  |                   [9,8,7] ])
+  | arrA.sort()              # - For each row in ndarray, sort elements
+  |                          #   (In place sort, replacing origina arrA)
+  |                          #   array([ [1,2,3],
+  |                          #           [7,8,9] ])
+  | B = np.sort(arrA)        # - sort rows in new instance
+  | np.in1d(arrA, [1,3])     # - Test if arrA values belong to [1,2,3]:
+  |                          #   array([ True, True, True, False, False, False])
+  |
+  | # BASIC STATITISTICS ───────────────────────────────────────────────────────
+  | ndarray01.cumsum()      # Cumulative Sum of array elements
+  | arrA.mean()             # Mean
+  | arrA.mean(axis=1)       # Replace axis 1 by its mean
+  | arrA.sum (axis=1)       # Replace axis 1 by its sum.
+  | (arrA > 0).sum          # Count numbers of bigger-than-zero values
+  | arrA.any()              # True if any member is True / non-zero
+  | arrA.all()              # True if all members are True/non-zero
+  |
+  | # UNIVERSAL OPS ──────────────────────────────────────────────────────────────
+  | # <https://docs.scipy.org/doc/numpy/reference/ufuncs.html>
+  | # (input) array i ··> (ouput) new array applying to each element op(i)
+  | #                             with the same shape
+  | 
+  | # np.maximum(A,B)       np.cos(A)   np.log
+  | # np.greater_equal(A,B) np.sin(A)   np.log10
+  | # np.power(A,B)         np.tan      np.log2
+  | #                       np.arcsin
+  | # np.sign               np.arccos   np.power(A,B)
+  | # np.abs                np.arctan   np.sqrt(A)
+  | #                       np.sinh     np.square(A)
+  | # np.floor              np.cosh
+  | # np.ceil               np.tanh     np.add
+  | # np.rint               np.arcsinh  np.substract
+  | #                       np.arccosh  np.multiply
+  | #                       np.arctanh  np.divide
+  | #                                   np.remainder
+  | 
+  | # NDarray AGGREGATION OPS: (Input) array ··> (Output) number ───────────────
+  | 
+  | np.mean        np.prod   np.min   np.cumsum   np.argmin (Index of min.element)
+  | np.var(iance)  np.sum    np.max   np.cumprod  np.argmax (Index of max.element)
+  | np.std
+  |
+  | # NDarray CONDITIONAL OPS ──────────────────────────────────────────────────
+  | A=np.array([1,2,3,4])
+  | B=np.array([5,6,7,8])
+  | cond = np.array([True, True, False, False])
+  | np.where(cond, A, B) # output: array([1, 2, 7, 8])
+  | np.where(cond, A, 0) #  array([1, 2, 0, 0]) 
+  |
+  | # NUMPY NDARRAY SET OPERATIONS ---------------------------------------------
+  | np.unique(arrA)   # - Returns 1d-array of SORTED-and-UNIQUE values
+  |                   #   array([1,2,3,7,8,9])
+  | np.in1d(A,B)      # - Check if elements in A are in B
+  | np.union1d(A,B)   # - Create union set of A, B
+  | np.intersect1d    #
+  | np.diff1d         #
+  |
+  | # NUMPY READ/WRITE FILES  [[numpy.I/O,numpy.persistence]] ------------------
+  |
+  | ndA=np.random.randint(20,30,size=(10,10))   # <- Create array
+  | ...
+  | np    .save ("data1.npy",ndA)               # <- Save   to disk
+  | ndB=np.load ("data1.npy")                   # <- Load from disk
+  |
+  | # REF: <https://docs.scipy.org/doc/numpy/reference/generated/numpy.savetxt.html>
+  | #      <https://docs.scipy.org/doc/numpy/reference/generated/numpy.loadtxt.html>
+  | #      <https://docs.scipy.org/doc/numpy/reference/generated/numpy.genfromtxt.html>
+  | C=np.loadtxt(         # <··  input.csv like  [[data.CSV]]
+  |     "input.csv",      #      13,32.1,34
+  |     delimiter=",",    #      10,53.4,12
+  |     usecols=[0,1]     #      ...,
+  |     )                 #      (Many other options are available to filter/parse input)
+  | A=np .genfromtxt(     # <·· input.csv like   [[data.CSV]]
+  |    "input.csv"   ,    #     Param1,Param2
+  |    delimiter="," ,    #     1,2
+  |    names = True )     #     3,4
+  |                       #     ... (See also csvkit)
+  | # array(
+  | #   [ (1,2), (3,4), (.,.) ],
+  | #   dtype = [ ('Param1', '<f8'), ('Param1', '<f8'), ]
+  | # )
+  | A[ 'Param1' ]         # <··  Now we can access by name
+  | 
+  | # See also Joblib for fast Serialization [[{scalability.joblib,data.persistence,data.serialization,PM.TODO]]
+  | # <https://pypi.org/project/joblib/>
+  | # <https://joblib.readthedocs.io/en/latest/auto_examples/serialization_and_wrappers.html>
+  | # - Alternative to Pickle to serialize NumPy matrices, ...
+  | # - transparent disk-caching of functions and lazy re-evaluation (memoize pattern)
+  | # - easy simple parallel computing
+  | # [[scalability.joblib}]]
+  |
+  | ## Random Sampling          [[PM.TODO]]
+  | 
+  | * <https://docs.scipy.org/doc/numpy-1.14.0/reference/routines.random.html>
+  | 
+  | - Random Sampling:
+  |   - Simple random data
+  |   - Permutations:
+  |   - Distributions
+  |   - Random Generator.
+  | [[}]]
+[[numpy.101}]]
+
+
+
+[[{PM.whats_new,PM.TODO]]
+# Numpy What's new
+
+## NumPy 1.20
+* <https://www.infoq.com/news/2021/03/numpy-120-typed-SIMD/>
+* Runtime SIMD Support and Type Annotations
+
+[[PM.whats_new}]]
+
+[[{numpy.joblib,architecture.batch,scalability.joblib,]]
+## Joblib: running Python functions as pipeline jobs
+
+* <https://joblib.readthedocs.io/en/stable/>
+
+* set of tools providing lightweight pipelining in Python. In particular:
+  * transparent disk-caching of functions and lazy re-evaluation (memoize pattern)
+  * easy simple parallel computing [[scalability.joblib]]
+* optimized to be fast and robust on large data with specific optimizations for **numpy arrays**.
+[[numpy.joblib}]]
+
+[[{PM.TODO]]
+## TOP NumPy question @ StackOverflow
+
+* <https://stackoverflow.com/questions/tagged/numpy?tab=Votes>
+[[PM.TODO}]]
+
+
+
+[[numpy.101}]]

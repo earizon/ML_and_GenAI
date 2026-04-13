@@ -1,0 +1,29 @@
+[[{data.cleaning,data.ETL,arch.DAG,arch.multiprocess]]
+## Apache Airflow  (ETL/ELT/,  Business Operations, MLOps, ...)
+
+* allows you to define almost any workflow in Python code, no matter how complex.
+
+* Airflow Core includes webserver, scheduler, CLI, ...
+* Airflow CTL: command-line to interact with REST API.
+* Task SDK: Allows to define Directed Acyclic Graphs (DAGs) in python, executing tasks
+  in isolated subprocesses.
+* Airflow providers include:
+  Airbyte, Alibaba, Amazon, Apache 
+  Beam/Cassandra/Drill/Druid/Flink/HDFS/Hive/Iceberg/Impala/Kafka/Kylin/Livy/Pig/P
+  inot/Spark/Tinkerpop, Apprise, ArangoDB, Asana, Atlassian Jira, Celery, 
+  Cloudant, CNCF Kubernetes, Cohere, Common Compat, Common IO, Common Messaging, 
+  Common SQL, Databricks, Datadog, dbt Cloud, Dingding, Discord, Docker, Edge3, 
+  Elasticsearch, Exasol, FAB (Flask-AppBuilder), Facebook, File Transfer Protocol 
+  (FTP), Git, GitHub, Google, gRPC, Hashicorp, Hypertext Transfer Protocol 
+  (HTTP), IBM Cloudant, Influx DB, Internet Message Access Protocol (IMAP), Java 
+  Database Connectivity (JDBC), Jenkins, Keycloak, Microsoft Azure, Microsoft SQL 
+  Server (MSSQL), Microsoft PowerShell Remoting Protocol (PSRP), Microsoft 
+  Windows Remote Management (WinRM), MongoDB, MySQL, Neo4j, ODBC, OpenAI, 
+  OpenFaaS, OpenLineage, Open Search, Opsgenie, Oracle, Pagerduty, Papermill, 
+  PgVector, Pinecone, PostgreSQL, Presto, Qdrant, Redis, Salesforce, Samba, 
+  Segment, Sendgrid, SFTP, Singularity, Slack, SMTP, Snowflake, SQLite, SSH, 
+  Standard, Tableau, Telegram, Teradata, Trino, Vertica, Weaviate, Yandex, YDB, 
+  Zendesk
+
+
+[[data.cleaning}]]

@@ -1,0 +1,21 @@
+[[{use_case.auto_devops,data.database,mlops.xata]]
+# Xata PostgreSQL agent
+
+* <https://github.com/xataio/agent>
+
+- OOSS agent that monitors the PostgreSQL database, finds root causes of 
+  issues, and suggests fixes and improvements. 
+
+- watch logs & metrics for potential issues.
+- proactively suggest configuration tuning for your database instance.
+- troubleshoot performance issues and make indexing suggestions.
+- troubleshoot common issues like high CPU, high memory usage, high connection count, etc.
+- and help you vacuum (your Postgres DB, not your room).
+
+- I can monitor logs & metrics from RDS & Aurora via Cloudwatch.
+- I use preset SQL commands. I will never run destructive (even potentially destructive) commands against your database.
+- I use a set of tools and playbooks to guide me and avoid hallucinations.
+- I can run troubleshooting statements, like looking into pg_stat_statements, pg_locks, etc. to discover the source of a problem.
+- I can notify you via Slack if something is wrong.
+- I support multiple models from OpenAI, Anthropic, and Deepseek.
+[[use_case.auto_devops}]]

@@ -1,0 +1,29 @@
+[[{mlops.Kedro,training.*,PM.TODO]]
+# Kedro
+
+* <https://github.com/kedro-org/kedro>
+
+- OOSS development toolboxk implementing soft.engineering best-practice
+  for data pipelines with an eye towards productionising machine learning models.
+  in local/personal environments, up to enterprise-level collaborative projects
+  needing put-in-production optimization.
+
+
+## Kedro Main features
+
+- Project Template based on Cookiecutter Data Science. [[qa.best_patterns]]
+- Data Catalog:
+  - lightweight data connectors to save and load data across many different file formats and file systems,
+    including local and network file systems, cloud object stores, and HDFS. 
+  - It includes data and model versioning for file-based systems. [[data.versioning]]
+- Pipeline Abstraction:
+  - Automatic resolution of dependencies between pure Python functions and data pipeline visualisation using Kedro-Viz.
+- Coding Standards:
+  - driven development using pytest, produce well-documented code using Sphinx,
+    create linted code with support for ruff and make use of the standard Python logging library.
+- Flexible Deployment:
+  - single or distributed-machine deployment.
+  -additional support for deploying on Argo, Prefect, Kubeflow, AWS Batch, and Databricks. [[cloud.k8s,cloud.AWS,cloud.Databricks]]
+[[mlops.Kedro}]]
+
+

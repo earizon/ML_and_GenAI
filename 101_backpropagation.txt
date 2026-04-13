@@ -1,0 +1,12 @@
+[[{training.101,training.back_propagation,101,PM.TODO]]
+# Backgropagation   
+
+* Backpropagation in NN replaces the techniques of gradient descendant in simple neuronal networks with linear behaviour.
+
+* It is one of the core building blocks of modern deep neural networks along with
+  transformers, stable diffusion, ...
+
+* Seminal paper: "Yann LeCun 1989 paper "Backpropagation Applied to Handwritten Zip Code Recognition"
+
+* <https://github.com/karpathy/lecun1989-repro>
+[[training.back_propagation}]]

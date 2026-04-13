@@ -1,0 +1,27 @@
+[[{]]
+## Pyramid Vision Transformers (PVTs)
+
+Via Kavishka Abeywardana (linked-in)
+
+.... Pyramid Vision Transformers (PVTs) bridge the gap between CNNs and transformers. ❤️
+
+Early Vision Transformers had a column-like architecture that was primarily
+designed for image classification and was not well-suited for dense prediction
+tasks such as semantic segmentation, instance segmentation, and object
+detection.
+
+As a result, their output feature maps tended to be spatially coarse and blurry.
+
+Dense prediction tasks require multi-resolution feature representations. 
+
+PVT addresses this by building a hierarchical architecture: transformer blocks are
+stacked across multiple stages, and at each stage, the feature map is
+patchified again and passed to the next level.
+
+
+To make the computation efficient at higher resolutions, PVT introduces a
+Spatial Reduction Attention mechanism, which projects the key and value tensors
+into a lower-dimensional space before computing attention.
+
+This significantly reduces computational cost while preserving global context
+[[}]]

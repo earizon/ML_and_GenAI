@@ -1,0 +1,67 @@
+[[{PM.who_is_who.companies]]
+# Who-is-Who Companies
+
+
+(This document is just an "Intention to Be")
+
+- Hugging Face:
+- Google:
+  - Multimodal LLMs (Gemini)
+  - Google Collab (Free TPUs and online IDEs).
+- Google DeepMind:
+  - UK Based [[use_case.biotechnology,]]
+- NVidia:
+  - "CUDA": Dev. stack for High performance GPUs.
+  - GPUs: ....
+- Moore Threads: Chineese "alternative" to NVidia
+  - "MUSE" (direct competitor of NVidia CUDA)
+- OpenAI:
+  - ChatGPT
+- Mistral:
+  - Le Chat:
+  - Codestral:
+  - Devtral: Agentic LLM for software engineering tasks
+    - Vibe Coding:
+  - Voxtral:
+  - Studio: 
+  - Forge:
+  - Model customization ("finetunning")
+  - ...
+- Antrophic:
+  - ...
+- Meta: "Llama X" models.
+- Qween (Alibaba Cloud):
+- DeepSeek (Shēndù Qiúsuǒ), Hangzhou, Zhejiang, owned by High-Flyer.
+- IBM:
+- Microsoft: "Copilot"
+- Eleven Labs:  [[use_case.text_to_speech,use_case.speech_to_text,use_case.music_genration,use_case.voice_cloning]]
+- Midjourney: still image creation.
+- Cling: video production [[use_case.video_production]]
+- Suno:  AI music  [[use_case.music_composition]]
+
+
+
+## Elevenlabs Free text to speech and speech to text
+
+* <https://elevenlabs.io/>
+
+
+- ... many, many others ...
+
+
+[[{]]
+# Harware Companies
+
+- NVidia       : "CUDA" 
+-  Intel       : 
+-    AMD       : 
+- Moore Threads: 
+-        Taalas: Burning LLM into ASICs (10.000 tokens/sec)
+[[}]]
+
+
+## MiroThinker:
+
+- founded by renowned entrepreneur Tianqiao Chen and AI scientist Jifeng Dai.
+
+[[PM.who_is_who.companies}]]

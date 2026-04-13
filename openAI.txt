@@ -1,0 +1,16 @@
+[[{llm.OpenAI]]
+# OpenAI
+
+* <https://chat.openai.com>
+
+
+# OpenAI API
+
+* <https://developers.openai.com/api/docs/>
+
+
+## Structured Outputs
+
+* <https://developers.openai.com/api/docs/guides/structured-outputs/>
+
+[[llm.OpenAI}]]

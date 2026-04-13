@@ -1,0 +1,6 @@
+# OpenPyXL: Excel Spreadsheets in Python
+[[{data.gathering.Excel]]
+
+* <https://realpython.com/openpyxl-excel-spreadsheets-python/>
+
+[[data.gathering.excel}]]

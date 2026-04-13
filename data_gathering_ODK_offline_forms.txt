@@ -1,0 +1,16 @@
+[[{data.gathering.ODK]]
+# ODK Offline forms
+
+* <https://getodk.org>
+* ODK kit lets to build  powerful offline forms to collect the data 
+  you need wherever it is.
+
+* <https://odk-x.org/>
+* ODK-X lets you build custom apps to gather, manage, and visualize 
+  your data just as well in the field as you do in the office.
+  From cold chain management to longitudinal patient tracking to 
+  geographic data collection on mosquito releases, ODK-X helps you 
+  build your custom data management app.
+
+
+[[data.gathering.ODK}]]

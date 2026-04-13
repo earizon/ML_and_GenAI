@@ -1,0 +1,388 @@
+[[{MCP.101]]
+## MCP 101
+
+
+  ```
+  | PROBLEM:
+  |
+  | ┌ Service == 3 models + 3 Tools ────┐
+  | │  ┌──────────┐     ┌────────────┐  │
+  | │  │  LLMs    │     │  Tools     │  │
+  | │  ├──────────┤     ├────────────┤  │
+  | │  │ generic  │     │ database   │  │
+  | │  ├──────────┤     ├────────────┤  │
+  | │  │Technical │     │ web crawler│  │
+  | │  ├──────────┤     ├────────────┤  │
+  | │  │Financial │     │ calculator │  │
+  | │  └──────────┘     └────────────┘  │
+  | └───────────────────────────────────┘
+  |
+  |   BEFORE MCP STANDARD           AFTER MCP STANDARD
+  |
+  |   Model 1 ·┬·┬·┬· Tool 1        Model 1 ··───·· Tool 1
+  |            ·\ /·                         │MCP│
+  |   Model 2 ·┼·X·┼· Tool 2        Model 2 ··Srv·· Tool 2
+  |            ·/ \·                         │   │
+  |   Model 3 ·┴·┴·┴· Tool 3        Model 3 ··───·· Tool 3
+  |
+  |  3 x 3 custom-made              3 + 3 STANDARD
+  |        integration              integration
+  ```
+
+* MCP HOST:<br/>
+  The most similar to the "application" that the final user will see.
+  (ex: Claud desktop, web browser+extension, custom chat UI, ...).
+  * It is also in charge of keeping the conversation history, take care of user input
+    and rendering (or talking) the LLM output (LLM responses).
+* MCP TOOLS: "Spontaneusly" invoked by LLM models.<br/>
+  exposed server functions (actions). The client(host) can call it through HTTP/STDIO.
+  * Designed to do something on behalf of the AI model, extending the LLM limitations (I/O, web scrapping,
+    calculator, ...).<br/>
+    Ussualy an exposed server function will requires user to permit its use (through OAuth 2?,secrets?,...).<br/>
+    For example, Claude’s client might pop up "The AI wants to use the 'ABC' tool, allow yes/no?".
+  * The LLM works sort of a shell interface with a key difference to conventional UI or command line
+    shells. It is the LLM (via the host) the one to decide which tool to call (vs a user navigating
+    menus). <br/>.
+    Another way to say it, tools are "spontaneously" invoked by the LLM model, through the client(host).
+    [[doc_has.keypoint]]
+* MCP CLIENT:<br/>
+  Takes care of the HTTP/STDIO transport between the MCP Host and the MCP tools and MCP resources
+  (note that the host is free to also communitcate with resources directly).
+* MCP RESOURCES: "Spontaneusly" invoked by LLM models or "deterministically" by the MCP HOST.<br/>
+  **Read-only(no side effects) data sources** that the AI client(host) can query in order to retrieve
+    more context<br/>
+  * Example: SQL/graph queries, read-only CSV/spreadsheets/file systems, **knowledge snippets**, ...
+  * They are typically lighter in computation resources (no updates, no slow I/O, git information, ...).<br/>
+  * Another key difference: resources are usually accessed deterministically by the MCP host (the "application"),
+     vs "spontaneously" by the LLM.
+    as is the case for tools). The Host knows when to fetch a certain context for the model.Ej:<br/>
+    1. User LLM input: "Use the company handbook to answer my question".
+    2.  the Host (mostly) deterministically queries the resource and feeds it to the LLM conext.
+  * Resources are usually identified by some unique identifier (URI, name, ...).
+  * permissions and privacy security meassures can also apply for "sensitive" data, with policy restrictions
+    in the Host and/or resource.<br/>
+* MCP   PROMPTS:<br/>
+  Predefined prompt templates or workflows that the server can supply.<br/>
+  It can help to guide the Host app about the conversation flows to use to steer the LLM model in the right
+  direction.
+  * Prompts can for example, be rendered in a final UI visible to the final user managing the Host "Application".
+  Example MCP Prompts:
+  * (system) prompts can indicate the roles to be used by the LLM (You are a lawyer, a code reviewer, ...)
+    and the keywords (or taxonomies) to guide the LLM to use the correct MCP tools "spontaneusly".<br/>
+  * Prompts representing multi-turn workflows. e.g: step-by-step diagnostic interview.
+[[MCP.101}]]
+
+[[{MPC.101,doc_has.examples]]
+## MCP Examples (from Daily Dose of Data Science)
+
+### Building a 100% local MCP client
+
+ ```
+ {{{
+ Tech stack
+ - LlamaIndex to build the MCP-powered Agent
+ - Ollama+Deepseek-R1 as local LLM
+ - LightningAI for development and hosting
+
+ Flow:
+ participant User as U
+ participant Host as H
+ participant LLM  as L
+ participant Tool as T
+
+ note over U,T: Host adds a new Host client to "register" the tool
+
+ U -> H: submit query q01 "...?"
+ H -> L: q01
+ L -> H: answer a1(probably formatted JSON)
+ H -> T: call tool(a1.param1, a1.param2, ...)\n(using MCP registered client)
+ T -> H: result r01
+ H -> L: add r01 to context
+ }}}
+ ```
+
+ ```
+|┌─ server.py:  Example Simple SQL MCP Server + 2 embedded tools ───────────────
+ | import sqlite3
+ | from mcp.server.fastmcp import FastMCP
+ |
+ | mcp = FastMCP("sqlite-demo")
+ |
+ | @mcp.tool()
+ | def add_data(query: str) -> bool:
+ |    """Execute and INSERT query to add a record"""
+ |    conn = sqlite3.connect("demo.db")
+ |    conn.execute(query)
+ |    conn.commit()
+ |    conn.close()
+ |    return True
+ |
+ | @mcp.tool()
+ | def read_data(qeury: str = "SELECT * FROM people") -> list:
+ |   """Execute a SELECT query and return all records"""
+ |   conn = sqlite3.connect("demo.db")
+ |   results = conn.execute(query).fetchall()
+ |   conn.close()
+ |   return results
+ |
+ | if __name__ == "__main__":
+ |   print("Starting the server ...")
+
+|┌─ ollama-client.py: launch ollama+Deepseek─R1 through python ─────────────────
+ | from llama_index.llms.ollama import Ollama
+ | from llama_index.core import Settings
+ |
+ | llm = Ollama(model="deepskee-r1", request_timeout=120.0)
+ | Settings.llm = llm
+ |
+ | SYSTEM_PROMPT = """\
+ |
+ | You are an AI assistant for Tool Calling.
+ | Before helping, work with our tools to interact
+ | with our database.
+ | """
+ |
+ | # define the Agent (i.e, the MCP host) -------------------
+ |
+ | from llama_index.tools.mcp import McpToolSpec
+ | from llama_index.core.agent.workflow import FunctionAgent
+ |
+ |
+ | async def get_agetn(tools: McpToolSpec):
+ |   tools = await tools.to_tool_list_async()
+ |
+ |   agent = FunctionAgent(
+ |     name="Agent",
+ |     description="agent that interacts with our Database",
+ |     tools=tools,
+ |     llm=llm,
+ |     system_prompt=SYSTEM_PROMPT)
+ |
+ |   return agent
+ |
+ | # define Agent interaction -----------------------------
+ | # we pass user messages to our FunctionAgent with a shared
+ | # Context for memory, stream tool calls and return its reply
+ |
+ | from llama_index.core.agent.workflow import (
+ |   FunctionAgent,
+ |   ToolCallResult,
+ |   ToolCall)
+ |
+ | from llama_index.core.workflow import Context
+ |
+ | async def handle_user_message(
+ |   message_content: str,
+ |   agent: FunctionAgent,
+ |   agent_context: Context,
+ |   verbose: bool = False,
+ | ):
+ |   handler = agent.run(message_content, ctx=agent_context)
+ |   async for event in handler.stream_events():
+ |     if verbose and type(event) == ToolCall:
+ |       print(f("Calling tool {event.tool_name}")
+ |     elif verbose and type(event) == ToolCallResult:
+ |       print(f("Tool {event.tool_name"} returned {event.tool_output}")
+ |
+ |  response = await handler
+ |  return str(response)
+ |
+ |
+ | # Initialize MCP Client and the Agent ------------------
+ | # lanuch the MCP client, load its tools, and wrap them as
+ | # native tools for function-calling agents in LlamaIndex.
+ | # Then, pass these tools to the agents and add the context
+ | # manager.
+ |
+ | from llama_index.tools.mcp import BasicMCPClient, McpToolSpec
+ | from llama_index.core.workflow import Context
+ |
+ | mcp_client = BasicMCPClient("http://127.0.0.1:8000/sse")
+ | mcp_tool   = McpToolSpec(client=mcp_client)
+ |
+ | agent = await get_agent(mcp_tool)
+ | context = Context(agent)
+ |
+ | while True:   # Interaction Loop
+ |   msg = input("> ")
+ |   if msg.lower() == "exit":
+ |     break
+ |   resp = await handle_user_mesage(msg, agent, context)
+ |   print("Agent:", resp)
+ |
+|┌─ Run the Agent ──────────────────────────────────────────────────────────────
+ |  # start interacting with our agent and get access to tools from our
+ |  # SQLite MCP server
+ |  while True:
+ |    user_input = input("Enter your message: ")
+ |    if user_input == "exit":
+ |      break
+ |    print("User: ", user_input)
+ |    response = await handle_user_message(user_input, agent, agent_context, verbose=True)
+ |    print("Agent:", response)
+ |  # Output will be similar to:
+ |  # ┌─────────────────────────────────────────────────────────────────────────
+ |  # │ User: Add to the db: Rafael Nadal whose age is 39 and is a tennis player
+ |  # │ Calling tool add_data with kwargs {'query': "INSERT INTO people ..."}
+ |  # │ Tool add_data returned meta=None content={TextConent{...}}
+ |  # │ Agent: The data has been added successfully.
+ |  # │ User: fetch data
+ |  # │ Calling tool read_data with kwargs {'query': "SELECT * FROM people"}
+ |  # │ Tool read_data returned meta=None content={TextContent{...}}
+ |  # │ Agent: Here is the data from the database:
+ |  # │
+ |  # │ 1. ID: 1
+ |  # │    Name: Rafael Nadal
+ |  # │    Age: 39
+ |  # │    Profession: Tennis Player
+ |  # └─────────────────────────────────────────────────────────────────────────
+ ```
+
+[[{MCP.101]]
+# Official MCP Registry  (By the MCP Team)
+
+* <https://www.infoq.com/news/2025/09/introducing-mcp-registry/>
+By Andrew Hoblitzell
+
+The Model Context Protocol (MCP) ecosystem is formalizing a public 
+registry for server discovery. [[date.2025.09]]
+... Together with Agentgateway, they aim to make finding, governing,
+and running agentic tools more routine for engineering teams.
+
+- The registry sits above that protocol, publishing a machine-readable
+ catalog-of-servers and APIs for publicly available MCP servers that
+**clients can query and install**.
+
+ The goal is for there to be many downstream registries as "source of truth",
+vs the many **ad-hoc registries** we see today.
+
+- The preview emphasizes federated discovery (vs single-walled list). 
+
+- Public marketplaces and private enterprise sub-registries can mirror and 
+extend, all against a shared OpenAPI.
+
+    I was struck by how often we underestimate “discovery” in 
+infrastructure. APIs, servers, extensions—they don’t gain momentum by 
+existing; they gain it by being locatable and trusted. Reminding me of the 
+early webrings of the late 90s internet - Taylor Black, Microsoft
+
+For developers, the near-term flow is straightforward. MCP clients can query 
+the registry API, filter by capability or policy, then install servers without 
+copying manifests by hand. Teams that prefer containerized distribution can 
+also follow Docker’s MCP packaging and registry efforts to reduce workstation 
+variance. Meanwhile, Agentgateway offers a single ingress where platform teams 
+can enforce authN/Z, rate limits, and request inspection across heterogeneous 
+agent frameworks while emitting telemetry via OpenTelemetry.
+
+There are notable trade-offs with the registry. Centralized discovery raises 
+questions about curation, governance, and schema drift across public and 
+private sub-registries. During preview, the MCP Registry explicitly makes no 
+durability guarantees and may ship breaking changes, so client code should be 
+defensive. The MCP roadmap calls the registry an API substrate that third-party 
+marketplaces can build on, which implies tighter versioning guarantees, richer 
+metadata, and standardized hooks for provenance and policy.
+
+Agentgateway is also early in its Foundation lifecycle; operators will need to 
+validate performance, protocol coverage, and the maturity of RBAC and auditing 
+in their environments before relying on it for broad policy enforcement. On the 
+gateway side, the Foundation highlights alignment with community specifications 
+(A2A, MCP) and a path toward neutral, vendor-agnostic governance; integrations 
+and production hardening should accelerate as more contributors join.
+
+“Agentgateway is the first and only data plane built from the ground up for 
+AI agents,” the Foundation says; combined with MCP’s “open catalog and 
+API,” the two projects sketch a path to safer scale. For developers looking 
+to learn more, they can explore the MCP Registry repository and agentgateway 
+repository.
+
+[[MCP.101}]]
+
+[[{MCP.101,A2A.101,PM.TODO]]
+# Agentgateway: Next Generation Agentic Proxy for AI Agents and MCP servers 
+
+* <https://github.com/agentgateway/agentgateway>
+* <https://agentgateway.dev/>
+
+- OOSS data plane optimized for agentic AI connectivity within or across
+  any agent framework or environment. 
+- Agentgateway provides drop-in security, observability, and governance
+  for agent-to-agent and agent-to-tool communication and supports leading
+  interoperable protocols, including Agent2Agent (A2A) and Model Context Protocol (MCP).
+  ```
+  |                              ┌·· MCP Server
+  |                              ·
+  | Agent ···> │AgentGateway│ ··─┼·· (A2A) Agent
+  |                              ·
+  |                              └·· OpenAPI
+  | 
+  | AgentGateay plays the role of a centralized and secure data plane
+  | for agentic systems. An AI-native proxy intended to govern 
+  | agent-to-agent, agent-to-tool, and agent-to-LLM interactions. 
+  | bringing policy and observability where general-purpose API gateways
+  | are being stretched.
+  ```
+
+- Written in rust, designed to scale.
+- Security First: Robust MCP/A2A focused RBAC system.
+- Multi Tenant, each with their own set of resources and users.
+- Dynamic configuration updates via xDS, without any downtime.
+- Run Anywhere: k8s clusters, VMs, Bare Metal, ...
+- Legacy API Support: agentgateway can transform legacy APIs into 
+  MCP resources. Currently supports OpenAPI. (gRPC coming soon)
+[[MCP.101}]]
+
+
+[[{use_case.research]]
+## MCP-powered Deep Researcher
+* <https://www.dailydoseofds.com/hands-on-mcp-powered-deep-researcher/>
+* <https://github.com/patchy631/ai-engineering-hub/tree/main/Multi-Agent-deep-researcher-mcp-windows-linux?ref=earizon.github.io/txt_world_domination>
+[[use_case.research}]]
+
+[[{use_case.audio_analysis]]
+## Build an MCP-powered Audio Analysis Toolkit
+
+MCP-driven demo Audio Analysis toolkit accepting an audio file to:
+
+1. Transcribe it
+2. Perform sentiment analysis
+3. Summarize it
+4. Identify named entities mentioned
+5. Extract broad ideas 6. Interact with it
+* <https://www.dailydoseofds.com/hands-on-build-an-mcp-powered-audio-analysis-toolkit/>
+* <https://github.com/patchy631/ai-engineering-hub/tree/main/audio-analysis-toolkit?ref=earizon.github.io/txt_world_domination>
+
+[[use_case.audio_analysis}]]
+[[}]]
+
+# TODO:
+
+## MCP Go implementation
+
+* <https://github.com/mark3labs/mcp-go>
+
+[[{arch.MCP.Gateway,security,architecture.REST]]
+## MCP Gateway
+
+* <https://github.com/IBM/mcp-context-forge>
+
+ MCP Gateway serves as a central management point for tools, resources, and
+prompts that can be accessed by MCP-compatible LLM applications. Converts REST
+API endpoints to MCP, composes virtual MCP servers with added security and
+observability, and converts between protocols (stdio, SSE, Streamable HTTP).
+[[arch.MCP.Gateway}]]
+
+
+## SSE Transport deprecation Warning
+
+Ignore references to Server-Sent Events (SSE) in old tutorials:
+
+SSE was used in earlier versions of MCP but as of March 2025 MCP spec,
+Streamable HTTP is the preferred transport:
+* More flexible
+* Better for multimodal content
+* Easier to adopt in modern architectures
+
+
+## Google Pushes for gRPC Support in Model Context Protocol
+
+* <https://www.infoq.com/news/2026/02/google-grpc-mcp-transport/>

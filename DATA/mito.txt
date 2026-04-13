@@ -1,0 +1,40 @@
+[[{data.101,agents.mito,data.analysis]]
+
+## Mito: complete "copilot" toolkit for turning data into insights
+
+* <https://docs.trymito.io/getting-started/installing-mito?utm_source=GT11425&utm_medium=GT11425&utm_campaign=GT11425
+
+- Private by design:
+  - Runs 100% on your infrastructure. Enterprises send no data to Mito
+  - Bring your own API keys for Azure, AWS, LiteLLM, or other LLM providers
+  - Runs in your existing local Jupyter Lab, JupyterHub, or other notebook environments
+
+- Jupyter-native:
+  - Understands notebook file formats, cell context, and kernel state
+  - Compatible with all of your existing Jupyter extensions and workflows
+  - Built as a Jupyter extension, not bolted on as an afterthought
+
+- Built for every skill level:
+  - Analysts automate Excel reports without writing code from scratch
+  - Data scientists accelerate EDA, visualization, and feature engineering
+  - ML engineers build and iterate on models faster with AI assistance
+
+- Use cases:
+  - data analysis
+  - email automation 
+  - SQL "low code"/Database QA [[qa.data]]
+  - Python Training
+  - Financial Services  [[use_case.financial]]
+  - Life Sciences  [[use_case.life_sciences]]
+    """Mito combines the familiarity of Excel with the power of Python. I'm 
+    able to quickly clean up, explore, and transform large data sets in a way that 
+    wouldn't be possible with Excel. Mito generates code that is flexible, 
+    scalable, and repeatable. Now, three years later, I can't imagine tackling my 
+    day-to-day work without Mito as one of my tools."  [[data.cleaning]]
+
+- Write code 4x faster. [[PM.low_code]]
+
+- 
+
+
+[[agents.mito,data.analysis}]]

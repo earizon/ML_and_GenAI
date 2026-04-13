@@ -1,0 +1,162 @@
+[[{101.local_AI,use_case.101,architecture.agents.local_AI]]
+# Local AI
+
+* <https://localai.io/>
+* <https://github.com/mudler/LocalAI>
+
+- All-in-One Complete AI Stack:
+  * Run powerful language models, autonomous agents, and document intelligence locally on your hardware.
+
+- Drop-in API compatibility — OpenAI, Anthropic, ElevenLabs APIs
+- Any hardware — NVIDIA, AMD, Intel, Apple Silicon, Vulkan, or CPU-only
+- Multi-user ready — API key auth, user quotas, role-based access
+- Built-in AI agents — autonomous agents with tool use, RAG, MCP, and skills
+- Privacy-first — your data never leaves your infrastructure
+
+  ```
+  | ────────────────────────────────────────────────────────────────────────────
+  | Local AI BACKENDS (Updated to 2026─04) ─────────────────────────────────────
+  | ────────────────────────────────────────────────────────────────────────────
+  | REF: <https://localai.io/model-compatibility/>
+  |
+  | ────────────────────────────────────────────────────────────────────────────
+  | Text Generation & Language Models ──────────────────────────────────────────
+  | ────────────────────────────────────────────────────────────────────────────
+  |
+  |                                                           ┌─ Embeddings
+  |                                                           ·   ┌─ Streaming
+  |                                                           ·   ·   
+  |  Backend      │ Description             │ Capability     │v  │v  │Acceleration [[hardware]]
+  |  ─────────────┼─────────────────────────┼────────────────┼───┼───┼────────────────────
+  |  llama.cpp    │ LLM inference in C/C++. │ GPT, Functions │yes│yes│CPU, CUDA 12/13,
+  |               │ Supports LLaMA, Mamba,  │                │   │   │ROCm, Intel SYCL,
+  |               │ RWKV, Falcon, Starcoder,│                │   │   │Vulkan, Metal,
+  |               │ GPT─2, and many others  │                │   │   │Jetson L4T
+  |  ─────────────┼─────────────────────────┼────────────────┼───┼───┼────────────────────
+  |  vLLM         │ Fast LLM serving with   │ GPT            │no │no │CUDA 12, ROCm, Intel
+  |               │ PagedAttention          │                │   │   │
+  |  ─────────────┼─────────────────────────┼────────────────┼───┼───┼────────────────────
+  |  vLLM Omni    │ Unified multimodal      │ Multimodal GPT │no │no │CUDA 12, ROCm
+  |               │ generation (text, imag. │                │   │   │
+  |               │ , video, audio)         │                │   │   │
+  |  ─────────────┼─────────────────────────┼────────────────┼───┼───┼────────────────────
+  |  transformers │ HuggingFace             │ GPT,           │yes│yes│CPU, CUDA 12/13, ROCm,
+  |               │ Transformers framework  │ Embeddings,    │   │   │Intel, Metal
+  |               │                         │ Multimodal     │   │   │ [[architecture.embeddings]]
+  |               │                         │                │   │   │ [[architecture.multimodal]]
+  |  ─────────────┼─────────────────────────┼────────────────┼───┼───┼────────────────────
+  |  MLX          │ Apple Silicon LLM       │ GPT            │no │no │Metal
+  |               │ inference               │                │   │   │
+  |  ─────────────┼─────────────────────────┼────────────────┼───┼───┼────────────────────
+  |  MLX─VLM      │ Vision─Language Models  │ Multimodal GPT │no │no │Metal
+  |               │ on Apple Silicon        │                │   │   │
+  |  ─────────────┼─────────────────────────┼────────────────┼───┼───┼────────────────────
+  |  MLX Distrib..│ Distributed LLM inferen.│ GPT            │no │no │Metal
+  |               │ across multiple Apple   │                │   │   │
+  |               │ Silicon Macs            │                │   │   │
+  |
+  |
+  | ────────────────────────────────────────────────────────────────────────────
+  | Speech─to─Text ─────────────────────────────────────────────────────────────
+  | ────────────────────────────────────────────────────────────────────────────
+  |
+  | Backend       │ Description                                      │ Acceleration
+  | ──────────────┼──────────────────────────────────────────────────┼────────────────────
+  | whisper.cpp   │ OpenAI Whisper in C/C++                          │ CPU, CUDA 12/13, ROCm,  Intel SYCL, Vulkan, Metal, Jetson L4T
+  | faster-whisper│ Fast Whisper with CTranslate2                    │ CUDA 12/13, ROCm, 
+  |               │                                                  │ Intel, Metal
+  | WhisperX      │ Word─level timestamps and speaker diarization    │ CPU, CUDA 12/13, ROCm, Metal
+  | moonshine     │ Ultra─fast transcription for low─end devices     │ CPU, CUDA 12/13, Metal
+  | voxtral       │ Voxtral Realtime 4B speech─to─text in C          │ CPU, Metal
+  | Qwen3─ASR     │ Qwen3 automatic speech recognition               │ CPU, CUDA 12/13, ROCm,
+  |               │                                                  │ Intel, Metal, Jetson L4T
+  | NeMo          │ NVIDIA NeMo ASR toolkit                          │ CPU, CUDA 12/13, ROCm,
+  |               │                                                  │ Intel, Metal
+  |
+  | ────────────────────────────────────────────────────────────────────────────
+  | Text─to─Speech ─────────────────────────────────────────────────────────────
+  | ────────────────────────────────────────────────────────────────────────────
+  |
+  | Backend       │ Description                                      │ Acceleration
+  | ──────────────┼──────────────────────────────────────────────────┼────────────────────
+  | piper         │ Fast neural TTS                                  │ CPU
+  | Coqui TTS     │ TTS with 1100+ languages and voice cloning       │ CPU, CUDA 12/13, ROCm, Intel, Metal
+  | Kokoro        │ Lightweight TTS (82M params)                     │ CUDA 12/13, ROCm, Intel, Metal, Jetson L4T
+  | Chatterbox    │ Production─grade TTS with emotion control        │ CPU, CUDA 12/13, Metal, Jetson L4T
+  | VibeVoice     │ Real─time TTS with voice cloning                 │ CPU, CUDA 12/13, ROCm, Intel, Metal, Jetson L4T
+  | Qwen3-TTS     │ TTS with custom voice, voi.design, voi.cloning   │ CPU, CUDA 12/13, ROCm, Intel, Metal, Jetson L4T
+  | fish─speech   │ High─quality TTS with voice cloning              │ CPU, CUDA 12/13, ROCm, Intel, Metal, Jetson L4T
+  | Pocket TTS    │ Lightweight CPU─efficient TTS with voice cloning │ CPU, CUDA 12/13, ROCm, Intel, Metal, Jetson L4T
+  | OuteTTS       │ TTS with custom speaker voices                   │ CPU, CUDA 12
+  | faster-qwen3  │ Real─time Qwen3─TTS with CUDA graph capture      │ CUDA 12/13, Jetson L4T
+  |    -tts       │                                                  │
+  | NeuTTS Air    │ Instant voice cloning TTS                        │ CPU, CUDA 12, ROCm
+  | VoxCPM        │ Expressive end─to─end TTS                        │ CPU, CUDA 12/13, ROCm, Intel, Metal
+  | Kitten TTS    │ Kitten TTS model                                 │ CPU, Metal
+  | MLX─Audio     │ Audio models on Apple Silicon                    │ Metal, CPU, CUDA 12/13, Jetson L4T
+  | 
+  | ────────────────────────────────────────────────────────────────────────────
+  | Music Generation ───────────────────────────────────────────────────────────
+  | ────────────────────────────────────────────────────────────────────────────
+  |
+  | Backend       │ Description                                      │ Acceleration
+  | ──────────────┼──────────────────────────────────────────────────┼────────────────────
+  | ACE─Step      │ Music generation from text descriptions,         │ CPU, CUDA 12/13, ROCm, Intel, Metal
+  |               │ lyrics, or audio                                 │
+  | acestep.cpp   │ ACE─Step 1.5 C++ backend using GGML              │ CPU, CUDA 12/13, ROCm, Intel SYCL, Vulkan, Metal, Jetson L4T
+  |
+  | Image & Video Generation ───────────────────────────────────────────────────
+  | Backend       │ Description                                      │ Acceleration
+  | ──────────────┼──────────────────────────────────────────────────┼────────────────────
+  | stable-       │ Stable Diffusion, Flux, PhotoMaker in C/C++      │ CPU, CUDA 12/13, Intel SYCL, Vulkan, Metal, Jetson L4T
+  |  iffusion.cpp │                                                  │
+  | diffusers     │ HuggingFace diffusion models                     │ CPU, CUDA 12/13, ROCm, Intel, Metal, Jetson L4T
+  |               │ (image and video generation)
+  | 
+  | ────────────────────────────────────────────────────────────────────────────
+  | Specialized Tasks ──────────────────────────────────────────────────────────
+  | ────────────────────────────────────────────────────────────────────────────
+  |
+  | Backend       │ Description                                      │ Acceleration
+  | ──────────────┼──────────────────────────────────────────────────┼────────────────────
+  | RF-DETR       │ Real─time transformer─based object detection     │ CPU, CUDA 12/13, Intel, Metal, Jetson L4T
+  | rerankers     │ Document reranking for RAG                       │ CUDA 12/13, ROCm, Intel, Metal
+  | local-store   │ Local vector database for embeddings             │ CPU, Metal
+  | Silero VAD    │ Voice Activity Detection                         │ CPU
+  | TRL           │ Fine─tuning (SFT, DPO, GRPO, RLOO, KTO, ORPO)    │ CPU, CUDA 12/13
+  | llama.cpp     │ HuggingFace GGUF model conversion+quantization   │ CPU, Metal
+  |   quantization│                                                  │
+  | Opus          │ Audio codec for WebRTC / Realtime API            │ CPU, Metal
+  ``` 
+
+## Acceleration Support Summary
+
+C&P from <https://localai.io/model-compatibility/>
+
+* GPU Acceleration
+  - NVIDIA CUDA: CUDA 12.0, CUDA 13.0 support across most backends
+  - AMD ROCm: HIP-based acceleration for AMD GPUs
+  - Intel oneAPI: SYCL-based acceleration for Intel GPUs (F16/F32 precision)
+  - Vulkan: Cross-platform GPU acceleration
+  - Metal: Apple Silicon GPU acceleration (M1/M2/M3+)
+
+* Specialized Hardware
+  - NVIDIA Jetson (L4T CUDA 12): ARM64 support for embedded AI (AGX Orin, Jetson Nano, Jetson Xavier NX, Jetson AGX Xavier)
+  - NVIDIA Jetson (L4T CUDA 13): ARM64 support for embedded AI (DGX Spark)
+  - Apple Silicon: Native Metal acceleration for Mac M1/M2/M3+
+  - Darwin x86: Intel Mac support
+
+* CPU Optimization
+  - AVX/AVX2/AVX512: Advanced vector extensions for x86
+  - Quantization: 4-bit, 5-bit, 8-bit integer quantization support
+  - Mixed Precision: F16/F32 mixed precision support
+
+
+ 
+ 
+ 
+  ```
+
+
+
+[[{101.local_AI,architecture.agents.local_AI}]]

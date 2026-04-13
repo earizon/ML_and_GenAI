@@ -1,0 +1,24 @@
+[[{architecture.RAG,architecture.embeddings.multimodal]]
+## Google Gemini Embedding 2: multimodal embeddings
+
+by Eric Vyacheslav, AI/ML Engineer | Ex-Google | Ex-MIT @ LinkedIn.
+
+- Google first embedding model that handles all media types natively.
+- It maps text, images, video, audio, and PDFs into one shared space. 
+
+- The model runs on the same architecture behind Gemini's multimodal understanding:
+  - You pass mixed inputs, like an image and a caption, in a single request.
+    - Text: up to 8,192 input tokens
+    - Images: up to 6 images per request, PNG and JPEG 
+    - Video: up to 120 seconds, MP4 and MOV 
+    - Audio: embedded directly, no transcription step needed 
+    - PDFs: up to 6 pages per request
+
+-  The key innovation is a single shared vector space for all media (vs separate models per modality).
+-  Now one model captures relationships between an image and its caption, or audio and its transcript. 
+
+- Before this, building a search engine over mixed media meant stitching together 3-4 specialized models,
+  each with its own pipeline.
+- Now you query across all your data types in a single call, which makes multimodal RAG systems dramatically
+  simpler to build and maintain. 
+[[}]]

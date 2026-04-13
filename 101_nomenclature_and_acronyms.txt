@@ -1,0 +1,190 @@
+[[{PM.draft.intention_to_be]]
+# DATA SCIENCE NOMENCLATURE (State: Draft/Planned)
+ 
+
+- SEGMENTATION: pre-processing where objects of interest are "extracted" from background.
+
+- FEATURE EXTRACTION: Process that takes-in a pattern and produces feature values.
+  Number of features is virtually always chosen to be fewer than the total
+  necessary to describe the complete taret of interest, and this leads to a loss
+  in information.
+
+  In acts of associate-memory, the system takes in a pattern and emits another
+pattern which is representative of a general group of patterns. It thus reduces
+the information somewhat, but rarely to the extent that pattern classification
+does. In short, because of the crucial role of a decision in pattern recognition
+information, IT IS FUNDAMENTALLY AN INFORMATION REDUCTION PROCESS.
+THE CONCEPTUAL BOUNDARY BETWEEN FEATURE-EXTRACTION AND CLASSIFICATION IS ARBITRARY.
+
+- SUBSET AND SUPERSET PROBLEM: Formally part of mereology, the study of part/whole
+  relationships. It appears as though the best classifiers try to incorporate
+  as much of the input into the categorization as "makes sense" but not too much.
+
+- RISK: Total spected cost of making a wrong classification/Decision
+  ```
+  | (total spected cost = wrong-classification cost x probability of event)
+  ```
+
+- SFT: Supervised fine-tunning. [[training]]
+
+- DPO: Direct Preference Optimization [[training]]
+
+- SOTA: State of the art.
+
+- ReLu, GeLu Activation function: Rectified Linear unit is defined as the 
+  non-negative part of its argument.
+  It was argued that ReLU approximates the biological relationship between 
+  neural firing rates and input current, in addition to enabling recurrent neural 
+  network dynamics to stabilise under weaker criteria.<br/>
+  Prior to 2010, most activation functions used were the logistic sigmoid 
+  (which is inspired by probability theory; see logistic regression) and its more 
+  numerically efficient[14] counterpart, the hyperbolic tangent. Around 2010, the 
+  use of ReLU became common again. <br/>
+  - Ge-Lu Activation function: Gaussina-error linear unit, is a variant of the 
+    TeLu function fixing some technical problems. 
+  (further details: <https://en.wikipedia.org/wiki/Rectified_linear_unit>)
+
+- Negative Log-Likehook (NLL) and Perplexity (PPL) are two commonly used metrics
+  when evaluating (during training) large language models. [[training.metric,LLM]]
+  - NNL: loss function aimed at maximizing the probability of correct predictions.
+    Its value is contrained within a positive interval. A high value indicates
+    that the networks has not yet learned patterns in the training set.
+  - PPL: Exponentiation of NLL. It provides a more intuitive way to understand
+    the model's performance. High values indicate poor learning performance.
+
+- Foundation model: Also known as base model, is a general pursose LLM trained
+  on huge data. It compares to the fine-tuned model, a further trained model
+  that start its training with an initial foundation model and continues to
+  train it for an specific task [[LLM.101]]
+
+- Measuring Massive Multitask Language Understanding (MMLU) is a popular 
+  benchmark for evaluating the capabilities of large language models. It inspired 
+  several other versions and spin-offs, such as MMLU-Pro, MMMLU and MMLU-Redux.  [[LLM]]
+
+- Reinforcment Learning from Human Feedback (RLHF): Trains the model using feedback from
+  humans.  RLHF implementation requires three main components:
+  - Supervised Fine-Tuning (SFT) - Initial model training on demonstration data
+  - Reward Model Training - Learning to predict human preferences
+  - Reinforcement Learning - Optimizing policy using the reward mode
+
+- Text-to-Image Models: Models trained to create realistic images  from text.
+  - Midjourney:
+  - DALL-E 2:
+  - Stable Diffusion:
+  - :..
+  Popular models use a text encoder to map input text into an embedding (latent?)
+  space.  This embedding is fed into a series of conditional diffusion models, 
+  which denoise and refine a latent image in successive stages. The final output
+  is a high-resolution image aligned with the input text. To main architectures exists:
+  - Generative Adversarial Networks (GANs): highly realistic but computationally 
+    expensive and unstable images.
+  - Diffusion models: General (not only for text-to-image) prommising models. 
+    They reduce the computational power and the sequential error accu8mulation.
+  - Stable Diffusion: (By CompVis group at LMU Munich - High-Resolution Image 
+    Synthesis with Latent Diffusion Models by Blattmann et al., 2022). [[doc_has.bibliography]]
+    - The model runs on a modest personal GPU [[DevOps]]
+
+- Stable Diffussion Latent Space: lower-dimensional space representation (of a higher dimensional
+  N-pixels-wide x M-pixels-hight) 2D "image".
+  - A varational autoencoder (VAE) provides latent space compression (called 
+    perceptual compression in the paper) while a U-Net (Noise-predictor CNN) performs 
+    iterative denoising.
+
+- U-Net: "Popular" type of convolutional Neural Network (NNT) with a symmetric encoder-decoder
+  structure. 
+  - It is commonly used for image segmentation taks.
+  - In Stable Diffusion, used to introduce/remove noise. It takes a noisy image (seed)
+    as input and processes it through a series of convolutional layers to extract 
+    features and learn semantic representations.
+
+- prosody: The set of a given speaker's voice and the patterns of rhythm and sounds. [[cognitive,use_case.digital_twin,]]
+
+- Model regularization: ML training technique used to prevent overfitting.<br/>
+  Overfitting happens when a models learns too much from the training data, including
+  noise and outliers, and performs pooly on unseen data.<br/>
+  Regularization works by adding a penalty term to the loss function, which discourages
+  the learning algorithm from assigning too much importance to any individual predictor
+  (feature).<br/>
+  There are different types of regularization techniques including:
+  - L1 (Lasso regression)
+  - L2 (Ridge regression)
+  - L1 + L2 combinations (Elastic net)
+  
+  [[training]]
+
+- Vapnik–Chervonenkis theory: developed during 1960–1990 by Vladimir Vapnik 
+  and Alexey Chervonenkis. The theory is a form of computational learning theory, 
+  which **attempts to explain the learning process from a statistical point of 
+  view**. 
+  * <https://en.wikipedia.org/wiki/Vapnik%E2%80%93Chervonenkis_theory>
+- Vapnik–Chervonenkis dimension: In Vapnik–Chervonenkis theory, it is a measure of
+  the size (capacity, complexity, expressive power, richness, or flexibility) of a 
+  class of sets. 
+    The notion can be extended to classes of binary functions. It is defined as the 
+  cardinality of the largest set of points that the function class can 
+  shatter—that is, for which all possible binary labelings can be realized by 
+  some function in the class. It was originally defined by Vladimir Vapnik and 
+  Alexey Chervonenkis.
+  * <https://en.wikipedia.org/wiki/Vapnik%E2%80%93Chervonenkis_dimension>
+
+- Word2vec: algorithm or technique for obtaining representations of words in 
+  a vector space (of hundreds of dimensions) 
+  * <https://en.wikipedia.org/wiki/Word2vec>
+
+- LLM Conditioning vs aligning: while conditioning can include (training) fine-tuning
+  and (inference) prompt tunning and is focused on influencing the model through various 
+  techniques at different layers of interaction, (inference) alignment is 
+  concerned with the fundamental and holistic calibration of the model’s 
+  behavior to human ethics and safety standards.
+
+
+- Exploratory Data Analysis (EDA)
+
+[[{]]
+## Parameter efficient fine-tuning (PEFT)
+- Parameter-Efficient Fine-Tuning (PEFT) are a set of methods used to fine-tune Large 
+  Language Models (LLMs) by updating a small subset of the model's parameter 
+  while keeping the majority of the pre-trained weights frozen.<br/>
+  The best well known example is LoRa.<br/>
+  Libraries exists to fine-tune base models in Hugging Face 
+  (<https://huggingface.co/docs/peft/tutorial/peft_model_config>), ...
+
+[[}]]
+
+[[{]]
+- Low-Rank (LoRa) fine-tunning training (<https://arxiv.org/abs/2106.09685>)
+  "full fine-tuning of base models becomes less feasible as the complexity 
+  increases. (ex: deploying independent instances of fine-tuned models
+  of GPT-3 175B is prohibitively expensive).<br/>
+   LoRA freezes the pre-trained model weights and injects trainable rank
+  decomposition matrices into each layer of the Transformer architecture, 
+  greatly reducing the number of trainable parameters for downstream tasks.
+   Compared to GPT-3 175B fine-tuned with Adam, LoRA can reduce the number
+  of trainable parameters by 10,000 times and the GPU memory requirement by
+  3 times. [[PM.price,performance.101,LLM,training.fine_tunning.LoRa]]
+   LoRA performs on-par or better than fine-tuning in model quality on 
+  RoBERTa, DeBERTa, GPT-2, and GPT-3, despite having fewer trainable parameters,
+  a higher training throughput, and, unlike adapters, no additional inference
+  latency. <br/>
+  PyTorch implmentation: <https://github.com/microsoft/LoRA>
+  * QLORA is an extension of LoRA, enabling efficient fine-tunning of large models
+    by backpropagating gradinets through a frozen 4-bit quantized model into 
+    learnable low-rank adapters, allowning to tune a 65B parameter model on a
+    single GPU. It achieves 99% of ChatGPT performance on Vicuna.<br/>
+    It also reduces memory requirements from >780GB to <48GB, without affecting
+    runtime or predictive performance. [[performance.101,training.fine_tunning.QLORA]]
+- Quantization: Technique to reduce numerical precision of weights and activations 
+  in neural networks like LLMs. Ex: from Floating Point 32bytes to 8-bit integers.
+  - LLMs like BERT and GPT-3 have been shown to work well with 4-8 bit quantization.
+[[}]]
+
+[[{]]
+- GPT: Generative Pretrained transformer.
+[[}]]
+
+[[{]]
+- Generative Adversarial Network (GAN): [[training.GAN]]
+[[}]]
+[[PM.draft.intention_to_be}]]
+
+

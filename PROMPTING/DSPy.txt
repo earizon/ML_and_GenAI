@@ -1,0 +1,64 @@
+[[{prompting.101,prompting.graphs,PM.TODO]]
+
+## DSPy Graph-Based Prompt Optimization: RIP of prompt engineering?
+
+""" no human should manually optimize prompts ever again """
+
+""" Programming, Not prompting """
+
+- DSPy is a declarative framework for building modular AI software. 
+-  It allows you to iterate fast on structured code rather than brittle strings. [[qa.101]]
+- It offers algorithms that compile AI programs into effective prompts and
+   weights for your language models, whether you're building simple classifiers,
+   sophisticated RAG pipelines, or Agent loops.
+
+Challenges with Prompt Engineering:
+
+- LM pipelines are typically implemented using hard-coded "prompt templates", 
+  i.e. lengthy strings discovered via trial and error.
+- What’s best for any given model, dataset, and prompting strategy is likely
+  to be specific to the particular combination at hand. 
+
+... DSPy Graphs **programming model abstracts LM pipelines as 
+TEXT TRANSFORMATION GRAPHS** , i.e. imperative computational graphs
+where LMs are invoked through declarative modules ... using a "few lines"
+of pthon code. [[PM.low_code]]
+
+- DSPy provides general-purpose modules (ChainOfThought, ReAct, ...), 
+which replace string-based prompting tricks.
+
+- To replace prompt hacking and one-off synthetic data generators, DSPy also 
+  provides general optimizers (BootstrapFewShotWithRandomSearch or 
+  BayesianSignatureOptimizer) that automatically update parameters.
+
+ DSPy modules are parameterized, meaning they can learn (by creating and
+collecting demonstrations) how to apply compositions of prompting, finetuning,
+augmentation, and reasoning techniques.
+
+ DSPy programs can express and optimize sophisticated LM pipelines that 
+reason about math word problems, tackle multi-hop retrieval, answer complex
+questions, and control agent loops.
+
+- Test Results within minutes of compiling:
+
+- A few lines of DSPy with llama2-13b-chat outpaces GPT-3.5 using
+  few-shot adn expert-created demonstrations (up to 5-46% and 16-40%, respectively).
+  [[qa.coherence]]
+
+- On top of that, **DSPy programs compiled to open and relatively small LMs like 
+  770M-parameter T5 and llama2-13b-chat are competitive with approaches that rely 
+  on expert-written prompt chains for proprietary GPT-3.5**. [[scalability.prompting]]
+
+REFs:
+- <https://dspy.ai/>
+- <https://github.com/stanfordnlp/dspy>
+- <https://arxiv.org/abs/2310.03714>
+- <https://arxiv.org/abs/2401.12178>
+- <https://arxiv.org/abs/2312.13382>
+- <https://arxiv.org/abs/2212.14024>
+- <https://spectrum.ieee.org/prompt-engineering-is-dead>
+
+
+
+
+[[prompting.Graph_Based_Prompt_Optimization}]]

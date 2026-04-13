@@ -1,0 +1,31 @@
+[[{PM.price.free_tier,PM.TODO]]
+## Google Collab
+
+* <https://colab.research.google.com/>
+
+Google Colaboratory, or Google Colab for short, is a free, cloud-based Jupyter 
+Notebook environment provided by Google. It allows users to write and execute 
+Python code through the browser, especially suited for machine learning, data 
+analysis, and education. Google Colab provides an online integrated development 
+environment (IDE) for Python that requires no setup and runs entirely in the 
+cloud. It offers free access to computing resources, including GPUs and TPUs, 
+making it popular among researchers and students working on deep learning and 
+data science projects.
+
+
+[[PM.price.free_tier}]]
+
+[[{MLOps.TPU,cloud.GCP,PM.price.free_tier,PM.TODO]]
+## Google TPU Pods
+
+* <https://www.infoq.com/news/2019/05/google-tpu-pods-beta-available/>
+
+  These pods allow Google's scalable cloud-based supercomputers with up
+to 1,000 of its custom TPU to be publicly consumable, which enables
+Machine Learning (ML) researchers, engineers, and data scientists to
+speed up the time needed to train and deploy machine learning models.
+[[MLOps.TPU}]]
+
+
+
+

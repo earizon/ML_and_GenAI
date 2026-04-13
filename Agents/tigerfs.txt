@@ -1,0 +1,146 @@
+[[{architecture.agents,architecture.TigerFS,PM.low_code,standards.POSIX_FS]]
+# TigerFS: Mount PostgreSQL as POSIX FileSystem
+
+Cite by Michael Freedman (TigerData co-founder):
+
+> Agents don't need fancy APIs or SDKs, they love the file system
+
+* <https://www.infoq.com/news/2026/04/tigerfs-postgresql-filesystem/ >
+* New experimental filesystem (2026-04)
+* TigerFS mounts a database as a directory and stores files directly in PostgreSQL.
+* Every file is a real row.
+* Writes are transactions.
+* Multiple agents and humans can read and write concurrently with full ACID guarantees, locally or across machines.
+* **Any tool that works with files works out of the box**.
+
+* Problem: 
+  - distributed agents need shared state.
+  - local files weren't built for that.
+  - Coordinating through files means no transactions, no history, and no structure.
+    * Git requires pull, push, and merge.
+    * S3 has no transactions. 
+    * Custom coordination APIs have to be built and maintained.
+
+Two usage models: 
+* file-first  workflow: developers organise files such as Markdown documents in directories, 
+  with atomic writes and automatic versioning allowing existing tools such as editors and
+  command-line utilities to work with the files without modification, while also enabling 
+  concurrent access and simple coordination by moving files between directories to represent
+  task states such as todo, doing, and done.  [[data.versioning]]
+
+* data-first workflow: users mount an existing PostgreSQL database and explore its data
+  using standard Unix tools. Filesystem paths can include filters and sorting that translate
+  into database queries, allowing users to retrieve or export data without writing SQL
+
+## TigerFS vs ...
+
+- vs. local files: ACID transactions and version history, instead of bare files with no coordination guarantees.
+- vs. git: Changes are visible immediately, with automatic version history. You don't need to pull, push, or merge.
+- vs. s3: Structured rows and ACID transactions, not blobs. You can query the data, not just retrieve it.
+- vs. a database: Your agents already know how to work with files. You don't need client libraries or schemas to pass around.
+
+
+```
+  $ curl -fsSL https://install.tigerfs.io | sh     # <·· Quick install in <60 secs.
+                                                   #     (FUSE on Linux, NFS on macOS, no external dependencies)
+                                                   #     Works with any PostgreSQL, with 
+                                                   #     special Tiger Cloud and Ghost support.
+
+  $ tigerfs mount \
+    postgres://localhost/mydb \
+    /mnt/db                                        # <·· alt 1: mount a local database
+    
+  $ tigerfs create \
+    ghost:my-project /mnt/db                       # <·· alt 2: create new Ghost database
+
+  $ echo "markdown,history" \
+    > /mnt/db/.build/notes                         # <··  start writing (history requires TimescaleDB)
+  $ echo "# Hello World" \
+    > /mnt/db/notes/hello.md
+
+
+                        HOW IT WORKS
+                        ────────────
+
+Unix Tools         ··>  Filesystem  ··>  TigerFS      ··>   PostgreSQL
+ls, cat, echo, rm       FUSE / NFS       Local Daemon       Database
+                                                            
+
+Filesystem paths map to SQL queries. Writes are transactions. 
+
+The filesystem becomes the API !!!
+
+
+───────────────────────────────────────────────────────────────────────────────────
+File-first ────────────────────────────────────────────────────────────────────────
+───────────────────────────────────────────────────────────────────────────────────
+
+   File-first build apps on the filesystem "API".
+
+shared agent workspace ────────────────────────────────────────────────────────────
+
+
+- agents operate in parallel     # agent A writes research findings             # agent B reads immediately. no sync. no pull.
+- Every edit is versioned        cat > /mnt/db/kb/auth-analysis.md << 'EOF'     cat /mnt/db/kb/auth-analysis.md
+- Version can be recovered       ---
+  from .history/                 author: agent-a
+                                 ---
+                                 OAuth 2.0 is the recommended approach...
+                                 EOF
+
+
+
+multi-agent task queue:  [[architecture.queue]]
+
+todo/, doing/, and done/ are    # agent claims a task atomically                # see what everyone is working on
+your three directories, and     mv /mnt/db/tasks/todo/fix-auth-bug.md \         ls /mnt/db/tasks/doing/
+'mv' is your only API.             /mnt/db/tasks/doing/fix-auth-bug.md          grep "author:" /mnt/db/tasks/doing/*.md
+                                                                                
+Moves are atomic database 
+operations, so two agents can't
+claim the same task.
+
+
+
+
+Collaborative Docs ─────────────────────────────────────────────────────────────
+
+- A human drafts, an agent      # browse the full edit trail                    # see what changed in the last edit
+edits, another summarizes,      ls /mnt/db/docs/.history/proposal.md/           diff /mnt/db/docs/.history/proposal.md/2026-02-25T100000Z \
+all in the same directory,                                                           /mnt/db/docs/proposal.md
+all visible immediately.
+History shows who changed 
+what and when.
+
+
+────────────────────────────────────────────────────────────────────────────────
+Data-first — treat your data as a filesystem ───────────────────────────────────
+────────────────────────────────────────────────────────────────────────────────
+
+quick data fixes ───────────────────────────────────────────────────────────────
+Update a customer's email,      # update a single column
+toggle a feature flag,          echo 'new@mail.as' > /mnt/db/users/123/email.txt
+delete a test record.                                                                          
+                                # update full row via JSON
+ One shell command instead      echo '{"email":"a@b.com","name":"A"}' > /mnt/db/users/123.json
+of opening a SQL client,                                                                       
+remembering the schema, and     # delete a record
+writing a WHERE clause.         rm -r /mnt/db/users/456/
+                                                                                               
+                                # bulk-load from CSV
+                                cat data.csv > /mnt/db/orders/.import/.append/csv
+
+data analytics ─────────────────────────────────────────────────────────────────
+
+Standard Unix tools work on     # find shipped orders
+every table. For larger         grep "shipped" /mnt/db/orders/*/status.txt
+queries, chain filters and
+pagination into a single path   # select specific columns via pipeline
+to push the work into the DDBB  cat /mnt/db/orders/.filter/status/shipped\
+                                    /.columns/id,total,created_at/.export/csv
+
+                                # sum shipped order totals
+                                cat /mnt/db/orders/.filter/status/shipped\
+                                    /.columns/total/.export/csv | awk '{s+=$1} END {print s}'
+```
+[[architecture.POSIX_FS}]]

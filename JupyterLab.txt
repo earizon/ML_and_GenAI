@@ -1,0 +1,37 @@
+# JupyterLab IDE [[{jupyterlab]]
+<https://jupyterlab.readthedocs.io/en/stable/>
+<https://github.com/tldr-pages/tldr/blob/master/pages/common/jupyter.md> [TODO]
+<https://github.com/tldr-pages/tldr/blob/master/pages/common/jupytext.md>  [TODO]
+- Python IDE + Python Notebooks
+- Instalation as local  pipenv project :
+STEP 1) Create Pipfile
+  $ mkdir myProject && cd  myProject
+  $ vim Pipfile
+   |[ [source]]
+   |name = "pypi"
+   |url = "https://pypi.org/simple"
+   |verify_ssl = true
+   |
+   |[dev-packages]
+   |
+   |[packages]
+   |scipy = "*"
+   |matplotlib = "*"
+   |scikit-learn = "*"
+   |jupyterlab = "*"
+   |pandas = "*"
+   |
+   |[requires]
+   |python_version = "3.7"
+
+STEP 2) Install dependencies
+  $ pipenv install  #  ← Install all packages and dependencies.
+
+DAILY-USE)
+    $ cd .../myProject
+    $ pipenv shell    #  ← Activate environment
+    $ jupyter lab 1>jupyter.log 2>&1 & # ← http://localhost:8888/lab/workspaces/
+
+## Voilà: notebook to apps/dashboard: [[{PM.low_code]]
+<https://voila-gallery.org> [[}]]
+[[jupyterlab}]]

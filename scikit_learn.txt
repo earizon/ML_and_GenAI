@@ -1,0 +1,206 @@
+[[{sklearn,101]]
+[[doc_has.decission_tree]]
+[[training.linear_regression]]
+[[training.logistic_regression]]
+[[training.random_forest]]
+[[training.SVM]]
+[[training.k-Nearest_Neighbors]]
+[[training.k-Means]]
+[[training.gradient_boosting]]
+SciKit-learn Summary:
+
+- External Links:
+* <https://scikit-learn.org/stable/>
+* <https://scikit-learn.org/stable/tutorial/basic/tutorial.html>
+
+- Library providing classic machine learning algorithms with simple an efficient solutions
+  to learning problems,
+
+  ```
+  # import ...
+  from sklearn import linear_model
+
+  # load train and tests dataset
+  # identify feature and response variable/s and values must be
+  # numerica and numpy arrays.
+  x_train = .... input training_datasets
+  y_train = .... target training_datasets
+  # create linear regression object
+  linear = linear_model.LinearRegression()
+
+  # Train the model using the training set and check socore
+  linear.fit(x_train, y_train)
+  linear.score (x_train, y_train)
+
+  print ("Coefficient: ", linear.coef_)
+  print ("Intercept: ", linear.intercept_)
+  predicted = linear.predict(x_test)
+
+  Logistic Regression
+  # Assumed you have: X(predictor), Y(target)
+  # for training data set and x_set(predictor) of test_dataset
+  # create logistic regression object
+  model = LogisticRegrssion()
+
+  # Train the model using the training set and check socore
+  model.fit(X, y)
+  model.score(X,y)
+
+  print ("Coefficient: ", model.coef_)
+  print ("Intercept: ", model.intercept_)
+  predicted = model.predict(x_test)
+  ```
+
+##  Decision Tree
+  ```
+  from sklearn import tree
+  # Assumed you have X(predictor) and Y(target) for training
+  # data set and x_test(predictor) of test-dataset
+  model = tree.DecisionTreeClassifier(criterion='gini')
+  #            ^                                 ^^^^
+  #            |                               - gini
+  #            |                               - entropy
+  #            |                       (Information gain)
+  #           .DecisionTreeRegressor() for regression
+
+  # Train the model using the training set and check socore
+  model.fit(X, y)
+  model.score(X,y)
+
+  predicted = model.predict(x_test)
+  ```
+
+## Support Vector Machine (SVM:
+  ```
+  ...
+  from sklearn import svn
+  # Assumed you have X(predictor) and Y(target) for training
+  # data set and x_test(predictor) of test-dataset
+  model = svm.svc()
+
+  # there are vairous options associated with it, this is simple
+  # for classification.
+
+  # Train the model using the training set and check socore
+  model.fit(X, y)
+  model.score(X,y)
+
+  predicted = model.predict(x_test)
+  ```
+
+## Naive Bayes
+  ```
+  from sklearn.naive_bayes import GaussianNB
+  # Assumed you have X(predictor) and Y(target) for training
+  # data set and x_test(predictor) of test-dataset
+
+  model = GaussianNB()
+  # There are other distributions for multinomial classes like
+  #  Bernoulli naive Bayes
+  # Train the model using the training set
+  model.fit(X, y)
+
+  predicted = model.predict(x_test)
+  ```
+
+## k-Nearest Neighbors
+
+  ```
+  from sklearn.neighbors import KNeighborsClassifier
+  # Assumed you have X(predictor) and Y(target) for training
+  # data set and x_test(predictor) of test-dataset
+  model = KNeighborsClassifier(n_neighbors=6)
+  #                              ^ 5 by default
+  # Train the model using the training set
+  model.fit(X, y)
+
+  predicted = model.predict(x_test)
+  ```
+
+## k-Means
+  ```
+  from sklearn.cluster import KMeans
+  # Assumed you have X(predictor) and Y(target) for training
+  # data set and x_test(predictor) of test-dataset
+  model = KMeans(n_cluster= 3, random_state=0)
+  ```
+
+  # Train the model using the training set
+  model.fit(X, y)
+
+  predicted = model.predict(x_test)
+
+
+## Random Forest
+
+  ```
+  | from sklearn.ensemble import RandomForestClassifier
+  | # Assumed you have X(predictor) and Y(target) for training
+  | # data set and x_test(predictor) of test-dataset
+  | model RandomForestClassifier()
+  |
+  | # Train the model using the training set
+  | model.fit(X, y)
+  |
+  | predicted = model.predict(x_test)
+  ```
+
+
+[[{training.dimension_reduction]]
+##  Dimensionality Reduction Algorithms
+  ```
+  | from sklearn import decomposition
+  | # Assumed you have training and test data sets as train and test
+  | pca = decomposition.PCA(n_components=k)
+  | #                   ^   default fvalue of k = :
+  | #                   |     min(n_sample, n_features)
+  | #                   |
+  | #  or decomposition.FactorAnalysis()
+  | # Reduce dimensions :
+  | # train_reduced = pca.fit_transform(train)
+  | # Reduced dimension of test dataset:
+  | # test_reduced = pca.transform(test)
+  ```
+[[training.dimension_reduction}]]
+
+
+[[{training.dimension_reduction]]
+##  Gradient Boosting and AdaBoost     
+
+
+  from sklearn.ensemble import GradientBoostingClassifier
+
+  # Assumed you have X(predictor) and Y(target) for training
+  # data set and x_test(predictor) of test-dataset
+
+  model = GradientBoostingClassifier(
+          n_estimators=100,
+          learning_rate = 1.0,
+          max_depth = 1,
+          random_state = 0)
+  # Train the model using the training set
+  model.fit(X, y)
+
+  predicted = model.predict(x_test)
+[[training.dimension_reduction}]]
+
+
+[[{sklearn,k-nearest_neighbors,metrics,PM.TODO]]
+## SciKit-learn metrics
+<http://scikit-learn.org/stable/modules/generated/sklearn.neigbors.DistanceMetric.html>
+[[}]]
+
+# sklearn Feature Selection: [[PM.TODO]]
+  http://scikit-learn.org/stable/modules/feature_selection.html
+  http://rasbt.github.io/mlxtend/user_guide/feature_selection/SequentialFeatureSelector/
+
+# Model evalution and hyper-params:
+List of different values acepted for the qualification :
+http://scikit-learn.org/stable/modules/model_evaluation.html
+http://scikit-learn.org/stable/modules/generated/skleran.metrics.precision_recall_curve.html
+Synthetic Minority Over-sampling Technique, 
+Journal of Artificial Intelligence Reseach, 16: 321-357, 2002
+https://github.com/scikit-learn-contrib/imbalanced-learn
+
+
+[[sklearn}]]

@@ -1,0 +1,14 @@
+[[{]]
+# Cursor
+
+# CursorRules
+
+## curated list of awesome .cursorrules
+
+* <https://github.com/PatrickJS/awesome-cursorrules>
+
+## Using Cursor + Claude to Make Full-Stack SaaS Apps
+
+* <https://dev.to/wasp/using-cursor-claude-to-make-full-stack-saas-apps-2aj3>
+
+[[}]]

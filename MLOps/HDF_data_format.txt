@@ -1,0 +1,15 @@
+[[{data.format.HDF,architecture.bigdata,qa.standards,data.persistence,PM.TODO]]
+# HDF data format 
+
+* <https://en.wikipedia.org/wiki/Hierarchical_Data_Format>
+
+  Hierarchical Data Format (HDF) is a set of file formats (HDF4, HDF5)
+designed to store and organize **large amounts of data**.
+ Originally developed at the National Center for Supercomputing Applications, it
+is supported by The HDF Group.
+
+## HDF Libraries
+
+- HDF5    : used to store and manipulate data
+- PyTables: Used for managing HDF5 datasets
+[[}]]

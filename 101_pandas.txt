@@ -1,0 +1,631 @@
+# PANDAS SUMMARY[[{pandas]]
+- High level interface to NumPy, """sort-of Excel over Python""".
+- REF:
+  - <https://pandas.pydata.org/>
+  - <https://stackoverflow.com/questions/tagged/pandas?tab=Votes>
+      Most voted on StackOverflow
+  - <https://pandas.pydata.org/pandas-docs/stable/getting_started/comparison/index.html>
+      Comparison with R , SQL, SAS, Stata
+
+## PANDAS SERIES: (Series == "tagged column", Series list == "DataFrame")
+
+  ```
+  | Create New Serie ───────────────────────────────────────────────────────────
+  |  import pandas as pd
+  |  s1 = pd.Series(       s2 = pd.Series(              s3 = pd.Series(
+  |    [10, 23, 32]          [10, 23, 32],                [1, 1, 1],
+  |                          index=['A','B','C'],         index=['A','B','C','D'],
+  |                          name = 'Serie Name A'        name = 'Serie Name A'
+  |  )                     )                            )
+  |  >>> print(s1)         >>> print(s2)                >>> print(s2)
+  |  0 10                  A 10                         A 10
+  |  1 23                  B 23                         B 23
+  |  2 32                  C 32                         C 32
+  |  dtype: int64          dtype: int64                 dtype: int64
+  |  
+  |         s1[0] == s2["A"] == s2.A
+  |  
+  |  >>> s4 = s2+s3  # <·· Operations in series are done over similar indexes
+  |  >>> print(s4)
+  |  A    20.0
+  |  B    33.0
+  |  C    42.0
+  |  D     NaN       # <·· 'D' index is not present in s2
+  |  dtype: float64
+  |  
+  |  >>> s4.isnull()     >>> s4.notnull()
+  |  A    False          A     True
+  |  B    False          B     True
+  |  C    False          C     True
+  |  D     True          D    False
+  |  
+  |  >>> print(s4[  s4.notnull()] ) # <·· REMOVING NULLS from series
+  |  A    20.0
+  |  B    33.0
+  |  C    42.0
+  |  dtype: float64
+  |  
+  |  >>> plt.bar(s4.index, s4.values) # <·· Draw a Bar plot (np.NaN will print a zero-height bar for given index)
+  |  >>> plt.boxplot(r.values)        # <·· Draw a boxplot (first, median, second quantile) of the data
+  |  
+  |  
+  |  >>> description=s4[  s4.notnull()].describe() # <·· Statistical description of data,
+  |  count     3.000000                                returned as another Pandas Serie
+  |  mean     31.666667
+  |  std      11.060440
+  |  min      20.000000
+  |  25%      26.500000
+  |  50%      33.000000
+  |  75%      37.500000
+  |  max      42.000000
+  |  dtype: float64
+  |  >>> plt.bar(              # <·· Draw a Bar plot of the statistical description of the data (just for fun)
+  |        description.index,
+  |        description.values)
+  |  
+  |  >>> t2=s2*100+np.random.rand(s2.size))   # <·· Vectorized inputx100 + rand operation
+  |  >>> print(t2)
+  |  A    1000.191969                ^^^^^^^
+  |  B    2300.220655                size&shape must match with s2/s2*100
+  |  C    3200.967106
+  |  dtype: int64
+  |  >>> print(np.ceil(t2))                   # <·· Vectorized ceil operation
+  |  A    1001.0
+  |  B    2301.0
+  |  C    3201.0
+  |  dtype: int64
+  ```
+
+  ```
+  | ── PANDAS DataFrame "spreadsheet" table with indexes rows and columns. ─────
+  | - Each column is a Serie and the ordered collection of columns forms the DataFrame
+  | - Each column has a type.
+  | - All columns share the same index.
+  | 
+  |  Creating a DataFrame
+  | df1 = pd.DataFrame (                                    # <·· Create from Dictionary with keys = columns-names
+  |          { 'Column1'   : [ 'City1', 'City2', 'City3' ],                                     values = colum values
+  |            'Column2'   : [ 100    , 150    , 200     ]           >>>print(df1):
+  |          }                                                         Column1  Column2
+  |       )                                                          0   City1      100
+  |            ^^^^^^^^^     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^           1   City2      150
+  |            |             df1.index:                              2   City3      200
+  |            |             RangeIndex(start=0, stop=3, step=1)
+  |           print df1.colums                                       >>>print(df1.values)
+  |           Index(['Column1', 'Column2'], dtype='object')
+  |                                                                  [['City1' 100]   <·· row1
+  |                                                                   ['City2' 150]   <·· row2
+  |                                                                   ['City3' 200]]  <·· row3
+  | df1.index  .name = 'Cities'  # <·· assign names ··>    >>>print(df1):
+  | df1.columns.name = 'Params'  # <·· assign names      Params Column1  Column2
+  |                                                      Cities
+  |                                                      0        City1      100
+  |                                                      1        City2      150
+  |                                                      ...
+  | 
+  | inputSerie = pd.Series( [1,2,3], index=['City1','City2','City3'] )
+  | df2 = df.DataFrame(inputSerie)     # <·· Create from Pandas Series
+  | 
+  | df3 = pd.DataFrame (                   # <·· Create with data, column/index description
+  |   [                                        >>>print(df3)                         >>>print(df3 .describe( ) )
+  |    ('City1', 99000, 100000, 101001 ),            NAME    2009    2010    2011                           └─ include='all' to
+  |    ('City2',109000, 200000, 201001 ),      I    City1   99000  100000  101001                              show also non-numeric clumns
+  |    ('City3',209000, 300000, 301001 ),      II   City2  109000  200000  201001                2009      2010      2010
+  |   ],                                       III  City3  209000  300000  301001    count       3.00       3.0       3.0
+  |   columns = ['NAME', '2009',                                                     mean   139000.00  200000.0  201001.0
+  |              '2010', '2011'],              >>>print(df3 .info() )                std     60827.62  100000.0  100000.0
+  |   index   = ['I', 'II' , 'III'],           <class 'pandas.core.frame.DataFrame'> min     99000.00  100000.0  101001.0
+  | )                                          Index: 3 entries, I to III            25%    104000.00  150000.0  151001.0
+  |                                            Data columns (total 4 columns):       50%    109000.00  200000.0  201001.0
+  |                                            NAME    3 non-null object             75%    159000.00  250000.0  251001.0
+  |                                            2009    3 non-null int64              max    209000.00  300000.0  301001.0
+  |                                            2010    3 non-null int64
+  |                                            2010    3 non-null int64
+  |                                            dtypes: int64(3), object(1)
+  |                                            memory usage: 120.0+ bytes
+  | 
+  |                                            0
+  | df3 .plot (x='NAME' , y=['2009','2010','2011'], kind='bar') # <·· Plot as bars
+  | i[./pandas_dataframe_bar_plot.svg|min-width:2rem; max-width:30em]
+  | 
+  | df3.  loc [ ['I','II','III'],['2009','2010','2011'] ]# <·· Select rows/colums
+  | df3.  loc [  'I':'III'      , '2009':'2011' ]        #
+  | df3.  loc [ ['I',    ,'III'],['2009',       '2011'] ]#
+  | df3. iloc [:,:]                                      # <··  "     "           using integer ranges
+  | df3. iloc [:,:]                                      #
+  | df3. iloc [:-2,[0,1,2,3]]                            #
+  | df3. iloc [:-2,[0,    3]]                            #
+  | df3.NAME                                             # <··  Peek column by name
+  | df3['2009']                                          # <··  Peek column by key
+  |
+  | ## Conditional Filter
+  |                                                            Conditional Filte.
+  | df3[df3["2010"] > 100000]                            # <·· Only rows with 2010 > 100000
+  |                                                            NAME    2009    2010    2011
+  |                                                            II   City2  109000  200000  201001
+  |                                                            III  City3  209000  300000  301001
+  | 
+  | df3[df3["2010"] > 100000][df3["2011"] > 250000]      # <·· Only rows with 2010 > 100000 AND 2011 > 250000
+  |                                                           NAME    2009    2010    2011
+  |                                                           III  City3  209000  300000  301001
+  | 
+  | ## File <··> DataFrame (Import/Export)  [[{pandas.I/O]]
+  |   File ··> read ··> DataFrame
+  |   $ cat animals.csv
+  |   specie,body_weight,brain-weight
+  |   big brown bat,0.023,0.3
+  |   big brown bat,0.025,0.3
+  |   mouse,0.023,0.4
+  |   mouse,0.025,0.4
+  |   Ground squirrel,0.101,4
+  |   Goldem hamster,0.12,1
+  |   Rat,0.28,1.9
+  | 
+  |   $ cat csv_to_dataFrame.py
+  |   import pandas as pd
+  | 
+  |   df = pd.read_csv('./animals.csv'                     )  # alt1: Sorter
+  |   df = pd.read_table('./animals.csv', delimiter=','    )  # alt2: more complete
+  |   print(df.to_string())                           └─┬─┘
+  |               specie  body_weight  brain-weight     │
+  |   0    big brown bat        0.023             0.3   │
+  |   1    big brown bat        0.025             0.3   │
+  |   2            mouse        0.023             0.4   │
+  |   3            mouse        0.025             0.4   │
+  |   4  Ground squirrel        0.101             4.0   │
+  |   5   Goldem hamster        0.120             1.0   │
+  |   6              Rat        0.280             1.9   │
+  |                                                     │
+  |   ┌─────────────────────────────────────────────────┘
+  |   ├─ If header in input csv file is missing add  header = None
+  |   │
+  |   ├─ Headers can be specified also with parameter:
+  |   │  names = [ 'Column1', 'Column2', ...]
+  |   │
+  |   ├─ If file start like
+  |   │  ************************** <·· line 1
+  |   │  * This is a CSV with data* <·· line 2
+  |   │  ************************** <·· line 3
+  |   │  use param   skiprows = 3   or  skiprows=[0,1,2] to skip/ignore them
+  |   │
+  |   ├─ To read just first 3 rows (after skipping):
+  |   │  nrows = 3
+  |   │
+  |   └─ RegEx can be used as separators (instead of ',') with param
+  |      sep = '\s*'
+  | 
+  |   To use one input-csv-file column/s as DataFrame  primary(secondary,..)index  use:
+  |   index_col like:
+  |   df = pd.read_table('./animals.csv', delimiter=',', index_col=[0,1] )
+  |   print(df.to_string())
+  |  specie          body_weight
+  |  big brown bat   0.023                   0.3
+  |                  0.025                   0.3
+  |  mouse           0.023                   0.4
+  |                  0.025                   0.4
+  |  Ground squirrel 0.101                   4.0
+  |  Goldem hamster  0.120                   1.0
+  |  Rat             0.280                   1.9
+  | 
+  | 
+  |   CSV Batch reads
+  |   When input CSV is very big, it can be processed in chunks like:
+  |   chunckIterator01 = pd.read_csv('./myBigCSV.csv', chunksize = 100 )
+  |   for chunk01 in chunckIterator01:
+  |   print (lent(chunck01, chunk.ColumWithIntegers.max())
+  | 
+  | 
+  |   DataFrame ··> write ··> file
+  |   df.to_csv('./myNewCSVFile.csv', header = True, index = False)
+  | 
+  |   }- By default NaN values are converted to ,,. Param na_rep allows to
+  |      replace with something else.
+  | 
+  |   Excel ··> read ··> DataFrame
+  |   df = pd.read_excel('./myExcelFile.xlsx', sheetname='Sheet3',
+  |         converters = { 'COL_CLIENTS', lambda x : x.upper() },
+  |         na_values = { 'COLUMN_SEX': ['Unknown'],               <·· values for given columns
+  |                       'COLUMN_POSTAL_ADDRESS' : ['-','','N/A']     in input excel will be replaced
+  |         )           }                                              with NaN in new DataFrame
+  | 
+  | 
+  |   To read N excel tabs faster:
+  |   book01 = pd.ExcelFile('./myNewExcelFile.xlsx')
+  |   df1 = pd.read_excel( book01 , sheetname = 'Sheet1', ...)
+  |   df2 = pd.read_excel( book01 , sheetname = 'Sheet2', ...)
+  |   DataFrame ··> write ··> Excel
+  |   df.to_excel('./myNewExcelFile.xlsx', index = False, sheet_name='Processed data',
+  |               columns = ['COLUMN1','COLUMN2'], na_rep='---')
+  | 
+  |   To write N sheets to a single excel file  use ExcelWriter.
+  |   book02 = pd.ExcelWriter('./myNewExcelFile.xlsx')
+  |   df1.to_excel( book02 , 'Data from df1', index = False)
+  |   df2.to_excel( book02 , 'Data from df2', index = False)
+  | 
+  |   HTML Table ··> parse ··> DataFrame
+  |   pd.read_html inspects an HTML file searching for tables and returning a new
+  |   DataFrame for each table found. Ex:
+  |   import request
+  |   url = "https://es.wikipedia.org/wiki/Anexo:Municipios_de_la_Comunidad_de_Madrid
+  |   response = requests.get(url)
+  |   if response.status_code != 200:
+  |      raise Exception("Couldn't read remote URL")
+  |   html = response.text
+  |   dataFrame_l = pd.read_html(html, header=0)
+  |   print(dataFrame_l[0].to_html()) # <·· show DataFrame as html table.
+  | 
+  |   XML ··> parse ··> DataFrame
+  |   # STEP 1. alt 1: convert local-XML-file to XML object
+  |   from lxml import objectify
+  |   xml = objectify.partse ('./songs.xml')
+  |   root = xml.getroot()
+  |   print(root.song.title)
+  |   el01 = root.song
+  |   print (el01.tag, el01.text, e1.attrib )
+  | 
+  |   # STEP 1. alt convert remote-XML-resource to XML object
+  |   response = requests.get('http://...../resource.xml')
+  |   if response.status_code != 200:
+  |      raise Exception("Couldn't read remote URL")
+  |   inputData = response.text
+  |   root = objectify.fromstring(bytes(bytearray(data, encoding='utf-8))
+  | 
+  |   # STEP 2. Convert to DataFrame Manually
+  |   def xml2df(root):
+  |       data = []
+  |       for elI in root.getchildren()
+  |         data.append ( ( elI.title.text, elI.attrib['date'] elI.singer.text ) )
+  |       df = pd.DataFrame (data, columns = [ 'title', 'date', 'Singer' ] )
+  | 
+  |   DataFrame ··> serialize ··> JSON
+  |   pd.to_json('./JSONFile01.json')           # Alt.1: Simpler
+  | 
+  |   from Pandas.io.json import json_normalize # Alt.2: More powerfull
+  |   with open('./songs.json') as json_data:
+  |       d = json.load(json_data)
+  |   df = json_normalize (d, 'Songs', ['Group','Name'], 'Genre')
+  |                             ^        ^                ^
+  |                          Doc.key   2nd key to add     3rd key to add
+  |   print(df)
+  |       Date    Length   Title   Group.Name   Genre
+  |   0   ...     ...       ..     ...          ...
+  |   1   ...
+  | 
+  |   JSON ··> parse ··> DataFrame
+  |   df = pd.read_json('./JSONFile01.json')
+  | 
+  | 
+  |   DDBB ··> query ··> DataFrame
+  |   import mysql.connectro as sql
+  |   db_connection01 = sql.connect(
+  |                     host='...', port=3306, database='db1',
+  |                     user='...', password='...)
+  | 
+  |   df = pd.read_sql('select column1, column2 ... from table1;', con=db_connection01)
+  | 
+  |   df.column2 = df.column2 + 100
+  | 
+  |   df.to_sql ('New table', con = db_connection, flavor = 'mysql', if_exists = 'replace')
+  | 
+  |   db_connection01.close()
+  | 
+  |   MongoDB ··> DataFrame
+  |   Note:  Mongo Server 1 <··>  N database 1 <··> N collection
+  |   import pymongo
+  |   client = pymongo.MongoClient('localhost',27017) #
+  |   client.database_names()
+  |   ['ddbb1', 'ddbb2', ...]
+  | 
+  |   db1 = client.ddbb1
+  |   col1 = db1.Collection1
+  |   col1.count()
+  |   col1.find_one()
+  |   {'key1': 'value1', ...}
+  |   cursor = col1.find({ 'key1': {'subkey2' : 'valueToFilterFor'} })
+  |   l = list(cursor) # <·· find all
+  | 
+  |   DataFrame ··> MongoD
+  |   new_db = client.NewDB
+  |   colNew = new_db.NewCol
+  |   jsonDataToWrite = json.load(df.to_json(...))
+  |   col.insert_manY(jsonDataToWrite)
+  ```
+
+[[{pandas.pivot, PM.TODO]]
+## Pivot Table 
+
+<https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.pivot_table.html>
+
+<!--
+TODO: Examples :
+Drop duplicates of permuted multi-index
+- https://stackoverflow.com/questions/50223849/drop-duplicates-of-permuted-multi-index
+-->
+[[pandas.pivot}]]
+
+
+[[{pandas.I/O,pandas.storage,data.sql,scalability.sqlite,PM.TODO]]
+## Fast Large Datasets with SQLite
+
+* Fast subsets of large datasets with Pandas and SQLite
+  <https://pythonspeed.com/articles/indexing-pandas-sqlite/>
+[[pandas.I/O}]]
+[[pandas}]]
+
+[[{PM.TODO]]
+# Pandas supercharged 
+1. Jupyter-Datatables: Enrich the default preview of a DataFrame.Link:
+2. SummaryTools: Supercharge the describe() method.
+3. Sidetable: Supercharge the value_counts() method.
+4. Sketch: Generate code/insights by asking questions in natural language
+5. Deepchecks: Generate a comprehensive data validation report.
+6. Pandas Flavor: Extend Pandas to attach methods to the dataframe object.
+7. Pandarallel: Parallelize Pandas across all CPU cores
+8. PandasML: Pandas, sklearn and matplotlib integrated.
+9. Geopandas: Work with Geospatial data in Pandas.
+10. DuckDB: Run SQL queries on dataframes.
+11. Modin: Boost Pandas' performance up to 70x by modifying the import.
+12. PivotTableJS: Create pivot tables by using drag and drop functionality.
+13. Missingno: Visualize missing values in your dataset.
+14. Pandas Alive: Create animated charts for pandas dataframes.
+15. Skimpy: Supercharge the describe() method.
+16. Pandas-log: Debug Pandas pipeline with step-by-step logging.
+17. tsflex: Process time series and perform feature extraction.
+18. pandas-profiling: Generate EDA report of data in one-line.
+19. Mars: tensor-based framework for scaling numpy, pandas, scikit-learn, ...
+20. nptyping: Apply type hints for Pandas dataframes.
+21. popmon: Profile your data to determine its stability.
+22. Gspread-pandas: Interact with Google sheets using dataframes.
+23. pdpipe: Create pandas pipeline easily and intuitively.
+24. PrettyPandas: Prettify the dataframe when printed.
+25. Dora: Intuitive API for data cleaning, processing,
+26.      feature selection, visualization, etc.
+27. Pandapy: The speed of NumPy combined with Pandas' elegance.
+[[}]]
+
+
+[[{PM.UX,PM.TODO,doc_has.comparative]]
+# 'agate' Pandas alternative optimized for humans 
+<https://github.com/wireservice/agate>
+- alternative Python data analysis library (to numpy/pandas)
+- optimized for humans (vs machines)
+- solves real-world problems with readable code.
+- agate "Phylosophy":
+  - Humans have less time than computers. Optimize for humans.
+  - Most datasets are small. Don’t optimize for "big data".
+  - Text is data. It must always be a first-class citizen.
+  - Python gets it right. Make it work like Python does.
+  - Humans lives are nasty, brutish and short. Make it easy.
+  - Mutability leads to confusion. Processes that alter data must create new copies.
+  - Extensions are the way. Don’t add it to core unless everybody needs it.
+[[PM.UX,}]]
+
+[[{PM.TODO]]
+# Non-Classified / TODO
+
+[[{]]
+## Pandas 101 
+
+From time to time, we are advised to avoid iterating on a Pandas
+DataFrame. Here's the core reason behind this.A DataFrame is a
+column-major data structure. Thus, consecutive elements in a column
+are stored next to each other in memory.As processors are efficient
+with contiguous blocks of memory, retrieving a column is much faster
+than a row.But while iterating, as each row is retrieved by accessing
+non-contiguous blocks of memory, the run-time increases
+drastically.In the image below, retrieving over 32M elements of a
+column was still over 20x faster than fetching just nine elements
+stored in a row. Check out my daily newsletter to learn something new
+about Python and Data Science every day:
+https://bit.ly/DailyDS.#python #datascience #pandas
+[[}]]
+
+## Pandas Cheat Sheet
+- <https://opensource.com/sites/default/files/uploads/pandas_cheat_sheet_github.png>
+
+[[{PM.whats_new]]
+## Pandas 2.0 (and Polars comparative in comments) 
+
+- <https://www.linkedin.com/posts/tunguz_datascience-machinelearning-data-activity-7049351699299254272--TTz >
+ Bojan Tunguz, Ph.D.
+
+""" Pandas 2.0 biggest overhaul since its inception, 
+... not major user facing changes or compatibility issues,
+moving away from numpy to Apache Arrow to represent data 
+speeding up many Pandas tasks such as loading and saving big
+csv files ... now on par with Polars in that regard. [[data.arrow]]
+- <https://lnkd.in/gxU-_69tRelease>
+- notes: https://lnkd.in/gb4-R8WmGitHub 
+- repo: <https://lnkd.in/gp9AwhqY#DataScience>
+- <https://pola-rs.github.io/polars-book/user-guide/howcani/interop/arrow.html>
+"""
+- Comment by Zachary Royals:
+  """Still lacks built-in parallelization and lazy-loading optimization. 
+     I do not see it becoming as performant as polars for building
+     pipelines. It's better used now for data science/analytics tasks """
+    ![image title](./test.svg){width:30ch;}
+[[PM.whats_new}]]
+
+## Pandas to/from Polars Guide
+
+  ```
+  | (original version from DailyDoseOfDS.com)
+  | Operation        |    Pandas              | Polars                     | Syntax
+  |                  |                        |                            | Comparison
+  |                  |                        |                            |
+  |  import          | import pandas as pd    | import polars as pl        | -
+  |  Read CSV        | df = pd.read_csv(file) | df = pl.read_csv(file)     | == 
+  |  Save to CSV     | df.to_csv(file)        | df.to_csv(file)            | == 
+  |  Head            | df.head(20)            | df.head(10)                | == 
+  |  Dimensions      | df.shape               | df.shape                   | == 
+  |  Datatype        | df.dtypes              | df.dtypes                  | == 
+  |  Memory Ussage   | df.memory_usage()      | df.estimated_size()        | Dif.name
+  |  Select column/s | df[["col1","col2"]     | df[["col1","col2"]         | == 
+  |  Filter Data     | df[df.column > 10 ]    | df[df.column > 10 ]        | == 
+  |                  |                        | df.filter(pl.col("A")>10)  | different
+  |  Sort            | df.sort_values("col")  | df.sort("col")             | Similar
+  |  Fill NaN        | df.column.fillna(0)    | df.column.fill_nan(0)      | Similar
+  |  Join            | pd.merge(df1, df2,     | df1.join(df2,              | Similar
+  |                  |  on="col",             |  on="col",                 | 
+  |                  |  how="inner")          |  how="inner")              | 
+  |  Concatenate     | pd.concat((df1,df2))   | pl.concat((df1,df2))       | Same
+  |  Group           | df.groupby("column").  | df.groupby("column").      | Similar
+  |                  |  agg_col.mean()        |   agg(pl.mean("agg_col"))  | 
+  |  Unique Values   | df.column.unique()     | df.column.unique()         | Same
+  |  Rename Column   | df.rename("columns =   | df.rename(mapping  =       | Similar
+  |                  | {"old":"new"})         |  {"old":"new"})            | 
+  |  Delete Column   | df.drop(columns =      | df.drop(name = ["column"]) | Similar
+  |                  |    ["column"])         |                            |
+  |  Lazy Execution  | Not Supported          | df.lazy().<...>            | !=
+  ```
+
+[[{PM.TODO,pandas.ai,use_case.generative_AI]]
+## Pandas AI
+
+* <https://levelup.gitconnected.com/introducing-pandasai-the-generative-ai-python-library-568a971af014>
+[[}]]
+
+[[{pandas.DQ,data.cleaning,PM.low_code]]
+## Pandas_DQ
+
+* library, focussing on detecting data quality issues and fixing them automatically like:
+  * Highly correlated Features
+  * Zero-Variance Columns
+  * Skewed Distributions
+  * Rare Categories
+
+[[pandas.DQ,PM.low_code}]]
+
+[[{scalability.dask,scalability.101,pandas.101,devops]]
+# Dask.org ("Big Pandas"). Parallel Python, Fast and Easy 
+
+* Dask's schedulers scale to thousand-node clusters and its
+  algorithms have been tested on some of the largest supercomputers in
+  the world. But you don't need a massive cluster to get started. Dask
+  ships with schedulers designed for use on personal machines.
+* OOSS, developed in coordination with other community projects like 
+  Numpy, Pandas, and Scikit-Learn.
+
+* <https://www.dask.org/>
+
+* under the hood it uses Pandas, so your current code 
+  likely just works. It’s faster than Spark and easier too.
+
+¡¡¡It’s just Python. It’s just pandas. It’s just NumPy!!!
+
+  ```
+  | import dask.dataframe as dd
+  | df = dd.read_parquet("s3://data/uber/")
+  | 
+  | df.base_passenger_fare.sum().compute() # How much did NYC pay Uber?
+  | df.driver_pay.sum().compute()          # And how much did drivers make?
+  ```
+
+## performance comparative:dask vs DuckDB vs Polars vs PySpark
+
+* <https://docs.coiled.io/blog/tpch.html?utm_source=dask.org&utm_medium=homepage>
+* See also related project: Perspective: Real Time Data Visualization.
+
+- Dask users often process cloud data at $0.10 per TiB [[PM.price.0.1€/TiB]]
+- Binary data based on Apache Arrow. [[data.arrow]]
+- Nearly 100% of CPU utilization.
+
+## Dask: Simple paralelization of work
+
+  ```
+  | from dask.distributed import Client
+  | 
+  | client = Client()
+  | 
+  | def f(x):            ## Define your own code
+  |     return x + 1
+  | 
+  | ## Run your code in parallel
+  | futures = client.map(f, range(100))
+  | results = client.gather(futures)
+  ```
+
+[[{doc_has.comparative]]
+##  DuckDB vs Polars vs Dask
+
+- Local + small? Choose DuckDB or Polars. For small data (10 GB or less) Polars 
+  and DuckDB (or pandas) are great. Conversely, Dask and Spark leave a lot of 
+  performance on the table in this configuration.
+
+- Local + big? Choose Dask or DuckDB. For larger data, Polars isn’t yet fully 
+  stable. Polars is improving quickly, although, and is the most dynamic project 
+  in this group. DuckDB is more reliable (so is Dask, but it’s slower). Spark 
+  fails here pretty easily. If you want to perform SQL queries on 100 GB of local 
+  data, DuckDB is the clear winner here.
+
+- Cloud at 1 TB or less? Choose Dask or DuckDB. For datasets that fit on a 
+  single cloud VM, Dask and DuckDB usually outperform Spark and Polars, 
+  respectively. Performance between the fast-local systems (Polars/DuckDB) and 
+  the distributed systems (Dask/Spark) converge a lot when we move to the cloud, 
+  largely due to S3 access bottlenecks (it doesn’t matter if you’re lightning 
+  fast if you’re waiting on S3 for data access). DuckDB does well across scales 
+  for the same hardware, but can’t scale beyond a single VM.
+
+- Cloud at large scale? Choose Dask or Spark. DuckDB can be as efficient as 
+  Dask or Spark on a single big VM, but if you want to process large volumes 
+  quickly, you eventually need a scalable system. Dask and Spark can outperform 
+  DuckDB and Polars on larger problems by adding more hardware. For large scale, 
+  Dask often outperforms Spark and scales well beyond DuckDB and Polars. [[spark]]
+[[doc_has.comparative}]]
+[[scalability.dask}]]
+
+
+[[{scalability.gpu.NVidia,PM.low_code]]
+## Pandas: Transparent GPU acceleration with NVidia RAPIDS CuDF
+
+* NVIDIA's recent update can make Pandas over 50x Faster...
+...without any code changes. . . Within a GPU-runtime, do
+the following : 
+
+  ```
+  | % load_ext cudf.pandas # <·· 1. Load the extension
+  | import pandas as pdf   # <·· 2. Import Pandas. Done!
+  ```
+- automatically fall back to CPU.
+  <https://blog.dailydoseofds.com/p/nvidias-latest-update-can-make-your>
+
+
+## ML Zero code speedup in Pandas using GPU
+
+[[scalability.gpu.NVidia}]]
+
+
+[[{doc_has.tutorial,PM.TODO]]
+## ML pandas training exercises
+
+* <https://github.com/Rehan-Javed/pandas_exercises>
+[[doc_has.tutorial}]]
+
+## Pandas 101: [[{PM.TODO.merge]]
+* SUBSETTING means extracting value(s) from a dataframe. This can be done in four ways:
+1. We call it SELECTING when we extract one or more of its COLUMNS based on index location or name.
+2. We call it SLICING when we extract one or more of its ROWS based on index location or name.
+3. We call it INDEXING when we extract both ROWS and COLUMNS based on index location or name.
+4. We call it FILTERING when we extract ROWS and COLUMNS based on conditions.
+
+ ```
+ | df.col                          # <·· selecting ( extracting col(s) )
+ | df.loc[:, 'col-name']
+ | 
+ | df.iloc[0]                      # <·· slicing extracting row(s)
+ | df.loc['row-name']
+ | 
+ | df.iloc['row-idx', 'col-idx']   # <·· indexing (selecting + slicing)
+ | df.loc['row-name', 'col-name']
+ | 
+ | df[df.col>10]                   # <·· filtering (condicional subsetting)
+ | df[df.col.isin(["A", "B"])]
+ ```
+[[PM.TODO.merge}]]
+
+
+
+
+
+
+[[PM.TODO}]]

@@ -1,0 +1,170 @@
+[[{mlops]]
+
+[[{]]
+# llama.cpp vs vLLM vs Transformers vs ExLlama vs ExLlama2 vs "LLM backends"
+
+ ```
+ |                 ┌─········· Training
+ |                 ·   ┌─····· Fine-tunning
+ |                 ·   ·   ┌─· Inference
+ | "BACKEND"       v   v   v   Notes
+ | --------------------------- ---------------------------------------
+ | llama.cpp      NO  NO  YES  CPU/local inference but also
+ |                             support CUstom CUDA kernels, Vulkan
+ |                             and CPU+GPU hybrid inference
+ |                             Plain C/C++ implementation without
+ |                             ollama runs on top of it. ¹
+ |                             llama.cpp itself runs on top of  ggml. ²
+ |                             any dependencies (LLM with minimal setup)
+ |                             Target: Single User, Local setups
+ |                             One line setup:
+ |                             $ ./llama-cli -m modelXYZ.gguf --interactive
+ |                             (launch web UI like: --port 8080 --host 127.0.0.1)
+ |
+ |                             $ curl http://127.0.0.1:8080/completion
+ |                               -H "Content-Type: application/json"
+ |                               -d '{"prompt": "...", "temperature":0.7, "max_tokens":128}
+ |
+ | --------------------------- ---------------------------------------
+ | vLLM           NO  NO  YES  High-troughput serving and RLHF
+ |                             Depends/Executes on top of PyTorch ang GPU "ecosystem"
+ |                             Scalates in server (many-users) setups
+ |                             Parallel Multi-users
+ | --------------------------- ---------------------------------------
+ | ExLlama        NO  NO  YES  Fast quantized GPU inference
+ |                             Single-node GPU focus
+ | - - - - - - - - - - - -- -  - - - - - - - - - - - - - - - - - - - -
+ | ExLlama2       NO  NO  YES  Optimized GPU inferece
+ |                             Single-node GPU focus
+ | --------------------------- ---------------------------------------
+ |
+ | ¹ as of 2025, llama.cpp does not need the ollama to run.
+ |   (REF: <https://itsfoss.com/llama-cpp/> )
+ |   ollama is just a "bloated" wrapper on top of llama.cpp (Recheck this claim)
+ | ² ggml is a general purpose inference library, valid for other 
+ |   deep-learning architectures not related to GPT/LLM, for example whispper (speech-to-text,...)
+ |
+ | Practical Takeaway
+ | - Training / Fine-tunning:
+ |   -> Transformers ( + PyTorch, PEFT, ...)
+ | - Inference / Deployment:
+ |   -> vLLM      (production APIs)
+ |   -> ExLlama2  (fast local GPU)
+ |   -> llama.cpp (edge / CPU)
+ ```
+
+Related: Transformers v5 Introduces a More Modular and Interoperable Core
+
+Summary from <https://www.infoq.com/news/2025/12/transformers-hugging-face/>
+
+- Model initialization and parallelism have been reworked to integrate more 
+  cleanly with tools like Megatron, Nanotron, and TorchTitan, while maintaining 
+  strong compatibility with popular fine-tuning frameworks such as Unsloth, 
+  Axolotl, TRL, and LlamaFactory.
+- Another change is quantization as a first-class concept. Weight loading has 
+  been redesigned to support low-precision formats more naturally, reflecting the 
+  reality that many state-of-the-art models now ship in 8-bit or 4-bit variants 
+  and are deployed on hardware optimized for these workloads.
+- Overall, Transformers v5 is less about adding surface features and more about 
+  reinforcing its role as shared infrastructure. By standardizing model 
+  definitions and aligning closely with training, inference, and deployment 
+  tools, **Hugging Face is positioning Transformers as stable "ecosystem glue"
+  for the next phase of open AI development**.
+[[}]]
+
+[[}]]
+
+[[{]]
+## LLM "Backends" vs Inference Engine "Backends"
+
+(WARN: LLM Generated content @ 2026)
+
+
+- LLM Backends: Model Runtimes + Serving Logic ("what to compute and when") like llama, vLLM, ExLlama handle:
+  - Token-by-token generation
+  - KV cache management  (overlaps with Inference engines)
+  - Sampling (temperature, top-p, etc.)
+  - Sometimes batching / serving
+  -
+- Inference Engines "Backends" (Execution Layer -"The muscle, fast math execution") like TensorRT, ONNX Runtime and OpenVINO handle:
+  - Running optimized compute graphs
+  - Kernel fusion, quantization
+  - Hardware acceleration (CPU, GPU, NPU)
+  -  Analogy (Very Accurate)
+
+  ```
+  | Typical pipeline:
+  | Model (PyTorch / Transformers)
+  |         · 
+  |         v 
+  | Converted / optimized
+  |         · 
+  |         v 
+  | Inference Engine (TensorRT / ONNX / OpenVINO)
+  |         · 
+  |         v 
+  | LLM Backend (handles decoding, KV cache, batching)
+  ```
+
+- llama.cpp: Backend + inference engine combined (self-contained)
+  - Does NOT use TensorRT / ONNX / OpenVINO
+  - Has its own custom kernels + runtime
+- ExLlama / ExLlama2: 
+  - does NOT rely on ONNX / TensorRT
+  - Custom CUDA kernels
+
+- vLLM:
+  - Does NOT use ONNX / TensorRT / OpenVINO
+  - Built on PyTorch + custom kernels
+  - Focus:
+    - Scheduling, batching, KV cache (PagedAttention)
+
+- TensorRT / ONNX Runtime / OpenVINO: General-purpose execution engines
+  - They are NOT LLM-aware (mostly)
+  - They don’t handle:
+    - token streaming
+    - sampling
+    - chat logic
+
+- LLM backends are LLM-aware. They understand:
+  - autoregressive decoding
+  - attention KV cache
+  - token streaming
+- Inference engines are graph-aware. They understand:
+  - tensors
+  - operators
+  - optimization
+- Inference engines do NOT understand:
+  - "generate the next token until EOS"
+
+LLM backend and Inference engines overlaps: 
+
+- TensorRT-LLM: Adds LLM-specific logic on top of TensorRT
+- ONNX Runtime (with extensions): Can run LLMs with generation loops
+- OpenVINO: Adding LLM pipelines and token generation APIs
+
+🧠 Practical Combinations
+🚀 Production (NVIDIA)
+Model → TensorRT-LLM → serving system
+🧠 Research / flexible
+Transformers → vLLM
+💻 Local / edge
+llama.cpp
+🖥️ Intel deployment
+Model → OpenVINO → custom serving layer
+🔑 Final Mental Model
+llama.cpp / ExLlama / vLLM
+→ “Run and manage LLM generation”
+TensorRT / ONNX / OpenVINO
+→ “Make tensor math run as fast as possible”
+🧭 One-Line Summary
+
+LLM backends own the generation loop,
+inference engines accelerate the math inside it.
+
+If you want, I can go one level deeper and show why vLLM doesn’t use TensorRT (and what would break if it tried)—that’s where the architectural differences get really interesting.
+[[}]]
+
+
+
+[[mlops}]]

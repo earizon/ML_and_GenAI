@@ -1,0 +1,21 @@
+## NetWorkX [[{lib.networkx,data.visualization,data.visualization.graph_networks,PM.TODO]]
+* <https://networkx.org/documentation/stable/index.html>
+* <NetworkX: for graph analysis, networkx.lanl.gov/>
+* <https://www.python-course.eu/networkx.php>
+
+- Python package for the creation, manipulation, and study of the structure,
+  dynamics, and functions of complex networks.
+
+- Gallery:
+<https://networkx.org/documentation/stable/auto_examples/index.html>
+- package for the creation, manipulation, and study of the structure,
+  dynamics, and functions of complex networks.
+- Pygraphviz is a Python interface to the Graphviz graph layout and visualization package.
+- Python language data structures for graphs, digraphs, and multigraphs.
+- Nodes can be "anything" (e.g. text, images, XML records)
+- Edges can hold arbitrary data (e.g. weights, time-series)
+- Generators for classic graphs, random graphs, and synthetic networks
+- Standard graph algorithms
+- Network structure and analysis measures
+- Basic graph drawing
+[[lib.networkx}]]

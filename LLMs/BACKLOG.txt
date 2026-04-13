@@ -1,0 +1,39 @@
+[[{LLM.*,PM.backlog]]
+# LLM Backlog
+
+[[{cognitive.nlp,dev_stack.java]]
+
+## NLP Java Tools
+
+- Llama2 executing on TornadoVM (Java on GPUs)
+  <https://github.com/mikepapadim/llama2.tornadovm.java>
+
+- Embabel Agent Framework:
+  <https://github.com/embabel>
+  New strongly typed Java framework for agentic AI.
+
+
+- OpenNLP  : text tokenization, part-of-speech tagging, chunking, etc. (tutorial)
+- Stanford : probabilistic natural language parsers, both highly optimized PCFG*
+  Parser     and lexicalized dependency parsers, and a lexicalized PCFG parser
+- TPT      : Standford (T)opic (M)odelling (T)oolbox: CVB0 algorithm, etc.
+- ScalaNLP : Natural Language Processing and machine learning.
+- Snowball : stemmer, (C and Java)
+- MALLET   : statistical natural language processing, document classification,
+             clustering, topic modeling, information extraction, and other machine
+            learning applications to text.
+- JGibbLDA : LDA in Java
+- Lucene   : (Apache) stop-words removal and stemming
+
+See also JAVA RNN How-to
+- <https://www.programcreek.com/2017/07/recurrent-neural-network-example-ai-programmer-1/>
+- <https://www.programcreek.com/2017/07/build-an-ai-programmer-using-recurrent-neural-network-2/>
+- <https://www.programcreek.com/2017/07/build-an-ai-programmer-using-recurrent-neural-network-3/>
+- <https://www.programcreek.com/2017/02/different-types-of-recurrent-neural-network-structures/>
+
+
+* JLlama: The First Pure Java Model Inference Engine Implemented With Vector API and Project Panama
+  <https://www.infoq.com/news/2024/05/jlama-llm-inference-java/>
+[[}]]
+
+[[LLM.*,PM.backlog}]]

@@ -1,0 +1,206 @@
+[[{data.persistence,data.vector_ddbb]]
+
+Vector stores are used in practice with large documents, where the documents need to be
+chunked in order to be passed to the LLM. These parts of the document are ussually 
+stored as embeddings, ie, as document chunck representation in the embedded space. [[data.vector_DDBB]].
+
+Implementations include Meta AI's Annoy library for Approximate Nearest Neighbor (ANN) search, 
+Cassandra, Chroma, ElasticSearch, ... ** Posgresql PGVector**, scikit-learn SKLearnVectorStore for 
+k-nearest neighbor search, ... (many more).
+
+# Vector Databases
+
+* Vector Database precede LLMs. They were already present in advanced search systems.
+## sparse vs tense vs hybrid search
+
+* sparse search: search for words
+* dense search: search for tokens
+* hybrid search:
+
+* Distance algorithm: Euclidian ("L2"), Manhaatan ("L1"), Cosine, Dot-product 
+
+```
+Vector DDBB
+
+- How to obtain vector representaions of data
+  - Embeddings
+- Searching for Similar Vectors
+  - Distance Metrics
+- Approximate Nearest Neighbors
+  - ANN: Trade recall for accuracy 
+  - HNSW
+- Vector DB's
+  - CRUD operations
+  - Objects + Vectors
+  - Inverted Index - filtered Search
+- Sparse vs Dense Search
+  - ANN Search over Dense embbedding
+  - Sparse search
+  - Hybrid Search
+- Applications of Vector dBs in Industry.
+```
+
+
+## Chat with ChatGPT Mini 4
+
+P: (2025-01-08) ¿Qué base de datos vectorial utiliza ChatGPT?
+R: (ChatGPT Plus)
+ChatGPT, en sí mismo, no utiliza una base de datos vectorial como parte de su funcionamiento directo. En lugar de eso, el modelo GPT-4, que impulsa ChatGPT, está diseñado para procesar y generar texto basado en patrones de lenguaje que ha aprendido a partir de un enorme conjunto de datos durante su fase de entrenamiento. Sin embargo, la arquitectura de GPT-4 y otros modelos de OpenAI en general no almacenan ni consultan datos vectoriales de bases de datos externas en tiempo real. El modelo se basa en las representaciones de lenguaje aprendidas durante su entrenamiento.
+
+¿Cómo están relacionados los vectores con el procesamiento de lenguaje natural (NLP)?
+En el contexto de modelos como GPT-4, las "representaciones vectoriales" son una forma de mapear las palabras y frases a vectores matemáticos en un espacio de alta dimensión. Este proceso se llama embedding, y cada palabra o fragmento de texto se convierte en un vector que captura las relaciones semánticas entre ellas. Sin embargo, estos vectores no se almacenan en una base de datos separada; son parte del modelo entrenado y se utilizan de manera implícita durante la inferencia para generar respuestas coherentes.
+
+Bases de datos vectoriales
+Aunque ChatGPT en sí no usa una base de datos vectorial externa, algunas aplicaciones que utilizan modelos de lenguaje como GPT-4 pueden integrar bases de datos vectoriales para mejorar la recuperación de información y la búsqueda semántica. Estas bases de datos permiten almacenar vectores de texto (embeddings) y luego realizar búsquedas de similaridad para encontrar textos relevantes a partir de consultas.
+
+Algunas bases de datos vectoriales populares que se usan en estos contextos son:
+
+FAISS (Facebook AI Similarity Search): Utilizada para realizar búsquedas rápidas de similitudes entre vectores de alta dimensión. Es ampliamente usada en tareas de recuperación de información.
+
+Pinecone: Una plataforma como servicio que permite almacenar y realizar búsquedas eficientes en bases de datos vectoriales.
+
+Weaviate: Una base de datos vectorial de código abierto que soporta búsqueda semántica y análisis de texto.
+
+Milvus: Una base de datos vectorial de código abierto orientada a la búsqueda y recuperación de información basada en embeddings.
+
+Estas bases de datos vectoriales permiten buscar información de manera eficiente al comparar vectores de alta dimensión y encontrar los más cercanos, lo que puede ser útil cuando se implementan sistemas de recomendación, búsqueda semántica y otras aplicaciones de IA.
+
+Resumen
+ChatGPT no utiliza una base de datos vectorial en su funcionamiento directo.
+El modelo GPT-4 genera representaciones vectoriales de texto de manera implícita durante el procesamiento, pero no depende de una base de datos externa de vectores.
+Bases de datos vectoriales como FAISS, Pinecone o Weaviate pueden ser utilizadas en aplicaciones de búsqueda avanzada que complementan el uso de modelos de lenguaje, pero no son una parte intrínseca del modelo ChatGPT en sí.
+Si tienes más preguntas sobre cómo funcionan estas bases de datos o sobre cómo ChatGPT genera sus respuestas, ¡estaré encantado de ayudarte!
+
+
+P: (2025-01-08) ¿Puedes mostrar un ejemplo de entrada o registro o fila en una base de datos vectorial?
+R: (ChatGPT Plus)
+Claro, puedo mostrarte un ejemplo de cómo se podría almacenar una fila de datos en una base de datos vectorial. Las bases de datos vectoriales son usadas para almacenar vectores (representaciones numéricas de objetos, textos, imágenes, etc.) y realizar búsquedas basadas en la similitud de estos vectores.
+
+Supongamos que tenemos una base de datos vectorial que almacena vectores de texto generados a partir de una técnica de embedding (por ejemplo, a través de un modelo de lenguaje como GPT-3, BERT, o similar). En este caso, la base de datos podría almacenar textos junto con sus correspondientes vectores de alta dimensión.
+
+Ejemplo de registro en una base de datos vectorial
+Imagina que estamos trabajando con textos y queremos almacenar un conjunto de documentos junto con sus representaciones vectoriales (embeddings). Aquí tienes un ejemplo de cómo podría verse una fila en una base de datos vectorial, utilizando un formato simple como JSON o un esquema relacional:
+
+Registro en formato JSON
+json
+Copiar código
+{
+  "uid": "...",   <·· maybe a hash
+  "text": "La inteligencia artificial está transformando muchas industrias.", <·· texto original
+  "vector": [0.003, -0.018, 0.072, ..., ...],  // Vectores de, p.ej, 512,1024, ... dimensiones, after embedding model (Word2Vec, BERT, GPT, etc.),
+                                               // capturing semantic relationships of text in an space of high dimmensions.
+                                               // It is used to calculate the "distance" or "proximity" or "similarity" among vectors.
+                                               // Specialized indexes must be supported by the database.
+  "metadata": {
+    "source": "artículo de noticias",
+    "author": "Juan Pérez",
+    "timestamp": "2025-01-08T12:00:00Z"
+  }
+}
+
+
+Ejemplo de búsqueda
+
+Si la consulta es "¿Cómo la IA afecta a las industrias?", la base de 
+datos vectorial calcularía la similitud entre el vector de la 
+consulta y los vectores de los textos almacenados. El texto que tenga 
+un vector más cercano al de la consulta sería considerado más 
+relevante y se devolvería en los resultados.
+
+Base de datos vectorial en acción (en formato SQL o NoSQL)
+
+En una base de datos como FAISS, Pinecone o Weaviate, cada entrada 
+podría almacenarse de manera similar. Sin embargo, la diferencia 
+principal es que las operaciones de búsqueda se optimizan para 
+comparar estos vectores rápidamente.
+
+FAISS: Utiliza un índice especializado para realizar búsquedas 
+rápidas basadas en la similitud de vectores.
+Pinecone: Proporciona una API que permite realizar consultas 
+semánticas de manera eficiente sobre los vectores almacenados.
+Weaviate: Ofrece almacenamiento y búsqueda semántica, y también 
+permite añadir metadatos (como el metadata del ejemplo) a las 
+entradas.
+Resumen
+Una base de datos vectorial generalmente almacenará una combinación 
+de texto (o cualquier otro objeto) junto con su representación 
+vectorial. Estos vectores permiten realizar búsquedas basadas en 
+similitudes semánticas, y los metadatos pueden ser utilizados para 
+agregar contexto adicional y mejorar la búsqueda y el análisis.
+
+¿Te gustaría más información sobre alguna base de datos vectorial en 
+particular o cómo implementarla?
+[[}]]
+
+[[{doc_has.comparative,data.vector_ddbb,benchmark,performance,data.persistence,]]
+
+## approximate nearest neighbor libraries in Python Benchmarks 
+
+* <https://github.com/erikbern/ann-benchmarks>
+
+[[doc_has.comparative.benchmark}]]
+
+[[{data.vector_ddbb.embedding.doc_has.comparative]]
+## Choosing the right embedding model
+
+### C&P from "random" web page:
+* E5-Large and BGE-M3 models: Used to find accurately with semantic precision.
+  optimized for short, focused questions (conversational AI applications,...)
+
+* Embed v3, OpenAI Embedding 3-Large, Cohere ...: Used for Document Retrieval and
+  Knowledge Search over thousands of long documents/long context windows.
+  They offer superior recall across diverse document collections.
+
+* NV-Embed, fine-tuning models: Perform better for specialized domains
+  (legal document search, medical information retrieval, vertical-specific
+  application). Specialized approaches can dramatically outperform 
+  general-purpose embeddings by understanding domain-specific terminology and 
+  concepts.
+
+* For non-English applications, language-specific models typically outperform 
+  multilingual alternatives, providing better semantic understanding and 
+  retrieval accuracy.
+
+* EmbeddingGemma (under 1B parameters), for Cost-Conscious Deployments,
+  good accuracy while running efficiently on CPUs or small GPUs or
+  scenarios with high volumes of data.
+  [[PM.Cost,arch.IoT,scalability.LLM,data.scalability]]
+
+* MiniLM-L6-v2: when speed (vs accuracy/cost/...) is core, providing
+  extremely low latency and minimal computational cost. ("real time" apps)
+
+### C&P from "LLM Selection and Vector Database Tuning: A Methodology for Enhancing RAG Systems" by Lukasz Pawli
+
+
+```
+|  ... Table 8. Practical guidance for RAG system configuration.
+|  Constraint/Goal            Vector Model/Chunk      Justification and Business Impact
+|                             Size/k-Limit LLM
+|  -------------------------   --------------------   -----------------------------------------------------
+|  Maximized accuracy (cost   large/25/15             Achieves the highest empirically validated accuracy
+|  secondary)                 Gemini-2.0-flash        (98.67%). Requires maximum computational power for
+|                                                     embedding and the highest token cost for inference.
+|  -------------------------   --------------------   -----------------------------------------------------
+|  Cost-optimized accuracy    small/25/15             Offers high empirical accuracy (97.67%) with significantly
+|  (high volume)              Gemini-2.0-flash-lite   lower computational demands for embedding and 25%
+|                                                     cost reduction for LLM inference. Ideal for scalable,
+|                                                     budget-conscious deployments.
+|  -------------------------   --------------------   -----------------------------------------------------
+|  Resource constrained        small/25/10            Lowest computational complexity and zero variable LLM
+|  (on-premise/small model)    Gemma2-9b-it           costs. Necessary for limited hardware or data residency
+|                                                     requirements. The limited context window restricts the
+|                                                     max k-limit.
+|  
+|   ...  While the study conducted provided valuable insights, it is not without limitations
+|   the experiments focused on a single dataset of biographical data, ... for technical
+|   documents structural chunking (vs fixed size) should be employed to maintain the integrity
+|   of tables and sections. For medical data it is crucial to use specialized embedding models 
+|   and segmentation that ensures clinical context (e.g., symptoms and diagnosis) remains within
+|   a single segment ...
+|
+|   The selection of the Qdrant vector database as the sole platform for storing and searching vectors
+|   limits the possibility of comparison with other available solutions,
+```
+
+
+[[data.vector_ddbb}]]

@@ -1,0 +1,33 @@
+## AutoML [[{PM.UX,PM.low_code,PM.TODO]]
+<https://www.infoq.com/news/2019/06/open-source-automl-tool/>
+
+- tool for visualizing and controlling automated machine-learning processes.
+
+- Solving a problem with machine learning (ML) requires more than
+  just a dataset and training. For any given ML tasks, there are a
+  variety of algorithms that could be used, and for each algorithm
+  there can be many hyperparameters that can be tweaked. Because
+  different values of hyperparameters will produce models with
+  different accuracies, ML practitioners usually try out several sets
+  of hyperparameter values on a given dataset to try to find
+  hyperparameters that produce the best model.
+  choosing particular values for hyperparameters can involve "guesswork"
+  "if 2.5 and 2.6 produce good results, maybe 2.55 would be even better?"
+
+  Auto.ML are techniques and tools for automating the selection and
+  evaluation of hyperparameters (as well as other common ML tasks such
+  as data cleanup and feature engineering).
+
+  Both Google Cloud Platform and Microsoft Azure provide commercial
+  AutoML solutions, and there are several open-source packages such as
+  auto-sklearn and Auto-Keras.
+
+  MIT's Human Data Interaction Project (HDI) recently open-sourced an
+  AutoML library called Auto Tune Models (ATM). ATM automates the choice
+  of algorithm and hyperparameters; this allows practitioners to focus
+  on the upstream tasks of data cleanup and feature engineering.
+  ATM has a Python interface for running a search for the best model
+  and getting back a description of the results.
+  ATMSeer runs on top of ATM and provides visualization of the search.
+  process and results.
+[[}]]

@@ -1,0 +1,110 @@
+[[{mistral]]
+## Mistral 3 is now (2025-12) available to run on Ollama
+
+* Apache 2.0 license 
+
+  ``` 
+  | $ ollama run ministral-3
+  | $ ollama run ministral-3:14b 
+  | $ ollama run ministral-3:8b
+  | $ ollama run ministral-3:3b
+  |   
+  | $ ollama run ministral-3:14b-cloud # cloud version
+  | $ ollama run ministral-3:8b-cloud
+  | $ ollama run ministral-3:3b-cloud
+  |  
+  | $ ollama run mistral-large-3:675b-cloud
+  | 
+  | * We are actively working on adding support for the reasoning variants of 
+  |  Ministral 3, along with local support for Mistral Large 3 !!!!
+  ``` 
+
+## Cookbook
+
+* Mistral Cookbook: <https://github.com/mistralai/cookbook>
+
+
+* Mistral Cookbook agents: <https://github.com/mistralai/cookbook/tree/main/mistral/agents>
+
+* Mistral Agent Skills: <https://docs.mistral.ai/mistral-vibe/agents-skills>
+
+
+[[{]]
+## ML: Mistral vs Silo AI vs Aleph Alpha:
+
+* Mistral Large Foundation Model Now Available on Amazon Bedrock 
+
+* <https://www.infoq.com/news/2024/04/aws-mistral-large/>
+
+Mistral AI together with Silo AI, located in Helsinki, and Aleph Alpha, based 
+in Germany.  All three businesses are providing their models as open-source 
+tools, in contrast to their US competitors, opening the door for decentralized, 
+community-based AI development.
+[[}]]
+
+[[{use_case.OCR,PM.price.1€/1000pages]]
+##
+## ML: Mistral AI API for LLM-Based OCR of Multimodal Documents
+
+* <https://www.infoq.com/news/2025/03/mistral-ai-ocr-api/>
+
+[[use_case.OCR}]]
+
+
+[[{training.finetune,dev_stack.mistral,dev_stack.pytorch,]]
+## Mistral FineTune
+
+* <https://github.com/mistralai/mistral-finetune>
+
+- light-weight codebase that enables memory-efficient and performant 
+  finetuning of Mistral's models.
+- Based on LoRA [[training.fine_tunning.LoRA]]
+- NVidia  A100 or H100 GPU recommended.
+- codebase is optimized for multi-GPU-single-node training setups.
+
+[[}]]
+
+[[{use_case.speech_recognition]]
+## Voxtral: Open-Weights OpenAI Whisper Competitor
+
+* <https://www.infoq.com/news/2025/07/mistral-voxtral-audio-speech-llm/>
+
+
+- Voxtral is a LLM  aimed at speech recognition (ASR) applications that seek to
+  integrate more advanced LLM-based capabilities and go beyond simple
+  transcription.
+
+- Voxtral comprehensively outperforms Whisper large-v3, the current leading open-source
+  Speech Transcription model. It beats GPT-4o mini Transcribe and Gemini 2.5 Flash
+  across all tasks, and achieves state-of-the-art results on English short-form and
+  Mozilla Common Voice, surpassing ElevenLabs Scribe and demonstrating its strong
+  multilingual capabilities.
+
+- two variants: Voxtral Mini (3B) and Voxtral Small (24B).
+
+- Voxtral closes a gap between classic ASR systems, which delivers
+  cost-efficient transcription but lack semantic understanding, and more advanced
+  LLM-based models, which provide transcription and language understanding.
+
+- The Cloud API also offers a custom version of Voxtral Mini optimized for transcription,
+  helping reduce inference cost and latency.
+
+- 32K token context enabling to process audios up to 30 minutes for transcription or
+  40 minutes for understanding.
+
+- Being LLM-based means it naturally lends itself to tasks like Q&A and summarization
+  based on audio.
+
+- Additionally, it enables executing backend functions, workflows, or API calls based on
+ spoken user intents.
+
+- As usual for Mistral models, Voxtral is natively multilingual and supports automatic
+  language detection with optimized performance for European languages.
+
+- It also support entreprise features such as speaker identification, emotion detection, diarization and others.
+[[}]]
+
+
+
+[[mistral}]]
+

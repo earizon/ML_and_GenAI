@@ -1,0 +1,16 @@
+[[{mlops.ray]]
+## Ray: AI compute engine.
+
+  Ray consists of a core distributed runtime and a set of AI Libraries for 
+accelerating ML workloads.
+
+* <https://github.com/ray-project/ray>
+
+Different Ray AI Libraries allows for:
+
+- Data: Scalable Datasets for ML.           [[scalability.dataset]]
+- Train: Distributed Training.              [[scalability.distributed,training.distributed]]
+- Tune: Scalable Hyperparameter Tuning.     [[training.tunning]]
+- RLlib: Scalable Reinforcement Learning.   [[training.RL]]
+- Serve: Scalable and Programmable Serving.
+[[mlops.ray}]]

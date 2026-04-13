@@ -1,0 +1,16 @@
+[[{architecture.SQL,PM.low_code]]
+## LangGrant Ledge: SQL MCP Server
+
+LangGrant has launched the LEDGE MCP Server, a new enterprise platform designed
+to let large language models reason across complex database environments
+without directly accessing or exposing underlying data. [[security.sandbox]]
+
+...  The company says the LEDGE MCP Server allows LLMs to generate accurate,
+executable multi-step analytics plans across databases such as Oracle, SQL
+Server, Postgres, and Snowflake,  by relying on schema, metadata, and
+relationships rather than raw records  preventing data leakeage. [[security.SQL]]
+
+According to LangGrant, tasks that typically take weeks of manual query writing
+and validation can now be completed in minutes with full human review and
+auditability. [[PM.low_code]]
+[[}]]

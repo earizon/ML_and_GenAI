@@ -1,0 +1,46 @@
+[[{architecture.agents,tool.Meilisearch]]
+
+## Meilisearch
+
+* <https://github.com/meilisearch/meilisearch>
+
+* A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.
+* Rust based.
+* Easy to install, deploy, and maintain [[PM.low_code]]
+
+[[use_cases.*]]
+Examples links at <https://github.com/meilisearch/meilisearch>:
+Movies           : An application to help you find streaming platforms to watch movies using hybrid search.
+Flickr           : Search and explore one hundred million Flickr images with semantic search.
+Ecommerce        : Ecommerce website using disjunctive facets, range and rating filtering, and pagination.
+Home Booking     : A conversational search demo for finding holiday rentals using natural language.
+Search Playground: An interactive playground to explore Meilisearch search features.
+Personalization  : A demo showcasing personalized search results tailored to individual users.
+SaaS             : Search for contacts, deals, and companies in this multi-tenant CRM application.
+
+[[use_cases.*}]]
+
+Features:
+- Typo and misspellings tolerance
+- custom filters and faceted search in a few lines of code.
+- Sorting based on price, date, or pretty much anything else your users need.
+- Chinese, Japanese, Hebrew, and languages using the Latin alphabet
+- Synonym support
+- Multi-Tenancy
+- Highly Customizable
+- RESTful API
+- Hybrid search         : semantic & full-text search.
+- Search-as-you-type    : Find in less than 50 milliseconds.
+- Geosearch             : filter and sort documents based on geographic data.
+- Security management   : with API keys adn fine-grained permissions handling.
+- Conversational search : let users ask questions in natural language and get AI-generated answers grounded in your search results
+- Personalization       : tailor search results to individual users based on their preferences and behavior
+- Search rules          : define custom rules to dynamically adjust search behavior based on context
+- Document relations    : link documents across indexes to enrich search results with related data
+- Replication & sharding: scale horizontally by distributing your data across multiple nodes
+- AI-ready              : works out of the box with LangChain and the Model Context Protocol (MCP)
+
+### meilisearch-mcp: MCP server for interacting with Meilisearch through LLM interfaces
+
+* <https://github.com/meilisearch/meilisearch-mcp>
+[[}]]

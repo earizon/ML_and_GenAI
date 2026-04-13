@@ -1,0 +1,20 @@
+[[{use_case.maths.algorithm_search,architecture.agents,learning.RL]]
+## Discovering faster matrix multiplication algorithms with reinforcement learning
+
+* <https://www.nature.com/articles/s41586-022-05172-4>
+
+  we report a deep reinforcement learning approach based on AlphaZero
+for discovering efficient and provably correct algorithms for the 
+multiplication of arbitrary matrices.
+ 
+ Our agent, AlphaTensor, is trained to play a single-player game where the 
+objective is finding tensor decompositions within a finite factor space. 
+
+AlphaTensor discovered algorithms that outperform the state-of-the-art 
+complexity for many matrix sizes.
+
+ We further showcase the flexibility of AlphaTensor through different use-cases:
+algorithms for structured matrix multiplication and improved practical efficiency
+by optimizing matrix multiplication for runtime on specific hardware.
+
+[[use_case.maths.algorithm_search}]]

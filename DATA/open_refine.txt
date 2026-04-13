@@ -1,0 +1,17 @@
+[[{data.OpenRefine,data.analysis]]
+## OpenRefine
+
+- OpenRefine is a powerful free, open source tool for working with messy data:
+
+- cleaning it; [[data.cleaning]]
+- transforming formats [[data.format]]
+
+Main features:
+
+
+- Faceting          : Drill through large datasets using facets and apply operations on filtered views of your dataset.
+- Clustering        : Fix inconsistencies by merging similar values thanks to powerful heuristics.
+- Reconciliation    : Match your dataset to external databases via reconciliation services.
+- Infinite undo/redo: Rewind to any previous state of your dataset and replay your operation history on 
+- Privacy           : local setup (no cloud needed) [[data.privacy]]
+[[}]]

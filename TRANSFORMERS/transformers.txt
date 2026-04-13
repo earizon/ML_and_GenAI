@@ -1,0 +1,76 @@
+[[{]]
+## "Textbooks is all you need": (Quality Data is all you need)
+
+* <https://arxiv.org/abs/2306.11644>
+  ... phi-1, a new LLM for code, with significantly smaller size
+than competing models: Transformer-based model with 1.3B parameters,
+trained for 4 days on 8 A100s, using **a selection of ``textbook quality" 
+data from the web (6B tokens) and synthetically generated textbooks
+and exercises with GPT-3.5 (1B tokens)**.  (vs 1Trillion for 2024 bigest
+LLMs) .. phi-1 attains pass@1 accuracy 50.6% on HumanEval and 55.5% on MBPP.
+ It also displays **surprising emergent properties compared to phi-1-base**,
+[[}]]
+
+
+[[{scalability.algorithm.fourier_transform,LLM.Bert]]
+## Google Replaces BERT Self-Attention with Fourier Transform
+
+* 92% Accuracy, 7x Faster on GPUs
+* <https://medium.com/syncedreview/google-replaces-bert-self-attention-with-fourier-transform-92-accuracy-7-times-faster-on-gpus-7a78e3e4ac0e>
+[[scalability.algorithm.fourier_transform}]]
+
+[[{]]
+## Sparse Transformers
+https://www.infoq.com/news/2019/05/openai-sparse-transformers/
+
+Several common AI applications, such as image captioning or language
+translation, can be modeled as sequence learning; that is, predicting
+the next item in a sequence of data. Sequence-learning networks
+typically consist of two sub-networks: an encoder and a decoder. Once
+the two are trained, often the decoder can be used by itself to
+generate completely new outputs; for example, artificial human speech
+or fake Shakespeare.
+
+Recurrent Neural Networks (RNNs), specifically Long Short-Term Memory
+(LSTM) networks, have been particularly effective in solving these
+problems. In recent years, however, a simpler architecture called the
+Transformer has gained popularity, since the Transformer reduced
+training costs by an order of magnitude or more compared to other
+architectures.
+[[}]]
+
+[[{doc_has.comparative,architecture.transformer,architecture.graph_NN]]
+## transformers "vs" graph neural network 
+Tony Seale 3rd Knowledge Graph Engineer at UBS It is widely
+recognised that Large Language Models, such as GPT, are built on the
+Transformer architecture. However, what may be less widely
+acknowledged is that it is possible to view the Transformers
+themselves as a type of Graph Neural Network. The value of this
+insight is that it reveals an exciting new possibility: that is the
+potential power to bridge the gap between structured and unstructured
+data, opening the doors to the creation of far more powerful and
+versatile models.Whilst text is often regarded as unstructured, in
+fact, Transformers reveal the complex semantic structure that
+underlies language. Fortunately, Graphs are not only adept at but
+ideal for, handling this level of complexity. It, therefore, seems
+logical to conclude, that by combining the two, we may actually be
+able to break down the supposed barrier between structured and
+unstructured data.Let’s consider how this might work. Transformers
+analyse sentences by assigning importance to each word in relation to
+others, helping them predict or generate the next words in a
+sentence. This 'attention mechanism' evaluates pairwise interactions
+between all tokens in a sequence, and these interactions can be seen
+as edges in a complete graph. Thus, Transformers can be thought of as
+graph-based models where tokens represent nodes and attention weights
+represent edges.It is my opinion that the integration of Transformers
+with Graph Neural Networks holds great potential for advancing the
+field of machine learning. Vitally, in our organisations, the
+perceived distinction between our text and our databases may no
+longer need to exist, as full data integration becomes a potential
+reality. Suddenly powerful AI within our own organisations does not
+seem like such a distant prospect after all.If you're interested in
+learning more about this exciting possibility, please check out the
+following links: Michael Bronstein: https://lnkd.in/e8imYkKHGTP and
+JSON-LD: https://lnkd.in/ecdEdnKcEmbrace Complexity:
+https://lnkd.in/eyJuFNci
+[[doc_has.comparative}]]

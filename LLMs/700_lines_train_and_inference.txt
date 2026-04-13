@@ -1,0 +1,26 @@
+[[{LLM.101]]
+## "Full stack" train+Inference in 700 lines of pure C code (no dependencies)
+
+* <https://github.com/karpathy/llama2.c>
+
+- (Using Llama 2 LLM architecture in PyTorch to train)
+
+- It may be surprising but in fact, a very small LLM can have surprisingly
+  strong performance for narrow domains.
+
+- REF: TinyStories paper: <https://arxiv.org/abs/2305.07759>
+  """ We show that TinyStories can be used to train and evaluate LMs that are 
+   much smaller than the state-of-the-art models (below 10 million total 
+   parameters), or have much simpler architectures (with only one transformer 
+   block), yet still produce fluent and consistent stories with several paragraphs 
+   that are diverse and have almost perfect grammar, and demonstrate reasoning 
+   capabilities."""
+
+- The code can also infer models trained with Llama 2, restricted to fp32.
+
+- This project is an evolution of nanoGPT switching GPT-2 for Llama-2.
+
+- See also <https://github.com/billxbf/nanoGPX>:<br/>
+  Clean collection of modern LLM recipes (RoPE, GQA, RMSNorm, MoE, SSM, etc.) in nanoGPT style.
+
+[[}]]

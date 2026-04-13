@@ -1,0 +1,136 @@
+[[{PM.TODO]]
+[[{]]
+## ML 101 Agent Agent Definition Language
+
+* <https://www.infoq.com/news/2026/02/agent-definition-language/>
+
+Next Moca Releases Agent Definition Language as an Open Source Specification
+
+Feb 09, 2026 2 min read
+
+by
+
+Robert Krzaczyński
+
+Senior Software Engineer
+
+Log in to listen to this article
+
+Moca has open-sourced Agent Definition Language (ADL), 
+(https://www.nextmoca.com/blogs/agent-definition-language-adl-the-open-source-st
+andard-for-defining-ai-agents) a vendor-neutral specification intended to 
+standardize how AI agents are defined, reviewed, and governed across frameworks 
+and platforms. The project is released under the Apache 2.0 license and is 
+positioned as a missing “definition layer” for AI agents, comparable to the 
+role OpenAPI plays for APIs.
+
+ADL provides a declarative format for defining AI agents, including their 
+identity, role, language model setup, tools, permissions, RAG data access, 
+dependencies, and governance metadata like ownership and version history. The 
+aim is to enhance the portability, auditability, and interoperability of agents 
+across various platforms and vendors.
+
+The release addresses a growing fragmentation problem in agent development. 
+Today, agent behavior is often spread across prompts, code, framework-specific 
+configuration files, and undocumented assumptions. This makes it difficult for 
+teams to answer basic questions about an agent’s capabilities, boundaries, 
+and approval status, and complicates security reviews, compliance, and reuse.
+
+ADL consolidates agent definitions into a structured, machine-readable format 
+to enhance inspectability and governance. It is framework-agnostic and focuses 
+on definitions rather than execution, without addressing agent communication, 
+runtime tool invocation, or message transport. ADL is intended to complement 
+existing technologies like A2A, MCP, OpenAPI, and workflow engines.
+
+Announcing the open-source release, Next Moca founder Kiran Kashalkar described 
+ADL as “Think OpenAPI (Swagger) for agents,” adding that it provides “a 
+single, declarative spec that says what an agent is, what tools it can call, 
+what data it can touch, and how it is configured.” Kashalkar emphasized 
+portability, auditability, and vendor neutrality as core design goals.
+
+According to Next Moca, ADL is aimed at teams building production AI systems, 
+where agents increasingly operate as autonomous components with access to 
+tools, data, and external systems. The company argues that a standardized 
+definition layer enables clearer planning, consistent validation in CI 
+pipelines, explicit comparison of agent capabilities, and software-style 
+lifecycle management through versioning and rollback.
+
+The project includes a published JSON Schema, example agent definitions, 
+validation tools, and documentation covering governance and contribution 
+processes. Developers can define an agent once and validate it locally, then 
+share the same definition across security, platform, and compliance teams.
+
+Next Moca describes ADL as an early-stage standard and is inviting community 
+feedback and contributions to shape its evolution. The company states that 
+open-sourcing the specification is intended to encourage broad adoption, 
+neutral governance, and the development of an ecosystem of editors, validators, 
+registries, and testing tools around a shared format.
+
+The ADL repository and documentation are available on GitHub, with contribution 
+guidelines and a public roadmap outlining planned next steps.
+[[}]]
+
+[[{]]
+## Java Embabel 
+### /GOAP/: embabel algorithm for path selection for multi-step Agents. 
+
+- Not based in LLM.
+- Popular in games
+- Deterministic
+- Explainable
+- In case of error it can find another path.
+- INPUT: World State
+- PRE and POST conditions.
+- Planner runs after each action invocation.
+- Actions are in practice strongly typed Java methods
+
+  
+### Agentic RAG:
+
+- instead of doing conventional RAG -> injecting into prompt we let the LLM
+  do RAG on demand. (Recheck)
+- If the RAG chunk returned does not contain the full information
+  the Agent can do a second RAG.
+
+- SearchOperations are quite easy for Neo4J, PostgreSQL vg_vector, ...
+
+  @NotNull
+  private LlmReference personalDocs(SearchOperations searchOperations) {
+    return new ToolishRag(
+         name : ...,
+         description:...
+         searchOperations)
+       .withMetadataFilter(
+         new PropertyFilter.Eq(
+           DocumentService.Context.CONTEXT_KEY,
+           effectiveContext()
+         )
+    ).withUnfolding();
+  }
+
+- Even very good models performance degrade when having "many tools" (~100 tools)
+  - embabel unfolding tool tries to solve this.
+
+- AgenticTools is the supervisor tool (Using LangChain/... nomenclature)
+  - Top level tool with "child" tools.
+
+[[}]]
+
+[[{]]
+## Named Entity Recognition: locating+classifying named entities in text
+
+- Currently, Scikit-LLM has a single NER estimator (only works with the GPT family).
+[[}]]
+
+[[{]]
+## Tunable Text-to-Text Integration estimators
+
+Tunable T2T integration estimators can be tuned to 
+perform a variety of tasks, including but not limited to text 
+summarization, question answering, and text translation.
+
+These estimators use the provided data as-is, without any additional 
+preprocessing, or constructing prompts.
+[[}]]
+
+[[PM.TODO}]]

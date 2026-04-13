@@ -1,0 +1,52 @@
+[[{use_case.geospatial.maps]]
+## geo maps processing
+
+Summary from Maryam Miradi post @ LinkedIn.
+
+- Remote sensing images are data-rich snapshots of the Earth’s surface 
+- captured by sensors on satellites, drones, and aircraft.
+
+These sensors detect electromagnetic signals in various wavelengths, including 
+visible light, infrared, and radar.
+
+- Data is captured passively (e.g., sunlight reflection) or actively (e.g., radar pulses). 
+- High-resolution imagery reveals detailed spatial patterns. 
+- Multispectral data captures environmental details invisible to the naked eye.
+
+### Applications
+
+- Disaster response: Monitor floods, wildfires, and earthquakes in near-real-time.
+- Urban    planning: Analyze land use and infrastructure growth.
+- Agriculture      : Assess crop health and predict yields. 
+
+
+these images require significant expertise to process that can proffit from VLMs and LLMs
+to automate workflows:
+
+A Comparison of State-of-the-Art Models: [[doc_has.comparative]]
+
+### GeoChat
+-  Key Feature: Conversational querying for geospatial data.
+-  Benefit: Enables non-experts to extract insights with natural language prompts.
+-  Limitation: Computationally intensive for ultra-high-resolution data.
+
+### GEOBench-VLM
+- Key Feature: Benchmarking for geospatial VLM performance. 
+- Benefit: Standardized metrics ensure robust model evaluation. 
+- Limitation: Dataset availability may restrict broader applicability. 
+
+### RS5M Dataset
+- Key Feature: A massive dataset of image-text pairs.
+- Benefit: Fine-tunes models for domain-specific tasks like disaster monitoring. 
+- Limitation: High-quality labeling is resource-intensive. 
+
+### VHM 
+- Key Feature: High interpretability for sensitive applications. 
+- Benefit: Builds trust in AI systems for disaster response or policymaking. 
+- Limitation: Limited scalability for unstructured data. 
+
+### EarthGPT 
+- Key Feature: Multimodal analysis combining multisensor data. 
+- Benefit: Integrates diverse datasets for richer insights. 
+- Limitation: Complex implementation hinders adoption for smaller teams. 
+[[}]]

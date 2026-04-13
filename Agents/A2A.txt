@@ -1,0 +1,14 @@
+[[{architecture.agents.A2A,PM.TODO]]
+## Agent2Agent (A2A) protocol
+
+* <https://github.com/google/A2A>
+
+One of the biggest challenges in enterprise AI adoption is getting agents built 
+on different frameworks and vendors to work together. That’s why we created 
+an open Agent2Agent (A2A) protocol, a collaborative way to help agents across 
+different ecosystems communicate with each other.
+
+- With A2A, agents can show each other their capabilities and negotiate how 
+they will interact with users (via text, forms, or bidirectional audio/video).
+all while working securely together.
+[[}]]

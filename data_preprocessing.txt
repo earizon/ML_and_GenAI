@@ -1,0 +1,162 @@
+# DATA PRE-PROCESSING
+
+## IEEE Dataport™ <https://ieee-dataport.org/>
+
+* Easily accessible data platform that enables users to store, 
+  search, access and manage standard or Open Access datasets up to 2TB 
+  across a broad scope of topics. The IEEE platform also facilitates 
+  analysis of datasets, supports Open Data initiatives, and retains 
+  referenceable data for reproducible research.
+
+[[{doc_has.comparative,data.cleaning,TODO]]
+## Data cleaning comparative
+* Trifacta Wrangler (Local)
+* Google DataPrep
+* AWS Glue
+* MLStudio
+* Spark Data cleaning, Example architecture at Facebook.
+  (60 TB+ production use case)
+  <https://engineering.fb.com/core-data/apache-spark-scale-a-60-tb-production-use-case/>
+[[}]]
+
+
+# FSDB  A flat-file database for shell scripting.
+  Text-based, TSV with a header or "key: value"
+# GNU Recutils: 
+  [A] set of tools and libraries to access human-editable,
+  plain text databases called recfiles., roughly "key: value"
+
+# SDB
+  "[A] simple string key/value database based on djb's cdb disk 
+   storage and supports JSON and arrays introspection."
+
+
+# CSV+SQL+CSV processing:
+  -  SQL-based tools:
+  - Comparative os SQL-like tools to import/manage/export from/to CSV/Excel/...
+   https://github.com/dbohdan/structured-text-tools/blob/master/sql-based.md
+
+
+# xsv: joins on CSVs:
+<https://www.johndcook.com/blog/2019/12/31/sql-join-csv-files/>
+
+weight.csv  person.csv
+----------  ----------
+ID,weight   ID,sex
+123,200     123,M
+789,155     456,F
+999,160     789,F
+
+
+Note that the two files have different ID values: 123 and 789 are in
+both files, 999 is only in weight.csv and 456 is only in person.csv.
+We want to join the two tables together, analogous to the JOIN
+command in SQL.
+
+The command
+
+    xsv join ID person.csv ID weight.csv
+
+does just this, producing
+
+    ID,sex,ID,weight
+    123,M,123,200
+    789,F,789,155
+
+by joining the two tables on their ID columns.
+
+The command includes ID twice, once for the field called ID in
+person.csv and once for the field called ID in weight.csv. The fields
+could have different names. For example, if the first column of
+person.csv were renamed Key, then the command
+
+    xsv join Key person.csv ID weight.csv
+
+would produce
+
+    Key,sex,ID,weight
+    123,M,123,200
+    789,F,789,155
+
+We’re not interested in the ID columns per se; we only want to use
+them to join the two files. We could suppress them in the output by
+asking xsv to select the second and fourth columns of the output
+
+    xsv join Key person.csv ID weight.csv | xsv select 2,4
+
+which would return
+
+    sex,weight
+    M,200
+    F,155
+
+We can do other kinds of joins by passing a modifier to join. For
+example, if we do a left join, we will include all rows in the left
+file, person.csv, even if there isn’t a match in the right file,
+weight.csv. The weight will be missing for such records, and so
+
+    $ xsv join --left Key person.csv ID weight.csv
+
+produces
+
+    Key,sex,ID,weight
+    123,M,123,200
+    456,F,,
+    789,F,789,155
+
+Right joins are analogous, including every record from the second
+file, and so
+
+    xsv join --right Key person.csv ID weight.csv
+
+produces
+
+    Key,sex,ID,weight
+    123,M,123,200
+    789,F,789,155
+    ,,999,160
+
+You can also do a full join, with
+
+    xsv join --full Key person.csv ID weight.csv
+
+producing
+
+    Key,sex,ID,weight
+    123,M,123,200
+    456,F,,
+    789,F,789,155
+    ,,999,160
+
+# MDP Module: data.cleaning,mlops,data.mining
+<https://pypi.python.org/pypi/MDP/2.4>
+· Modular toolkit for Data Processing (MDP): widely used library of
+  data processing algorithms that can be combined according to a
+  pipeline analogy to build more complex data processing software.
+  Implemented algorithms include Principal Component Analysis (PCA),
+  Independent Component Analysis (ICA), Slow Feature Analysis (SFA),
+  and many more.
+
+# Unix4j [[{data.cleaning.unix4j,dev_stack.java,PM.TODO]]
+<https://github.com/tools4j/unix4j>
+"""...Working in the finance industry in Melbourne, the authors of
+  Unix4j spent a lot of time writing complex text processing
+  applications in bash. Frustrated with the inherent limitations of the
+  bash language; lack of language support, IDEs, test frameworks etc,
+  the authors decided to try and bring the convenience of some of the
+  Unix commands into the Java language.
+  You may notice that the implemented commands are more bent towards
+  text processing rather than OS and file manipulation. This is
+  intended as we see text processing to be the real benefit of Unix4j.
+  Not to say that this will always be the case.
+"""
+  Allows for things like:
+  - Unix4j.cat("test.txt").grep("Tuesday").sed("s/kilogram/kg/g").sort();
+
+See also:
+<http://www.oficina24x7.com/Python/map.html#pyline_and_pipes>
+[[}]]
+
+
+
+

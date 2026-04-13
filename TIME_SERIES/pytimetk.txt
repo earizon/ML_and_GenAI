@@ -1,0 +1,23 @@
+[[{use_case.*,]]
+## Pytimetk
+
+* <https://github.com/business-science/pytimetk>
+
+- Polars used as backend for massive speedups.
+- Single API, multiple engines:(pandas and Polars)
+- Productivity first:   Visualization, aggregation, feature engineering, anomaly detection, 
+  and regime modeling in a couple of lines.  [[training.fature_e
+- Performance obsessed. Vectorized Polars support, GPU acceleration (beta), and feature-store style caching.
+
+
+
+Examples: 
+
+- Sales Analysis   : <https://business-science.github.io/pytimetk/tutorials/01_sales_crm.html>
+- Finance          : <https://business-science.github.io/pytimetk/tutorials/02_finance.html>
+- Anomaly Detection: <https://business-science.github.io/pytimetk/tutorials/04_anomaly_detection.html>
+- TS X-Validation  : <https://business-science.github.io/pytimetk/tutorials/07_timeseries_crossvalidation.html>
+
+
+
+[[}]]

@@ -1,0 +1,12 @@
+<!--
+
+C&P from <https://www.datanalytics.com/2025/03/25/cortos-llms/>
+he migrado a LangChain porque:
+""" A CrewAI le encantan las dependencias tochas: para cualquier trivialidad crea entornos de varios GB.
+
+CrewAI está diseñado para un tipo de agentes muy concreto —agentes a los 
+que se delega enteramente el control del flujo del proceso— que no son 
+exactamente los que más me interesan ahora –que suelen incluir un elemento 
+de control por mi parte—."""
+
+-->

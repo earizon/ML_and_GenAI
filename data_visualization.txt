@@ -1,0 +1,69 @@
+[[{data.visualization,PM.TODO]]
+# https://streamlit.io/ [[{]]
+Streamlit turns data scripts into shareable web apps in minutes.
+All in pure Python. No front‑end experience required.
+
+Eg: https://github.com/cjgb/q2distr
+
+[[}]]
+
+[[{lib.seaborn,data.visualization,theory.statistics]]
+
+## Seaborn: Stat Graphs
+  Michael Waskom’s package providing very high-level
+  wrappers for complex plots (ggplot2-like aesthetic)
+  over matplotlib
+<https://seaborn.pydata.org/>
+- a high-level interface for drawing attractive and informative
+  statistical graphics on top of matplotlib.
+
+<https://www.datacamp.com/community/tutorials/seaborn-python-tutorial>
+[[lib.seaborn}]]
+
+[[{data.visualization.graph_networks]]
+## Graph Visualization
+
+- Gephi:
+- Cytoscape:
+- D3.js:
+- Linkurious:
+
+  Graph visualization tools usually offer ways of representing
+graph structure and properties, interactive ways to manipulate those
+and reporting mechanisms to extract and visualize value from the
+information contained in them.
+[[data.visualization.graph_networks}]]
+
+[[{data.visualization.pivot_tables]]
+## JS Pivot Tables
+<https://pivottable.js.org/examples/>
+<https://github.com/search?q=pivot+table>
+<https://www.flexmonster.com/demos/pivot-table-js/>
+[[data.visualization.pivot_tables}]]
+
+
+# See also:
+  - Web Technologies for Data visualization:
+<http://www.oficina24x7.com/WebTechnologies/map.html?topics=data.visualization&showSearchMenu=false>
+
+
+# Orange GUI!!
+<https://orange.biolab.si/>
+- Open source machine learning and data visualization for novice and expert.
+- Interactive data analysis workflows with a large toolbox.
+  Perform simple data analysis with clever data visualization. Explore
+  statistical distributions, box plots and scatter plots, or dive deeper with
+  decision trees, hierarchical clustering, heatmaps, MDS and linear projections.
+  Even your multidimensional data can become sensible in 2D, especially with
+  clever attribute ranking and selections.
+
+
+
+
+
+
+
+
+[[}]]
+
+

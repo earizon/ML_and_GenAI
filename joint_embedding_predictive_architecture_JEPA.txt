@@ -1,0 +1,178 @@
+[[{]]
+# Joint Embedding Predictive Architecture (JEPA)
+
+* <https://www.linkedin.com/posts/yann-lecun_excellent-blog-post-from-turing-post-on-jepa-activity-7212375691353321472-CHyy>
+
+" ...my favorite meta-architecture for Self-Supervised Learning of 
+  continuous data, such as images, video, and audio.The post includes a 
+  list of relevant papers from my collaborators and me, as well as part 
+  of the growing list of papers from other groups that use JEPA for 
+  various things: audio, EEG, SAR, LIDAR, etc.A small clarification: 
+  JEPA is not an alternative to transformers. I'm fact, many JEPA 
+  systems use transformer modules. It is an alternative to 
+  Auto-Regressive Generative Architectures (such as LLMs), regardless 
+  of whether they use transformers.https://lnkd.in/eEDU6vR8
+"
+
+Current Transformers architectures have achieved impressive results,
+including generalizing on previously unseen data and emergent abilities
+as the models are scaled. .. but they are still constrained compared 
+to humans and animals who don't need to see millions of data points
+
+(solve puzzles as five-year-olds, ...)
+
+ The Moravec paradox highlights that tasks that are difficult for humans,
+such as computing, are simple for computers to handle because they can be
+described and modeled easily.
+
+ However, perception and sensory processing, which are natural 
+for humans, are challenging for machines to master.
+
+ scaling the model and providing more data might not be a viable 
+solution.
+
+ alternative methods must be explored to attain human-level intelligence.
+
+ Yann LeCun insists that JEPA is the first step.
+... For the task of building intelligent AI, one needs to recap cognitive 
+science, psychology, neuroscience along engineering sciences.
+
+LeCun devised the important parts for success: **World models**
+...  giving the model a context of the world around it could 
+improve its results ... 
+
+Another important aspect is using self-supervised learning (SSL)
+akin to babies who learn the world by observing it. 
+(already in place for fundation models like GPT, BERT, LLaMa and other )
+
+... Abstract representations: the model also needs to understand what
+should be captured by its sensors and what’s not. Said otherwise, the
+model needs to contrast the relevant information in each state of the
+model (ex. human eye)
+
+... Yann LeCun proposed that a model should use abstract representations
+of images rather than comparing the pixels.
+
+Architecture – Objective-Driven AILeCun proposes a 
+modular, configurable architecture for autonomous intelligence, 
+emphasizing the development of self-supervised learning methods to 
+enable AI to learn these world models without extensive labeled data. 
+
+* Configurator: executive control center of the AI system by
+  dynamically configuring other components of the system based
+  on the specific task or context. ... adjusts parameters of the
+  perception, world model, actor modules to optimize performance
+  for the given task.
+* Perception module: Captures and interprets sensory data from 
+  various sensors to estimate the current state of the world.
+* World model module: Predicts future states of the 
+  environment and fills in missing information. It acts as a
+  simulator, using current and past data to forecast future 
+  conditions and possible scenarios.
+  key component to perform hypothetical reasoning and planning,
+  essential for navigating complex, dynamic environments.
+* Cost module: Evaluates the potential consequences of actions in
+  terms of predefined costs associated with a given state or action.
+  Two submodules:
+  * Intrinsic cost: Hard-wired, calculating immediate discomfort or risk
+  * Critic: Trainable, estimating future costs based on current actions
+* Actor module: Decides and proposes specific actions based on the 
+  predictions and evaluations provided by other components of the 
+  architecture.
+
+### How does JEPA work?
+
+* JEPA encapsulates the key elements mentioned above ignoring
+  irrelevant details while maintaining essential information for 
+  making predictions.
+
+* JEPA takes **pairs of related inputs**.
+  (ex: (x: current video frame, y: next video frame)
+
+* Encoders transform inputs into abstract representations (sx,sy)
+  capturing only essential features.
+
+* Predictor module: trained to predict the abstract representation 
+  of the next frame, sy, based on the abstract representation of 
+  current frame, sx.
+
+- Latent Variable z represents elements present in sy but not 
+observable in sx.
+... After encoding,z is varied across a predefined set of values,
+each representing different hypothetical scenarios or aspects of
+the future state y that might not be directly observable from x.
+
+ By altering z, the predictive model can simulate how small
+changes in unseen factors could influence the upcoming state.
+
+ Interestingly, several JEPAs could be combined into a 
+multistep/recurrent JEPA or stacked into a Hierarchical JEPA 
+that could be used to perform predictions at several levels of
+abstraction and several time scales.
+
+### What can one build on JEPA?
+
+... (2023) Image-based Joint-Embedding Predictive Architecture (I-JEPA)
+non-generative, self-supervised learning framework designed for 
+processing images.
+
+.... (2023) MC-JEPA (Motion-Content Joint-Embedding Predictive 
+Architecture) ... Multitasking JEPAMC-JEPA designed to simultaneously 
+interpret video data: dynamic elements (motion) and static details
+(content) using a shared encoder.... can be used in real-world 
+applications in computer vision like autonomous driving, video
+surveillance, and activity recognition. 
+[[use_case.computer_vision,use_case.autonomous_driving,use_case.surveillance]]
+
+... Video-based Joint-Embedding Predictive Architecture (V-JEPA) 
+to enhance understanding of video content
+
+### Generalizing JEPA
+
+- The latest paper (March 2024) "Learning and Leveraging World 
+Models in Visual Representation Learning," introduces the concept
+of Image World Models (IWM) and explores how the use of JEPA 
+architecture can be generalized to a broader set of corruptions
+– changes in input images like color jitters, blurs – apart from
+masking.
+- two types of world models:
+  - Invariant models: Recognize and maintain stable, unchanged
+    features across different scenarios
+  - Equivariant models: Adapt to changes in the input data, 
+    preserving the relationships and transformations that occur
+
+- Spatial Data Applications (S-JEPA):... .
+
+- DMT-JEPA: image modeling with a focus on local semantic understanding, 
+applicable to classification, object detection, and 
+segmentation.
+
+- JEP-KD: Aligns visual speech recognition models with 
+audio features, improving performance in visual speech 
+recognition.
+
+- Point-JEPA: Applied to point cloud data, enhancing 
+  efficiency and representation learning in spatial 
+  datasets.
+
+- Signal-JEPA: Focuses on EEG signal processing, improving 
+  cross-dataset transfer and classification in EEG analysis.
+
+- Graph-JEPA: First joint-embedding architecture for graphs,
+  using hyperbolic coordinate prediction for subgraph representation.
+
+- ST-JEMA: Enhances learning of dynamic functional connectivity 
+  from fMRI data, focusing on high-level 
+  semantic representations.Time-Series and Remote Sensing 
+  ApplicationsLaT-PFN: Combines time-series forecasting with joint 
+  embedding architecture, leveraging related series for robust 
+  in-context learning.Time-Series JEPA: Optimizes remote control over 
+  limited-capacity networks through spatio-temporal correlations in 
+  sensor data.Predicting Gradient is Better: Utilizes self-supervised 
+  learning for SAR ATR, leveraging gradient features for automatic 
+  target recognition.Evaluation and Methodological StudiesLiDAR: 
+  Sensing Linear Probing Performance in Joint Embedding SSL 
+  Architectures: Introduces a metric for evaluating representations in 
+  joint-embedding self-supervised learning architectures, focusing on 
+  linear probing performance. 
+[[}]]

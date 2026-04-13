@@ -1,0 +1,47 @@
+[[{use_case.code_assistant]]
+## Spec-Kit: Spec Driven Development
+
+- Instead of asking AI to write code ("vibe coding"), AI is feed with formal "specs".
+
+- Spec Kit revolutionizes software development by making specifications 
+executable. With Spec Kit, transform your ideas into working code using 
+AI-powered specification-driven development.
+
+  ```
+  | .github/instructions
+  | 00-migration-overview.instructions.md
+  | 01-tibco-analysis.instrucions.md
+  | 02-architecture-mapping.instructions.md
+  | 03-service-design.instructions.md
+  | 04-api-definition.instructions.md
+  | 05-integration.instructions.md
+  | 06-data-and-state.instructions.md
+  | 07-erro-handling.instructions.md
+  | 08-security.instructions.md
+  | 09-migration-validation.instructions.md
+  | rest-controllers.instructions.md
+  | soap-endpoins.instructions.md
+  | 
+  | - "Slash" Commands
+  | /speckit.constitution Define principios rectores y guías técnicas.
+  | /speckit.specify Define requisitos (User Stories/Specs).
+  | /speckit.clarify Aclara ambigüedades (antes /plan).
+  | /speckit.plan Crea plan técnico de implementación.
+  | /speckit.tasks Genera tareas accionables.
+  | /speckit.analyze Analiza consistencia entre artefactos.
+  | /speckit.implement Ejecuta la construcción del código.
+  | /speckit.checklist Genera validaciones de calidad.
+  ```
+
+Alternatives include:
+
+- BMAD Method (Building Modern Apps with Design): 
+  It goes beyond SDD by simulating a comple organization, defining specific
+  roles (Product Manager, QA, Developer, Architect, ...).
+  - Better for new and well defined proyects but slow and not agile.
+- OpenSpec (Brownfield Specialist):
+  Based around management of "Deltas" (vs full spec).
+  - Very interesting alternative to Spec-Kit when using modern code.
+  - Worst to migrate "old" code.
+[[use_case.code_assistant}]]
+

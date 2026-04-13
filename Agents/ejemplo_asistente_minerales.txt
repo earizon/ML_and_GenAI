@@ -1,0 +1,97 @@
+[[{architecture.agent_AI.101,doc_has.example,use_case.expert_system]]
+## Asistente experto con datos abiertos
+* construcción de GPT para responder al reto de los minerales críticos
+
+* <https://datos.gob.es/es/documentacion/como-crear-un-asistente-experto-con-datos-abiertos-construccion-de-gpt-para-responder
+
+* <https://github.com/Admindatosgobes/Laboratorio-de-Datos/tree/main/Data%20Science/Asistente%20Experto%20sobre%20Minerales%20Cr%C3%ADticos>
+
+
+Introducción:
+
+- los minerales críticos son fundamentales para numerosas industrias,
+  Sin embargo, la información sobre estos materiales puede ser 
+  compleja y dispersa.
+
+
+Este ejercicio se centra en mostrar al lector cómo personalizar un modelo GPT 
+especializado para un caso de uso concreto.
+
+El objetivo principal del asistente especializado en minerales críticos 
+será facilitar el acceso a información precisa y actualizada sobre estos
+materiales, apoyar la toma de decisiones estratégicas y promover la
+educación en este campo. En particular se busca:
+
+* Proporcionar información precisa y actualizada sobre diversos 
+  minerales críticos, incluyendo su composición, propiedades, usos industriales 
+  y disponibilidad.
+* Mantenerse actualizado con las últimas investigaciones y tendencias del 
+  mercado en el ámbito de los minerales críticos.
+* Asistir en la toma de decisiones proporcionar datos y análisis para 
+  decisiones  estratégicas en la industria y la investigación sobre 
+  minerales críticos.
+* Ofrecer comparativas y evaluaciones de diferentes minerales en función de su 
+  rendimiento, coste y disponibilidad.
+* Promover la educación y la concienciación en torno a esta temática.
+
+Herramientas y fuentes de datos consumidos por el asistente:
+* Markmap: transforma mapas de ideas en formato markdown un mapa mental en
+  el navegador web.
+
+1. recopilación y construcción de la base de conocimiento a partir de fuentes de
+   datos de calidad. En este proyecto se utiliza:
+   * Raw Materials Information System (RMIS): sistema de información sobre materias 
+     primas mantenido por el Joint Research Center de la Unión Europea. Proporciona 
+     datos detallados y actualizados sobre la disponibilidad, producción y consumo 
+     de materias primas en Europa. En concreto descargamos el informe 
+     "Supply chain analysis and material demand forecast in strategic technologies and sectors in the EU – A foresight study". 
+     y extramos a CSV la tabla en las páginas 238 a 240 con el análisis 
+     para cada mineral, su riesgo de suministro, tipología (estratégico, 
+     crítico o no crítico) y las tecnologías clave que lo emplean. 
+   * Catálogo de informes y datos de la Agencia Internacional de la Energía (IEA 
+     en sus siglas en inglés): ofrece un amplio catálogo de informes y datos 
+     relacionados con la energía, incluyendo estadísticas sobre producción, 
+     consumo y reservas de minerales energéticos y críticos. En concreto descargamos
+     el informe "Global Critical Minerals Outlook 2024" con una visión general de
+     los desarrollos industriales en 2023 y principios de 2024.
+     También evalúa los riesgos para la fiabilidad, sostenibilidad y diversidad de
+     las cadenas de suministro de minerales críticos. En este caso el documento
+     original en formato PDF se mantiene como tal para la ingesta directa
+     por parte del modelo LLM.
+   * Base de datos de minerales del Instituto Geológico y Minero Español (BDMIN): 
+     contiene información detallada sobre los minerales y depósitos minerales en 
+     España, útil para obtener datos específicos sobre la producción y reservas 
+     de minerales críticos en el país. En concreto, mediante el formulario 
+     seleccionar los datos existentes en esta base de datos en cuanto a indicios
+     y yacimientos del ámbito de la metalogenia, en particular seleccionamos
+     aquellos con contenido de Litio.
+
+2. Personalización del Asistente: <br/>
+   Cuando hablamos de "crear un Asistente" en realidad nos estamos refiriendo
+   a la personalización de un modelo de lenguaje basado en GPT para adaptarlo
+   a un caso de uso específico.
+   2.1. Accedemos al frontal web de OpenAI y seleccionamos la opción:
+        "Explorar GPT" -> "Crear"
+   2.2. Seleccionamos las características que debe tener nuestro GPT.
+   2.3. Introducimos los prompts (o "instrucciones") utilizaremos para
+       personalizar nuestro GPT (pestaña "crear").<br/>
+       2.3.1 indicamos el objetivo y las consideraciones básicas a 
+             nuestro GPT para que pueda entender su modo de empleo.
+             (inmutable "system prompt")
+   2.4 Construimos la base de conocimiento a partir de la 
+       información anteriormente seleccionada (CSV y pdf).
+   2.5 personalizamos tono, nivel de complejidad técnica de la repuesta,...
+
+3. Validación y publicación de GPT:
+   3.1. Preparamos una batería de preguntas con respuestas conocidas.
+       P1. ¿Qué minerales críticos han experimentado una caída significativa en los precios en 2023?
+       R1. Los precios de los minerales para baterías vieron particularmente grandes caídas con
+           los precios del litio cayendo un 75% y los precios del cobalto níquel y grafito cayendo
+           entre un 30% y un 45%.
+   3.2. Valiéndonos de la parte de previsualización lanzamos la batería
+        de preguntas y validamos que las respuestas se corresponden con aquellas esperadas.
+
+4. "Crear" para finalizar y validar el asistente.
+
+
+[[doc_has.example}]]

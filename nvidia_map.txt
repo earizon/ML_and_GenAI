@@ -1,0 +1,59 @@
+# NVidia
+
+* <developer.nvidia.com>
+* <docs.nvidia.com>
+* <news.developer.nvidia.com>
+* <devblogs.nvidia.com>
+
+
+[[{]]
+## NVIDIA Releases Open Models, Datasets, and Tools across AI, Robotics, and Autonomous Driving
+
+NVIDIA has released a set of open models, datasets, and development tools
+covering language, agentic systems, robotics, autonomous driving, and
+biomedical research. [[data.source]]
+
+- Nemotron Speech includes automatic speech recognition models optimized for
+  low-latency, real-time use cases.  [[use_case.speech_to_text]]
+- Nemotron RAG introduces embedding and reranking vision-language models intended
+  for multimodal document search and retrieval pipelines. [[architecture.rag]]
+
+- Nemotron Safety adds updated models for content filtering and detection
+  of sensitive or personally identifiable information.  [[security.privacy]]
+
+- NVIDIA also released datasets and training code used for selected Nemotron models,
+  including embedding models evaluated on public benchmarks.
+
+- For robotics and physical AI, NVIDIA introduced new Cosmos world foundation
+  models, supporting perception, reasoning, and synthetic data generation in
+  real-world environments. [[use_case.robotics]]
+  - Cosmos Reason 2 is a multimodal reasoning model designed to enhance scene
+    understanding for agents operating in physical environments.
+  - Built on top of Cosmos, NVIDIA released Isaac GR00T N1.6, an open 
+    vision-language-action model for humanoid robots that supports full-body 
+    control and integrates visual perception with action planning.
+
+- Cosmos Transfer 2.5 and Cosmos Predict 2.5 focus on generating synthetic 
+  video data across varied environments and conditions, supporting
+  simulation and data augmentation workflows. [[use_case.video_production]]
+
+- Alpamayo, new open model family for reasoning-based autonomous driving.
+  combining perception, planning, and explainability in a
+  vision-language-action architecture and is paired with simulation tools
+  and large-scale driving datasets.  [[use_case.autonomous_driving,qa.interpretability]]
+  - AlpaSim: an OOSS simulation framework for closed-loop evaluation of
+    autonomous vehicle models.
+  - Wu noted nvolved extensive road testing, continuous large-scale simulation
+    using platforms such as Cosmos, and close collaboration with automotive 
+    partners, including Mercedes-Benz, with initial deployments planned for
+    upcoming production vehicles.
+
+- NVIDIA Clara models: healthcare and life sciences updates 
+  [[use_case.biotechnology,use_case.healthcare]]
+  - La-Proteina for atom-level protein design. 
+  - ReaSyn v2 for synthesis-aware drug design.
+  - KERMT for early-stage safety and interaction prediction.
+  - and RNAPro for RNA structure modeling.
+  - NVIDIA also published a dataset of 455,000 synthetic protein structures
+    to support training and evaluation in this domain. [[data.source]]
+[[}]]

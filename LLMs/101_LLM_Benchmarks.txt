@@ -1,0 +1,42 @@
+[[{101.LLM_benchmarks,PM.WiP]]
+## LLM Benchmarks
+
+(Intention to be, list of benchmarks plus related information)
+
+* https://llm-stats.com/benchmarks
+* Open LLM Leaderboard on Hugging Face
+  <https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard#/>
+
+## LLM Benchmarks Cheatsheet
+
+```
+IFEval               : Instruction-Following Evaluation for LLM <https://arxiv.org/abs/2311.07911>
+BBH                  : Challenging BIG-Bench Tasks and Whether Chain-of-Thought Can Solve Them 
+MATH                 : MATH dataset contains >12500 challenging competition mathematics 
+                       problems ... spans multiple difficulty levels (1-5) across seven mathematical
+                       subjects including Prealgebra, Algebra, Number Theory, Counting and Probability,
+                       Geometry, Intermediate Algebra, and Precalculus.
+GPQA                 : Graduate-Level Google-Proof Q&A dataset of 448 multiple-choice 
+                       questions written by domain experts in biology, physics, and chemistry. 
+                       Questions are Google-proof and extremely difficult, with PhD experts reaching 
+                       65% accuracy.
+MMLU:
+MSUR                 : Massive Multitask Language Understanding benchmark (more robust that MMLU)
+MMULU-PRO            : 
+
+
+HellaSwag            : 
+Wino Grande          :
+ARC-Challenge        : (25-shot,...) Mesure de la compréhension des connaissances scientifiques et du raisonnement
+
+HumanEval            :
+MBPP                 :
+GSM8K                :
+
+AGIEval Engli.       :
+BIG-Bench Hard 3-shot: CoT: Evaluation des capacités de raisonnement complexe et de génération de texte
+DROP 3-shot, F1      : Evaluation de la compréhension des textes et du raisonnement
+
+OmniDocBench         : OCR Benchmarck <https://github.com/opendatalab/OmniDocBench>
+```
+[[101.LLM_benchmarks}]]

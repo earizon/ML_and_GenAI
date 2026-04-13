@@ -1,0 +1,90 @@
+[[{]]
+## ML: AI Agents Google Vertx AI RAG Engine for LLM grounding
+
+
+- Vertex AI RAG Engine is a managed orchestration service aimed to make it 
+  easier to connect large language models (LLMs) to external data sources to be 
+  more up-to-date, generate more relevant responses, and hallucinate less.
+
+- According to Google, its new RAG Engine is the "sweet spot" for developers 
+using Vertex AI to implement a RAG-based LLM, providing a balance between the 
+ease of use of Vertex AI Search and the power of a custom RAG pipeline built 
+using lower-level Vertex AI APIs such as Text Embedding API, Ranking API, etc.
+
+The overall workflow supported by Vertex AI RAG Engine includes distinct steps 
+for data ingestion from a number of different sources; data transformation, 
+such as splitting data into chunks previous to indexing; embedding, which 
+provides a numerical representation of text to capture its semantics and 
+context; data indexing to build a corpus optimized for search; retrieval of 
+relevant information from the knowledge based on a user's prompt; and, last, a 
+generation step where the original user query is augmented with the retrieved 
+information.
+
+Using Vertex AI RAG Engine you can easily integrate all those steps into your 
+solution. The easiest way to start with Vertex AI RAG Engine is through its 
+Python bindings which are part of the google-cloud-aiplatform package. After 
+setting up a Google Cloud project and initializing the Vertex AI engine, you 
+can easily create a corpus from your own local files or documents in Google 
+Cloud Storage or Google Drive by using the upload_file or import_file methods.
+
+
+-  Currently supports Google first-party embedding models
+
+
+  ```
+  |EMBEDDING_MODEL = "publishers/google/models/text-embedding-004"  # @param {type:"string", isTemplate: true}
+  |embedding_model_config = rag.EmbeddingModelConfig(publisher_model=EMBEDDING_MODEL)
+  |
+  |rag_corpus = rag.create_corpus(
+  |    display_name="my-rag-corpus", embedding_model_config=embedding_model_config
+  |)
+  |
+  |rag_file = rag.upload_file(
+  |    corpus_name=rag_corpus.name,
+  |    path="test.txt",
+  |    display_name="test.txt",
+  |    description="my test file",
+  |)
+  |
+  |Once you have a corpus, you create a retrieval tool which is then connected to the LLM to expose a new endpoint you can use to query the augmented model:
+  |
+  |# Create a tool for the RAG Corpus
+  |rag_retrieval_tool = Tool.from_retrieval(
+  |    retrieval=rag.Retrieval(
+  |        source=rag.VertexRagStore(
+  |            rag_corpora=[rag_corpus.name],
+  |            similarity_top_k=10,
+  |            vector_distance_threshold=0.5,
+  |        ),
+  |    )
+  |)
+  |
+  |# Load tool into Gemini model
+  |rag_gemini_model = GenerativeModel(
+  |    "gemini-1.5-flash-001",  # your self-deployed endpoint
+  |    tools=[rag_retrieval_tool],
+  |)
+  |
+  |response = rag_gemini_model.generate_content("What is RAG?")
+  ```
+
+According to Google, Vertex AI RAG Engine is particularly convenient for use 
+cases like personalized investment advice and risk assessment, accelerated drug 
+discovery and personalized treatment plans, and enhanced due diligence and 
+contract review.
+
+Retrieval Augmented Generation (RAG) is a technique often use to "ground" a 
+large language model, that is, making it fitter to a particular use case or 
+enterprise environment. RAG consists of retrieving information relevant to a 
+particular task from a source that was not accessible to the model during 
+training and feed it to the model along with a prompt. Alternatively, a model 
+can be "grounded" through fine-tuning, a process whereas the external data is 
+used to retrain the model so it is available for each query even when not 
+specified at the prompt level.
+
+Grounding a model enables it to better understand the context of a query and to 
+have additional task-specific information available so it can generate a better 
+response. More specifically in the context of enterprise data, grounding aims 
+to circumvent a limitation of general LLMs by providing access to private data 
+behind firewalls in a safe way.
+[[}]]

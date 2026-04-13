@@ -1,0 +1,91 @@
+Chap 7
+Combine different models:
+- The Stregth of Weak Learnability , R. E. Schapire, Machine Learing, 5(2): 197-227, 1990
+
+- AdaBoost: Proceedings of the Thirteenth International Conference (ICML 1996)
+
+- Experiments with a New Boosting Algorithm, Y. Freund, R.E. Schapire and others, ICML, volume 96, 148-156, 1996
+
+- http://www.stat.osu.edu/~dmsl/GrandPrize2009_BPC_BigChaos.pdf
+- http://techblog.netflix.com/2012/04/netflix-recommendations-beyond-5-starts.html
+
+Chapter 8: Machine Learning for Sentiment Analysis
+- Learning Word Vercotrs for Sentiment Analysis, A.L. Maas, R.E.Daly, P.T. Pham, D.Huang, A.Y.Ng, C.Potts
+   Proceedings of the 49th Annual Meeting of the Association for Computational Linguistics:
+     Human Language Technologies, pages 142-150, Portland, Oregon, USA, ACM, 2011
+
+- http://ai.stanford.edu/~amaas/data/sentiment/ (84.1MB)
+
+
+
+- Potter Algorithm:
+  An Algorithm for suffix stripping, Martin F.Porter, Program: Electronic Library and Information Systems
+   14(3): 130-137, 1980
+ (Implemented by http://www.nltk.org like:
+  from nltk.stem.porter import PorterStemmer
+  See alternatives @ http://www.nltk.org/api/nltk.stem.html
+
+- Influence of Word Normalization on Text Classification, Michal Toman, Roman Tesar and kael Jezek,
+  Proceedings of InSciT, pages 354-358, 2006
+
+
+- Hashing Vectorizer: Avoids having all data in main memory:
+  https://sites.google.com/site/murmurhash/
+
+- wrod2vec algorithm: Googl2 2013,
+  Bag Of Words alternative:
+  Efficient Estimation of Word Representations in Vector Space, T. Mikolov, K.Chen, G.Corrado and J.Dean
+  arXiv:1301.3781, 2013
+  Unsupervised algo. based on neuronal networks that tries to automatically learn the
+  relation amongst words, puttins words with "similar" meanings into similar groups
+
+  https://code.google.com/p/word2vect/
+
+Chapter 8: *Topic Modeling*
+- Latent Dirichlet Allocation (LDA)
+  Very related to Bayessian inference.
+  Latent Dirichlet Allocation, David M.Blei, Andrew Y.Ng, Michael I.Jordanl,
+  Journal of Machine Learning Research 3, pages: 993-1022, Jan. 2003.
+  - It tires to find groups of words that appears frequently in new topics.
+  Implemented in sckit-learn:
+  from sklearn.decomposition import LatenDirchletAllocation
+
+___________________
+
+Chapter 10: Regression Analysis
+
+- Introduction to Linear Regression Analysis, Montgomery, Douglas C. 
+Montogmery, Elizabeth A. Peck, G. Geoffrey Vining, Wiley, 2012, 
+pages: 318-319
+
+Training Data:
+https://raw.githubusercontent.com/rasbt/python-machine-learning-book-2nd-edition/master/code/ch10/housing.data.txt
+
+- To represent the dispersion matrix we will use the pairplot function
+from Seaborn library:
+  http://standford.edu/~mwaskom/software/seaborn/
+
+- A correlation matrix can be seen as a re-scaled version of the covariance matrix in Principal Component Analysis PCA.
+
+  - It is a cuadratic matrix that contains the Pearson Correlation Coeficient.
+    that measures the lineal dependency amongst pairs of characteristics.
+    They are in the range -1 to 1. 1 for perfect correlation, 0 for no correlation
+
+ - Ordinary Least Squares (OLS) method of adjust:  It estimates the parameters of
+   the linear regresion line that minimizes the sum of vertical cuadratic-distances
+
+   not to be confused with the Mean Square Error (MSE) used to measure the performance
+   (prediction vs reality error)
+
+ - we can also use linear ecuations:
+   The Classical Linear Regression Model, Dr. Stephen Pollock
+    http://www.le.ac.uk/users/dsgpl/COURSES/MESOMET/ECMETXT/06mesmet.pdf
+
+ - Automatic Estimation of the Inlier 'Threshold in Robust Multiple Structures Fitting, R. Toldo, A.FUsiello's, Springer, 2009, Image Analysis and Processing-ICIAP 2009,
+  pages 123-131
+
+
+  - Overfitting methods (Regularization) popular in liner regression are:
+    - Ridge Regression
+    - LASSO (Least Absolute Shrinkage and Selection Operator)
+    - Elastic Net.

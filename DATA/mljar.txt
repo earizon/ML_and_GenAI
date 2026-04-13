@@ -1,0 +1,11 @@
+[[{PM.low_code,data.EDA,data.structured,training.structured_data,]]
+## MLJAR Studio: AutoML training for tabular data "under 2 minutes"
+
+* <https://github.com/mljar/mljar-supervised>
+
+Python package for AutoML on Tabular Data with Feature Engineering,
+Hyper-Parameters Tuning, Explanations and Automatic Documentation
+
+* ALternatives and complements include auto-sklearn, autokeras, NASLib, Auto-PyTorch, TPOT,
+Optuna, AUtoGluon, Ray(tune), ..
+[[data.EDA}]]
