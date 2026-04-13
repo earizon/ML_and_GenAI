@@ -6,7 +6,7 @@ lang_grant.txt                #
 # Agents/HF_smolagents.txt
 MCP.txt                       # OK, WiP
 A2A.txt                       # content 1%
-PROMPTING/DSPy.txt            # TODO
+../PROMPTING/DSPy.txt         # TODO
 firecrawl.txt                 # OK
 skills.txt                    # TODO
 google_ADK.txt                # TODO
