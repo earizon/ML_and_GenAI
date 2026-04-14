@@ -61,7 +61,7 @@
    |
    | Neurosynth, NiPy, 
    |
-   | [[cognitive.NLP]] ---------------------------------------------------------
+   | [[use_case.NLP]] ----------------------------------------------------------
    |
    | NLTK   Bert   Textblob   spaCy    Polygot    Gensim    Pattern  ...
    |

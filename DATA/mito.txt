@@ -1,4 +1,4 @@
-[[{data.101,agents.mito,data.analysis]]
+[[{data.101,architecture.agents.mito,data.analysis]]
 
 ## Mito: complete "copilot" toolkit for turning data into insights
 
@@ -37,4 +37,4 @@
 - 
 
 
-[[agents.mito,data.analysis}]]
+[[architecture.agents.mito,data.analysis}]]

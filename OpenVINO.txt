@@ -213,7 +213,7 @@ Easy install: pip install nncf
     collection of state-of-the-art (SOTA) computer vision models, utilities, and 
     tools designed for image classification and related tasks. It provides over 700 
     pretrained models, making it a versatile resource for researchers and 
-    developers working with PyTorch. [[cognitive.vision]]
+    developers working with PyTorch. [[use_case.image_analysis]]
   * <https://huggingface.co/docs/optimum-intel/en/index>
 
 * Intel NPU plugin fro Kubernetes: <https://intel.github.io/intel-device-plugins-for-kubernetes/cmd/npu_plugin/README.html>

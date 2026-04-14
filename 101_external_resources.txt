@@ -14,7 +14,7 @@
   - Data visualization and plotting            [[data.visualization]]
   - Mathematics                                [[use_case.mathematics]]
   - Signal, Sound and Image Processing
-  - Natural Language Processing                [[cognitive.nlp]]
+  - Natural Language Processing                [[use_case.NLP]]
   - Pandas for data analysis                   [[pandas]]
   ```
 [[}]]

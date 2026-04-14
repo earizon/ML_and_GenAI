@@ -1,4 +1,4 @@
-[[{cognitive.nlp,llm.101]]
+[[{use_case.nlp,llm.101]]
 
 # Natural Language Processing ("LLM" in practice)
 
@@ -588,4 +588,4 @@ OpenAI's o1 series, DeepSeek-R1
 [[}]]
 
 
-[[cognitive.nlp}]]
+[[use_case.nlp}]]

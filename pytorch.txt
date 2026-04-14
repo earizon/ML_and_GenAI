@@ -30,7 +30,7 @@
 
 
 
-[[{cognitive.vision]]
+[[{use_case.image_analysis]]
 ## PyTorch Vision Summary
 
   ```
@@ -116,7 +116,7 @@ Get Pretrained model from TorchVision project:
  [(labels[fifth], percentage[fifth].item())
  (  'tennis ball' , 0.11621569097042084)      # stdout
 
-[[cognitive.vision}]]
+[[use_case.image_analysis}]]
 
 [[{performance,gradient]]
 ## Pytorch Opacus

@@ -5,6 +5,7 @@
 101_open_data_catalog.txt               # OK, WiP
 hierarchical_reasoning_model.txt        # md OK, content 1%
 deep_search.txt                         # md OK, WiP
+JAX.txt                                 # md OK, content 1%
 ORCA.txt
 DATA/101.payload
 LLMs/101.payload

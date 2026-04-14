@@ -5,7 +5,6 @@
 - Clean TODO.txt and move dirty TODOs to TODO_dirty.txt
   - Move TODO.txt to unordered_pool.txt
 - Moving  prompting "staff" to PROMPTING/...
-- Remove cognitive.* tags
 - remove ml_type.* ...
 - retag: training.finetunning training.llm_finetunning (it does not apply outside LLM'
 - Move and remove notes.txt
@@ -305,11 +304,11 @@ Lectures      : https://lnkd.in/gKS74pzh
 * <https://distill.pub/2017/momentum/>
 [[doc_has.externalresouce}]]
 
-[[{arch.offline.ollama,]]
+[[{architecture.offline.ollama,]]
 ## o(ffline)Llama:
 
 * <https://github.com/ollama/ollama>
-[[arch.offline.ollama}]]
+[[architecture.offline.ollama}]]
 
 [[{doc_has.catalog,101,PM.TODO]]
 ## "Ares Almanac": MIT DDBB classifying IA tools by category.
@@ -331,7 +330,7 @@ desarrollar herramientas intuitivas y potentes que simplifiquen la
 integración y utilización de la IA en diversos sectores. """
 [[doc_has.catalog}]]
 
-[[{PM.low_code.RLGymnasium,arch.ReinforcementLearning,]]
+[[{PM.low_code.RLGymnasium,architecture.ReinforcementLearning,]]
 
 ## Exploring the RL Gymnasium: A Gateway to Reinforcement Learning
 
@@ -1394,7 +1393,8 @@ https://www.bbc.com/news/technology-49395577
 33,000x more bandwidth
 
 
-## Pictionary: bringing AI with common sense [[{cognitive.*,101,ml_type.general,PM.TODO]]
+[[{101,ml_type.general,PM.RADAR]]
+## Pictionary: bringing AI with common sense 
 <https://www.zdnet.com/article/pictionary-provides-ai-with-common-sense/?ftag=TRE-03-10aaa6b&bhid=28374205867001011904732094012637>
 
 · As reported by MIT Technology Review, researchers at the Allen
@@ -1588,20 +1588,24 @@ https://www.infoq.com/news/2020/10/nvidia-jetson-nano-2gb/
 <https://www.technologyreview.com/2020/10/16/1010566/ai-machine-learning-with-tiny-data/amp/>
 [[}]]
 
-## Just AI Conversational Framework (JAICF) [[{cognitive.conversational,java,PM.TODO]]
+[[{architecture.agents,PM.TODO,dev_stack.kotlin]]
+
+## Just AI Conversational Framework (JAICF) 
+
 <https://www.infoq.com/news/2020/10/just-ai-conversational-kotlin/>
+
 · Just AI Conversational Framework (JAICF) provides a Kotlin-based DSL
   to enable the creation of conversational user interfaces. JAICF works
   with popular voice and text conversation platforms as well as
   different NLU engines.
 
-· JAICF is not a competitor to the likes of Google, Amazon, Slack, etc.  [[doc_has.comparative]]
+· JAICF is not a competitor to the likes of Google, Amazon, Slack, etc.
   Rather, it aims to provide a tool to create conversations running on
   any of those platforms. In particular, JAICF is built on top of
   native libraries interfacing to the major conversation channels,
   including Amazon Alexa, Google Actions, Slack, Facebook Messenger,
   and more. Similarly, JAICF is agnostic when it comes to which NLU
-  engine you wish to use, e.g. DialogFlow or Rasa.
+  engine you wish to use, e.g. DialogFlow or Rasa.  [[doc_has.comparative]]
 
 · Just AI is also maker of the Just AI Conversational Platform (JAICP),
   which aims to be a complete platform to design, train, and deploy
@@ -1669,7 +1673,8 @@ http://www.graphviz.org/gallery/
 ## https://github.com/dr5hn/countries-states-cities-database
 World countries, states, regions, provinces, cities, towns in JSON, SQL, XML, YAML, and CSV. All Countries, States, Cities with ISO2, ISO3, Country Code, Phone Code, Capital, Native Language, Timezones, Latitude, Longitude, Region, Subregion, Flag Emoji, and Currency. #countries #states #cities
 
-## NLP geometry of linguistics  [[{cognitive.NLP,theory.geometry_of_linguistics,ml_type.NN,PM.TODO]]
+[[{use_case.NLP,theory.geometry_of_linguistics,PM.TODO]]
+## NLP geometry of linguistics  
 
 (by Dr. Ahmad Al-Yasry, Doctor of Mathematics from Max Planck institute for Mathematics)
 
@@ -1713,459 +1718,22 @@ combination of these two fields can lead to new insights and
 techniques for solving complex problems in ML and AI.
 [[}]]
 
-[[{use_case.*,cognitive.nlp]]
-## Extract relationship from video transcripts
+[[{PM.low_code,data.analysis]]
+## ChatGPTClassifier and ChatGPTRegressor is part of sklearn now!
 
-* <https://medium.com/neo4j/creating-a-knowledge-graph-from-video-transcripts-with-gpt-4-52d7c7b9f32c >
-
-^Creating a Knowledge Graph From Video Transcripts With ChatGPT
-Tomaz Bratanic 18 - 22 minutes Use GPT-4 as a domain expert to help
-you extract knowledge from a video transcript. Image by the author.A
-couple of days ago, I got access to GPT-4.The first thing that came
-to my mind was to test how well it performs as an information
-extraction model, where the task is to extract relevant entities and
-relationships from a given text.I have already played around with
-GPT-3.5 a bit. The most important thing I noticed is that we don’t
-want to use the GPT endpoint as an entity linking solution or have it
-come up with any other external references like citations, as it
-likes to hallucinate those types of information.However, a great
-thing about GPT-3 or GPT-4 is that it performs well in various
-domains. For example, we can use it to extract people, organizations,
-or locations from a text.However, I feel that competing against
-dedicated NLP models is not where the GPT models shine (although they
-perform well). Instead, the strength of GPT models is in their
-ability to generalize and be used in other domains where other
-open-sourced models fail due to their limited training data.My friend
-gave me a great idea to test the GPT-4 on extracting information from
-a nature documentary. Photo by Jong Marshes on UnsplashI always liked
-the deep sea documentary as the ecosystem and animals vastly differ
-from terrestrial ones. Therefore, I decided to test GPT-4 information
-extraction capabilities on an underwater documentary. Additionally, I
-don’t know of any open-source NLP models trained to detect
-relationships between sea plants and creatures. So, a deep sea
-documentary makes for an excellent example of using a GPT-4 to
-construct a knowledge graph.All the code is available on GitHub in
-the form of a Jupyter Notebook.DatasetThe most accessible place to
-find documentaries is YouTube. Although the GPT-4 is multi-modal
-(supports video, audio, and text), the current version of the
-endpoint only supports text inputs. Therefore, we will analyze a
-video’s audio transcript, not the video itself.We will be analyzing
-the transcript of the following documentary.First of all, I like the
-topic of the documentary: “The Spectacular Underwater World of
-Coral Reefs.”Secondly, extracting captions from a YouTube video is
-effortless as we don’t have to use any audio2text models at all.
-However, converting audio to text with all the available models on
-HuggingFace or even OpenAI’s Whisper should not be a big
-problem.Thirdly, this video has captions that are not auto-generated.
-At first, I tried to extract information from auto-generated captions
-on YouTube, but I learned that they might not be the best input. So
-if you can, avoid using auto-generated YouTube captions.The captions
-can be retrieved straightforwardly with the YouTube
-Transcript/Subtitle library. All we have to do is to provide the
-video id.from youtube_transcript_api import
-YouTubeTranscriptApivideo_id = "nrI483C5Tro"
-transcript = YouTubeTranscriptApi.get_transcript(video_id)
-print(transcript[:5])The transcript has the following structure.[
- {
- "text":"water the liquid that oceans are made of",
- "start":5.46,
- "duration":4.38
- },
- {
- "text":"and it fills endless depths only few will venture\\xa0\\xa0",
- "start":12.24,
- "duration":4.92
- },
- {
- "text":"out into the endless open ocean\\xa0\nof this vast underwater world",
- "start":17.16,
- "duration":4.68
- }
-]
-The captions are split into chunks, which can be used as video
-subtitles. Therefore, the start and duration information is provided
-along with the text. You might also notice a couple of special
-characters like \xa0 and \n .Even though GPT-4 endpoint support up to
-8k tokens per request, more is needed to process the whole transcript
-in a single request. Therefore, we need to split the transcript into
-several parts.So, I decided to split the transcript into multiple
-parts, where the end of the part is determined when there are five or
-more seconds of no captions, announcing a brief pause in narration.
-Using this approach, I aim to keep all connecting text together and
-retain relevant information in a single section.I used the following
-code to group the transcript into several sections.
-sections = []
-current_section = ""
-start_time = None
-previous_end = 0
-pause_threshold = 5for line in transcript:
- if current_section and (line["start"] - previous_end > pause_threshold):
-
- end_time = line["start"]
- sections.append(
- {
- "text": current_section.strip(),
- "start_time": start_time,
- "end_time": end_time,
- }
- )
- current_section = ""
- start_time = None
- else:
-
- if not start_time:
- start_time = line["start"]
- clean_text = line["text"].replace("\n", " ").replace("\xa0", " ")
- current_section += " ".join(clean_text.split()) + " "
-
- previous_end = line["start"] + line["duration"]
-if current_section:
- end_time = transcript[-1]["start"] + transcript[-1]["duration"]
- sections.append(
- {
- "text": current_section.strip().replace("\n", " ").replace("\xa0", " "),
- "start_time": start_time,
- "end_time": end_time,
- }
- )
-
-sections = [p for p in sections if p["text"]]
-To evaluate the results of the section grouping, I printed the following information.
-print(f"Number of paragraphs: {len(sections)}")
-print(f"Max characters per paragraph: {max([len(el['text']) for el in sections])}")
-
-There are 77 sections, with the longest having 1267 characters in it.
-We are far from the GPT-4 token limit, and I think the above approach
-delivers a nice text granularity, at least in this
-example.Information Extraction With GPT-4GPT-4 endpoint is optimized
-for chat but works well for traditional completion tasks. As the
-model is optimized for conversation, we can provide a system message,
-which helps set the assistant’s behavior along with any previous
-messages that can help keep the context of the dialogue. However, as
-we are using the GPT-4 endpoint for a text completion task, we will
-not provide any previous messages.I used the following prompt as the
-system message.system = "You are an archeology and biology expert
-helping us extract relevant information."However, I noticed that the
-model behaved almost identically when I provided the system message
-or not. Next, I developed the following prompt through some
-iterations, which extracts relevant entities and relationships from a
-given text.
-
-prompt = """#This a transcript from a sea documentary.
-#The task is to extract as many relevant entities to biology, chemistry, or archeology.
-#The entities should include all animals, biological entities, locations.
-#However, the entities should not include distances or time durations.
-#Also, return the type of an entity using the Wikipedia class system and the sentiment of the mentioned entity,
-#where the sentiment value ranges from -1 to 1, and -1 being very negative, 1 being very positive
-#Additionally, extract all relevant relationships between identified entities.
-#The relationships should follow the Wikipedia schema type.
-#The output of a relationship should be in a form of a triple Head, Relationship, Tail, for example
-#Peter, WORKS_AT, Hospital/n
-## An example "St. Peter is located in Paris" should have an output with the following format
-entity
-St. Peter, person, 0.0
-Paris, location, 0.0relationships
-St.Peter, LOCATED_IN, Paris\n"""
-The GPT-4 is prompted to extract relevant entities from a given text.
-Additionally, I added some constraints that distances and time
-durations should not be treated as entities. The extracted entities
-should contain their name, type, and sentiment. As for the
-relationships, they should be provided in the form of a triple. I
-added some hints that the model should follow the Wikipedia schema
-type, making the extracted relationship types more standardized. I
-learned that it is always good to provide an example of the output.
-Otherwise, the model might use different output formats at will.One
-thing to note is that we might have instructed the model to provide
-us with a nice JSON representation of extracted entities and
-relationships. Nicely structured data might certainly be plus.
-However, you are paying the price for nicely structured JSON objects
-as the cost of the API is calculated per input and output token
-count. Therefore, the JSON boilerplate comes with a price.Next, we
-need to define the function that calls the GPT-4 endpoint and
-processes the response.@retry(tries=3, delay=5)
-def process_gpt4(text):
- paragraph = text completion = openai.ChatCompletion.create(
- model="gpt-4",
-
- temperature=0,
- messages=[
- {"role": "system", "content": system},
- {"role": "user", "content": prompt + paragraph},
- ],
- ) nlp_results = completion.choices[0].message.content if not "relationships" in nlp_results:
- raise Exception(
- "GPT-4 is not being nice and isn't returning results in correct format"
- )
- return parse_entities_and_relationships(nlp_results)Even though we
-explicitly defined the output format in the prompt, the GPT-4 model
-sometimes does its own thing and does not follow the rules. It
-happened to me only twice out of a couple of hundred requests.
-However, it is annoying when that happens, and all the downstream
-dataflow doesn’t work as intended. Therefore, I added a simple
-check of the response and added a retry decorator in case that
-happens.Additionally, I only added the temperature parameter to make
-the model behave as deterministic as possible. However, when I rerun
-the transcript a couple of times, I got slightly different results.
-It costs around $1.6 to process the transcript of the chosen video
-with GPT-4.Graph Model and ImportWe will be using Neo4j to store the
-results of the information extraction pipeline. I have used a free
-Neo4j Sandbox instance for this project, but you can also use the
-AuraDB Free or local Desktop environment.One thing is certain. No NLP
-model is perfect. Therefore, we want all extracted entities and
-relationships to point to the text where they were extracted, which
-allows us to verify the validity of information if necessary. Graph
-schema. Image by the author.Since we want to point the extracted
-entities and relationships to the relevant text, we need to include
-the sections along with the video in our graph. The section nodes
-contain the text, start, and end time. Entities and relationships are
-then connected to the section nodes. What might be counterintuitive
-is that we represent extracted relationships as a node in our graph.
-The reason is that Neo4j doesn’t allow to have relationships to
-point to another relationship. However, we want to have a link
-between extracted relationship and its source text. Therefore, we
-need to model the extracted relationship as a separate node.The
-Cypher statement for the graph import is the following:import_query =
-"""
-MERGE (v:Video {id:$videoId})
-CREATE (v)-[:HAS_SECTION]->(p:Section)
-SET p.startTime = toFloat($start),
- p.endTime = toFloat($end),
- p.text = $text
-FOREACH (e in $entities |
- MERGE (entity:Entity {name: e[0]})
- ON CREATE SET entity.type = e[1]
- MERGE (p)-[:MENTIONS{sentiment:toFloat(e[2])}]->(entity))
-WITH p
-UNWIND $relationships AS relation
-MERGE (source:Entity {name: relation[0]})
-MERGE (target:Entity {name: relation[2]})
-MERGE (source)-[:RELATIONSHIP]->(r:Relationship {type: relation[1]})-[:RELATIONSHIP]->(target)
-MERGE (p)-[mr:MENTIONS_RELATIONSHIP]->(r)
-"""
-
-Finally, we can go ahead and process the whole transcript and import
-the extracted information into Neo4j using the following code:with
-driver.session() as session:
- for i, section in enumerate(sections):
- print(f"Processing {i} paragraph")
- text = section["text"]
- start = section["start_time"]
- end = section["end_time"]
- entities, relationships = process_gpt4(text)
- params = {
- "videoId": video_id,
- "start": start,
- "end": end,
- "text": text,
- "entities": entities,
- "relationships": relationships,
- }
- session.run(import_query, params)
-
-You can open Neo4j Browser and validate the import by executing the
-following Cypher statement.CALL apoc.meta.graph()The meta-graph
-procedure should return the following graph visualization. Generated
-graph schema. Image by the author.Entity Disambiguation With
-GPT-4After inspecting the GPT-4 results, I have decided that
-performing a simple entity disambiguation would be best. For example,
-there are currently five different nodes for a Moray Eels:moray
-eelMorayMoray EelmoraymoraysWe could lowercase all entities and use
-various NLP techniques to identify which nodes refer to the same
-entities. However, we can also use the GPT-4 endpoint to perform
-entity disambiguation. I wrote the following prompt to perform entity
-disambiguation.disambiguation_prompt = """
-#Act as a entity disambiugation tool and tell me which values reference the same entity.
-#For example if I give you
-#
-#Birds
-#Bird
-#Ant
-#
-#You return to me
-#
-#Birds, 1
-#Bird, 1
-#Ant, 2
-#
-#As the Bird and Birds values have the same integer assigned to them, it means that they reference the same entity.
-#Now process the following values\n
-"""
-
-The idea is to assign the same integers to nodes that refer to the
-same entity. Using this prompt, we are able to tag all nodes with
-additional disambiguation properties.def disambiguate(entities):
- completion = openai.ChatCompletion.create(
- model="gpt-4",
-
- temperature=0,
- messages=[
- {"role": "user", "content": disambiguation_prompt + "\n".join(all_animals)},
- ],
- ) disambiguation_results = completion.choices[0].message.content
- return [row.split(", ") for row in disambiguation_results.split("\n")]all_animals = run_query("""
-MATCH (e:Entity {type: 'animal'})
-RETURN e.name AS animal
-""")['animal'].to_list()disambiguation_params = disambiguate(all_animals)
-run_query(
- """
-UNWIND $data AS row
-MATCH (e:Entity {name:row[0]})
-SET e.disambiguation = row[1]
-""",
- {"data": disambiguation_params},
-)
-
-Now that the disambiguation information is in the database, we can
-use it to evaluate the results.MATCH (e:Entity {type:"animal"})
-RETURN e.disambiguation AS i, collect(e.name) AS entities
-ORDER BY size(entities) DESC
-LIMIT 5ResultsWhile this disambiguation is not that complicated, it is still worth noting that we can achieve this without NLP knowledge or having to develop any hand-crafted rules.AnalysisIn the final step of this blog post, we will evaluate the results of the information extraction pipeline using the GPT-4 model.First, we will examine the type and count of extracted entities.MATCH (e:Entity)
-RETURN e.type AS type, count(*) AS count
-ORDER BY count DESC
-LIMIT 5ResultsMost entities are animals, locations, and biological entities. However, we can notice that sometimes the model decides to use the whitespace and other times underscore for biological entities.Throughout my experiments with GPT endpoints, I have observed that the best approach is to be as specific as possible in what information and how you want it to be categorized. Therefore, it is good practice with GPT-4 to define the types of entities we want to extract, as the resulting types will be more consistent.Additionally, the model didn’t classify 33 entity types. The thing is that GPT-4 might come up with some types for these entities if asked. However, they only appear in the relationship extraction part of the results, where entity types are not requested. One workaround could be to ask for entity types in the relationship extraction part.Next, we will examine which animals are the most mentioned in the video.MATCH (e:Entity {type:"animal"})
-RETURN e.name AS entity, e.type AS type,
- count{(e)<-[:MENTIONS]-()} AS mentions
-ORDER BY mentions DESC
-LIMIT 5ResultsThe most mentioned animals are moray eels, lionfish, and brittle stars. I am familiar only with eels, so watching the documentary to learn about other fishes might be a good idea.We can also evaluate which relationships or facts have been extracted regarding moray eels.MATCH (e:Entity {name:"morays"})-[:RELATIONSHIP]->(r)-[:RELATIONSHIP]->(target)
-RETURN e.name AS source, r.type AS relationship, target.name AS target,
- count{(r)<-[:MENTIONS_RELATIONSHIP]-()} AS mentions
-UNION ALL
-MATCH (e:Entity {name:"morays"})<-[:RELATIONSHIP]->(r)<-[:RELATIONSHIP]-(source)
-RETURN source.name AS source, r.type AS relationship, e.name AS target,
- count{(r)<-[:MENTIONS_RELATIONSHIP]-()} AS mentionsResultsThere is quite a lot we can learn about moray eels. They cooperate with groupers, coexist with Triggerfishes, and are being cleaned by cleaner shrimps. Additionally, a moray searching for a female moray can be relatable.Let’s say we want to check if the relationship that morays interact with lionfish is accurate. We can retrieve the source text and validate the claim manually.MATCH (e:Entity)-[:RELATIONSHIP]->(r)-[:RELATIONSHIP]->(t:Entity)
-WHERE e.name = "morays" AND r.type = "INTERACTS_WITH" AND t.name = "Lionfish"
-MATCH (r)<-[:MENTIONS_RELATIONSHIP]-(s:Section)
-RETURN s.text AS textResultsly tough are its cousins the scorpion fishes they
-lie there as if dead especially when others around
-them freak out and even when moray eels fight with lionfishes for foodThe text mentions that eels fight with lionfish for food. We can also notice that the transcript is hard to read and understand, even for a human. Therefore, we can commend GPT-4 for doing a good job on a transcript where even a human might struggle.Lastly, we can use the knowledge graph as a search engine that returns timestamps of sections where relevant entities we want to see. So, for example, we can ask the database to return all the timestamps of sections in which lionfish is mentioned.MATCH (e:Entity {name:"Lionfish"})<-[:MENTIONS]-(s:Section)<-[:HAS_SECTION]-(v:Video)
-RETURN s.startTime AS timestamp, s.endTime AS endTime,
- "https://youtube.com/watch?v=" + v.id + "&t=" + toString(toInteger(s.startTime)) AS URL
-ORDER BY timestampResultsSummaryThe remarkable ability of GPT-3.5 and GPT-4 models to generalize across various domains is a powerful tool for exploring and analyzing different datasets to extract relevant information. Honestly, I’m not entirely sure which endpoint I would use to recreate this blog post without GPT-4. As far as I know, there are no open-source relation extraction models or datasets on sea creatures. Therefore, to avoid the hassle of labeling a dataset and training a custom model, we can simply utilize a GPT endpoint. Furthermore, I eagerly anticipate the opportunity to examine its promised capability for multi-modal analysis based on audio or text input.As always, the code is available on GitHub.
-
-[[}]]
-
-
-
-## ¿Por qué hay que repensar ahora la IA?  [[{]]
-No es catastrofismo, sino precaución Noemí G. Gómez 8 - 10 minutes
-La explosión de los modelos de inteligencia artificial generativa,
-capaces de "conversar" y crear textos, imágenes o música a partir
-de datos existentes, ha hecho que más de 5.500 expertos de todo el
-mundo hayan pedido una pausa, pero ¿por qué ahora? El ritmo al que
-avanza esta tecnología preocupa, hay que repensarla.Encabezados por
-Yoshua Bengio, premio Turing y profesor de la Universidad de
-Montreal, en Canadá, y Stuart Russell, de la Universidad de
-California en Berkeley, Estados Unidos, los expertos solicitan en una
-carta a los laboratorios que suspendan al menos seis meses el
-entrenamiento de sistemas de inteligencia artificial (IA) más
-potentes que GPT-4 (el último modelo de IA generativa de la empresa
-OpenAI).Entre los firmantes hay varios españoles. Carles Sierra,
-director del Instituto de Investigación en Inteligencia Artificial
-del Consejo Superior de Investigaciones Científicas (CSIC), y Pablo
-Jarillo-Herrero, del Instituto Tecnológico de Massachusetts (MIT),
-quienes coinciden en que no se han tomado "las precauciones
-necesarias" antes de trasladar masivamente esta IA a la
-ciudadanía.Sierra, en declaraciones a EFE, admite tener "una
-preocupación creciente por esta especie de carrera armamentística"
-en la que están las empresas tecnológicas. No solo es OpenIA la que
-está desarrollando modelos de IA generativa, también Google, con
-Bard, o Meta con LLaMa.No se trata de catastrofismoNo se trata de
-catastrofismo, dice Sierra, sino que "hay compañías que han
-invertido mucho dinero, quieren monetizar lo que han hecho y están
-en la batalla por ver quién se lleva el trozo más grande del
-pastel", pero en "este proceso están siendo poco prudentes".Falta
-evaluación y sin ella no sabemos qué consecuencias puede tener esta
-IA, afirma el experto del CSIC, quien lo compara con el proceso de
-investigación y aprobación de un medicamento; las agencias
-reguladoras tardan años en aprobarlos y solo tras la superación de
-las tres fases de los ensayos clínicos (hay una cuarta de
-farmacovigilancia)."Las empresas están sucediendo sus versiones a un
-ritmo de una cada mes -OpenIA ya trabaja en ChatGPT-5-, poniendo a
-disposición de todo el mundo los nuevos modelos, y no de manera
-sectorial", lamenta.Jarillo-Herrero también está preocupado por el
-ritmo al que está avanzando esta IA y recuerda que hace algún
-tiempo también hubo interés en una moratoria sobre el uso de la
-técnica de edición genética Crispr, que progresaba "mucho más
-deprisa de lo que la humanidad podía 'digerir', y algunas
-aplicaciones se podían ir de las manos"."Con tecnologías tan
-disruptivas es conveniente entender y anticipar las posibles
-consecuencias de su uso y regularlo", señala a EFE.Ambos expertos
-coinciden en que la IA, también la generativa, puede proporcionar
-beneficios, pero, tal y como advierte Sierra, estos sistemas buscan
-que el resultado sea verosímil, no necesariamente cierto, y que
-parezca que lo ha dicho un humano; ahí está el riesgo.Basados en el
-aprendizaje automático, estos sistemas, de los que también preocupa
-la privacidad y el uso de datos personales, aprenden de los millones
-de textos, imágenes o vídeos publicados en internet, y los
-desarrolladores se quedan con los datos de las miles de
-"conversaciones" de los usuarios para mejorar los siguientes
-modelos.El mayor temor, la desinformaciónJarillo-Herrero, profesor
-de Física en el MIT, concentra sus preocupaciones sobre todo en la
-desinformación. Imágenes hiperrealistas del papa Francisco con un
-plumas blanco o de Donald Trump resistiéndose a un arresto son dos
-de los ejemplos que han circulado estos días en redes."Antes ya
-había mucha desinformación, pero era bastante fácil darse cuenta y
-distinguir para una persona educada. Ahora, con el uso de la IA, es
-mucho más fácil publicar/diseminar información que en una primera
-lectura parece real pero que en realidad es falsa", resume
-Jarillo-Herrero.Además, "la información/texto con el que se entrena
-esta IA contiene muchos 'biases' -sesgos-, los mismos que los
-humanos", con lo cual las respuestas generadas contienen todo tipo de
-estereotipos falsos.El investigador reflexiona que la humanidad, en
-general, nunca ha sido muy efectiva en contener avances científicos
-y técnicos no deseados, por ejemplo, bastantes países han
-desarrollado bombas atómicas o nucleares."Sin embargo hay una gran
-diferencia entre la IA y otros avances peligrosos como las bombas
-nucleares. Para estas últimas se requiere una instrumentación y
-materiales muy complejos, no fácilmente disponibles incluso para
-gobiernos".En cambio, apunta, cualquiera con unos cuantos ordenadores
-puede hacer uso de la IA. "Por ejemplo, los piratas informáticos
-deben estar planeando ya miles de ataques utilizando IA, que puede
-resolver fácilmente puzles de verificación que antes requerían un
-humano"."Esta moratoria de seis meses, si se produce, quizás ayude a
-los gobiernos a intentar entender mejor las posibles consecuencias
-negativas de la IA y a regularizar su uso. Las compañías más
-avanzadas pueden quizás pausar y pensar en cómo contrarrestar esos
-efectos negativos", concluye el científico del MIT.Sierra, quien
-alerta del peligro de poner en manos de un adolescente un sistema que
-puede generar desinformación, también habla de regular su uso y
-recuerda que la soberanía siempre está en el pueblo: "no estoy de
-acuerdo en prohibir, pero sí en regular".Código deontológicoEste
-experto, también presidente de la Asociación Europea de IA, apuesta
-por redactar un código deontológico claro. Hay antecedentes de
-documentos de buenas prácticas de la Unión Europea, de la OCDE o de
-sociedades e instituciones estadounidenses y británicas, pero ahora
-es necesario un código mundial, robusto y transparente.En este
-sentido, explica estar en contacto con Stuart Russell, uno de los
-promotores de la carta, para estudiar cómo vehiculizarlo.A nivel
-europeo, dice, habría que llevar la ley de inteligencia artificial
-de nuevo a la mesa de discusión, para especificar los riesgos de la
-IA generativa y cómo poner límites.La ley, cuya aplicación se
-prevé este año, incluye la prohibición de prácticas como el
-reconocimiento facial en espacios abiertos y clasifica los riesgos de
-la IA en alto, moderado o de poco riesgo.Identifica por tanto
-sectores, como el educativo, en el que hay que tener especial
-salvaguarda y control (el uso de IA para evaluar alumnos o asignarlos
-en las escuelas lo califica de alto riesgo).Sin embargo, cuando se
-redactó la ley los sistemas de IA generativa estaban aún
-desarrollándose. Ahora que los hay muy avanzados, habría que volver
-atrás y adaptar la norma, concluye Sierra.
-[[}]]
-
-## https://segment-anything.com/  [[{]]
-image processing
-[[}]]
-
-## ChatGPTClassifier and ChatGPTRegressor is part of sklearn now!  [[{]]
-Works impressively well!
-#chatpgt #machinelearning #datascience #aprilfoolsday #sklearn
+... and it works impressively well!
 [[}]]
 
 [[{LLM.GPT,LLM.promptEng]]
+
 ## JARVIS: a system to connect LLM with ML community
-https://www.linkedin.com/posts/sergios-karagiannakos_%3F%3F%3F%3F%3F%3F-%3F-%3F%3F%3F%3F%3F%3F-%3F%3F-%3F%3F%3F-activity-7048273723044298752-Z1Ns
+
+* <https://www.linkedin.com/posts/sergios-karagiannakos_%3F%3F%3F%3F%3F%3F-%3F-%3F%3F%3F%3F%3F%3F-%3F%3F-%3F%3F%3F-activity-7048273723044298752-Z1Ns>
+
 - new system by Microsoft that is based on the recent HuggingGPT
 paper. Here is how it works in a nutshell:
+
+
 1) Task Planning: It uses ChatGPT to analyze the requests of users to understand their
    intention, and disassemble them into possible solvable sub-tasks.
 2) Model Selection: Based on the sub-tasks, ChatGPT invokes the corresponding models
@@ -2476,54 +2044,18 @@ learning, Data science and AI and an avid reader of the latest
 developments in these fields.
 [[}]]
 
-## ML: LLM FACEBOOK LLAMA  [[{COGNITIVE.NLP.LLM]]
-https://www.linkedin.com/posts/yann-lecun_github-facebookresearchllama-inference-activity-7034956639526952960
-https://www.linkedin.com/feed/update/activity:7034956639526952960
-Yann LeCunLLaMA is a new *open-source*, high-performance large
-language model from Meta AI - FAIR.LLaMA is actually a collection of
-foundation language models ranging from 7B to 65B parameters.The
-models have been trained on trillions of tokens, and show that it is
-possible to train state-of-the-art models using publicly available
-datasets exclusively, without resorting to proprietary and
-inaccessible datasets.In particular:- LLaMA-13B outperforms GPT-3
-(175B) on most benchmarks- LLaMA-65B is competitive with the best
-models, Chinchilla70B and PaLM-540B. Meta is committed to open
-research and releases all the models the research community under a
-GPL v3 license.- Paper: https://lnkd.in/gzHHiC5Q- Github:
-https://lnkd.in/g2GU637j- Blog post: https://lnkd.in/gxw2ickX
+[[{cloud.aws,doc_has.tutorial]]
+## Ml 101: MLU-Explain
 
-See also:
-                                       [[{scalability,CLOUD.PRICE.FREE]]
-* https://github.com/ggerganov/llama.cpp
-* https://github.com/gotzmann/llama.go
-  """  We dream of a world where ML hackers are able to grok with REALLY
-    BIG GPT models without having GPU clusters consuming a shit tons of
-    $$$ - using only machines in their own homelabs. """"
-                                       [[}]]
+* <https://mlu-explain.github.io/>
+
+
+Machine Learning University (MLU) is an education initiative from Amazon 
+designed to teach machine learning theory and practical application.
+
+As part of that goal, MLU-Explain exists to teach important machine learning 
+concepts through visual essays in a fun, informative, and accessible manner.
 [[}]]
-
-## Ml 101: MLU-Explain(curso amazon en github) [[{]]
-https://mlu-explain.github.io/
-[[}]]
-
-## SciKit-optimize [[{]]
-https://www.linkedin.com/posts/giannis-tolios_datascience-python-machinelearning-activity-7030949863122976768-p6Rz 
-Most machine learning models let you tweak their parameters to
-achieve optimal performance, a technique known as hyperparameter
-tuning. The scikit-learn library supports various hyperparameter
-tuning methods, such as grid search and randomized search.
-Unfortunately, those techniques can become time consuming as they
-aren't optimized. In contrast, the scikit-optimize library uses
-bayesian optimization to model the hyperparameter search space, thus
-finding the optimal combination as soon as possible. You can check
-the links below for more information, and follow me for regular
-content!
-Github repo: https://lnkd.in/dZcdzTRS𝗠𝗮𝘁𝗵𝗲𝗺𝗮𝘁𝗶𝗰𝘀
-DAta science course: https://lnkd.in/dv6qHNYB𝗡𝗲𝘂𝗿𝗮𝗹
-Networks and deep learning Course: https://lnkd.in/dCd7YmaJ
-[[}]]
-
-
 
 ## ML: Deep Learning Pioneer Geoffrey Hinton Publishes New Deep Learning Algorithm [[{]]
 https://www.infoq.com/news/2023/01/hinton-forward-algorithm/?itm_source=infoq
@@ -3026,220 +2558,6 @@ massive scientific corpus.https://lnkd.in/ejbBSW4W#machinlearning
 #deeplearning #ai
 [[}]]
 
-[[{LLM.GPT,PM.TODO]]
-## Why can GPT learn in context language models
-
-* <https://www.linkedin.com/posts/montrealai_why-can-gpt-learn-in-context-language-models-activity-7028951651587608576-4BqC>
-[[}]]
-
-
-[[{data.time_series]]
-## sktime: A unified framework for machine learning with time series
-  https://github.com/sktime/sktime
-[[}]]
-
-
-
-##  OpenAI Whisper: state-of-the-art speech recognition model [[{]]
-- Whisper's success demonstrates the importance of having a large,  [[{doc_has.keypoint]]
-  high-quality dataset and not relying too heavily on complex
-  architecture.                                                     [[}]]
-- Whisper achieved human-level performance.
-- Released publicly, along with its code and weights,
-  although only for inference.
-- In this video, I go into more detail about the key-ideas in the paper:
-  https://lnkd.in/eYYuFPyCSome
-  - Using a vanilla transformer and not focusing on the architecture.
-    Investing a lot of time in collecting and cleaning a massive dataset,
-    which consists of about 77 years of transcription data. Focusing on
-    zero-shot performance, as models often overfit to specific datasets
-    and do not generalize well to others. The paper also notes that
-- Whisper outperformed Wav2Vec in terms of zero-shot performance,
-  despite Wav2Vec performing on par with Whisper on specific
-  datasets.
-[[}]]
-
-[[{]]
-## ChatGPT == fined-tuned GPT-3 model with small amount of data
-https://www.linkedin.com/posts/damienbenveniste_machinelearning-datascience-chatgpt-activity-7007019154666909696-T5WM 
-Do you know how ChatGPT was trained? ChatGPT is "simply" a
-fined-tuned GPT-3 model with a surprisingly small amount of data!
-Moreover, ChatGPT is using 1.3B parameters where GPT-3 uses 175B
-parameters! It is first fine-tuned with supervised learning and then
-further fine-tuned with reinforcement learning. They hired 40 human
-labelers to generate the training data. Let's dig into it!- First,
-they started by a pre-trained GPT-3 model trained on a broad
-distribution of Internet data (https://lnkd.in/gAUtxvrM). Then
-sampled typical human prompts used for GPT collected from the OpenAI
-website and asked labelers and customers to write down the correct
-output. They fine-tuned the model with 12,725 labeled data. - Then,
-they sampled human prompts and generated multiple outputs from the
-model for each of the prompt. A labeler is then asked to rank those
-outputs. The resulting data is used to train a Reward model
-(https://lnkd.in/gdrzdWu3) with 33,207 prompts and ~10 times more
-training samples using different combination of the ranked outputs.-
-We then sample more human prompts and they are used to fine-tuned the
-supervised fine-tuned model with Proximal Policy Optimization
-algorithm (PPO), a Reinforcement Learning algorithm
-(https://lnkd.in/gsDTWtga). The prompt is fed to the PPO model, the
-Reward model generates a reward value, and the PPO model is
-iteratively fine-tuned using the rewards and the prompts using 31,144
-prompts data.This process is fully described in here:
-https://lnkd.in/gnt9K9pu. The paper actually details a model called
-InstructGPT which is described by OpenAI as a "sibling model" to
-ChatGPT, so the numbers shown above may be slightly different from
-the exact ones used for ChatGPT.---I offer Machine Learning
-consulting services: https://lnkd.in/gqzuB6kMI offer Data Science
-career mentoring: https://lnkd.in/gGBMXuR4 I am starting writing on
-Twitter as well now. Follow me there for additional news:
-https://lnkd.in/gDP_jWjS#machinelearning #datascience #chatgpt
-
-──────────────────────────────
-## ChatGPT internals: [[{cognitive.NLP,use_case.chatbots]]
-https://www.linkedin.com/posts/miguelgfierro_ai-machinelearning-gpt-activity-7005786941853986817-vKwD 
-
- ChatGPT is based on the GPT model, which uses the decoder
-part of the Transformer architecture.The Transformer architecture has
-an encoder and a decoder component, GPT uses only the decoder in
-autoregressive form, which means it is optimized to predict the next
-token (word) in a sequence.Optimizing for predicting the next token
-causes unintended behaviors. That's why GPT3 often makes up facts,
-generates biased text, or don't follow the user's intentions.This is
-one of the key areas that ChatGPT fixed.Researchers at OpenAI changed
-the autoregressive optimization function for the objective "follow
-the user’s instructions helpfully and safely". To do this, they use
-Reinforcement Learning from Human Feedback (RLHF).In RLHF, humans
-rate multiple questions and answer pairs, and rank them on quality.
-This generates a reward function that is used to optimize the GPT
-model with a reinforcement learning algorithm.ChatGPT was optimized
-from a GPT 3.5 model, trained on Azure supercomputers. This is an
-evolution of GPT3 which finished training in early 2022.See more
-details in the comments.If you think this is valuable, consider
-joining https://lnkd.in/dfNXNDa4
-[[}]]
-[[}]]
-
-## PyTorch 2.0 [[{]]
-  https://www.linkedin.com/posts/yann-lecun_pytorchconference-activity-7004476955819470849-86ip 
-[[}]]
-
-
-## Windows: Entrenamiento de ML acelerado para GPU en WSL [[{]]
-   https://learn.microsoft.com/es-es/windows/wsl/tutorials/gpu-compute
-[[}]]
-
-## R LANG TUTOR Powered by AI [[{RLang,QA.UX,low_code]]
-https://www.linkedin.com/posts/steven-ge-ab016947_chatgpt-ai-stats-activity-7008179918844956672-xN6g 
-Based on Davinci (ChatGPT's sibling) from OpenAI, I wrote an app
-called RTutor (http://RTutor.ai) that can generate and
-test R code just by "chatting" with it.
- For example, given the mpg dataset, you can ask questions like:
-- "Are SUVs more fuel efficient than compact cars?"
-- "Conduct ANOVA of log-transformed hwy by class and drv."
-- "Use ggplot2 to create a boxplot of hwy vs. class. Color by class. Add jitter."
-
- RTutor will then generate functional code to answer your question,
-making it easy for those without R experience to conduct preliminary
-analysis and visualization of their data. For those with R coding
-experience, RTutor can save you time by providing code that you can
-use as a starting point for your projects.RTutor can be run locally
-as an R package (https://lnkd.in/gtnkuemW). It also generates R
-Markdown code and html reports, like this one
-(https://lnkd.in/giEuNTzA). I have to say, I'm still in disbelief at
-how well this tool (mostly OpenAI's credit) works. It's like magic!
-Christmas magic!P.S. As it went viral, I edited this post with the
-help of ChatGPT. Crazy world! This is a personal side project not
-related to work. For work, I am looking for graduate students to join
-our data science and statistics programs (https://lnkd.in/g4NeBEuD). 
-[[}]]
-
-## Tabular data vs graphs  [[{]]
-https://www.linkedin.com/posts/tonyseale_graphs-graphneuralnetworks-neuralnetworks-activity-7004371666139000833-ctmf
-Tony Seale Knowledge Graph Engineer at UBS1
-Tabular datasets have a lot of values in them, but they do not have
-explicit information about the connective structure of ‘the
-system’ in which those values exist. As a result, our AI models can
-often make predictions that lack a sense of context. Graphs treat
-connections as first-class citizens, and many Graph Neural Networks
-use a process called message passing, where each node in the graph
-makes a prediction and then passes that prediction on through its
-connections. This process is then repeated so that each neuron can
-take the predictions of its neighbours into account in the next
-iteration. In other words, each neuron takes its local context into
-account. There is a deep and pleasing harmony to using a graph
-structure throughout the whole process. Graph Neural Networks use
-graphs for input, computation and output. These graphs are
-expressive, they model connections, and those connections provide
-context. Context can often be critical to finding the answer we seek.
-It is what allows us to see the nuance and ambiguity between a simple
-yes or no. Life is not black and white: context provides us with
-those all-important shades of grey. In fact, Graph Neural Networks
-can give us ‘technicoloured’ answers. See how GNNs can be
-incorporated into your wider data network: https://lnkd.in/eyJuFNci
-[[}]]
-
-## DATA CATALOGS ("Data Stores") [[{]]
- Data Catalogs provide what some describe Data Stores for data.
- However, it turns out that shopping for data is rather like shopping
-for individual pieces of Lego: it only becomes useful and worthwhile
-when the pieces are connected together.The answer is surprisingly
-simple. A shared definition of what a data catalog is can enable
-standardisation, reduce dataset staleness, pave the way for
-integration with downstream tools and can eventually deliver ‘Lego
-like’ dataset connectivity.This article explores how organisations
-can use the definition of a data catalog in schema.org to invert the
-cost of data integration and build a Connected Data Catalog:
-https://lnkd.in/ey6jfa5F
-[[}]]
-
-## OpenAI. Building your app [[{]]
-  https://beta.openai.com/docs/quickstart/build-your-application 
-[[}]]
-
-## Target vs Feature  [[{]]
-https://www.linkedin.com/posts/venkat-raman-analytics_statistics-datascience-econometrics-activity-7001877969824616448-fliq 
- An interesting pattern I have observed is that, people without
-statistical or related background predominantly use the term 'Target'
-and 'Feature'. People with statistical and related background used
-the following for Dependent and Independent variable: Dependent
-variable : Regressand, Predicted, Endogenous, Target, Response,
-Explained Variable Independent variable: Regressor, Predictor,
-Exogenous, Feature, Covariate, Explanatory VariableNow I don't want
-to be pedantic about this and I am not advocating that there is only
-one ideal term to use.I am just sharing this knowledge only on a
-'good to know' basis and perhaps to allay some misconceptions. Also I
-believe knowing the etymology and background behind this naming
-convention will perhaps help you appreciate the subject better.I will
-talk about four terms in this post (any more will perhaps warrant an
-article). Independent variable and Dependent variable: Misconception:
-They are named so because the dependent variable is 'dependent' on a
-set of variables - 'the independent variables'. And the independent
-variables are 'independent' of each other and the dependent
-variable.Explanation: The names 'independent' and 'dependent'
-variable came about in context of controlled experimental studies. If
-one read RA Fischer's work (Arrangement of Field Experiments or
-Statistical methods for research workers), we can see that there were
-studies on crop growth pattern vis a vis the treatment of
-fertilizers.In these cases, the choice of fertilizers or say type of
-soil were chosen independently. This is how the name 'independent'
-came about.Many say the Independent and Dependent variable is poor
-terminology. The relationship is never unidirectional. In a
-statistical sense, the independent variables are not 'independent' of
-each other or the dependent variable. Also, one should not make the
-mistake of assuming causality because of the terms IV and DV.In the
-context of linear regression, perhaps it best to think of it as
-Expected value of Y (mean) being conditioned on X.The formulaic
-structure is given asE(Y|X)=β0+β1X. Endogenous and Exogeneous
-variables: The term 'Endogenous and Exogeneous' is predominantly used
-in the context of Structural Equation Modeling (SEM).It must be kept
-in mind that, these terms are rarely used in context of linear
-regression. The reason being, exogenous by definition means variables
-that are not affected by any other variable. However they do affect
-the Endogenous variable. Also, Endogenous variable in no way affect
-exogenous variables.
-[[}]]
-
-
 [[{PM.RADAR.Snorkel]]
 ## Snorkel: training data (not models)
 
@@ -3271,15 +2589,6 @@ used in the last few hours; and work with an amazing community of researchers
 and practitioners from industry, medicine, government, academia, and beyond.
 [[}]]
 
-
-
-## ML. Perspective: real time (big) Data Visualization 101
-
-High Performance Data Visualization for the Web
-
-09-25, 10:30–11:00 (Europe/Paris), Louis Armand 2
-
-Are you looking for a high performance visualization component for the web? Need to filter, sort, pivot, and aggregate static/streaming data in realtime? Daunted by the massive JS ecosystem? In this talk, we’ll build a high performance web frontend using the open source library Perspective.
 
 [[{PM.RADAR]]
 

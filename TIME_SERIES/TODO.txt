@@ -410,3 +410,12 @@ forecaster, consistently delivering competitive or superior performance
 compared to full-shot models.
 
 [[}]]
+
+[[{data.time_series]]
+## sktime: A unified framework for machine learning with time series
+  https://github.com/sktime/sktime
+[[}]]
+
+
+
+

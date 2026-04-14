@@ -1,7 +1,7 @@
 [[{LLM.*,PM.backlog]]
 # LLM Backlog
 
-[[{cognitive.nlp,dev_stack.java]]
+[[{use_case.nlp,dev_stack.java]]
 
 ## NLP Java Tools
 

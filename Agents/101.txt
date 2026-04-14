@@ -1,4 +1,4 @@
-[[{architecture.AI_agents]]
+[[{architecture.agents]]
 
 # AI Agents
 
@@ -314,4 +314,4 @@ supervise the other one.
 [[security.promp_injection,security.101}]]
 
 
-[[architecture.AI_agents}]]
+[[architecture.agents}]]

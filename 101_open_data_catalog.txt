@@ -10,7 +10,7 @@
   <https://datasetsearch.research.google.com/>
 - <https://ai.google/tools/#datasets>
 - <https://archive.ics.uci.edu/ml/datasets/>
-- <https://www.infoq.com/news/2019/10/google-nlp-dataset/>   [[cognitive.nlp]]
+- <https://www.infoq.com/news/2019/10/google-nlp-dataset/>   [[use_case.NLP]]
 - <http://www.image-net.org/> ImageNet: hundreds of thousands of images and complex models
 - Adversarial Image DataSet:
   https://www.infoq.com/news/2019/08/adversarial-image-dataset/

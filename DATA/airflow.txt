@@ -1,4 +1,4 @@
-[[{data.cleaning,data.ETL,arch.DAG,arch.multiprocess]]
+[[{data.cleaning,data.ETL,architecture.DAG,architecture.multiprocess]]
 ## Apache Airflow  (ETL/ELT/,  Business Operations, MLOps, ...)
 
 * allows you to define almost any workflow in Python code, no matter how complex.

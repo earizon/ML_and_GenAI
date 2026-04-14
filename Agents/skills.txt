@@ -1,4 +1,4 @@
-[[{architecture.AI_agents.skills,architecture.AI_agents]]
+[[{architecture.agents.skills,architecture.agents]]
 # Skills.md spec
 
 * Agent Skills format was originally developed by Anthropic, released as an 
@@ -30,7 +30,7 @@
   |   ├ SKILL.md          <·· Required: YAML frontmatter metadata + Markdown content.
   |   │                       - metadata.name and metadata.description is used by agents at "startup" to discover 
   |   │                         each available skill, just enough to know when it might be relevant. (Discovery)
-  |   │                       - QA: ~50-100 tokens in total for name + description metadata. [[qa.best_pattern]]
+  |   │                       - QA: ~50-100 tokens in total for name + description metadata. [[qa.best_patterns]]
   |   │                       - MD content is use at "execution" time (injected in agent LLM prompt when the skill
   |   │                         is "activated").
   |   │                         optionally loading referenced files and/or executing bundled code as needed.
@@ -262,5 +262,4 @@ If your agent has a permission system that gates file access, allowlist skill di
   | ...
   ```
 
-
-[[architecture.AI_agents.skills]]
+[[architecture.agents.skills]]

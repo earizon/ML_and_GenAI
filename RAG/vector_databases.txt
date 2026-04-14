@@ -164,7 +164,7 @@ particular o cómo implementarla?
 * EmbeddingGemma (under 1B parameters), for Cost-Conscious Deployments,
   good accuracy while running efficiently on CPUs or small GPUs or
   scenarios with high volumes of data.
-  [[PM.Cost,arch.IoT,scalability.LLM,data.scalability]]
+  [[PM.Cost,architecture.IoT,scalability.LLM,data.scalability]]
 
 * MiniLM-L6-v2: when speed (vs accuracy/cost/...) is core, providing
   extremely low latency and minimal computational cost. ("real time" apps)

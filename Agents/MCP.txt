@@ -72,7 +72,7 @@
   * Prompts representing multi-turn workflows. e.g: step-by-step diagnostic interview.
 [[MCP.101}]]
 
-[[{MPC.101,doc_has.examples]]
+[[{MPC.101,doc_has.example]]
 ## MCP Examples (from Daily Dose of Data Science)
 
 ### Building a 100% local MCP client
@@ -360,7 +360,7 @@ MCP-driven demo Audio Analysis toolkit accepting an audio file to:
 
 * <https://github.com/mark3labs/mcp-go>
 
-[[{arch.MCP.Gateway,security,architecture.REST]]
+[[{architecture.MCP.Gateway,security,architecture.REST]]
 ## MCP Gateway
 
 * <https://github.com/IBM/mcp-context-forge>
@@ -369,7 +369,7 @@ MCP-driven demo Audio Analysis toolkit accepting an audio file to:
 prompts that can be accessed by MCP-compatible LLM applications. Converts REST
 API endpoints to MCP, composes virtual MCP servers with added security and
 observability, and converts between protocols (stdio, SSE, Streamable HTTP).
-[[arch.MCP.Gateway}]]
+[[architecture.MCP.Gateway}]]
 
 
 ## SSE Transport deprecation Warning

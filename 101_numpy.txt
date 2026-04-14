@@ -31,11 +31,11 @@
   | <https://isztld.com/posts/pytorch-numpy.html>
   | 
   | Answer: by Jeff Hammond (Principal Software Architect at NVIDIA)
-  |   You might also look at [[CuPy]]. Nothing wrong with PyTorch but CuPy is literally 
-  |   NumPy for GPUs. 
+  |   You might also look at CuPy. Nothing wrong with PyTorch but CuPy is literally 
+  |   NumPy for GPUs.
   |      Answer by Olivier Supplisson
   |      ...have a look at JAX: As CuPy, NumPy for GPUs with support for AMD cards
-  |   Looks from the thread that [[CuPy]] is just an NVidia vendor lock-in. [[PM.RISK]]
+  |   Looks from the thread that CuPy is just an NVidia vendor lock-in. [[PM.RISK,doc_has.comparative]]
   ```
 [[doc_has.comparative}]]
 

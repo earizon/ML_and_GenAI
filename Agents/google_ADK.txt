@@ -1,4 +1,4 @@
-[[{architecture.AI_agents]]
+[[{architecture.agents]]
 # Google ADK Agent Development Kit
 
 * OpenSource framework to build AI Agents and Agents Swarms.
