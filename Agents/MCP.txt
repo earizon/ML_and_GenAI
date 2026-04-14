@@ -1,4 +1,4 @@
-[[{MCP.101]]
+[[{architecture.agents.MCP,architecture.agents.101]]
 ## MCP 101
 
 
@@ -70,9 +70,9 @@
   * (system) prompts can indicate the roles to be used by the LLM (You are a lawyer, a code reviewer, ...)
     and the keywords (or taxonomies) to guide the LLM to use the correct MCP tools "spontaneusly".<br/>
   * Prompts representing multi-turn workflows. e.g: step-by-step diagnostic interview.
-[[MCP.101}]]
+[[architecture.agents.MCP}]]
 
-[[{MPC.101,doc_has.example]]
+[[{architecture.agents.MCP,doc_has.example]]
 ## MCP Examples (from Daily Dose of Data Science)
 
 ### Building a 100% local MCP client
@@ -238,14 +238,14 @@
  |  # └─────────────────────────────────────────────────────────────────────────
  ```
 
-[[{MCP.101]]
+[[{architecture.agents.MCP]]
 # Official MCP Registry  (By the MCP Team)
 
 * <https://www.infoq.com/news/2025/09/introducing-mcp-registry/>
 By Andrew Hoblitzell
 
 The Model Context Protocol (MCP) ecosystem is formalizing a public 
-registry for server discovery. [[date.2025.09]]
+registry for server discovery. [[PM.date.2025.09]]
 ... Together with Agentgateway, they aim to make finding, governing,
 and running agentic tools more routine for engineering teams.
 
@@ -295,9 +295,9 @@ API,” the two projects sketch a path to safer scale. For developers looking
 to learn more, they can explore the MCP Registry repository and agentgateway 
 repository.
 
-[[MCP.101}]]
+[[architecture.agents.MCP}]]
 
-[[{MCP.101,A2A.101,PM.TODO]]
+[[{architecture.agents.MCP,architecture.A2A.101,PM.TODO]]
 # Agentgateway: Next Generation Agentic Proxy for AI Agents and MCP servers 
 
 * <https://github.com/agentgateway/agentgateway>
@@ -329,7 +329,7 @@ repository.
 - Run Anywhere: k8s clusters, VMs, Bare Metal, ...
 - Legacy API Support: agentgateway can transform legacy APIs into 
   MCP resources. Currently supports OpenAPI. (gRPC coming soon)
-[[MCP.101}]]
+[[architecture.agents.MCP}]]
 
 
 [[{use_case.research]]

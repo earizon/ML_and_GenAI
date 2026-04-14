@@ -28,7 +28,7 @@
   which is in turn a large lexical database of the English
   language WordNet dataset.
 
-[[{data.mining,standards,low_code,PM.TODO]]
+[[{data.mining,standards,PM.low_code,PM.TODO]]
 ## Extracting info from Municipal Open Data APIs
 - <https://www.youtube.com/watch?v=6puwaUHNRIU>
 [[}]]
@@ -159,7 +159,7 @@ Shawn Presser, Connor Leahy
 
 
 
-# GeoJSON/GeoPanda: [[{data.geospatial,pandas,low_code,PM.TODO]]
+# GeoJSON/GeoPanda: [[{data.geospatial,pandas,PM.low_code,PM.TODO]]
 Getting Started on Geospatial Analysis with Python, GeoJSON and GeoPandas - Twilio
 <https://www.twilio.com/blog/2017/08/geospatial-analysis-python-geojson-geopandas.html>
 

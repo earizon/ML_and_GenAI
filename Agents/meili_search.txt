@@ -1,4 +1,4 @@
-[[{architecture.agents,tool.Meilisearch]]
+[[{architecture.agents,architecture.agents.tool,use_case.search_engine]]
 
 ## Meilisearch
 
@@ -8,7 +8,7 @@
 * Rust based.
 * Easy to install, deploy, and maintain [[PM.low_code]]
 
-[[use_cases.*]]
+[[use_case.*]]
 Examples links at <https://github.com/meilisearch/meilisearch>:
 Movies           : An application to help you find streaming platforms to watch movies using hybrid search.
 Flickr           : Search and explore one hundred million Flickr images with semantic search.
@@ -18,7 +18,7 @@ Search Playground: An interactive playground to explore Meilisearch search featu
 Personalization  : A demo showcasing personalized search results tailored to individual users.
 SaaS             : Search for contacts, deals, and companies in this multi-tenant CRM application.
 
-[[use_cases.*}]]
+[[use_case.*}]]
 
 Features:
 - Typo and misspellings tolerance

@@ -1,7 +1,7 @@
-TensorFlow:
+## TensorFlow
 
   ```
-   docker run --rm -it -v ...:/root/ -p 8888:8888 tensorflow/tensorflow:latest-py3-jupyter
+  | $ docker run --rm -it -v ...:/root/ -p 8888:8888 tensorflow/tensorflow:latest-py3-jupyter
   ```
 
 - Tensorflow tagged by votes questions in
@@ -9,7 +9,8 @@ TensorFlow:
 <https://datascience.stackexchange.com/questions/tagged/tensorflow?sort=votes&pageSize=15>
 
 
-# Accelerated TensorFlow Lite integrated with Android:  [[{dev_stack.mobile.android,tensorflow,devops,TODO]]
+[[{dev_stack.mobile.android,tensorflow,PM.TODO]]
+# Accelerated TensorFlow Lite integrated with Android
 <https://www.infoq.com/news/2021/07/android-on-device-ml/>
 · dubbed Android ML Platform.
 · It will become available on all Android devices supporting

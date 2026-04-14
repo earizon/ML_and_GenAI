@@ -82,7 +82,7 @@ THE CONCEPTUAL BOUNDARY BETWEEN FEATURE-EXTRACTION AND CLASSIFICATION IS ARBITRA
     They reduce the computational power and the sequential error accu8mulation.
   - Stable Diffusion: (By CompVis group at LMU Munich - High-Resolution Image 
     Synthesis with Latent Diffusion Models by Blattmann et al., 2022). [[doc_has.bibliography]]
-    - The model runs on a modest personal GPU [[DevOps]]
+    - The model runs on a modest personal GPU. 
 
 - Stable Diffussion Latent Space: lower-dimensional space representation (of a higher dimensional
   N-pixels-wide x M-pixels-hight) 2D "image".

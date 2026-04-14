@@ -104,7 +104,7 @@ common types of tokenizers employed in models are:
 * SentencePiece:
 For example, Llama 2's BPE tokenizer splits numbers into individual digits and 
 uses bytes to decompose unknown UTF-8 characters. The total vocabulary size is 
-32,000 tokens. [[devops,llm.101]]
+32,000 tokens. [[llm.101]]
 
 The tokenizer, more precisely, its dictionary- is typically fitted to the
 entire training dataset and the frozen [[qa.inmutability]].
@@ -248,7 +248,7 @@ law.[29][30]
 ## LLM Economics
 
 
-[[{PM.price,date.2024]]
+[[{PM.price,PM.date.2024]]
 # Models & Pricing Comparative
 
 * REF:

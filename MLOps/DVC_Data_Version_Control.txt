@@ -1,10 +1,16 @@
-[[{data.gathering,data.versioning.DVC,data.versioning,data.persistence,mlops,standards,PM.TODO]]
+[[{data.gathering,data.versioning.DVC,data.versioning,data.persistence,mlops.dvc,standards,PM.TODO]]
 
 # DVC: ML Data Version Control ("Git for big data")
 
 * <https://dvc.org/>
 
--Open-source Version Control System for Machine Learning Projects
+* <https://github.com/tldr-pages/tldr/tree/master/pages/common/dvc-*.md>
+
+ Open-source Version Control System for Machine Learning Projects
+
+  DVC helps to organize a more rigorous process around datasets and the data derivatives.
+  [[qa.best_patterns]]
+
 
 * ML project version control
 
@@ -12,7 +18,11 @@
 files. DVC connects them with code, and uses Amazon S3, Microsoft
 Azure Blob Storage, Google Drive, Google Cloud Storage, Aliyun OSS,
 SSH/SFTP, HDFS, HTTP, network-attached storage, or disc to store file
-contents.
+contents. [[cloud.*]]
+
+  DVC versions multi-gigabyte datasets and ML models, 
+and make them shareable and reproducible.  [[scalability.storage]]
+
 
   Full code and data provenance help track the complete evolution of
 every ML model. This guarantees reproducibility and makes it easy to
@@ -37,3 +47,6 @@ mechanism in Git. They are language-agnostic and connect multiple
 steps into a DAG. These pipelines are used to remove friction from
 getting code into production.
 [[data.versioning}]]
+
+
+

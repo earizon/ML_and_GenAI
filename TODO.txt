@@ -563,10 +563,6 @@ http://rasbt.github.io/mlxtend/user_guide/classifier/StackingCVClassifier/
   - https://1lib.eu/book/3698789/ad21bb
   - https://1lib.eu/book/5668172/a7be15
 
-## iterative/dvc: 🦉Data Version Control | Git for Data & Models     [[{PM.low_code]]
-  https://github.com/iterative/dvc 
-[[}]]
-
 ## ML explotation: Predictive Model Markup Language - Wikipedia
   https://en.m.wikipedia.org/wiki/Predictive_Model_Markup_Language 
   https://github.com/AmadeusITGroup/H2O-to-PMML
@@ -692,11 +688,11 @@ is possible within minutes with RAPIDS !
 
 * <https://m.europapress.es/ciencia/laboratorio/noticia-algoritmos-son-capaces-descubrir-conocimiento-cientifico-oculto-20190704110622.html>
 
-[[{cloud,devops]]
+[[{cloud.*,]]
 ## Google Releases Deep Learning Containers into Beta
 
 * <https://www.infoq.com/news/2019/07/google-dlc-beta-release/>
-[[cloud,devops}]]
+[[cloud.*}]]
 
 
 ## Google launches end-to-end AI Platform
@@ -1124,7 +1120,8 @@ rule aggregate_and_plot:
     script:
         "scripts/plot.py"
 
-## Luigi [[devops]]
+[[{]]
+## Luigi: build complex pipelines of batch jobs
   Python (2.7, 3.6, 3.7 tested) package that helps you
   build complex pipelines of batch jobs. It handles dependency
   resolution, workflow management, visualization, handling failures,
@@ -1140,7 +1137,9 @@ rule aggregate_and_plot:
   or weeks to complete. Luigi takes care of a lot of the workflow
   management so that you can focus on the tasks themselves and their
   dependencies.
+[[}]]
 
+[[{]]
 ## DENSE (DeepLearning for Science)
 https://www.infoq.com/news/2020/03/deep-learning-simulation/
 https://arxiv.org/abs/2001.08055
@@ -1158,6 +1157,7 @@ networks (CNNs); CNNs were chosen because they perform well on a large set of
 "natural" signals that are the domain of many scientific models. Standard
 simulator programs were used to generate training and test data for the CNNs,
 and according to the team,
+[[}]]
 
 ## Singa:
 https://www.infoq.com/news/2019/11/deep-learning-apache-singa/

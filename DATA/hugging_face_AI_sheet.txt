@@ -55,7 +55,7 @@ You can:
   These example cells will be added to your prompts automatically. <br/>
 
 - You can think of it as a tool to fine-tune prompts and add a few-shot examples
-  to your prompts very efficiently, by looking at your data in real-time!    [[qa.prompting,prompting.few_shots,promting.tunning]]
+  to your prompts very efficiently, by looking at your data in real-time!    [[qa.prompting,prompting.few_shots,prompting.tunning]]
 
 ### Use Case 2: Clean-up dataset column:
 

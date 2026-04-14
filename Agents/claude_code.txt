@@ -31,7 +31,7 @@ Summary from <https://www.infoq.com/news/2026/04/claude-code-source-leak/> by St
 
 ... Anthropic Accidentally Exposes Claude Code Source via npm Source Map File.
 A single misconfigured .npmignore or files field in package.json can expose everything.
-[[year.202604]]
+[[PM.date.202604]]
 
 ... It is worth noting that this is the Claude Code CLI tool, not the claude.ai 
 web application or the LLM models themselves. 

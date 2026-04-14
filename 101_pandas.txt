@@ -496,13 +496,13 @@ csv files ... now on par with Polars in that regard. [[data.arrow]]
 
 [[pandas.DQ,PM.low_code}]]
 
-[[{scalability.dask,scalability.101,pandas.101,devops]]
+[[{scalability.dask,scalability.101,pandas.101]]
 # Dask.org ("Big Pandas"). Parallel Python, Fast and Easy 
 
 * Dask's schedulers scale to thousand-node clusters and its
   algorithms have been tested on some of the largest supercomputers in
   the world. But you don't need a massive cluster to get started. Dask
-  ships with schedulers designed for use on personal machines.
+  ships with schedulers designed for use on personal machines. [[scalability.dask]]
 * OOSS, developed in coordination with other community projects like 
   Numpy, Pandas, and Scikit-Learn.
 
@@ -570,7 +570,7 @@ csv files ... now on par with Polars in that regard. [[data.arrow]]
   Dask or Spark on a single big VM, but if you want to process large volumes 
   quickly, you eventually need a scalable system. Dask and Spark can outperform 
   DuckDB and Polars on larger problems by adding more hardware. For large scale, 
-  Dask often outperforms Spark and scales well beyond DuckDB and Polars. [[spark]]
+  Dask often outperforms Spark and scales well beyond DuckDB and Polars.
 [[doc_has.comparative}]]
 [[scalability.dask}]]
 

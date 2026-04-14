@@ -20,7 +20,7 @@
    |
    | [[DATA.PREPROCESSING]]  ───────────────────────────────────────────────────
    |
-   | - skrub-data (preprocessing and feature engineering) [[PM.low_code,data.101,data.gathering,data.mining,trainning.*,data_cleaning]]
+   | - skrub-data (preprocessing and feature engineering) [[PM.low_code,data.101,data.gathering,data.mining,trainning.*,data.cleaning]]
    |   - <https://skrub-data.org/stable/>
    |   - scikit-learn pipelines. [[mlops.data_pipeline]]
    |   - Powerful Feature Engineering  [[data.feature_engineering]]
@@ -57,29 +57,29 @@
    |             supports for sklearn, LightGBM, and XGBoost.
    |
    |
-   | [[Neuroimaging]] ----------------------------------------------------------
+   | [[use_case.biotechnology,use_case.neuroimaging]] --------------------------
    |
-   | Neurosynth, NiPy, 
+   | Neurosynth, NiPy
    |
    | [[use_case.NLP]] ----------------------------------------------------------
    |
    | NLTK   Bert   Textblob   spaCy    Polygot    Gensim    Pattern  ...
    |
-   | [[Stats]] (Statistical Analysis) ------------------------------------------
+   | [[use_case.statistical Analysis]] (Statistical Analysis) ------------------
    |
    | SciPy    PyMC3   PyStan     Statsmodels    Lifelines    Pingouin
    |
-   | [[Web_ Scrapping]] --------------------------------------------------------
+   | [[data.gathering.Web_scrapping]] ------------------------------------------
    |
    | Scrapy       Selenium     BeautifulSoup     Ocroparse
    | 
-   | [[probabilistic programming]] ---------------------------------------------
+   | [[use_case.probabilistic_programming]] ------------------------------------
    | 
    | Pyro    : Deep universal probabilistic programming with Python and PyTorch 
    | NumPyro : light probabilistic programming library providing a NumPy backend for Pyro,
    |           JAX for automatic differentiation and JIT compilation to GPU/CPU.
    |
-   | [[Time Series  ]] ---------------------------------------------------------
+   | [[use_case.time_series  ]] ------------------------------------------------
    | pytimetk: (Using polars)
    |
    | ───────────────────────────────────────────────────────────────────────────

@@ -1,0 +1,12 @@
+[[{prompting.chatml,PM.TODO.now]]
+# ChatML: Chat Markup Language
+
+* <https://github.com/AI-App/OpenAI-Python/blob/main/chatml.md>
+
+
+... The model employs OpenAI’s Chat Markup Language (ChatML) formatting with
+delimiters such as <|im_start|> and <|im_end|>, a structure which is compatible
+with Transformers chat templating.
+
+
+[[prompting.chatml}]]
