@@ -3,6 +3,10 @@
 Growing collection of curated and classified notes about Machine Learning, Neural Networks and Generative AI powered
 by [The Wise Book project](https://github.com/earizon/txt_world_domination)
 
+WARN: Next links point to web pages designed for professional or "industrial" usage.
+You better use a 27" monitor or bigger to browse the content.<br/>
+You can survive using a 6" mobile phone (just that, survive)
+
 ## Agentic AI
 
 - ["101"](https://earizon.github.io/txt_world_domination/viewer.html?payload=../ML_and_GenAI/101.payload)
