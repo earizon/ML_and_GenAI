@@ -20,7 +20,7 @@
    |
    | [[DATA.PREPROCESSING]]  ───────────────────────────────────────────────────
    |
-   | - skrub-data (preprocessing and feature engineering) [[PM.low_code,data.101,data.gathering,data.mining,trainning.*,data.cleaning]]
+   | - skrub-data (preprocessing and feature engineering) [[PM.low_code,data.101,data.gathering,data.mining,training.*,data.cleaning]]
    |   - <https://skrub-data.org/stable/>
    |   - scikit-learn pipelines. [[mlops.data_pipeline]]
    |   - Powerful Feature Engineering  [[data.feature_engineering]]

@@ -86,7 +86,7 @@ Advanced topics, news on Machine Learning and Data Science.
 
 
 
-[[{cloud.Kaggle,PM.price.free,hardware.GPU.free,PM.price]]
+[[{cloud.Kaggle,hardware.GPU,PM.price.free_tier]]
 ## Kaggle DataScience Home: Free GPUs  
 - <https://www.kaggle.com/>
 - <https://github.com/Kaggle>

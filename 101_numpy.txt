@@ -2,7 +2,9 @@
 # NumPY SUMMARY 
 
 [[{doc_has.comparative.benchmark]]
- Take also a look at JAX "NumPy for the GPU". REF: <https://docs.jax.dev/en/latest/jax.numpy.html>
+
+NOTE: NumPy has become an API
+- Take also a look at JAX "NumPy for the GPU" and PyTorch as numpy replacement. REF: <https://docs.jax.dev/en/latest/jax.numpy.html>
 
   An alternative can also be to direclty replace NumPy with PyTorch. C&P from
   <https://www.linkedin.com/feed/update/urn:li:activity:7417144051415588864/>

@@ -13,10 +13,6 @@
 -->
 
 
-## 101 Ml: Llm LangChain - Working with Large Language Models, Made Easy
-https://www.infoq.com/news/2023/07/langchain-llm-made-easy/ 
-
-
 [[{architecture.constrain_solver,dev_stack.TimeFold,use_case.scheduling,101.*]]
 <!-- TODO: Move to Optimization folder (move also Google ORTools, ...) -->
 ## TimeFold
@@ -1579,39 +1575,12 @@ won't even be human.
 
 [[}]]
 
-
 ## Jetson nano 2Gb+SDK: 59$ [[{hardware,PM.TODO]]
 https://www.infoq.com/news/2020/10/nvidia-jetson-nano-2gb/
 [[}]]
 
 ## new techn. enables very low data ML: [[{ml.101,data.cleaning,performance,PM.TODO]]
 <https://www.technologyreview.com/2020/10/16/1010566/ai-machine-learning-with-tiny-data/amp/>
-[[}]]
-
-[[{architecture.agents,PM.TODO,dev_stack.kotlin]]
-
-## Just AI Conversational Framework (JAICF) 
-
-<https://www.infoq.com/news/2020/10/just-ai-conversational-kotlin/>
-
-· Just AI Conversational Framework (JAICF) provides a Kotlin-based DSL
-  to enable the creation of conversational user interfaces. JAICF works
-  with popular voice and text conversation platforms as well as
-  different NLU engines.
-
-· JAICF is not a competitor to the likes of Google, Amazon, Slack, etc.
-  Rather, it aims to provide a tool to create conversations running on
-  any of those platforms. In particular, JAICF is built on top of
-  native libraries interfacing to the major conversation channels,
-  including Amazon Alexa, Google Actions, Slack, Facebook Messenger,
-  and more. Similarly, JAICF is agnostic when it comes to which NLU
-  engine you wish to use, e.g. DialogFlow or Rasa.  [[doc_has.comparative]]
-
-· Just AI is also maker of the Just AI Conversational Platform (JAICP),
-  which aims to be a complete platform to design, train, and deploy
-  conversation-driven chatbots. JAICF is integrated with JAICP, but
-  JAICF can be used with any other platform providing a way to persist
-  the conversation state of each user, Just AI says.
 [[}]]
 
 ## Deepmind descubre secreto plegamiento proteinas:
@@ -3075,7 +3044,7 @@ He uses:
 [[architecture.mobile}]]
 
 [[{data.gathering.images]]
-[[architecture.agents.tool]]
+[[agents.tool]]
 ## img2dataset:
 
 * <https://github.com/rom1504?tab=repositories>

@@ -138,7 +138,7 @@ Shawn Presser, Connor Leahy
 · The format of the Pile is jsonlines data compressed using zstandard.
 [[}]]
 
-[[{data.open_data.world.geo,data.geospatial,use_case.*,use_case.Earth_science]]
+[[{data.open_data.world.geo,data.geospatial,use_case.*,use_case.Earth_sciences]]
 # world.geo.json: Annotated geo-json geometry files for the world
 
 * <https://github.com/johan/world.geo.json>

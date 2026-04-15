@@ -30,7 +30,7 @@
 
 
 [[{]]
-## ML: Mistral vs Silo AI vs Aleph Alpha:
+## Mistral vs Silo AI vs Aleph Alpha:
 
 * Mistral Large Foundation Model Now Available on Amazon Bedrock 
 
@@ -43,13 +43,50 @@ community-based AI development.
 [[}]]
 
 [[{use_case.OCR,PM.price.1€/1000pages]]
-##
 ## ML: Mistral AI API for LLM-Based OCR of Multimodal Documents
 
 * <https://www.infoq.com/news/2025/03/mistral-ai-ocr-api/>
 
 [[use_case.OCR}]]
 
+## Mistral Code generation models
+
+* <https://docs.mistral.ai/capabilities/code_generation>
+  * Check the original link for integration with majors IDEs through the Continue.dev
+    plugin -aplies to VS Code/Codium, IntelliJ, ...- and integration of the REST 
+    API with Agentic dev. platforms (Tabnine, LangChain, LlamaIndex, Jupyter AI, JupyterLie, Tabby, E2B)
+
+We provide 2 major families of llms for coding:
+
+    Codestral: Specifically trained for Code Generation and FIM.
+    Devstral: Specifically trained for Agentic Tool Use for Software Development.
+
+Note that we also provide Codestral Embed, for semantic search and embedding code databases, repositories, and powering coding assistants with state-of-the-art retrieval. Learn more about it here.
+Before You Start
+Before You Start
+Endpoints & Models
+
+We provide 2 main endpoints:
+
+    Fill-In-The-Middle : https://api.mistral.ai/v1/fim/completions
+        for code completion and code generation; supporting codestral-latest.
+    Instruction Following: https://api.mistral.ai/v1/chat/completions
+        for coding and agentic tool use; supporting codestral-latest, devstral-small-latest and devstral-medium-latest.
+
+FIM and IF
+FIM and IF
+Use Coding specialized Models
+
+Below you can find how to use our coding dedicated models, from code completion to instruction following and agentic models.
+
+With this feature, users can define the starting point of the code using a prompt, and the ending point of the code using an optional suffix and an optional stop. The FIM model will then generate the code that fits in between, making it ideal for tasks that require a specific piece of code to be generated.
+tip
+
+We also provide the min_tokens and max_tokens sampling parameters, which are particularly useful for code generation as it allows you to set the minimum and maximum number of tokens that should be produced. This is especially useful when FIM models decide to produce no tokens at all, or are overly verbose, allowing developers to enforce completions within a specific range if they are needed.
+Codestral
+Codestral
+
+Codestral is a cutting-edge generative model that has been specifically designed and optimized for code generation tasks, including fill-in-the-middle and code completion. Codestral was trained on 80+ programming languages, enabling it to perform well on both common and less common languages.
 
 [[{training.finetune,dev_stack.mistral,dev_stack.pytorch,]]
 ## Mistral FineTune
@@ -103,6 +140,7 @@ community-based AI development.
 
 - It also support entreprise features such as speaker identification, emotion detection, diarization and others.
 [[}]]
+
 
 
 

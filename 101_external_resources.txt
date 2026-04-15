@@ -10,7 +10,7 @@
   - Machine Learning, Statistics and Probability
   - Physics, Chemistry and Biology             [[use_case.physics,use_case.chemistry,use_case.biology]]
   - Economics and Finance                      [[use_case.finance]]
-  - Earth science and geo-spatial data         [[use_case.Earth_science]]
+  - Earth science and geo-spatial data         [[use_case.Earth_sciences]]
   - Data visualization and plotting            [[data.visualization]]
   - Mathematics                                [[use_case.mathematics]]
   - Signal, Sound and Image Processing

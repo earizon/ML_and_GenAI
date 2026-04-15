@@ -143,7 +143,7 @@
 * Gentopia & GentPool | An Agent Framework&Platform for the hardcore builders.
 * ReWOO | Discussing token efficiency of LLMs when decoupling reasoning from observations.
 
-
+* Harrison Chase: Original developer of the Langchain project.
 
 ## Many others ...
 
