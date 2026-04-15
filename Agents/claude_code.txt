@@ -1,7 +1,8 @@
 [[{architecture.agents.claude_code]]
 # Anthropic Claude Code
 
-## Alternatvies
+[[{doc_has.comparative]]
+## Alternatvies to Claude Code
 
 * Local AI
 * Codex
@@ -11,8 +12,42 @@
 * Codex
 * Copilot too
 * Mistral vibecli/devstral: <https://introl.com/blog/mistral-vibe-cli-devstral-2-claude-code-competitor-2025> [[PM.europe_sovereign]]
-* ...
+* Leanstral vs. Claude Family: <https://mistral.ai/news/leanstral>
+  ... At pass@16, Leanstral reaches a score of 31.9, comfortably beating Sonnet 
+  by 8 points. While Claude Opus 4.6 remains the leader in quality, it carries a
+  staggering cost of $1,650 [[scalability.price,PM.price,PM.risk]]
 
+  ```
+  | (we used Mistral Vibe as the scaffold with no modifications specifically for the evaluation)
+  |  Score | Model             | Cost ($)
+  |  ------+-------------------+---------
+  |  21.9  | Leanstral         |     18   <·· 92 times cheaper
+  |  23.0  | Haiku             |    184  
+  |  23.7  | Sonnet            |    549  
+  |  26.3  | Leanstral pass@2  |     36  
+  |  29.3  | Leanstral pass@4  |     72  
+  |  31.0  | Leanstral pass@8  |    145  
+  |  31.9  | Leanstral pass@16 |    290   <·· 5.7 times cheaper
+  |  39.6  | Opus              |  1,650  
+  ```
+
+* Tabnine: Summary comparative from <https://www.tabnine.com/tabnine-vs-claude-code/>:
+  - Unlike Claude Code, which embeds Anthropic’s Claude chatbot into the IDE [[PM.RISK.vendor_lockin]]
+    Tabnine is built from the ground up for enterprise developer workflows and works 
+    across all major IDEs (VS Code/Codium, JetBrains, Eclipse).
+  - Claude Code gives developers access to a powerful general-purpose LLM in chat form, 
+    but this approach inherits key limitations:
+    - context is limited to what's in the session, features rely on manual prompting, 
+      and there are no built-in governance or compliance guardrails. 
+  - Tabnine is purpose-built for software engineering organizations, offering deep
+    integrations with development tools, enterprise-grade governance, and deployment
+    flexibility that Claude Code cannot match.
+  - Tabnine offers SOC 2, GDPR, HIPAA, and ITAR compliance, plus zero-retention 
+    policies and indemnification. Claude Code inherits Anthropic’s security 
+    posture but does not provide customer-controlled deployment or air-gapped 
+    options. [[security.SOC_2,security.GDPR,security.HIPAA,security.ITAR]]
+* ...
+[[doc_has.comparative}]]
 
 ## Some warnings:
 

@@ -1,4 +1,5 @@
 101.txt                       # OK
+eval_driven_goals_hypot.txt   # OK
 # agentic_patterns.txt        # <https://github.com/nibzard/awesome-agentic-patterns>
 # 101_langchain.txt           # TODO 
 lang_grant.txt                #

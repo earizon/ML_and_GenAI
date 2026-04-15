@@ -1,0 +1,18 @@
+# Leanstral Coding Assistant
+
+C&P from <https://mistral.ai/news/leanstral> [[PM.year.202603]]
+
+  Leanstral, the first open-source code agent designed for Lean 4. Lean4 is a 
+proof assistant capable of expressing complex mathematical objects such as 
+perfectoid spaces and software specifications like properties of Rust 
+fragments <https://github.com/AeneasVerif/aeneas>.  Unlike existing proving 
+systems that act as wrappers around large generalist models or focus on single 
+math problems, Leanstral is designed to be highly efficient (with 6B active 
+parameters) and trained for operating in realistic formal repositories.
+...  Leanstral serves as a high-value alternative to the Claude suite, 
+offering competitive performance at a fraction of the price:
+... At pass@16, Leanstral reaches a score of 31.9, comfortably beating Sonnet 
+by 8 points. While Claude Opus 4.6 remains the leader in quality, it carries a
+staggering cost of $1,650, **92 times** higher than running Leanstral.  [[scalability.price,PM.price,PM.risk]]
+
+

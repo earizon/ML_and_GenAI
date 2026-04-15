@@ -5,7 +5,11 @@
   Agentic systems promise to extend the possibility of computer programs 
   beyond the mere execution of pre-determined workflows conceived to 
   solve narrow tasks. <br/>
-   In fact, most real-life problems do not fit in pre-determined workflows.
+
+   In fact, most real-life problems do not fit in pre-determined workflows
+  commonly used in Enterprise Automation tools (scripted workflows, 
+  Robotic Process Automation (RPA), AI workflows, ...) [[doc_has.keypoint]]<br/>
+
   Example: think of the infinite possibilities of GNU Text utils 
      <https://www.gnu.org/software/coreutils/manual/coreutils.html>
     vs the limited set of well-known or enterprise deployed scripts making
@@ -21,130 +25,166 @@
   [[qa.101.dont's]]
 
 * An AI Agent can be described as an intelligent system designed to interact 
-  with an environment.  Examples include those in a self-driving car, a chatbot, 
-  intelligent characters in moderm video games, More formally an Agent is an
-  entity capable of four key actions:
-  - Perceiving its environment: robot identifying "space time", or software
-    aware of files in a hard-disk.
-  - Processing information: doing request to an API, ...
+  with an environment. (self-driving car, chatbot, coding or research assistant, ...)
+
+* An AI Agent **MUST** be capable of four key actions:
+  - Perceiving its environment: a robot identifying "space time",  coding assistant
+    aware of files in a hard-disk, research assistant aware of "papers", 
+    health assistant aware of scanners, ...<br/>
+    TIP: the environment "perceived" replaces the INPUT data in conventional 
+    software architecture, while the prompt input replaces the "shell commands"
+    (interface between humans and computers).
+  - Processing information: doing request to an API, evaluating results, ...
   - **Taking action to achieve specific goals**: Setting up heating room,
     searching for related content, ...
   - **Adapting its behavior based on experience**: Re-try when finding an error, 
+    or learn from user feedback, ...
     ...
-* AI agents can be categorized into different types, such as:
+* AI agents can be categorized into:
   - **Reactive Agents**: These agents respond to specific stimuli in their 
     environment without maintaining an internal state or memory.
   - **Deliberative Agents**: These agents maintain an internal model of the 
     world and can plan and reason about their actions.
-  - **Learning Agents**: These agents can improve their performance over time 
-    by learning from data and experiences.
-  - ...
 
-* An agent-based system can also be split or categorized as:
+* AI agents can be also categorized into:
   - multi-step single agent.
   - multi-agent, with each agent "prompt set of knowledge" developed in
     isolation by different groups.
 
-
-* Agentic AI refers (as of 2026) to AI Agents using LLM architectures.
-
-* Year 2022 adn 2023 marked a turning point in AI agents with the introduction 
-  of techniques like Chain of Thought ("think step by step" system prompt suffix),
-  Reflection, and ReAct (Reasoning-Acting) unlocking powerful new capabilities
-  that are foundational to today's advanced AI products. 
-  * "Reasoning" in the context of LLMs, is refered to the way the LLM breaks
-    down a task when adding the "think step by step". **It is the most important
-    part off an agentic AI system**.
-  * "ReAct refers to the ability of the AI Agent to deconstruct a problem, take
-    sequential action, and utilize external tools to achieve a goal.
-
-* Core Components of an Agentic AI System:
-  - Planning: Creating a step-by-step approach to solve a problem.
-  - Tools   : Identifying and using the right tools.
-  - Action  : Executing steps by making programmatic calls and retrieving information.
-  - Memory  : Keeping track of learned information to make an informed final decision.
-    * NOTE: LLMs are stateless, i.e, they don't remember past prompts or prompt answers
-      unless that information is explicitly included.  To behave as "smart" agents,
-      they need a simulated form of memory commonly referred to as "short-term memory".
-    * Memory Is a Simulation: What looks like memory is actually constructed by
-      including previous interactions in the current prompt creating the illusion of
-      continuity. The agent doesn’t remember; it’s simply reminded. [[doc_has.keypoint]]<br/>
-      Memorry simulation APIs ussualy contain methods like "pop()" to remove last messages,
-      "reset()" to clean memory, "shift()" to forget old messages, ...
-    * There are 2 types of memory:
-      - Short-term (Ephemeral) memory (In-application): Exists only during the chat session.
-      - Long -term (Durable  ) memory : Persisted in databases, vector stores, ...  and 
-        available across sessions (days, months, ...). Use to store essential facts,
-        (long term "true claims", user preferences, ...).<br/>
-        - Long-term memory typically falls into three categories:
-          - Semantic Memory: For factual information (example: user profiles - preferences -.
-            often stored in structured formats.
-          - Episodic Memory: Sotring past interactions and events. Useful to create few-shot
-            learning by recalling sucessful examples from past interaction.
-          - Procedural Memory: Encoding and storing behavioral adaptations. [[PM.TODO]]
-        - Challenges and Best Practices: [[qa.best_patterns]].
-          - balances memory data vs relevance of data.
-          - Set expiration time whem possible.
-          - Create memory "namespaces" (by taxonomy groups, projects, ...)
-          - Consider privacy issues 
-        - NOTE a long-term memory that does not expires can end up being part of the
-          "absolute true" in the RAG.
-
-
-    * NOTE: State (of an State Machine) can also be seen as an specialized structured 
-      memory. This applies to agentic flows designed around state machines.
-      This is a state controlled by the code invoking the LLM (vs a simulated prompt
-      with reminded history used by LLM).
-
-* Agentic AI is more "sexy" than previous Enterprise Automation tools (scripted workflows,
-  Robotic Process Automation (RPA), AI workflows, ...) because it its the first one to
-  **independently create planning a sequence of steps without human intervention**.
-
-* Reasoning LLMs main difference is that they are trained to expose their "internal
-  monologue" (or thought) to the user. It has been trained to:
-  1. Create Initial Ceconnaissance.
-  2. Forming an Hypothesis.
-  3. Identifying a Problem.
-  4. Attempting to Correct.
-  5. Course Correction (Pivoting). "leasson learned: I prematurelñy chose target B before
-     target A being ready".
-  6. Revise Plan.
-  7. Create Final Plan.
-
-* As a (human) develop the focus in constructing new agest is to map real-world business
-  tasks into a series of agent-executable steps, complete with decision points, tool 
-  integrations, and context handling.
-
-* Two "extremes" AI Agents exists:
+* * AI agents can be also categorized into:
   * "full agency" agents, with agents operating on their own derived plans.
   * "on-rails" workflows, where humans remain in the loop. (most common as of 2026)
 
 
-### Agentif Workflow building blocks
+* AI agents can also be tagged as  **Learning Agents** if they improve their
+  performance over time by learning from data and experiences.
 
-All the following 5 building blocks must be in place for an agent to work properly.
+* Agentic AI refers in practice (as of 2026) to AI Agents using GPT/LLM architectures.
+  In a future other type of newer ML architectures could apply (world models,
+  hierarchical reasoning Models, KAN networks, ...)
 
-1. Breaking large goals into "thin" tasks.
+* Years 2022-2023: "turning point" in AI agents with the introduction 
+  of techniques to not only ask the LLM to complete text but order it
+  about the way of thinking unlocking powerful new capabilities
+  foundational to today's advanced AI products. 
+  * **REASONING**: ("think step by step" Chain of Thought, "imagine you
+    are a set of 3 experts", "create a socratic dialogue"):<br/>
+    in the context of LLMs, is refered to the way "we" (the prompt)
+    guides the LLM in the method of thinking.<br/>
+    **It is the most important part off an agentic AI system**.
+  * **ReAct**: (Reasoning->Acting) refers to the ability of the AI Agent 
+    to deconstruct a problem, take sequential action, and utilize external
+    tools to achieve a goal.<br/>
+    **Action** ussualy refers to calling an external tool (API, calculator, ...),
+    another step (in a multi-step Agent) or another Agent (in a multi-agent
+    or Swarm architecture).
+
+###  Core Components of an Agentic AI System
+
+- Planning: Creating a step-by-step approach to solve a problem.
+- Tools   : Identifying and using the right tools.
+- Action  : Executing steps by making programmatic calls and retrieving information.
+- Memory  : Keeping track of learned information to make an informed final decision.
+  * NOTE: LLMs are stateless, i.e, they don't remember past prompts or prompt answers
+    unless that information is explicitly included.  To behave as "smart" agents,
+    they need a simulated form of memory commonly referred to as "short-term memory".
+  * **MEMORY IS A SIMULATION**: What looks like memory is actually constructed by
+    including previous interactions in the current prompt creating the illusion of
+    continuity. The agent doesn't remember; it’s simply reminded. [[doc_has.keypoint]]<br/>
+  * State in Agentic Framewokks is just some context added to the "next PROMPT" by
+    the agentic app ("HOST" using MCP nomenclature). In general the "state" will include
+    data such as:
+    - new "user" (or tool output, or peer agent) prompt
+    - System instructions ("immutable prompt").
+    - history of previous messages and tool outputs.
+    Memory simulation APIs usually contain methods like "pop()/remove_last_message()",
+    "reset()/clean_memory()", "shift()/forget old messages()", ...
+  * There are 2 TYPES OF MEMORY: [[architecture.agents.short_term_mem,architecture.agents.long_term_mem]]
+    - Short-term (Ephemeral) memory (In-application): Exists only during the chat session.
+      Common patterns are:
+      - Full Conversation History: Send all previous messages (full details) with each new input.
+        (consume more tokens).
+      - Sliding Window: Send only up to N recent messages.
+      - Summarization: Send a compact summary of earlier messages.
+    - Long -term (Durable  ) memory : Persisted in databases, vector stores, ...  and 
+      available across sessions (days, months, ...). Use to store essential facts,
+      (long term "true claims", user preferences, ...).<br/>
+      - Long-term memory typically falls into three categories:
+        - Semantic Memory: For factual information (example: user profiles - preferences -)
+          often stored in structured formats.
+        - Episodic Memory: Storing past interactions and events. Useful to create few-shot
+          learning by recalling successful examples from past interaction.
+        - Procedural Memory: Encoding and storing behavioral adaptations. [[PM.TODO]]
+      - Challenges and Best Practices: [[qa.best_patterns]].
+        - balances memory data vs relevance of data.
+        - Set expiration time when possible.
+        - Create memory "namespaces" (by taxonomy groups, projects, ...)
+        - Consider privacy issues 
+      - NOTE a long-term memory that does not expires can end up being part of the
+        "absolute true" in the RAG.
+  * short-term memory must not be confused with state of a task. This State is an special
+    isolated sort term memory used for a single task composed of multiple steps. When the 
+    task finishes the state is removed.<br/>
+  * A State of an State Machine can be seen as an specialized structured 
+    memory. Depending on the State Machine live time (task or session) it
+    can be seen as simple task's state or an isolated short-term memory for
+    the session.<br/>
+    - This applies to agentic flows designed around state machines and its
+      value is commonly controlled by the code invoking the LLM.
+      [[architecture.agents.structured_mem,architecture.state_machine]]
+
+- Modern Reasoning Models have been trained to:
+  1. Use hardcoded content learn during training.
+  2. Form Hypothesis.
+  3. Identify a Problem.
+  4. Create and revise intermediate (action) Plans.
+  4. Attempt to Correct.
+     "lesson learned: I prematurely chose target B before target A being ready".
+  7. Create Final Plan.
+
+* As a (human) developer, the focus in constructing new agents is to map
+  real-world business tasks into a series of agent-executable steps,
+  complete with decision points, tool integrations, and context handling.
+
+### Agentic Workflow building blocks
+
+An agent MUST support the following building blocks features: 
+
+1. Capacity to split "large" goals into "thin" tasks. 
 2. Proper task ordering.
 3. Decision Points: Map out moments when the agent must evaluate information 
    and choose a path (business event that must trigger a path selection).<br/>
-     Decision nodes allow the agent to handle the unexpected and "short-circuit"
-   path to completion.
+     Decision nodes include "checkpoints", "retry", "short-circuit" and
+   "fail-fast" (REFs: [1](https://en.wikipedia.org/wiki/Fail_fast_(business),
+   [2](<https://en.wikipedia.org/wiki/Fail-fast_system>) ) mechanisms.
 4. Identification and integration of external tools. (REST APIs, File System, ...).
 5. Context memory management keeping track of outputs from "executed" tasks.
 
-### Agentic AI Evaluation-driven Requirements Documentation
+NOTE: Points 1, 2, and 4 can be seen as if the Agent were the "build tool" in 
+a conventional software project (POSIX `make`/`cmake`, Java `maven`/`gradle`, ...):<br/>
+ In conventional build tools, the "large" goal (build a software), is split into
+tasks, then tasks are ordered using a directed acyclic graph, and external tools
+(compiler, linter, ...) are used to build the app.<br/>
+ In conventional software the only decision point is to "stop and surrender"
+if some task fail while an Agent can try new alternative strategies.<br/>
+ Also the external tools are invoked in a set of small restricted ways mandated
+by hardcoded rules written by a developer once in a while, with AI agents, a
+set of tools can be used "spontaneously" in million of different ways and
+combinations according to the user's prompt goal or intermediate task.
+[[architecture.build_block]]
 
+### Agentic AI Evaluation-driven Requirements Documentation
 
 * An Agentic AI requirements document is formed by a testable hypothesis: 
   **Success (business goal) can be measured and failure can be debugged**.
 * A good requirements document creates alignment across teams. A great one 
-  bakes in its own evaluation plan. You are not just scoping what to build; 
+  bakes in its own evaluation plan. You are not just scoping what to build;
 
   ```
   | Example 1: 
   | 
-  | Given this context, this set of tools and this target goal, the agent should be able to achieve XXX." 
+  | Given this context, this set of tools and this target goal, the agent 
+  | should be able to achieve XYZ." 
   ```
 
   ```
@@ -152,7 +192,8 @@ All the following 5 building blocks must be in place for an agent to work proper
   | 
   | # Objective:
   | 
-  | Automate 90% of manual onboarding tasks, aiming for a 30% reduction in new employee ramp-up time.
+  | Automate 90% of manual onboarding tasks, aiming for a 30% reduction in new 
+  | employee ramp-up time.
   | 
   | # Workflow Summary
   | 
@@ -171,7 +212,7 @@ All the following 5 building blocks must be in place for an agent to work proper
   | 
   | # Tool Integrations
   | 
-  | Requires access to the HRIS API, IT provisioning tool, and LMS webhook.
+  | Requires access to the HHRR API, IT provisioning tool, and LMS webhook.
   | 
   | # Success Metrics
   | 
@@ -200,7 +241,7 @@ All the following 5 building blocks must be in place for an agent to work proper
   * Structured tests designed to estimate how well the system is performing.
   * Input comes from domain experts and business professionals who 
     understand the nuances of the tasks the agent is meant to 
-    perform. (comming back to expert systems, but just for testing
+    perform. (coming back to expert systems, but just for testing
     performance -vs full training-)  [[qa.evaluation_sets]]
 * Guardrails: mechanisms designed to steer the agent away from potentially
   harmful paths by verifying the model's response **before being sent to users**.

@@ -1,0 +1,222 @@
+[[{qa.agent_evaluation,qa.best_patterns,doc_has.AI_generated_content]]
+
+## AGENT EVALUATION THROUGH TESTEABLE HYPOTHESIS
+
+(The following information was generated on 2026-04 by Mistral AI in "Think" and "Research" Modes
+ and summarized and reviewed manually)
+
+  ```
+  | PROMPT: In the context of agentic AI, what could be considered a set of "best patterns" 
+  | and "DONT'S" when Evaluation-driven Requirements and testeable hypothesis?
+  |
+  | Ignore implementation details and focus on best practices on industry (vs academic research)
+  | applied to any example sector, for example finances or medicine diagnosis framed in principles
+  | with concrete examples.
+  ```
+
+- Statistical Note: Exploratory vs Confirmatory Hypothesis testing  [[doc_has.comparative]]
+  - exploratory  testing: new hypotheses are generated and tested in open-ended scenarios.
+    Ex: Simulating rare disease presentations with synthetic data.
+  - confirmatory testing: predefined hypotheses are validated with controlled experiments.
+    Ex: A/B testing of diagnostic agent accuracy.
+
+  <!-- { -->
+  ```
+    [[qa.best_patterns]]
+    
+    ┌─ PRINCIPLE 1: DEFINE CLEAR, MEASURABLE OBJECTIVES ──────────────────────┐
+    │                                                                         │
+    │ REQUIREMENTS AND (TESTABLE) HYPOTHESES MUST BE QUANTIFIABLE AND         │
+    │ DIRECTLY TIED TO BUSINESS OR CLINICAL OUTCOMES.                         │
+    │                                                                         │
+    │ ---------  FINANCE EXAMPLE REQUIREMENT -------------------------------- │
+    │                                                                         │
+    │ In the context of event stream of transaction, the AI agent             │
+    │ **MUST** reduce false positives in fraud detection by 20% within        │
+    │ 6 months.                                                               │
+    │ TESTABLE HYPOTHESIS:                                                    │
+    │                                                                         │
+    │ Implementing a real─time transaction anomaly detection model            │
+    │ will reduce false positives from 15% to 12% without increasing false    │
+    │ negatives.                                                              │
+    │                                                                         │
+    │ ------- MEDICAL DIAGNOSIS EXAMPLE REQUIREMENT ------------------------- │
+    │                                                                         │
+    │ diagnostic AI must achieve sensitivity >= 95% and specificity >= 90%    │
+    │ for detecting melanoma from dermatology images.                         │
+    │                                                                         │
+    │ TESTABLE HYPOTHESIS:                                                    │
+    │                                                                         │
+    │ Using convolutional NN trained on 10,000 labeled images                 │
+    │ will improve sensitivity from 92% to 95% compared to the                │
+    │ current rule-based system.                                              │
+    │                                                                         │
+    │                                                                         │
+    │  STATISTICAL NOTE: Hypotheses must **isolate variables** and avoid      │
+    │  conflating correlation with causation.                                 │
+    │                                                                         │
+    │  “If agent queries variable X, then precision in Y improves by Z%”      │
+    │  “Increasing data source X usage  improves recall by Y%”                │
+    └─────────────────────────────────────────────────────────────────────────┘
+
+    │                (AVOID MODEL STAGNATION)                                 │
+    │                                                                         │
+    │ CONTINUOUSLY EVALUATE HYPOTHESES AND REQUIREMENTS USING REAL-WORLD      │
+    │ DATA, NOT JUST SYNTHETIC OR HISTORICAL DATASETS.                        │
+    │                                                                         │
+    │ - ADJUST HYPOTHESES BASED ON NEW INSIGHTS                               │
+    │ - MONITOR FOR CHANGES IN DATA DISTRIBUTION                              │
+    │                                                                         │
+    │ ----------------- FINANCE EXAMPLE PATTERN ------------------------------│
+    │                                                                         │
+    │ Deploy the fraud detection model in a shadow mode (parallel to the      │
+    │ existing system) for 3 months, comparing its performance weekly.        │
+    │ Evaluation Metric: Track precision, recall, and the cost of false       │
+    │ positives/negatives in real─time.                                       │
+    │ - Monitor also for new frad-patterns in data                            │
+    │                                                                         │
+    │ EVALUATION METRIC: N/A                                                  │
+    │                                                                         │
+    │                                                                         │
+    │ ----------------- MEDICAL DIAGNOSIS EXAMPLE PATTERN --------------------│
+    │                                                                         │
+    │ Test diagnostic AI in a controlled clinical trial with 500              │
+    │ patients, comparing its recommendations to those of 3 expert            │
+    │ dermatologists.                                                         │
+    │ - incorporate emerging clinical findings.                               │
+    │                                                                         │
+    │ EVALUATION METRIC:                                                      │
+    │ Measure agreement (Cohen’s kappa) and diagnostic accuracy               │
+    │ against biopsy─confirmed results.                                       │
+    └─────────────────────────────────────────────────────────────────────────┘
+
+    ┌── PRINCIPLE 3: INCORPORATE HUMAN-IN-THE-LOOP VALIDATION (HITL)──────────
+    │                                                                         │
+    │  ENSURE AI DECISIONS ARE REVIEWABLE AND CORRECTABLE BY DOMAIN EXPERTS.  │
+    │                                                                         │
+    │ -------- FINANCE EXAMPLE PATTERN -----------------------------------    │
+    │                                                                         │
+    │ Flag transactions marked as fraudulent by the AI for manual review by   │
+    │ a compliance officer, and use their feedback to retrain the model.      │
+    │                                                                         │
+    │ EVALUATION METRIC: Reduction in manual override rate over time.         │
+    │                                                                         │
+    │ ---------- MEDICAL DIAGNOSIS EXAMPLE PATTERN  -----------------------   │
+    │  Require radiologists to confirm or reject AI─generated diagnoses,      │
+    │  logging disagreements for model improvement.                           │
+    │                                                                         │
+    │  Evaluation Metric: Reduction in diagnostic errors and improvement in   │
+    │  radiologist efficiency (e.g., time saved per case).                    │
+    └─────────────────────────────────────────────────────────────────────────┘
+
+    ┌── PRINCIPLE 4: DESIGN FOR EXPLAINABILITY AND TRANSPARENCY ──────────────
+    │                                                                         │
+    │ REQUIREMENTS MUST INCLUDE EXPLAINABILITY TO BUILD TRUST AND COMPLY      │
+    │ WITH REGULATIONS (E.G., GDPR, HIPAA).                                   │
+    │                                                                         │
+    │ ----------- FINANCE EXAMPLE PATTERN ----------------------------------  │
+    │                                                                         │
+    │ The AI must provide a confidence score and top 3 reasons                │
+    │ for flagging a transaction as fraudulent.                               │
+    │                                                                         │
+    │ EVALUATION METRIC: User trust surveys and compliance audit pass rates.  │
+    │                                                                         │
+    │ ----------- MEDICAL DIAGNOSIS EXAMPLE PATTERN --------------------------│
+    │                                                                         │
+    │ The AI must highlight the regions of a skin lesion image that most      │
+    │ influenced its diagnosis and provide a differential diagnosis.          │
+    │                                                                         │
+    │ EVALUATION METRIC:                                                      │
+    │ Clinician satisfaction scores and reduction in unnecessary biopsies.    │
+    └─────────────────────────────────────────────────────────────────────────┘
+     
+    ┌── PRINCIPLE 5: PLAN FOR EDGE CASES AND FAILURE MODES ───────────────────
+    │                                                                         │
+    │ EXPLICITLY DEFINE AND TEST FOR EDGE CASES, ADVERSARIAL SCENARIOS,       │
+    │ AND FAILURE MODES.                                                      │
+    │                                                                         │
+    │ ------------ FINANCE EXAMPLE PATTERN -----------------------------------│
+    │                                                                         │
+    │ - Test the fraud detection model with synthetic adversarial transactions│
+    │ (e.g., split transactions, rapid successive transfers).                 │
+    │ - Synthetic data benchmarks and A/B testing are also employed to        │
+    │  simulate rare events and edge cases.[[qa.synthetic_data]]              │
+    │                                                                         │
+    │ EVALUATION METRIC:                                                      │
+    │   Robustness to adversarial attacks (e.g., % of adversarial TXs         │
+    │   correctly flagged).                                                   │
+    │                                                                         │
+    │ ------------ MEDICAL DIAGNOSIS EXAMPLE PATTERN -------------------------│
+    │                                                                         │
+    │ Test the diagnostic AI on rare skin conditions and low─quality images   │
+    │ (e.g., blurry or poorly lit).                                           │
+    │                                                                         │
+    │ EVALUATION METRIC:                                                      │
+    │ Accuracy on rare conditions and robustness to image quality degradation.│
+    └─────────────────────────────────────────────────────────────────────────┘
+  ```
+<!-- } -->
+  
+[[{qa.dont's]]
+## AGENT EVALUATION THROUGH TESTEABLE HYPOTHESIS DONT's
+
+
+1. Avoid Vague or Untestable Requirements
+   - Bad  Example: "The AI should improve customer experience."
+   - Good Example: "The AI chatbot must resolve 80% of customer queries without human 
+     intervention, measured via monthly customer satisfaction surveys."
+ 
+2. Don’t Ignore Data Bias or Distribution Shift
+   - Finance Example: Training a fraud detection model only on transactions from
+     one geographic region may fail to generalize globally.
+   - Medical Diagnosis: Training a diagnostic AI on images from only one type 
+     of camera or skin tone may reduce accuracy for underrepresented groups.
+ 
+3. Don’t Overlook Regulatory and Ethical Constraints
+  - Finance Example: Failing to log AI decisions for audits can lead to compliance
+    violations.
+  - Medical Diagnosis: Not anonymizing patient data in training sets violates HIPAA/GDPR.
+ 
+4. Don’t Assume Static Requirements
+
+  - Finance Example: Fraud patterns evolve; requirements must include regular model updates.
+  - Medical Diagnosis: New diseases or variants (e.g., COVID-19) require 
+    continuous retraining and validation.
+ 
+5. Don’t Neglect Stakeholder Alignment
+  - Finance Example: IT, compliance, and business teams must agree on what 
+    constitutes a "false positive" and its acceptable rate.
+  - Medical Diagnosis Example: Clinicians, patients, and regulators must align 
+    on the trade-offs between sensitivity and specificity.
+
+6. Over-Reliance on PROXY METRICS that do not map to real-world outcomes leading
+   to misaligned incentives and suboptimal agentic AI performance.
+   ```
+   | Proxy Metric Pitfall | Risk   [[PM.risk]]                           |
+   |----------------------|----------------------------------------------|
+   | Engagement metrics   | Ignoring compliance risks                    |
+   | Speed of resolution  | Degrading quality and customer satisfaction  |
+   ```
+
+7. Forget to test Failure modes or adversarial input ("prompt attacks")
+
+8. Forget to tests for rare events. Examples:
+  - financial : trading-agents untested edge cases can lead to flash crashes.
+  - healthcare: unvalidated-diagnostic agents can cause misdiagnoses.
+
+[[qa.dont's}]]
+
+```
+|                        SUMMARY: BEST PATTERNS VS. DON'TS
+|
+| Dimension             | Best Patterns                                        | Critical DON’Ts                                      |
+|-----------------------|------------------------------------------------------|------------------------------------------------------|
+| Goal Translation      | Quantify vague goals into measurable criteria        | Over-rely on proxy metrics that don’t map to outcomes|
+| Hypothesis Design     | Isolate variables; avoid correlation ≠ causation     | Ignore failure modes and adversarial inputs          |
+| Testing Approach      | Balance exploratory, confirmatory, and HITL testing  | Static requirements that don’t adapt to change       |
+| Iterative Refinement  | Update hypotheses and test sets based on drift       | Accumulate evaluation debt by skipping stress tests  |
+| Stakeholder Alignment | Align engineers, experts, compliance on metrics      | Misaligned incentives leading to gaming the system   |
+```
+
+
+[[qa.agent_evaluation}]]

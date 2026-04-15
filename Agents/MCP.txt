@@ -2,6 +2,7 @@
 ## MCP 101
 
 
+
   ```
   | PROBLEM:
   |
@@ -28,6 +29,8 @@
   |  3 x 3 custom-made              3 + 3 STANDARD
   |        integration              integration
   ```
+
+* Alternative to MCP include OpenAI's Operator and "powerful" LLMs able to interpret the OpenAPI YAML embedded in a prompt, ...
 
 * MCP HOST:<br/>
   The most similar to the "application" that the final user will see.
