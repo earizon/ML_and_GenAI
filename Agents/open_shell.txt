@@ -1,4 +1,4 @@
-[[{architecture.agents,security.101,security.openshell]]
+[[{agents.sandbox,security.101,security.openshell]]
 ## Nvidia OpenShell: sandboxed runtime for AI agents.
 
 - The sandbox acts as the "guardrails" (using Agent's nomenclature), avoiding the
@@ -30,4 +30,4 @@
   ```
 
 
-[[architecture.agents}]]
+[[agents.sandbox}]]

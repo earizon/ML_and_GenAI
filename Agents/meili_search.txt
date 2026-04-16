@@ -1,4 +1,4 @@
-[[{architecture.agents,architecture.agents.tool,use_case.search_engine]]
+[[{agents.tool,use_case.search_engine]]
 
 ## Meilisearch
 

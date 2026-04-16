@@ -1,4 +1,4 @@
-[[{architecture.agents.skills,architecture.agents]]
+[[{agents.skills]]
 # Skills.md spec
 
 * Agent Skills format was originally developed by Anthropic, released as an 
@@ -262,4 +262,4 @@ If your agent has a permission system that gates file access, allowlist skill di
   | ...
   ```
 
-[[architecture.agents.skills]]
+[[agents.skills]]

@@ -1,0 +1,30 @@
+[[{]]
+## Hugging Face
+
+* prominent player in NLP space.
+* French-American company developping tools for building ML apps.
+* Develops and maintains the "Transformers" Python library 
+  supporting state-of-the-art modles like Mistral 7B, BERT and
+  GPT-2.
+* Compatible with **Pytorch, TensorFlow and JAX.
+* **LangChain support leveraging the Hugging Face Hub, which provides
+  access to a massive number of models, datasets in various languages
+  and formats, and demo apps**, including integrations with Hugging
+  Face Endpoints, and enabling text generation inference powered by
+  the Text Genration Inference service. 
+* Integration with Hugging face models, including the **free Serverless
+  Endpoints API and dedicated Inference Endpoints for enterprise worloads
+  that come with support for AutoScaling**.
+* It also support local/offline integration with Hugging Face
+  models and pipelines.
+  * ChatHugginFace     : For chat apps.
+  * HuggingFacePipeline: Running models through pipelines.
+  * HuggingFaceEmbeddings:
+  * HuggingFaceInstructEmbeddings:
+  * HuggingFaceBgeEmbeddings:
+  * HuggingFaceHubEmbeddings: allows leveraging H.F. **Text Embeddings
+    Inference (TEI) toolkit** for high-performance extraction.
+  * HuggingFaceDatasetLoader: For datasets [[{data.source}]]
+[[}]]
+
+

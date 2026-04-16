@@ -326,7 +326,7 @@ desarrollar herramientas intuitivas y potentes que simplifiquen la
 integración y utilización de la IA en diversos sectores. """
 [[doc_has.catalog}]]
 
-[[{PM.low_code.RLGymnasium,architecture.ReinforcementLearning,]]
+[[{PM.low_code.RLGymnasium,training.RL,]]
 
 ## Exploring the RL Gymnasium: A Gateway to Reinforcement Learning
 

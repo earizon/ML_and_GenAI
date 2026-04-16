@@ -1,4 +1,4 @@
-[[{architecture.agents,architecture.TigerFS,PM.low_code,standards.POSIX_FS]]
+[[{agents.tools,architecture.TigerFS,PM.low_code,standards.POSIX_FS]]
 # TigerFS: Mount PostgreSQL as POSIX FileSystem
 
 Cite by Michael Freedman (TigerData co-founder):
@@ -143,4 +143,4 @@ to push the work into the DDBB  cat /mnt/db/orders/.filter/status/shipped\
                                 cat /mnt/db/orders/.filter/status/shipped\
                                     /.columns/total/.export/csv | awk '{s+=$1} END {print s}'
 ```
-[[architecture.POSIX_FS}]]
+[[persistence.FILE_SYSTEM,standards.POSIX_FS}]]

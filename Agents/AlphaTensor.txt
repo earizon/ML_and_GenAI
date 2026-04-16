@@ -1,4 +1,4 @@
-[[{use_case.maths.algorithm_search,architecture.agents,learning.RL]]
+[[{use_case.maths.algorithm_search,learning.RL]]
 ## Discovering faster matrix multiplication algorithms with reinforcement learning
 
 * <https://www.nature.com/articles/s41586-022-05172-4>
@@ -8,7 +8,7 @@ for discovering efficient and provably correct algorithms for the
 multiplication of arbitrary matrices.
  
  Our agent, AlphaTensor, is trained to play a single-player game where the 
-objective is finding tensor decompositions within a finite factor space. 
+objective is finding tensor decompositions within a finite factor space.
 
 AlphaTensor discovered algorithms that outperform the state-of-the-art 
 complexity for many matrix sizes.

@@ -1,0 +1,74 @@
+# Models DDBB
+
+* Statistics (Time-series) of Model Ussage through OpenRouter.ai:
+  - It includes important information about Error Rate for Tool Calls and Structured Output. [[qa.error_control]]
+
+  - Example ussage of Mistral-Small 3.1 instruct:
+    <https://openrouter.ai/mistralai/mistral-small-3.1-24b-instruct:free>
+
+  
+  ```
+  | GOOGLE    MODELS:  <https://ai.google.dev/gemini-api/docs/models?hl=es-419>
+  | ------------------------------------------------------------------------------------
+  | - Gemini 3.1 Pro       : (2026-04) Advanced intelligence, complex problem-solving skills, 
+  |                          and powerful agentic and vibe coding capabilities.
+  | - Gemini 3 Flash(-Lite): Frontier-class performance rivaling larger models at a 
+  |                          fraction of the cost.
+  | - Nano Banana 2        : (2026-04) Powerful, high-efficiency image generation and 
+  |                          editing, optimized for speed and high-volume use cases.
+  | - Nano Banana Pro      : State-of-the-art image generation and editing models 
+  |                          for highly contextual native image creation.
+  | - Gemini 3.1 Flash Live: (2026-04) High-quality, low-latency Live API model for real-time 
+  |                          dialogue and voice-first AI applications.
+  | - Gemini 3.1 Flash TTS : (2026-04) Powerful, low-latency speech generation.
+  |
+  |
+  | ANTROPHIC MODELS: <https://platform.claude.com/docs/en/about-claude/models/overview>
+  | ------------------------------------------------------------------------------------
+  | - Claude Opus   4.6 : (2026-04) most intelligent broadly available Claud model for agents and coding
+  | - Claude Sonnet 4.6 : (2026-04) best combination of speed and intelligence
+  | - Claude Haiku  4.5 : (2026-04) Fastest model with near-frontier intelligence
+  | - Claude Mythos     : (2026-04) no public access - best model -
+  |
+  | ------------------------------------------------------------------------------------
+  |
+  | OpenAI    MODELS: <https://developers.openai.com/api/docs/models>
+  | ------------------------------------------------------------------------------------
+  | GPT-5.4(-mini|-nano): (2026-04) Best intelligence at scale for agentic, coding, and professional workflows
+  |          Reasoning: none low medium high xhigh
+  |          Context window: 1M (400K for mini)
+  |          Max output: 128K tokens
+  |          Tools: Functions, Web search, File search, Computer use 
+  |          Knowledge cutoff: Aug 31, 2025
+  | 
+  | OpenAI Purpose-built for specific tasks.
+  |
+  | - gpt-image-1(-mini)-1.5 : State-of-the-art image generation model (and gpt-image-1-mini)
+  | - gpt-realtime(-mini)-1.5: The best voice model for audio in, audio out (and
+  | - gpt-4o(-mini)-tts      : Text-to-speech Speech generation powered by GPT-4o mini
+  | - gpt-4o-transcribe      : transcribing speech into text
+  | - gpt-4o-mini-transcribe : Speech-to-text model powered by GPT-4o
+  |
+  | AmazonNova   MODELS [[PM.TODO]]
+  | ------------------------------------------------------------------------------------
+  | IBM Watson   MODELS [[PM.TODO]]
+  | ------------------------------------------------------------------------------------
+  | NVIDIA       MODELS [[PM.TODO]]
+  | ------------------------------------------------------------------------------------
+  | Cohere       MODELS [[PM.TODO]]
+  | ------------------------------------------------------------------------------------
+  | MistralAI    MODELS [[PM.TODO]] <https://docs.mistral.ai/getting-started/models#featured-models>
+  | ------------------------------------------------------------------------------------
+  | Together     MODELS [[PM.TODO]]
+  | ------------------------------------------------------------------------------------
+  | Fireworks    MODELS [[PM.TODO]]
+  | ------------------------------------------------------------------------------------
+  | LlamaCpp     MODELS [[PM.TODO]]
+  | ------------------------------------------------------------------------------------
+  | DeepSeek     MODELS [[PM.TODO]]
+  | ------------------------------------------------------------------------------------
+  | Databricks   MODELS [[PM.TODO]]
+  | ------------------------------------------------------------------------------------
+  | Perplexity   MODELS [[PM.TODO]]
+  | ------------------------------------------------------------------------------------
+  ```

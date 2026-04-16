@@ -85,41 +85,12 @@ guidelines and a public roadmap outlining planned next steps.
 - Actions are in practice strongly typed Java methods
 
   
-### Agentic RAG:
-
-- instead of doing conventional RAG -> injecting into prompt we let the LLM
-  do RAG on demand. (Recheck)
-- If the RAG chunk returned does not contain the full information
-  the Agent can do a second RAG.
-
-- SearchOperations are quite easy for Neo4J, PostgreSQL vg_vector, ...
-
-  @NotNull
-  private LlmReference personalDocs(SearchOperations searchOperations) {
-    return new ToolishRag(
-         name : ...,
-         description:...
-         searchOperations)
-       .withMetadataFilter(
-         new PropertyFilter.Eq(
-           DocumentService.Context.CONTEXT_KEY,
-           effectiveContext()
-         )
-    ).withUnfolding();
-  }
-
 - Even very good models performance degrade when having "many tools" (~100 tools)
   - embabel unfolding tool tries to solve this.
 
 - AgenticTools is the supervisor tool (Using LangChain/... nomenclature)
   - Top level tool with "child" tools.
 
-[[}]]
-
-[[{]]
-## Named Entity Recognition: locating+classifying named entities in text
-
-- Currently, Scikit-LLM has a single NER estimator (only works with the GPT family).
 [[}]]
 
 [[{]]
@@ -133,4 +104,3 @@ These estimators use the provided data as-is, without any additional
 preprocessing, or constructing prompts.
 [[}]]
 
-[[PM.TODO}]]

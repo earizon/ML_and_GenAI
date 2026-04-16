@@ -1,4 +1,4 @@
-[[{architecture.agents]]
+[[{agents.101]]
 
 # AI Agents
 
@@ -99,7 +99,7 @@
     - history of previous messages and tool outputs.
     Memory simulation APIs usually contain methods like "pop()/remove_last_message()",
     "reset()/clean_memory()", "shift()/forget old messages()", ...
-  * There are 2 TYPES OF MEMORY: [[architecture.agents.short_term_mem,architecture.agents.long_term_mem]]
+  * There are 2 TYPES OF MEMORY: [[agents.short_term_mem,agents.long_term_mem]]
     - Short-term (Ephemeral) memory (In-application): Exists only during the chat session.
       Common patterns are:
       - Full Conversation History: Send all previous messages (full details) with each new input.
@@ -131,7 +131,7 @@
     the session.<br/>
     - This applies to agentic flows designed around state machines and its
       value is commonly controlled by the code invoking the LLM.
-      [[architecture.agents.structured_mem,architecture.state_machine]]
+      [[agents.structured_mem,architecture.state_machine]]
 
 - Modern Reasoning Models have been trained to:
   1. Use hardcoded content learn during training.
@@ -265,6 +265,75 @@ Based on the physcologist Daniel Kahneman's framework:
   controlled. (LLM Reasoning models)
 [[doc_has.comparative}]]
 
+[[{agents.101]]
+## Frameworks vs runtimes vs harnesses
+
+  ```
+  | ────────────────────────────────────────────────────────────────────────────────────────────────
+  | FRAMEWORKS VS RUNTIMES VS HARNESSES ────────────────────────────────────────────────────────────
+  | ────────────────────────────────────────────────────────────────────────────────────────────────
+  | REF: <https://docs.langchain.com/oss/python/concepts/products>
+  +------------+---------------------+------------------------------------+--------------------------------------------+
+  |            |  Framework          |  Runtime ²                         |  "Harnessed" ³                             |
+  |            |                     |  (Durable execution engines)       |                                            |
+  |------------+---------------------+------------------------------------+--------------------------------------------+
+  | added      |  Abstractions       | - Durable execution                | - Predefined tools                         |
+  | Value      |  Integrations       | - Streaming                        | - Prompts                                  |
+  |            |                     | - HITL                             | - Planning Capabilities ⁴                  |
+  |            |                     | - Persistence                      | - Task deletagion & Subagents "spawning" ⁵ |
+  |            |                     |                                    | - Advanced persistence:                    |
+  |            |                     |                                    |   - multi-backed File-System.              |
+  |            |                     |                                    |   - history token sumarization.            |
+  |            |                     |                                    |   - result eviction.                       |
+  |            |                     |                                    |   - ....                                   |
+  |            |                     |                                    | [[agents.persistence.file_system]]         |
+  |            |                     |                                    | [[agents.tokent_management,agents.memory]] |
+  |------------+---------------------+------------------------------------+--------------------------------------------+-
+  | When       | - quick project     | - Low-level control                | - More autonomous agents                   |
+  | to use     |   bootstrap         | - Long running, stateful, durable  | - Agents faced with complex,               |
+  |            | - Standardizing     |   workflows and agents             |   multi-step non-deterministic             |
+  |            |   development.      | - complex workflows combining      |   tasks require planning and               |
+  |            |                     |    deterministic and agentic steps.|   decomposition. Use-cases:                |
+  |            |                     |                                    |   - Advanced research (vs search)          |
+  |------------+---------------------+------------------------------------+--------------------------------------------+-
+  | When *NOT* | - For complex       |                                    |                                            |
+  | to use     |   orchestation      |                                    |                                            |
+  |            |   needs.            |                                    |                                            |
+  |            |   [[qa.dont's]]     |                                    |                                            |
+  |------------+---------------------+------------------------------------+--------------------------------------------+-
+  | Options    | - LangChain ¹       | - LangGraph                        | - Deep Agents SDK ¹                        |
+  | (LangChain)|                     |                                    |                                            |
+  |------------+---------------------+------------------------------------+--------------------------------------------+
+  | Options    | - Vercel’s AI SDK   | - Temporal                         | - Claude Agent SDK                         |
+  | ("Others") | - CrewAI            | - Inngest                          | - Manus                                    |
+  |            | - OpenAI Agents SDK |                                    | - Agentic Coding clients.                  |
+  |            | - Google ADK        |                                    | - ...                                      |
+  |            | - LlamaIndex        |                                    |                                            |
+  |            | - ... (many others) |                                    |                                            |
+  +------------+---------------------+------------------------------------+--------------------------------------------+
+  ```
+
+¹ LangChain 1.0 and Deep Agents are both built on top of LangGraph.
+
+² Agent runtimes support MAY include:
+  - Durable execution       : ...  for extended periods, suporting failures, HITL, resuming for "checkpoint", ...
+  - Streaming Support       : ... for workflows and responses.
+  - Human-in-the-loop (HITL): Incorporate human oversight by inspecting and modifying agent state.
+  - Persistence             : Thread-level and cross-thread persistence for state management.
+  - Low-level control       : Direct control over agent orchestration without high-level abstractions.
+
+³ Agent harnesses are opinionated, "batteries-included" frameworks with built-in tools
+  and capabilities for building sophisticated, long-running agents.  Supported tools may
+  include:
+
+⁴ Planning capabilities  : Track multiple tasks with a to-do list, ....
+
+⁵ subagents get a new **clean context** ("empty memory"), and execute specialized task independently
+  of its "parent" context. [[agents.101]]
+
+[[agents.101}]]
+
+
 ## Swarm Masters && DAGs
 
 * <https://www.linkedin.com/pulse/agentic-workflows-why-dag-ultimate-design-pattern-dramil-dodeja-rtkmc/>
@@ -355,4 +424,4 @@ supervise the other one.
 [[security.promp_injection,security.101}]]
 
 
-[[architecture.agents}]]
+[[agents.101}]]

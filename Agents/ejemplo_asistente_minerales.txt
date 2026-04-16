@@ -1,4 +1,4 @@
-[[{architecture.agents.101,doc_has.example,use_case.expert_system]]
+[[{agents.101,doc_has.example,use_case.expert_system]]
 ## Asistente experto con datos abiertos
 * construcción de GPT para responder al reto de los minerales críticos
 

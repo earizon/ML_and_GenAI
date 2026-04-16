@@ -1,4 +1,4 @@
-[[{101.local_AI,use_case.101,architecture.agents.local_AI]]
+[[{101.local_AI,use_case.101,agents.local_AI]]
 # Local AI
 
 * <https://localai.io/>
@@ -159,4 +159,4 @@ C&P from <https://localai.io/model-compatibility/>
 
 
 
-[[{101.local_AI,architecture.agents.local_AI}]]
+[[{101.local_AI,agents.local_AI}]]

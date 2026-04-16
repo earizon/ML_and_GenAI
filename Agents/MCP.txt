@@ -1,4 +1,4 @@
-[[{architecture.agents.MCP,architecture.agents.101]]
+[[{agents.MCP,agents.101]]
 ## MCP 101
 
 
@@ -73,9 +73,9 @@
   * (system) prompts can indicate the roles to be used by the LLM (You are a lawyer, a code reviewer, ...)
     and the keywords (or taxonomies) to guide the LLM to use the correct MCP tools "spontaneusly".<br/>
   * Prompts representing multi-turn workflows. e.g: step-by-step diagnostic interview.
-[[architecture.agents.MCP}]]
+[[agents.MCP}]]
 
-[[{architecture.agents.MCP,doc_has.example]]
+[[{agents.MCP,doc_has.example]]
 ## MCP Examples (from Daily Dose of Data Science)
 
 ### Building a 100% local MCP client
@@ -241,7 +241,7 @@
  |  # └─────────────────────────────────────────────────────────────────────────
  ```
 
-[[{architecture.agents.MCP]]
+[[{agents.MCP]]
 # Official MCP Registry  (By the MCP Team)
 
 * <https://www.infoq.com/news/2025/09/introducing-mcp-registry/>
@@ -250,7 +250,7 @@ By Andrew Hoblitzell
 The Model Context Protocol (MCP) ecosystem is formalizing a public 
 registry for server discovery. [[PM.date.2025.09]]
 ... Together with Agentgateway, they aim to make finding, governing,
-and running agentic tools more routine for engineering teams.
+and running agentic tools more routine for engineering teams. [[mlops.agent_gateway]]
 
 - The registry sits above that protocol, publishing a machine-readable
  catalog-of-servers and APIs for publicly available MCP servers that
@@ -298,9 +298,9 @@ API,” the two projects sketch a path to safer scale. For developers looking
 to learn more, they can explore the MCP Registry repository and agentgateway 
 repository.
 
-[[architecture.agents.MCP}]]
+[[agents.MCP}]]
 
-[[{architecture.agents.MCP,architecture.A2A.101,PM.TODO]]
+[[{agents.MCP,architecture.A2A.101,PM.TODO]]
 # Agentgateway: Next Generation Agentic Proxy for AI Agents and MCP servers 
 
 * <https://github.com/agentgateway/agentgateway>
@@ -332,7 +332,7 @@ repository.
 - Run Anywhere: k8s clusters, VMs, Bare Metal, ...
 - Legacy API Support: agentgateway can transform legacy APIs into 
   MCP resources. Currently supports OpenAPI. (gRPC coming soon)
-[[architecture.agents.MCP}]]
+[[agents.MCP}]]
 
 
 [[{use_case.research]]
@@ -357,13 +357,7 @@ MCP-driven demo Audio Analysis toolkit accepting an audio file to:
 [[use_case.audio_analysis}]]
 [[}]]
 
-# TODO:
-
-## MCP Go implementation
-
-* <https://github.com/mark3labs/mcp-go>
-
-[[{architecture.MCP.Gateway,security,architecture.REST]]
+[[{architecture.MCP.Gateway,security,architecture.REST,PM.TODO]]
 ## MCP Gateway
 
 * <https://github.com/IBM/mcp-context-forge>
@@ -374,8 +368,7 @@ API endpoints to MCP, composes virtual MCP servers with added security and
 observability, and converts between protocols (stdio, SSE, Streamable HTTP).
 [[architecture.MCP.Gateway}]]
 
-
-## SSE Transport deprecation Warning
+### MCP Spec Deprecation Notes
 
 Ignore references to Server-Sent Events (SSE) in old tutorials:
 
@@ -384,8 +377,3 @@ Streamable HTTP is the preferred transport:
 * More flexible
 * Better for multimodal content
 * Easier to adopt in modern architectures
-
-
-## Google Pushes for gRPC Support in Model Context Protocol
-
-* <https://www.infoq.com/news/2026/02/google-grpc-mcp-transport/>

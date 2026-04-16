@@ -1,4 +1,4 @@
-[[{architecture.agents.A2A,PM.TODO]]
+[[{agents.A2A,PM.TODO]]
 ## Agent2Agent (A2A) protocol
 
 * <https://github.com/google/A2A>
@@ -11,4 +11,4 @@ different ecosystems communicate with each other.
 - With A2A, agents can show each other their capabilities and negotiate how 
 they will interact with users (via text, forms, or bidirectional audio/video).
 all while working securely together.
-[[}]]
+[[agents.A2A}]]

@@ -1,4 +1,4 @@
-[[{architecture.agents.claude_code]]
+[[{agents.claude_code]]
 # Anthropic Claude Code
 
 [[{doc_has.comparative]]
@@ -241,4 +241,4 @@ session starts with a working app. [[doc_has.keypoint]]
 
 
 [[qa.3-Agent}]]
-[[architecture.agents.claude_code}]]
+[[agents.claude_code}]]

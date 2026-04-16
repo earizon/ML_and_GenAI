@@ -1,0 +1,32 @@
+[[{mlops.101,mlops.routers,architecture.REST.model_routers]]
+# Model Routers and proxies
+
+C&P from <https://docs.langchain.com/oss/python/concepts/providers-and-models>:
+
+  Routers (also called proxies or gateways) give you access to models from 
+multiple providers through a single API and credential. They can simplify 
+billing, let you switch between models without changing integrations, and offer 
+features like automatic fallbacks and load balancing.
+Provider	Integration	Description
+OpenRouter	ChatOpenRouter	Unified access to models from OpenAI, Anthropic, Google, Meta, and more
+LiteLLM	ChatLiteLLM	Unified interface for 100+ providers with routing, fallbacks, and spend tracking
+Routers are useful when you want to:
+Access many providers with a single API key and billing account
+Switch models dynamically without managing multiple provider credentials
+Use fallback models that automatically retry with a different model if the primary one fails
+[[mlops.routers}]]
+
+[[{architecture.REST.model_routers,PM.TODO]]
+## litellm: Router (proxy or gateway) to 100+ LLM APIs using OpenAI format
+
+* <https://github.com/BerriAI/litellm >
+
+- Proxy Server (LLM Gateway) to call 100+ LLM APIs in OpenAI format
+  and forwarding to Bedrock, Azure, OpenAI, VertexAI, Cohere, Anthropic,
+  Sagemaker, HuggingFace, Replicate, Groq, ...
+
+[[architecture.REST.model_routers}]]
+
+[[{architecture.REST.model_routers,PM.TODO]]
+## OpenRouter: 
+[[architecture.REST.model_routers}]]

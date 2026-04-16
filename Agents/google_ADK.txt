@@ -1,4 +1,4 @@
-[[{architecture.agents]]
+[[{agents.ADK]]
 # Google ADK Agent Development Kit
 
 * OpenSource framework to build AI Agents and Agents Swarms.
@@ -9,6 +9,6 @@
 * Batteries included from Google Gemmini and Google Vertex.
   Other LLMs, Vector DDBBS, ... can be added by just implementing
   the requiredrequired  interfaces.
-[[architecture.agents}]]
+[[agents.ADK}]]
 
 

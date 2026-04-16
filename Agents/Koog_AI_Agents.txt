@@ -1,4 +1,4 @@
-[[{architecture.agents]]
+[[{agents.Koog]]
 # Koog (TODO)
 
 * Create agents that interact with tools, handle complex workflows,
@@ -9,4 +9,4 @@
 * Customizable
 * Deploy on JVM, JS, WasmJS, Android, and iOS targets through Kotlin Multiplatform.
 
-[[architecture.agents}]]
+[[agents.Koog}]]
