@@ -1,0 +1,9 @@
+[[{use_case.coding_assitant]]
+# OpenCode Coding Agent
+
+
+* <https://opencode.ai/>
+
+* Integrates with major LSP (Language Server Protocols)
+
+[[use_case.coding_assitant}]]

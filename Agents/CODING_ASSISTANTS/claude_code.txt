@@ -1,6 +1,17 @@
 [[{agents.claude_code]]
 # Anthropic Claude Code
 
+- Claude 4 Code Agent is based in Antrophic Claude
+
+
+C&P: <https://www.infoq.com/news/2025/06/anthropic-claude-4/>
+""" This is the first time I'm able to vibe code an app without major manual 
+  interventions at every step. Not saying it's perfect, or that I'd necessarily 
+  trust it without human review, but I did vibe code an entire production-ready 
+  iOS/Android/web app that accepts payments in less than 24 hours and barely had 
+  to manually intervene at all, besides telling it what I wanted to do next. """ 
+[[doc_has.feedback]]
+
 [[{doc_has.comparative]]
 ## Alternatvies to Claude Code
 
@@ -66,7 +77,7 @@ Summary from <https://www.infoq.com/news/2026/04/claude-code-source-leak/> by St
 
 ... Anthropic Accidentally Exposes Claude Code Source via npm Source Map File.
 A single misconfigured .npmignore or files field in package.json can expose everything.
-[[PM.date.202604]]
+[[PM.date.2026Q2]]
 
 ... It is worth noting that this is the Claude Code CLI tool, not the claude.ai 
 web application or the LLM models themselves. 
@@ -209,17 +220,18 @@ The results:
 [[qa.best_patterns}]]
 
 
-[[{qa.3-Agent]]
+[[{agents.3-Agent]]
 ## Three-Agent Design Harness Supports for Long-Running Full-Stack AI Development
 
 Extracted from <https://www.infoq.com/news/2026/04/anthropic-three-agent-harness-ai/>
 by Leela Kumili, Lead Software Engineer@Starbucks.
 
-... Anthropic engineers observed that separating planning, generation, and evaluation
-enables better handling of subjective assessments while maintaining reproducibility
-in objective tasks. ...  As AI models improve, the harness’s role may shift, 
+... Anthropic engineers observed that **separating planning, generation, and evaluation
+enables better handling of subjective assessments** while maintaining reproducibility
+in objective tasks. ...  [[qa.coherence]]<br/>
+As AI models improve, the harness’s role may shift, 
 with some tasks handled directly by next-generation models. At the same time, 
-improved models enable harnesses to tackle more complex work.
+improved models enable harnesses to tackle more complex work. 
 
 context resets alongside structured handoff artifacts, enables the next agent
 in the workflow to continue from a defined state. 
@@ -240,5 +252,6 @@ testing, commit-by-commit progress, and an init script that ensures every
 session starts with a working app. [[doc_has.keypoint]]
 
 
-[[qa.3-Agent}]]
+[[agents.3-Agent}]]
+
 [[agents.claude_code}]]

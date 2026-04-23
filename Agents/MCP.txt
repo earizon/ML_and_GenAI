@@ -248,7 +248,7 @@
 By Andrew Hoblitzell
 
 The Model Context Protocol (MCP) ecosystem is formalizing a public 
-registry for server discovery. [[PM.date.2025.09]]
+registry for server discovery. [[PM.date.2025.Q3]]
 ... Together with Agentgateway, they aim to make finding, governing,
 and running agentic tools more routine for engineering teams. [[mlops.agent_gateway]]
 

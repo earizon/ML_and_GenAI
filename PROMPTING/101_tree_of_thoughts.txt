@@ -1,35 +1,130 @@
 [[{prompting.tree_of_thoughts]]
-## Tree-of-Thoughts Prompting
+## Tree-of-Thoughts Prompting (ToT)
+
+* <https://arxiv.org/pdf/2305.10601v2> by Shunyu Yao, Dian Yu, Jeffrey Zhao,
+  Izhak Shafran, Thomas L. Griffiths, Yuan Cao, Karthik Narasimhan
+  (Princeton University and Google DeepMind)
+
+* <https://github.com/princeton-nlp/tree-of-thought-llm> [[doc_has.template.prompt]]
+
+- ToT generalizes over “Chain of Thought” enabling exploration over
+  coherent units of text (“thoughts”) that serve as intermediate steps
+  toward problem solving.
+- ToT allows LMs to perform deliberate decision making by considering multiple
+  different reasoning paths and self-evaluating choices to decide the next course
+  of action, as well as looking ahead or backtracking when necessary to make
+  global choices.
+- Our experiments show that ToT significantly enhances LLM problem-solving
+  abilities on three novel tasks requiring non-trivial planning or search:
+
+  ```
+  |     TASK              "UNIT-of-TOUGHT"
+  |  ----------------  ----------------------------------------
+  |  Game of 24     ¹    a line of equation
+  |  Creative Writing    whole paragraph of writing plan
+  |  Mini Crosswords     a couple of words
+  |
+  |  ¹ GPT-4 CoT reached 4% of tasks, GPT-4 with ToT reached 74%. [[qa.coherence]]
+  ```
+
+
+
+
+
+
+  (tasks requiring deductive, mathematical, commonsense, lexical reasoning abilities,
+   and a way to incorporate systematic planning or search)
+
+   ```
+   | [[prompting.CoT,prompting.CoT-SC,prompting.ToT,doc_has.comparative,doc_has.chart]]
+   | 
+   |    INPUT   ││    INPUT        │         INPUT            ││                INPUT
+   |      ·     ││      ·          │           ·              ││                  ·
+   |      ·     ││      ·               ┌─····─┼─······─┐     ││        ┌─·······─┼─·······─┐
+   |      ·     ││      ·          │    ·      ·        ·     ││        ·         ·         ·
+   |      ·     ││    STEP 1       │  STEP 1  STEP 1  STEP 1  ││       ???       ???       END
+   |            ││                                            ││   ┌─··─┘    ┌─··─┼─··─┐
+   |            ││                 │                          ││  XXX       END  END  ???
+   |      ·     ││     ...         │   ...    ...      ...    ││   └─··─┐         ┌─··─┼─··─┐
+   |      ·     ││      ·               ·      ·        ·     ││  END  END       ???  END  END
+   |      ·     ││      ·          │    ·      ·        ·     ││                  .
+   |      ·     ││    STEP N       │  STEP N  STEP N  STEP N  ││                  ·
+   |      ·     ││      ·            └───────┬──────┘         ││                  ·
+   |      ·     ││      ·          │         ·                ││                  ·
+   |      v     ││      v          │         v                ││                  v
+   |    OUTPUT  ││    OUTPUT               OUTPUT             ││                OUTPUT
+   |            ││                 │                          ││
+   |    DIRECT  ││ CHAIN-OF-TOUGHT │   SELF-CONSISTENCY       ││          TREE-OF-THOUGHTS
+   |  PROMPTING ││  PROMPTING(CoT)     with CoT (CoT-SC)      ││                 (ToT)
+   |
+   ```
+
+
+
+* CoT prompting was proposed to address cases where the mapping of input x to output y is non-trivial
+  (e.g. when x is a math question and y is the final numerical answer).... <br/>
+  - KEY IDEA: each "step" is a coherent language sequence serving toward problem solving.<br/>
+  - The decomposition of thoughts is left ambiguous.
+* CoT-SC: samples k i.i.d. chains of thought, then return most frequent output.
+
+* ToT: A specific instantiation of ToT involves answering four questions: 
+  1. How to decompose the intermediate process into thought steps.
+     - Ex: couple of words, line of equation, whole paragraph, ..).
+     - It must be small enought to let LMs generate promising and divers samples.
+     - It must be big   enought to let LMs evaluate its prospect toward problem solving.
+  2. How to generate potential thoughts from each state.
+     - Alt 1: Sample  i.i.d. thoughts from CoT prompt (Creative writing)
+     - Alt 2: Propose thougsh using a "propose prompt".  This works better when
+       the thought space is more constrained (e.g. each thought is just a word or a line).
+       so proposing different thoughts in the same context avoids duplication.
+  3. How to heuristically evaluate states:
+     -  heuristics are a standard approach to solving search problems,they are
+        typically:
+        - programmed (e.g. DeepBlue) or
+        - or learned (e.g. AlphaGo).
+      - We propose a third alternative, by using the LM to deliberately reason 
+        about states. When applicable, such a deliberate heuristic can be more
+        flexible than programmed rules, and more sample-efficient than learned models. <br/>
+        We consider two strategies to evaluate states:
+        - alt 1: Value each state independently: ... to generate a scalar value v (e.g. 1-10) or
+          a classification (e.g. sure/likely/impossible) that **could be heuristically turned into a value**.<br/>
+        - alt 2: Vote across states: ... cast "which state to explore".
+  4. What search algorithm to use.  We explore two relatively simple search algorithms:
+     - alt 1: Breadth-first search (BFS) maintains a set of the b most promising states per step. 
+     - alt 2: Depth-first search (DFS) explores the most promising state first, until the final
+       output is reached (t>T) (or the state evaluator deems it impossible to solve the problem)
+     - alt 3: ... (Other "more advanced search algorithms)
+
+
+... Our proposed ToT approach extends existing planning formulations (ReAct)
+by considering multiple potentially feasible plans simultaneously 
+at each problem-solving step, and proceeding with the most promising ones:
+ The integration between thought sampling and value feedback organically integrates
+planning and decision-making mechanisms, enabling effective search inside a
+solution tree. 
+ On the other hand, traditional decision-making procedures 
+usually require training dedicated reward and policy models as in reinforcement 
+learning (for example CHAI (Verma et al., 2022)), whereas we use the LLM itself 
+to provide the value estimates for decision making. [[prompting.react]]
+
+
+### Problem example: create a business strategy.
 
 Extracted from <https://www.infoq.com/articles/large-language-models-llms-prompting/>
 
-- Proposed by Yao et. al (2023) and Long (2023), 
-- prompting **framework** that extends beyond CoT encouraging exploration of thoughts
-  that function as intermediate steps for solving problems more broadly with LLMs.
-
-- This technique asks the LLM to consider multiple solutions at each level, 
-  and the model is encouraged to continually evaluate its results, normalizing
-  its decision-making process, and boosting its confidence in the chosen solution.
-
-- In other words, it leverages dynamic decision-making by generating 
-  intermediate steps and potential solutions, which are then evaluated to 
-  determine whether they're on the right path or not.
-
-
-Problem example: create a business strategy.
-
 1. the LLM would first generate multiple potential initial steps for the strategy,
-2. Then, when the initial thoughts are generated, you can task the model with
+
+2. Then, when the initial thoughts are generated, you can ask the model with
    self-critiquing each of these thoughts with respect to the input prompt.<br/>
-   Here, the LLM would evaluate how well each thought or step aligns with the 
+   Here, the LLM would evaluate how well each thought or step aligns with the
    problem-solving objective:<br/>
-   - This assessment phase can involve ranking each thought or if 
+   - This assessment phase can involve ranking each thought or if
      appropriate, assigning scores.
 3. the thoughts that are evaluated as less useful or suitable can be discarded,
    and you can expand upon the remaining thoughts.
 
- In this framework, you continue a similar process of self-critique 
-and ranking until you reach a final decision. This technique allows the LLM to 
+ In this framework, you continue a similar process of self-critique
+and ranking until you reach a final decision. This technique allows the LLM to
 evaluate and pursue multiple paths simultaneously.
 
 Here is a step-by-step process to leverage a simplified version of the ToT framework:
@@ -42,72 +137,61 @@ Here is a step-by-step process to leverage a simplified version of the ToT frame
   | 2: Evaluation    ··> ... objectively assess each option's potential success by
   |                      evaluating their pros and cons.
   | ────────────────────────────────────────────────────────────────────────────
-  | 3: Expansion     ··> ... go deeper into suitable ideas, refine them, and imagine 
+  | 3: Expansion     ··> ... go deeper into suitable ideas, refine them, and imagine
   |                      their implications in real─world contexts.
   | ────────────────────────────────────────────────────────────────────────────
-  | 4: Decision      ··> ... rank or score each solution based on the evaluations 
+  | 4: Decision      ··> ... rank or score each solution based on the evaluations
   |                      and scenarios generated.
   | ──────────────────────────────────────────────────────────────────────────────────
   ```
 
 
-- ToT framework has greatly improved performance over CoT on problems requiring 
-  search-like games, crossword puzzles, and even creative writing. <br/>
+**WARN**: However, it requires multiple prompts and generations before reaching a final answer.
 
+ ... More recently, Hulbert introduced zero-shot Tree-of-Thought prompting which
+applies the fundamental concept from the ToT framework as a single prompt.
+His prompt is: [[scalability.prompting,prompting.parallel_thoughts]]
 
-- However, it requires multiple prompts and generations before reaching a 
-  final answer.
-  More recently, Hulbert introduced zero-shot Tree-of-Thought prompting which 
-  applies the fundamental concept from the ToT framework as a single prompt. 
-  His prompt is: [[scalability.prompting,prompting.parallel_thoughts]]
+Example response using ChatGPT v4?
+
   ```
-  | Imagine three different experts are answering this question:
+  | PROMPT:
+  | - Imagine three different experts are answering this question.
   | - All experts will write down 1 step of their thinking,
-  |   then share it with the group.
-  |   Then all experts will go on to the next step, etc.
-  | - If any expert realises they're wrong at any point then 
-  |   they leave. The question is ...
-  ```
-
-Example response using ChatGPT v?
-
-  ```
-  PROMPT:
-  - Imagine three different experts are answering this question. 
-  - All experts will write down 1 step of their thinking,
-  - then share it with the group.
-  - Then all experts will go on to the next step, etc.
-  - If any expert realizes they're wrong at any point then they leave. The question is...
- 
-    Bob is in the living room. He walks to the kitchen, carrying a cup. He puts a 
-  ball in the cup and carries the cup to the bedroom. He turns the cup upside 
-  down, then walks to the garden. He puts the cup down in the garden, then walks 
-  to the garage. Where is the ball?
-  
-  RESPONSE:
-  Expert 1: The ball is in the living room.
-  Expert 2: The ball is in the kitchen.
-  Expert 3: The ball is in the bedroom.
-
-  Expert 1: Bob carries the cup to the bedroom, so the ball must be in the cup.
-  Expert 2: Oh, I see my mistake. Yes, the ball is in the cup.
-  Expert 3: Agreed, the ball is in the cup in the bedroom.
-  
-  Expert 1: Next, Bob turns the cup upside down in the bedroom.
-  Expert 2: After that, Bob walks to the garden and puts the cup down.
-  Expert 3: Therefore, the ball must have fallen out of the cup when Bob turned 
-            it upside down in the bedroom. So, the ball is in the bedroom, not in the cup 
-            anymore.
-  
-  Expert 1: Oh, you're right. I made a mistake. The ball is in the bedroom, not in the cup.
-  Expert 2: Agreed, the ball is in the bedroom.
-  Expert 3: Bob then walks to the garage, so the ball remains in the bedroom. It is not in the garden or the garage.
-  
-  Expert 1: Absolutely, the ball is still in the bedroom.
-  Expert 2: Yes, the ball hasn't moved from the bedroom.
-  Expert 3: Therefore, the ball is in the bedroom, not in the garden or the garage.
-  
-  All three experts agree that the ball is in the bedroom.
+  | - then share it with the group.
+  | - Then all experts will go on to the next step, etc.
+  | - If any expert realizes they're wrong at any point then they leave. The question is...
+  |
+  | (LLM answer):
+  |   Bob is in the living room. He walks to the kitchen, carrying a cup. He puts a
+  | ball in the cup and carries the cup to the bedroom. He turns the cup upside
+  | down, then walks to the garden. He puts the cup down in the garden, then walks
+  | to the garage. Where is the ball?
+  |
+  | RESPONSE:
+  | Expert 1: The ball is in the living room.
+  | Expert 2: The ball is in the kitchen.
+  | Expert 3: The ball is in the bedroom.
+  |
+  | Expert 1: Bob carries the cup to the bedroom, so the ball must be in the cup.
+  | Expert 2: Oh, I see my mistake. Yes, the ball is in the cup.
+  | Expert 3: Agreed, the ball is in the cup in the bedroom.
+  |
+  | Expert 1: Next, Bob turns the cup upside down in the bedroom.
+  | Expert 2: After that, Bob walks to the garden and puts the cup down.
+  | Expert 3: Therefore, the ball must have fallen out of the cup when Bob turned
+  |           it upside down in the bedroom. So, the ball is in the bedroom, not in the cup
+  |           anymore.
+  |
+  | Expert 1: Oh, you're right. I made a mistake. The ball is in the bedroom, not in the cup.
+  | Expert 2: Agreed, the ball is in the bedroom.
+  | Expert 3: Bob then walks to the garage, so the ball remains in the bedroom. It is not in the garden or the garage.
+  |
+  | Expert 1: Absolutely, the ball is still in the bedroom.
+  | Expert 2: Yes, the ball hasn't moved from the bedroom.
+  | Expert 3: Therefore, the ball is in the bedroom, not in the garden or the garage.
+  |
+  | All three experts agree that the ball is in the bedroom.
   ```
 
 Inspired by Hulbert’s original prompt, here are additional variants of zero-shot Tree-of-Thought prompts to try:
@@ -115,80 +199,80 @@ Inspired by Hulbert’s original prompt, here are additional variants of zero-sh
 
   ```
   | variant 1:
-  |   Simulate three brilliant, logical experts collaboratively answering a 
-  | question. Each one verbosely explains their thought process in real-time, 
-  | considering the prior explanations of others and openly acknowledging mistakes. 
-  | At each step, whenever possible, each expert refines and builds upon the 
-  | thoughts of others, acknowledging their contributions. They continue until 
-  | there is a definitive answer to the question. For clarity, your entire response 
+  |   Simulate three brilliant, logical experts collaboratively answering a
+  | question. Each one verbosely explains their thought process in real-time,
+  | considering the prior explanations of others and openly acknowledging mistakes.
+  | At each step, whenever possible, each expert refines and builds upon the
+  | thoughts of others, acknowledging their contributions. They continue until
+  | there is a definitive answer to the question. For clarity, your entire response
   | should be in a markdown table. The question is ...
-  | 
+  |
   | variant 2:
-  | Imagine three highly intelligent experts working together to answer a question. 
-  | They will follow a tree of thoughts approach, where each expert shares their 
-  | thought process step by step. They will consider the input from others, refine 
-  | their thoughts, and build upon the group's collective knowledge. If an expert 
-  | realizes their thought is incorrect, they will acknowledge it and withdraw from 
-  | the discussion. Continue this process until a definitive answer is reached. 
+  | Imagine three highly intelligent experts working together to answer a question.
+  | They will follow a tree of thoughts approach, where each expert shares their
+  | thought process step by step. They will consider the input from others, refine
+  | their thoughts, and build upon the group's collective knowledge. If an expert
+  | realizes their thought is incorrect, they will acknowledge it and withdraw from
+  | the discussion. Continue this process until a definitive answer is reached.
   | Present the entire response in a markdown table. The question is ..."
-  | 
+  |
   | variant 3:
-  | "Three experts with exceptional logical thinking skills are collaboratively 
-  | answering a question using a tree of thoughts method. Each expert will share 
-  | their thought process in detail, taking into account the previous thoughts of 
-  | others and admitting any errors. They will iteratively refine and expand upon 
-  | each other's ideas, giving credit where it's due. The process continues until a 
-  | conclusive answer is found. Organize the entire response in a markdown table 
+  | "Three experts with exceptional logical thinking skills are collaboratively
+  | answering a question using a tree of thoughts method. Each expert will share
+  | their thought process in detail, taking into account the previous thoughts of
+  | others and admitting any errors. They will iteratively refine and expand upon
+  | each other's ideas, giving credit where it's due. The process continues until a
+  | conclusive answer is found. Organize the entire response in a markdown table
   | format. The question is ..."
   |
   | variant 4:
-  | "Envision a group of three experts working in unison to tackle a question by 
-  | employing a tree of thoughts strategy. Each expert will thoroughly explain 
-  | their line of thinking at every step, while also considering the insights 
-  | provided by their peers. They will openly recognize any mistakes and build upon 
-  | the group's shared understanding. This iterative process will continue until a 
-  | definitive solution is reached. Structure the entire response as a markdown 
+  | "Envision a group of three experts working in unison to tackle a question by
+  | employing a tree of thoughts strategy. Each expert will thoroughly explain
+  | their line of thinking at every step, while also considering the insights
+  | provided by their peers. They will openly recognize any mistakes and build upon
+  | the group's shared understanding. This iterative process will continue until a
+  | definitive solution is reached. Structure the entire response as a markdown
   | table. The question is ..."
   ```
 
   ```
   | Example 2 ---------------------------------------------------------------
   |
-  | INPUT: Imagine three different experts are arguing about how to design a 
-  | file-sharing system.  The system should scale to millions of users and handle 
-  | petabytes of data. Each expert should have a different idea for the system 
+  | INPUT: Imagine three different experts are arguing about how to design a
+  | file-sharing system.  The system should scale to millions of users and handle
+  | petabytes of data. Each expert should have a different idea for the system
   | architecture, and they should discuss the tradeoffs of each approach.
-  | 
+  |
   | RESPONSE:
-  | 
+  |
   | Expert 1: Propose a Decentralized Peer-to-Peer Architecture
-  | In my opinion, a decentralized peer-to-peer (P2P) architecture is the way 
-  | to go. Users share files directly with each other, eliminating the need for a 
-  | central server to handle all requests. This distributes the load across the 
-  | network, making it more scalable. However, the challenge lies in managing 
-  | security, ensuring data integrity, and handling dynamic network conditions. 
-  | Also, it may be challenging to implement complex features like access control 
+  | In my opinion, a decentralized peer-to-peer (P2P) architecture is the way
+  | to go. Users share files directly with each other, eliminating the need for a
+  | central server to handle all requests. This distributes the load across the
+  | network, making it more scalable. However, the challenge lies in managing
+  | security, ensuring data integrity, and handling dynamic network conditions.
+  | Also, it may be challenging to implement complex features like access control
   | and versioning.
-  | 
+  |
   | Expert 2: Argue for a Distributed Cloud-Based Architecture
-  | I advocate for a distributed cloud-based architecture. Leverage cloud 
-  | storage services and distribute data across multiple servers in different 
-  | geographical regions. This approach ensures high availability, scalability, and 
-  | easier management of petabytes of data. The cloud's infrastructure can handle 
-  | the heavy lifting, but concerns may arise regarding data privacy, potential 
-  | costs, and reliance on a third-party service. Additionally, careful 
-  | consideration must be given to data sharding and load balancing to ensure 
+  | I advocate for a distributed cloud-based architecture. Leverage cloud
+  | storage services and distribute data across multiple servers in different
+  | geographical regions. This approach ensures high availability, scalability, and
+  | easier management of petabytes of data. The cloud's infrastructure can handle
+  | the heavy lifting, but concerns may arise regarding data privacy, potential
+  | costs, and reliance on a third-party service. Additionally, careful
+  | consideration must be given to data sharding and load balancing to ensure
   | optimal performance.
-  | 
+  |
   | Expert 3: Argue for a Hybrid Architecture
-  | I propose a hybrid architecture that combines the strengths of both 
-  | decentralized P2P and distributed cloud-based systems. Use P2P for user-to-user 
-  | file sharing to offload some of the traffic from centralized servers. 
-  | Simultaneously, leverage cloud storage for redundancy, backup, and to ensure 
-  | data availability across the network. This hybrid model aims to balance the 
-  | advantages of decentralization with the reliability and scalability offered by 
-  | cloud services. However, managing the synchronization between these two 
-  | components introduces complexity and potential challenges in maintaining 
+  | I propose a hybrid architecture that combines the strengths of both
+  | decentralized P2P and distributed cloud-based systems. Use P2P for user-to-user
+  | file sharing to offload some of the traffic from centralized servers.
+  | Simultaneously, leverage cloud storage for redundancy, backup, and to ensure
+  | data availability across the network. This hybrid model aims to balance the
+  | advantages of decentralization with the reliability and scalability offered by
+  | cloud services. However, managing the synchronization between these two
+  | components introduces complexity and potential challenges in maintaining
   | consistency.
   ```
 [[prompting.tree_of_thoughts}]]

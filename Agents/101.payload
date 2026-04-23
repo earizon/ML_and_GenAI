@@ -2,7 +2,7 @@
 eval_driven_goals_hypot.txt   # OK
 # agentic_patterns.txt        # <https://github.com/nibzard/awesome-agentic-patterns>
 LANGCHAIN/101.payload
-lang_grant.txt                #
+lang_grant_SQL_MCP.txt        #
 # pydantic_AI.txt             # TODO <·· very interesting
 # Agents/HF_smolagents.txt
 MCP.txt                       # OK, WiP
@@ -13,7 +13,6 @@ skills.txt                    # TODO
 google_ADK.txt                # TODO
 Koog_AI_Agents.txt            # TODO
 llama_index_AI_Agents.txt     # TODO
-claude_code.txt               # md OK. TODO
 local_ai.txt                  # TODO
 open_shell.txt                # TODO
 tigerfs.txt                   # TODO
@@ -21,6 +20,7 @@ Tabby_Copilot.txt             # TODO
 xata_psql.txt                 # TODO
 # ejemplo_asistente_minerales.txt # TODO
 ejemplo_asistente_minerales.txt
+CODING_ASSISTANTS/101.payload
 # 101_Reflexion_Language_Agents_With_Verbal_Reinforcement_Learning_2303.11366v4.pdf
 # agents
 # mlflow                      # https://mlflow.org/

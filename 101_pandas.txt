@@ -344,7 +344,7 @@ Drop duplicates of permuted multi-index
 [[pandas.pivot}]]
 
 
-[[{pandas.I/O,pandas.storage,data.sql,scalability.sqlite,PM.TODO]]
+[[{pandas.I/O,pandas.storage,data.structured.sql,scalability.sqlite,PM.TODO]]
 ## Fast Large Datasets with SQLite
 
 * Fast subsets of large datasets with Pandas and SQLite

@@ -22,7 +22,7 @@
 > introduced by letting unpredictable LLMs meddle in your workflow. For the sake 
 > of simplicity and robustness, it's advised to regularize towards not using any 
 > agentic behavior.
-  [[qa.101.dont's]]
+  [[qa.101,qa.dont's]]
 
 * An AI Agent can be described as an intelligent system designed to interact 
   with an environment. (self-driving car, chatbot, coding or research assistant, ...)
@@ -242,7 +242,7 @@ combinations according to the user's prompt goal or intermediate task.
   * Input comes from domain experts and business professionals who 
     understand the nuances of the tasks the agent is meant to 
     perform. (coming back to expert systems, but just for testing
-    performance -vs full training-)  [[qa.evaluation_sets]]
+    performance -vs full training-)  [[qa.evaluation]]
 * Guardrails: mechanisms designed to steer the agent away from potentially
   harmful paths by verifying the model's response **before being sent to users**.
   Examples:

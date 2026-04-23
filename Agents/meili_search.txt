@@ -8,6 +8,12 @@
 * Rust based.
 * Easy to install, deploy, and maintain [[PM.low_code]]
 
+* Acording to <https://dev.to/lincemathew/we-chose-meilisearch-over-10-other-search-engines-despite-a-major-drawback-7g8>
+  Meilisearch compares/competes with: ElasticSearch, PostgreSQL Full-Text Search (C) , Bleve (Go), Tantivy (Rust), ...<br/>
+  The article filters down to Meilisearch and Typesense as "finalists" [[doc_has.comparative]]
+  * Typesense.org describe the project as "Cutting-edge, in-memory search engine for mere mortals. Knowledge of rocket science optional."
+
+
 [[use_case.*]]
 Examples links at <https://github.com/meilisearch/meilisearch>:
 Movies           : An application to help you find streaming platforms to watch movies using hybrid search.
@@ -17,8 +23,6 @@ Home Booking     : A conversational search demo for finding holiday rentals usin
 Search Playground: An interactive playground to explore Meilisearch search features.
 Personalization  : A demo showcasing personalized search results tailored to individual users.
 SaaS             : Search for contacts, deals, and companies in this multi-tenant CRM application.
-
-[[use_case.*}]]
 
 Features:
 - Typo and misspellings tolerance

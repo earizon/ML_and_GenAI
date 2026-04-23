@@ -1,0 +1,5 @@
+[[{]]
+## OpenAI Codex Agent
+
+- Can be run as desktop app, embedded in editors and as terminal command line.
+[[}]]

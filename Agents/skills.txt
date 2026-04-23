@@ -1,8 +1,34 @@
 [[{agents.skills]]
 # Skills.md spec
 
-* Agent Skills format was originally developed by Anthropic, released as an 
-  open standard, and has been adopted by a growing number of agent products. 
+* Originally developed by Anthropic but portable to any other agent framework.
+* Main use-case: Define repeatable workflows (weekly reports, auto-triggered
+  QA procedures, ...)
+* Skills can be generic or specific to a project or organization (ex: 
+  standarized procedures,...). Example skills.
+  * `changelog/SKILLS.md`      : "here are the standarized formats we use, 
+     here's the important information topics we cover, this is the layout 
+     or structure expected, use a formal impersonal tone, here are the
+     topics that must not be included, ..." 
+  * `qa/SKILLS.md`             : standarized or repeatable Quality Assurance skills, linting,
+  * `market-analysis/SKILLS.md`: Weekly analysis of market.
+  * `campaign-briefs/SKILLS.md`: Common procedures to prepare a campaign.
+* TIP: skills directories use lowercase with hyphens -vs spaces- by convention ("Kebab case").
+* Most agents comes with pre-installed or "batteries-inside" skills.
+* Skills can be invoked in several ways.
+  1. Mention them explicetely in your prompt.
+  2. According to the skills open standard, agents use the skill description to 
+     decide when to call it in a process called progressive disclosure ... <br/>
+     **WARN**: But their judgment isn't always perfect, especially as the context
+     window gets larger. If you know you want a skill used, name tell it explicetely.
+  3. An skill can also be mentioned into another skill.
+* Sometimes skills can completely replace MCP servers, for example for small databases
+  we can be stored as `.../my_skill02/references/database.csv`  (versioned in git, ...)
+  removing the need for an MCP server querying an external database.
+  [[doc_has.comparative,agents.MCP]]
+
+
+* TIP: Many agents are moving from custom "/custom_command" to skills.
 
 * <https://agentskills.io/specification>
 
@@ -18,7 +44,7 @@
   |                           Project    <project>/.agents/skills/    Cross-client interoperability   (overrides any matching User skill)
   |                           Organi.    https://mycomp.net/skills/   Company wide skills
   |
-  |                                      ¹: Anthropic, VSCode, ...
+  |                                      ¹: .anthropic, .vscode, ...
   | my-skill01/
   |   ├ SKILL.md 
   |   │ ...
@@ -27,7 +53,7 @@
   |   │                        (<https://github.com/agentskills/agentskills/tree/main/skills-ref>)
   |   │                       $ skills-ref validate ./my-skill
   |   │
-  |   ├ SKILL.md          <·· Required: YAML frontmatter metadata + Markdown content.
+  |   ├ SKILL.md          <·· Only file required: YAML frontmatter metadata + Markdown content.
   |   │                       - metadata.name and metadata.description is used by agents at "startup" to discover 
   |   │                         each available skill, just enough to know when it might be relevant. (Discovery)
   |   │                       - QA: ~50-100 tokens in total for name + description metadata. [[qa.best_patterns]]
@@ -61,14 +87,22 @@
   |     │ name: pdf-proc                          <·· lowercase|numbers|hyphens. 64max length.
   |     │                                             Must not start or end with a hyphen (-)
   |     │                                             Must not contain consecutive hyphens (--)
-  |     │ description: |
-  |     │   Extracts text and tables from PDF files,
-  |     │   fills PDF forms, and merges multiple PDFs.
-  |     │   Use when working with PDF documents or
-  |     │   when the user mentions PDFs, forms, or
-  |     │   document extraction.                  <·· Should describe both what the skill does and **WHEN TO USE IT**
-  |     │                                             Should include specific keywords that help agents identify relevant tasks
+  |     │ 
+  |     │ description: |                          <·· Used by the Agent's LLM (or LLMs) for progressive disclosure (Added to
+  |     │   Extracts text and tables from PDF files,  prompt it will add ~100 tokens). It serves to LLM reasoning to known
+  |     │   fills PDF forms, and merge in one PDFs.   whether it is appropiate to use (the skill can also be explicetely 
+  |     │   Use when working with PDF documents or    specified in the PROMPT to force its use).
+  |     │   when the user mentions PDFs, forms, or    - Should describe both what the skill does and **WHEN TO USE IT**
+  |     │   document extraction.                      - specific keywords will help agents identify relevant tasks
+  |     │                                             
+  |     │                                             - Most implementations rely on the model's own judgment as the activation 
+  |     │                                               mechanism (vs hardcoded keyword or regex detection). 
+  |     │                                             - The (GPT) LLM models wil read the catalog injected in the prompt (by
+  |     │                                               the agents), decide a skill is relevant to the current task, and tell
+  |     │                                               the agent to "load" it in the next step.
+  |     │
   |     │ license: Apache-2.0                     <·· (opt) Keep short. Put details in LICENSE.txt if needed.
+  |     │
   |     │ compatibility: Requires bash,pdf2ps,... <·· (opt) Max 500 chars. Hints about requirements. Example:
   |     │                                              ex2: compatibility: Designed for Claude Code (or similar products)
   |     │                                              ex3: compatibility: Requires Python 3.14+ and uv
@@ -94,19 +128,15 @@
   |     └─────────────────────────────────────────
   ```
 
-## Agent's Catalog
-
-  For each "discovered" skill, agents will add them to an internal catalog, 
+- For each "discovered" skill, agents will add them to an internal catalog, 
   a "simple" database that registers the metadata.name, metadata.description and,
-  optionally, the path location of the SKILL.md file.
-
-  The catalog will end up being part of the prompt, adding around 50-100 tokens per skill.<br/>
-  Modern LLMs with "big" contexts will have no problems with Agent's catalog including dozens 
-  of skills.  [[doc_has.keypoint]]
-
-- Most probably it will end up being part of a system prompt, preceded by brief instructions
-  on how to use skills. (simplest approach, it works with any model that has access to a 
-  file-reading tool). The prompt could be something like:
+  optionally, the path location of the SKILL.md file. This catalog is then 
+  "injected" into the PROMPT, adding around 50-100 tokens per skill.<br/> 
+  Modern LLMs with "big" contexts will have no problems with Agent's catalog 
+  including dozens of skills.  [[agents.skills.catalog,doc_has.keypoint]]
+  - Most probably it will end up being part of a system prompt, preceded by brief instructions
+    on how to use skills. (simplest approach, it works with any model that has access to a 
+    file-reading tool). The prompt could be something like:
 
   ```
   |  Next skills provide guided instructions for requested tasks.
@@ -117,6 +147,7 @@
   |  When a skill references relative paths, resolve them against the skill's
   |  directory (the parent of SKILL.md) and use absolute paths in tool calls.
   ```
+
 - Alternatively, the catalog can be added into a dedicated skill-activation tool as part of 
   its description, keeping the system prompt clean. The tool description could be 
   something like:
@@ -127,9 +158,11 @@
   ```
 
 Agents must be able to exclude skills from catalog due to different reasons including:
+
 - System wide or explicit denial from user to use the skill.
 - compatibility does not match running context (model, external tools, ...)
 - ...
+
 In such scenario, the skill must be omited from the (system prompt) catalog.
 
 ## Skill activation
@@ -141,90 +174,63 @@ Either the (LLM) model or the user can decide to use the skill (tier 2 of progre
 
 ### Model-driven skill activation
 
-- Most implementations rely on the model's own judgment as the activation 
-  mechanism (vs hardcoded keyword or regex detection). 
-  - Model reads the catalog, decides a skill is relevant to the current task, and (the agent) loads it
-
 Two implementation patterns:
   ```
-  title: File-read tool activation (estandar agent tool)
-
-  paritipant "File-read Tool" as FRT
-  Agent -> LLM  : prompt01
-  LLM   -> Agent: (some result indicating the Agent to use SKILL.md)
-  Agent -> FRT  : Read SKILL.md
-  FRT   -> Agent: SKILL.md
-  Agent -> Agent: skill = Replace rerences in SKILL.md
-  Agent -> Agent: prompt02 = prompt02 + skill
-  Agent -> Agent: prompt02 = prompt02 + ... (update with KV memory, ...)
-  Agent -> LLM  : prompt02
-  ...
+  | title: File-read tool activation (standar agent tool)
+  |
+  | paritipant "File-read Tool" as FRT
+  | Agent -> LLM  : prompt01
+  | LLM   -> Agent: (some result indicating the Agent to use SKILL.md)
+  | Agent -> FRT  : Read SKILL.md
+  | FRT   -> Agent: SKILL.md
+  | Agent -> Agent: skill = Replace rerences in SKILL.md
+  | Agent -> Agent: prompt02 = prompt02 + skill
+  | Agent -> Agent: prompt02 = prompt02 + ... (update with KV memory, ...)
+  | Agent -> LLM  : prompt02
+  | ...
   ```
 
   ```
-  title: Dedicated tool activation: 
-
-  note over LLM,Agent: 
-    function activation_tool takes an skill's name and returnes the effective content.
-    required when the model can’t read files directly, and optional (but useful) even when it can. Advantages over raw file reads:
-  end note
-  ... -> Agent : Register activation_tool(skill_name) -> SKILL.md effective content
-
+  | title: Dedicated tool activation: 
+  |
+  | note over LLM,Agent: 
+  |   function activation_tool takes an skill's name and returnes the effective content.
+  |   required when the model can’t read files directly, and optional (but useful) even when it can. Advantages over raw file reads:
+  | end note
+  | ... -> Agent : Register activation_tool(skill_name) -> SKILL.md effective content
   ```
 
-Control what content is returned — e.g., strip YAML frontmatter or preserve it (see What the model receives below)
-Wrap content in structured tags for identification during context management
-List bundled resources (e.g., references/*) alongside the instructions
-Enforce permissions or prompt for user consent
-Track activation for analytics
-If you use a dedicated activation tool, constrain the name parameter to the set of valid skill names (e.g., as an enum in the tool schema). This prevents the model from hallucinating nonexistent skill names. If no skills are available, don’t register the tool at all.
-
-User-explicit activation
-Users should also be able to activate skills directly, without waiting for the model to decide. The most common pattern is a slash command or mention syntax (/skill-name or $skill-name) that the harness intercepts. The specific syntax is up to you — the key idea is that the harness handles the lookup and injection, so the model receives skill content without needing to take an activation action itself.
-An autocomplete widget (listing available skills as the user types) can also make this discoverable.
-
-What the model receives
-When a skill is activated, the model receives the skill’s instructions. Two options for what exactly that content looks like:
-Full file: The model sees the entire SKILL.md including YAML frontmatter. This is the natural outcome with file-read activation, where the model reads the raw file. It’s also a valid choice for dedicated tools. The frontmatter may contain fields useful at activation time — for example, compatibility notes environment requirements that could inform how the model executes the skill’s instructions.
-Body only (frontmatter stripped): The harness parses and removes the YAML frontmatter, returning only the markdown instructions. Among existing implementations with dedicated activation tools, most take this approach — stripping the frontmatter after extracting name and description during discovery.
-Both approaches work in practice.
-
-Structured wrapping
-If you use a dedicated activation tool, consider wrapping skill content in identifying tags. For example:
-<skill_content name="pdf-processing">
-# PDF Processing
-
-## When to use this skill
-Use this skill when the user needs to work with PDF files...
-
-[rest of SKILL.md body]
-
-Skill directory: /home/user/.agents/skills/pdf-processing
-Relative paths in this skill are relative to the skill directory.
-
-<skill_resources>
-  <file>scripts/extract.py</file>
-  <file>scripts/merge.py</file>
-  <file>references/pdf-spec-summary.md</file>
-</skill_resources>
-</skill_content>
-This has practical benefits:
-The model can clearly distinguish skill instructions from other conversation content
-The harness can identify skill content during context compaction (Step 5)
-Bundled resources are surfaced to the model without being eagerly loaded
-​
-Listing bundled resources
-When a dedicated activation tool returns skill content, it can also enumerate supporting files (scripts, references, assets) in the skill directory — but it should not eagerly read them. The model loads specific files on demand using its file-read tools when the skill’s instructions reference them.
-For large skill directories, consider capping the listing and noting that it may be incomplete.
-​
-Permission allowlisting
-If your agent has a permission system that gates file access, allowlist skill directories so the model can read bundled resources without triggering user confirmation prompts. Without this, every reference to a bundled script or reference file results in a permission dialog, breaking the flow for skills that include resources beyond the SKILL.md itself.
-​
+TIP: When the skill is used through a dedicated activation tool (vs enforced by user in prompt or discovered by the LLM)
+     consider wrapping skill content in identifying tags. For example:
+  ```
+  | <skill_content name="pdf-processing">
+  | # PDF Processing
+  | 
+  | ## When to use this skill
+  | Use this skill when the user needs to work with PDF files...
+  | 
+  | [rest of SKILL.md body]
+  | 
+  | Skill directory: /home/user/.agents/skills/pdf-processing
+  | Relative paths in this skill are relative to the skill directory.
+  | 
+  | <skill_resources>
+  |   <file>scripts/extract.py</file>
+  |   <file>scripts/merge.py</file>
+  |   <file>references/pdf-spec-summary.md</file>
+  | </skill_resources>
+  | </skill_content>
+  ```
+Tags benefits:
+- They allow the model to clearly distinguish skill instructions (vs conversation content)
+- "Surface" Bundled resources to the model without being eagerly loaded.
+- enhance context compaction (before sending to the model).
 
 
+[[{agents.skills,doc_has.catalog]]
 # https://skills.sh/
 
-* "Thousands" of ready to use skills.  [[PM.TODO]]
+* "Thousands" of ready to use skills for thousands of use cases (finance, physics, chemistry, code assistance, ...)
 
   ```
   | <https://skills.sh/>
@@ -245,21 +251,52 @@ If your agent has a permission system that gates file access, allowlist skill di
   | Skill                         Installs
   | ---------------------------   ------------------------------------
   | find-skills                   vercel-labs/skills
-  | vercel-react-best-practices   vercel-labs/agent-skills
-  | frontend-design               anthropics/skills
-  | web-design-guidelines         vercel-labs/agent-skills
-  | remotion-best-practices       remotion-dev/skills
-  | azure-ai                      microsoft/github-copilot-for-azure
-  | agent-browser                 vercel-labs/agent-browser
-  | azure-messaging               microsoft/github-copilot-for-azure
-  | skill-creator                 anthropics/skills
-  | azure-observability           microsoft/github-copilot-for-azure
-  | ai-image-generation           inferen-sh/skills
-  | microsoft-foundry             microsoft/azure-skills
-  | azure-hosted-copilot-sdk      microsoft/github-copilot-for-azure
-  | ai-video-generation           inferen-sh/skills
-  | inferen-sh/skills             azure-ai
+  | (lot of sofware and devops skills)
   | ...
   ```
+
+* Example skill for finances:
+  ```
+  | REF: <https://skills.sh/personamanagmentlayer/pcl/finance-expert>
+  |
+  | Expert guidance for financial systems, FinTech applications, banking platforms, and payment processing.
+  | 
+  | - Covers payment gateway integration (Stripe), open banking APIs (Plaid), and 
+  |   core banking concepts including PCI-DSS, SOX, and Basel III compliance
+  | - Includes practical code examples for payment processing, refunds, webhook 
+  |   handling, and bank account/transaction retrieval
+  | - Provides financial calculation utilities for compound interest, loan 
+  |   amortization, NPV, and ROI with proper Decimal precision
+  | - Addresses fraud detection using machine learning features, KYC/AML 
+  |   verification, and regulatory compliance patterns
+  | - Emphasizes security best practices: tokenization, encryption, audit trails, 
+  |   idempotency, and avoiding common anti-patterns like float-based money 
+  |   calculations
+  | 
+  | 
+  | Core Concepts:
+  | - Financial Systems
+  | - Core banking systems
+  | - Payment processing
+  | - Trading platforms
+  | - Risk management
+  | - Regulatory compliance (PCI-DSS, SOX, Basel III)
+  | - Financial reporting
+  | FinTech Stack:
+  | - Payment gateways (Stripe, PayPal, Square)
+  | - Banking APIs (Plaid, Yodlee)
+  | - Blockchain/crypto
+  | - Open Banking APIs
+  | - Mobile banking
+  | - Digital wallets
+  | - Key Challenges
+  | Security and fraud prevention:
+  | - Real-time processing
+  | - High availability (99.999%)
+  | - Regulatory compliance
+  | - Data privacy
+  | - Transaction accuracy
+  ```
+[[doc_has.catalog}]]
 
 [[agents.skills]]

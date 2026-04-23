@@ -1,4 +1,9 @@
 [[{PM.TODO]]
+
+[[{agents.101,qa.101]]
+And using sub-agents preserves the main agent's context window, rather than polluting it.
+[[agents.101}]]
+
 [[{]]
 ## ML 101 Agent Agent Definition Language
 
@@ -102,5 +107,43 @@ summarization, question answering, and text translation.
 
 These estimators use the provided data as-is, without any additional 
 preprocessing, or constructing prompts.
+[[}]]
+
+[[{]]
+The course uses Claude Code in the terminal inside the IDE, but again — any coding agent will do. Codex CLI, Cursor's agent, Gemini CLI, a local model in Zed 
+[[}]]
+
+[[{]]
+Claude Code "AskUserQuestionTool": 
+https://code.claude.com/docs/en/agent-sdk/user-input#question-format
+[[}]]
+
+
+[[{mlops.monitoring.agents,mlops.101]]
+## abtop "top for claude code"
+
+abtop auto-discovers every running Claude Code and Codex CLI session and puts 
+the fleet on one Ratatui screen … tokens, rate limits, context window fill, 
+orphan ports, subagent trees. Session-scoped tools like Claudoscope watch one 
+run. abtop watches the operator running ten. No API keys, no auth … reads 
+local session files only. Rust, MIT, tmux-integrated. The gap was always 
+fleet-level. #abtop #agentObservability #claudeCode #codingAgentsk
+[[}]]
+
+[[{]]
+## Planner
+
+(Extracted from the tree-of-thought paper
+Program-guided LLM generation. Our proposal is also related to recent 
+advancements that organize LM’s behavior with systematic procedures (Jung et 
+al., 2022; Zhu et al., 2022; Creswell and Shanahan, 2022; Zhou et al., 2022) or 
+symbolic program guidance. For example, Schlag et al. (2023) embeds LMs in an 
+algorithmic search procedure to help solve problems like question answering 
+step-by-step, in which the search trees are expanded by relevant paragraphs 
+that might provide answers. This approach however differs from ours in that 
+trees are expanded by sampling external paragraphs instead of the LM’s own 
+thoughts, and there is no reflection or voting steps. Another approach, LLM+P 
+(Liu et al., 2023), goes one step further and delegates the actual planning 
+process to a classical planner.
 [[}]]
 

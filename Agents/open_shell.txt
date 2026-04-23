@@ -29,5 +29,4 @@
   $ claude                   # Claude Code, Codex, OpenCode, and OpenClaw already sopo
   ```
 
-
 [[agents.sandbox}]]

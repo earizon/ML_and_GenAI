@@ -1,0 +1,31 @@
+[[{agents.tool.tree-sitter,use_case.code_assistant]]
+
+## Tree-sitter
+
+* <https://tree-sitter.github.io/tree-sitter/#introduction>
+
+- Tree-sitter is a parser generator tool and an incremental parsing library. 
+- It can build a concrete syntax tree for a source file and efficiently update the 
+  syntax tree as the source file is edited. 
+- Widely used by code-assistants.
+
+- Tree-sitter aims to be:
+  - General enough to parse any programming language.
+  - Fast enough to parse on every keystroke in a text editor.
+  - Robust enough to provide useful results even in the presence of syntax errors.
+  - Dependency-free so that the runtime library (which is written in pure C11) 
+    can be embedded in any application.
+
+Language Bindings:
+
+There are bindings that allow Tree-sitter to be used from the following languages:
+
+- Official: C# Go Haskell Java (JDK 22+) JavaScript (Node.js) JavaScript (Wasm) Kotlin Python Rust Swift Zig
+- Third-party: C# (.NET) C++ Crystal D Delphi ELisp Go Guile Janet Java (JDK 8+) Java (JDK 11+) Julia Lua Lua OCaml
+  Odin Perl Pharo PHP R Ruby
+
+- Parsers: Agda Bash C C++ C# CSS ERB / EJS Go Haskell HTML Java JavaScript JSDoc JSON Julia
+  OCaml PHP Python Regex Ruby Rust Scala TypeScript Verilog
+
+A list of known parsers can be found in the wiki.
+[[agents.tool.tree-sitter}]]

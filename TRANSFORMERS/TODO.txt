@@ -181,4 +181,10 @@ Mistral AI’s 24-billion-parameter Mistral-3 model for enhanced
 vision-language understanding.
 [[}]]
 
+[[{]]
+## Recurrent-Depth Transformer (RDT)
+
+[[}]]
+
+
 [[PM.TODO}]]

@@ -1,0 +1,5 @@
+[[{agents.local_AI]]
+# Goose
+
+* <https://github.com/aaif-goose/goose>
+[[agents.local_AI}]]

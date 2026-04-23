@@ -435,3 +435,36 @@ firms had risen from an average of three terabytes in 2018 to 26 terabytes in
 ... And this is what AI is being trained on.
 
 [[101}]]
+
+[[{101]]
+## Human Cognition "dual process"
+
+Extracted from <https://arxiv.org/pdf/2305.10601v2>
+
+  Research on (human cognition) “dual process” models suggests that people 
+have two modes in which they engage with decisions 
+- a fast, automatic, unconscious mode (“System 1”) and
+- a slow, deliberate, conscious mode (“System 2”) 
+  Sloman (1996); Stanovich (1999); Kahneman et al. (2002); Kahneman (2011).
+
+ These two modes have previously been connected to a variety of 
+mathematical models used in machine learning. 
+[[101}]]
+
+[[{]]
+## About Consciousness
+
+C&P from <https://habr.com/ru/articles/1010934/>
+
+P.S.: Consciousness did not emerge to fight the environment. Consciousness is 
+the only way to survive in a struggle against another consciousness. If someone 
+can predict you — you are dead. The only answer is to predict them first.
+
+P.P.S.: Consciousness helps not only in struggle but also in cooperation, 
+trust, language, and the collective creation of meaning. In other words, it 
+could have emerged not only as a weapon against another consciousness but as a 
+bridge between them. © Commenter GEO from Telegram.
+
+> Which of these postscripts is more accurate is hard to say. I hope it’s the second one.
+
+[[}]]

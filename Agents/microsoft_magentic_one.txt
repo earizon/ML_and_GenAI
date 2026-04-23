@@ -1,0 +1,60 @@
+[[{agents.magentic-one]]
+# Microsoft Research Magentic One
+
+* REF: <https://www.microsoft.com/en-us/research/articles/magentic-one-a-generalist-multi-agent-system-for-solving-complex-tasks/>
+
+
+- **WARN**: While Magentic-One shows strong generalist capabilities, it’s still far 
+  from human-level performance and can make mistakes. 
+- **WARN**: as agentic systems grow more powerful, their risks—like taking undesirable actions or 
+  enabling malicious use-cases—can also increase. (2024-11)
+
+- Generalist Multi-Agent System for Solving Complex Tasks. ... 
+  """... It's the shift from summarizing research papers to actively searching for 
+  and organizing relevant studies in a comprehensive literature review. ...""". [[use_case.research]]<br/>
+  Example "complex" tasks covered:
+  - """find and export missing citations of paper"""
+  - """describe trends in S&P 500"""
+  - """"""
+  - """"""
+
+- Built on top of Microsoft Autogen (<https://github.com/microsoft/autogen>), the programatic framework for agentic AI.
+
+- Modern AI agents, capable of perceiving, reasoning, and acting on our behalf, 
+  are demonstrating remarkable performance in areas such as software engineering, 
+  data analysis, scientific research, and web navigation. Still, to fully realize 
+  the long-held vision of agentic systems that can enhance our productivity and 
+  transform our lives, we need advances in generalist agentic systems. These 
+  systems must reliably complete complex, multi-step tasks across a wide range of 
+  scenarios people encounter in their daily lives.
+
+- Magentic-Oneemploys a multi-agent architecture where a lead agent, the Orchestrator,
+  directs four other agents to solve tasks. [[agents.swarm]]
+  - The Orchestrator:
+    - plans
+    - tracks progress.
+    - re-plans to recover from errors [[qa.error_control]]
+  - specialized agents:
+    - perform tasks (operating a web browser, handling local files, writing/executing code )
+
+- Magentic-One achieves statistically competitive performance to the 
+  state-of-the-art on multiple challenging agentic benchmarks, without requiring 
+  modifications to its core capabilities or architecture.
+
+- Our multi-agent design offers numerous advantages over monolithic 
+  single-agent systems.
+
+- By encapsulating distinct skills in separate agents, it 
+  simplifies development and reuse, similar to object-oriented programming.  [[agents.skills,architecture.microservice]]
+
+- New agents can be added or removed in a "plug-and-play".
+
+
+## AutoGenBench
+
+... we’re also releasing an agentic evaluation tool with built-in controls
+for repetition and isolation to rigorously test agentic benchmarks and tasks
+while minimizing undesirable side-effects. [[qa.evaluation]]
+
+
+[[agents.magentic_one}]]

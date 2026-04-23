@@ -1,0 +1,165 @@
+# Spec Driven development (SDD)
+
+
+Problem: Vibe coding gives quick results but it doesn't scale to a large ongoing project.
+
+Solution?: Spec-Driven Development tries to bring back engineering to "prompt-guided" software development.
+
+
+Core idea: Maintain an evolving specification as a set of "markdown" files (sort of "big context")
+used as Agent context input and handling permanent (permanent == sort of "system prompt" like) technical artifact.
+
+- The Specification in SDD writes down the "what and why", decoupled from the Implementation, ("the how")
+- It defines the set of contracts between the humans, and humans and agents.
+
+  ```
+  | INTENTIONS    ···············>  SPECIFICATION  ················> IMPLEMENTATION
+  | AND INTERESTS └──────┬───────┘    ^            └───────┬───────┘
+  |                      ·            ·                    ·    
+  |              humans with the      ·              Code assitants with
+  |              help of Agent/s.     ·              human supervision
+  |              (engineers,...)      ·
+  |                                   ·
+  |                                   specs/mission.md
+  |                                   specs/tech-stack.md
+  |                                   specs/roadmap.md
+  |                                   specs/spec_xxx_.../plan.md
+  |                                   specs/spec_xxx_.../requirements.md 
+  |                                   specs/spec_xxx_.../validation.md
+  |                                   skills/...
+  |                                   ... (backlog.md, ...)
+  ```
+
+- SSD main Benefits:
+  1. Get back in control of large code changes with small changes to the spec.
+  2. Specs eliminate the context decay problem (typical in multi-turn agent sessions).<br/>
+     - Specs ("core context") persist between sessions and even agents.
+       Can we see the specs as a "system-book" vs a "system-prompt"?
+  3. Improve intent fidelity. Before the agent starts generating code, the Specs
+     force humans to:
+     - to define the problem.
+     - success criteria.
+     - constraints.
+     - user flows.
+     - ...
+
+## Workflow overview
+
+
+up front for the project, then for each feature, getting better as you go.
+
+SDD Workflow: humans help agent with the best quality context ("system book" vs "system prompt"):
+1. decisions about the project.
+2. details about each feature.
+
+TIP: treat your agent as a highly capable pair programmer to balance the right level of detail.
+- Provide "Lots" of context about the Goals, mission, target audience and constraints.
+  and less about low-level code decisions the agent can figure out on its own.
+
+<!-- { -->
+  ```
+
+  |    ┌──────────┬─ opinionated way to formalize a project. It "replaces" the
+  |    ·          ·  `./agents.md` with a more structured context that is also agent agnostic
+  |    v          v
+  | 1) Constitution : Define ("Capture") agreement on key decisions between the humans and humans and agents.
+  |    ------------   
+  |    + specs/mission.md : (stakeholders) explains the why. (the main narrative of the book)
+  |    · # ProjectABC Mission
+  |    · ## Overview
+  |    · ## Audiences
+  |    · ## Motivation
+  |    · ## scope
+  |    · ## Business Flows (Bird's eye view).
+  |         Ej: Client patient entry flow
+  |         1. triage: given some patient's symtoms the LLM assign severity + routing.
+  |         2. Diagnosis:
+  |         3. Treatment:
+  |         4. Follow-up:
+  |         5. Resolved|Recurring|Chronic:
+  |    · - ...
+  |    + specs/tech-stack.md:  (engineering team)
+  |    · ## State/s machines (if it applies)
+  |    · ### State Machine "Enums".
+  |    · ## system design (REST API)
+  |    · ### Main API description (GET/POST/PUT/HEAD/DELETE endpoints) [[architecture.REST_API]]
+  |    · ## data architecture
+  |    · ## persistence and persistence versioning
+  |    · ## "hardcoded data" (from stackholder and/or business expert and/or hardcoded data)
+  |    · ## security stack
+  |    · ## Error Handling
+  |    · ## Null safety
+  |    · ## Main "UML" entities       [[data.structured]]
+  |    · ## ORM mappings (if appropiate)
+  |    · ## Subagents and agent orchestration?
+  |    · ## LLM models to use for each subagent if appropiate
+  |
+  |    · ## ...
+  |    · - common understanding of development.
+  |    · - deployment technologies.
+  |    · - constraints.
+  | 
+  | TIP: The code assistant itself can (must) be used to feedback the 'mission.md'.  Ex:
+  |      PROMPT: """Identify paragraphs in mission.md that needs further details. 
+  |                 Use AskUserQuestion tool """
+  |                     └─────────────┴─  This tool exists only in Claude Code agent.
+  |                                       Other code agents will use similar stuff.
+  |
+  | TIP: Use a "fresh agent" (clear memory) for each file.
+  |    + specs/roadmap.md: **living document** formed by an ordered sequence of phases, 
+  |      ## phase01 - Skeleton App
+  |        (write each feature as a list element)
+  |      - Confirm nvm is installed or stop with error.
+  |      - Confirm node version 22.22 is installed or stop with error.
+  |      - Install and configure 'tsx' dev server
+  |      - Add GET /health route returning 200.
+  |      - Create functional test checking the /health endpoint
+  |      - write/touch phase01.done file when finished.
+  |      
+  |      ## phase02 - ...
+  |      - feature spec 02.01
+  |
+  |    + specs/YYYY-mm-dd-feature-name/plan.md        : 
+  |    + specs/YYYY-mm-dd-feature-name/requirements.md: 
+  |    + specs/YYYY-mm-dd-feature-name/validation.md  : 
+  |      └───────────────────┬────────────────────────┘
+  |      (Optional) We can use the code assistante to help to create phase01/phase02/... 
+  |                 specs with a prompt like:
+  |      """
+  |      | Fin the next phase on specs/roadmap.md,
+  |      | make a new branch, ask me about the feature spec:
+  |      | CREATE:
+  |      | - A new directory specs/YYYY-mm-dd-feature-name for the new feature.
+  |      | - In there:
+  |      |   - `plan.md`        <·· Plan  will be in practice a series of numbered task groups.
+  |      |                          TIP: Add small changes during replanning after
+  |      |                               validating the feature output and detecting 
+  |      |                               any small missing feature requiring changes.
+  |      |   - `requirements.md`<·· for the scope, decisions and context.
+  |      |   - `validation.md`  <·· to check that the implementation succeeded and can be merged.
+  |      """
+  |      Then we trigger the (agentic) code implementation like:
+  |      """
+  |      /clear <·· "reset memory" (Anthropic Client, it applies to other agents)
+  |      """
+  |
+  |      """
+  |      Implement the task group described in specs/YYYY-mm-dd  <·· (or just a given task in the group)
+  |      """
+  |
+  |  STEP 2) plan the feature, implement it.
+  |
+  |  STEP 3) validate the result.
+  |
+  |  STEP 4) Replanning phase.
+  |     4.1) Revise Constitution.
+  |     4.2) update Roadmap
+  |   In feature phase and the replanning phases, **YOU STEER THE AGENT**.
+  |
+  | STEP "BACKGROUP") Keep a backlog of tasks.
+  | backlog.md  <·· backlog of research (tel agent to write a report it, ...)
+  |                 schedule to periodically tell a new fresh agent (new empty context "memory")
+  |                 to do research on the roadmap with a link to the backlog file.
+  |                 (and of course, we can write yet a new skill to automate your research).
+  ```
+<!-- } -->

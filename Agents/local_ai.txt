@@ -151,12 +151,4 @@ C&P from <https://localai.io/model-compatibility/>
   - Quantization: 4-bit, 5-bit, 8-bit integer quantization support
   - Mixed Precision: F16/F32 mixed precision support
 
-
- 
- 
- 
-  ```
-
-
-
-[[{101.local_AI,agents.local_AI}]]
+[[101.local_AI,agents.local_AI}]]

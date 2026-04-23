@@ -1,3 +1,24 @@
+[[{101]]
+## reasoning vs thinking
+
+- To think is a wider term compared to reasoning: It refers to any mental 
+  activity, from imagining, remembering, reflecting, having new ideas or abstract 
+  some concept.
+
+- To reason is just a subset of thinking: It implies a logical and structured 
+  process, connecting ideas to arrive to a conclusion. It is more tied to logic, 
+  arguments and coherence.
+
+[[101}]]
+
+[[{]]
+This massive amount of generated information by Agents can cause AI fatigue and exhaustion to the human in the loop (HITL).
+
+- Break flow into isolated steps or features can help to manage AI fatigue. [[qa.101,qa.best_patterns]]
+
+[[PM.RISK.AI_fatigue,PM.HITL]]
+[[}]]
+
 [[{PM.TODO]]
 # Pool of unordered notes 
 
@@ -2681,31 +2702,6 @@ The idea is to link 2 models:
 - The second one, a "big" LLM to handle the human language interaction.
 [[LLM.101.Blade}]]
 
-[[{]]
-## Tree-sitter
-https://tree-sitter.github.io/tree-sitter/#introduction
-
-Tree-sitter is a parser generator tool and an incremental parsing library. It can build a concrete syntax tree for a source file and efficiently update the syntax tree as the source file is edited. Tree-sitter aims to be:
-
-General enough to parse any programming language
-Fast enough to parse on every keystroke in a text editor
-Robust enough to provide useful results even in the presence of syntax errors
-Dependency-free so that the runtime library (which is written in pure C11) can be embedded in any application
-
-Language Bindings
-
-There are bindings that allow Tree-sitter to be used from the following languages:
-
-- Official: C# Go Haskell Java (JDK 22+) JavaScript (Node.js) JavaScript (Wasm) Kotlin Python Rust Swift Zig
-- Third-party: C# (.NET) C++ Crystal D Delphi ELisp Go Guile Janet Java (JDK 8+) Java (JDK 11+) Julia Lua Lua OCaml
-  Odin Perl Pharo PHP R Ruby
-
-- Parsers: Agda Bash C C++ C# CSS ERB / EJS Go Haskell HTML Java JavaScript JSDoc JSON Julia
-  OCaml PHP Python Regex Ruby Rust Scala TypeScript Verilog
-
-A list of known parsers can be found in the wiki.
-[[}]]
-
 [[{scalability.algorithm]]
 ## Addition is All You Need for Energy-efficient Language Models
 
@@ -3466,4 +3462,74 @@ Termux) and Raspberry PI).
 * <https://github.com/NVIDIA/Megatron-LM>: Ongoing research training transformer models at scale
 [[}]]
 
+[[{]]
+- What's great about LoRA:
+  - It beats other adaptation methods like adapters and prefix-tuning. [[doc_has.comparative]]
+  - It's like getting great results with fewer moving parts.
+
+[[}]]
+
+[[{architecture.PRU]]
+## Pyramidal Recurrent Unit for Language Modeling
+
+* <https://aclanthology.org/D18-1491/>
+Sachin Mehta, Rik Koncel-Kedziorski, Mohammad Rastegari, Hannaneh Hajishirzi
+
+LSTMs are powerful tools for modeling contextual information.
+  However, modeling contexts in very high dimensional space can
+lead to poor generalizability. 
+We introduce the Pyramidal Recurrent Unit (PRU), which enables learning
+representations in high dimensional space with more generalization power 
+and fewer parameters.
+
+ PRUs replace the linear transformation in LSTMs with more sophisticated
+interactions such as pyramidal or grouped linear transformations.
+
+ This architecture gives strong results on word-level language modeling while 
+reducing parameters significantly. 
+
+In particular, PRU improves the perplexity of a recent state-of-the-art
+language model by up to 1.3 points while learning 15-20% fewer parameters. [[qa.perplexity]]
+
+ For similar number of model parameters, PRU outperforms all 
+previous RNN models that exploit different gating mechanisms and 
+transformations.  [[architecture.RNN]]
+
+  We provide a detailed examination of the PRU and its behavior 
+on the language modeling tasks. Our code is open-source and available at 
+https://sacmehta.github.io/PRU/.
+[[architecture.PRU}]]
+
+[[{architecture.REST]]
+## Ollama looks to be just an opinionated REST API
+
+* according to <https://github.com/djcopley/ShellOracle/tree/main/src/shelloracle/providers>
+  Ollama "competes" with REST APIs from Google, DeppSeek, LocalAI, OpenAI, openai_compat, XAI
+
+
+[[architecture.REST}]]
+
+[[{local_ai]]
+## VRAM Calculator for Local AI
+
+(Post by André Lindenberg)
+
+Running open-weight models locally still starts with napkin math. Will this fit 
+in my VRAM? The VRAM Calculator by apxml replaces the guesswork. Pick a model, 
+set quantization (FP16, INT8, INT4), choose your GPU or Apple Silicon, and get 
+an exact breakdown: weights, KV cache, activations, optimizer states. Covers 
+inference, LoRA, QLoRA, multi-GPU, even cost projections. One form, no more OOM 
+surprises. [[hardware.*,scalability.quantization]]
+[[local_ai}]]
+
+[[{use_case.documentation,use_case.workflow_optimization]]
+## Scribe.com
+
+- Instantly Capture and optimize web-browser based workflows.
+- Browser extension that will observe your workflow 
+  and automatically generate a guide with the help of AI.
+[[use_case.documentation}]]
+
 [[PM.TODO}]]
+
+

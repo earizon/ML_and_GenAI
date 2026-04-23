@@ -7,6 +7,8 @@
 executable. With Spec Kit, transform your ideas into working code using 
 AI-powered specification-driven development.
 
+- Another Spec Driven Development SDD alternative is OpenSpec, from Fission AI. 
+
   ```
   | .github/instructions
   | 00-migration-overview.instructions.md
@@ -44,4 +46,3 @@ Alternatives include:
   - Very interesting alternative to Spec-Kit when using modern code.
   - Worst to migrate "old" code.
 [[use_case.code_assistant}]]
-
