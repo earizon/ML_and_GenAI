@@ -1,17 +1,6 @@
 [[{PM.TODO]]
 # Pool of unordered notes 
 
-<!--
-- Move and remove notes.txt
-- retag: training.finetunning training.llm_finetunning (it does not apply outside LLM'
-- Clean/Reorder/Complete ./101.txt
-- PyTorch vs GPTQ vs AWQ vs ...: (Check if the compartive makes sense)
-- Recheck local_IA tags
-- Remove any tag prefixed like ml. ...
-- Review tag GPT for architecture. It must be Autoregressive Transformer Language Model (ATLM)
-- move numpy dev_stack.numpy
-- Review *vector*db
--->
 
 [[{101.*,doc_has.tutorial]]
 ## ML Papers Explained
@@ -792,48 +781,46 @@ bien avoir en tête ces 3 chiffres suivant:
   | 20% pour construire un Datacenter?
   ```
 
-¹ Les générations de GPUs actuellement disponibles sur le marché permettent
-de faire l'entraînement sur environ 100K GPU en fonctionnant ensemble. **Le
-facteur limitant est la distance entre les 2 GPUs les plus éloignés
-physiquement**:
+¹ The generations of GPUs currently available on the market allow
+training on approximately 100K GPUs working together. **The
+limiting factor is the distance between the two most physically distant GPUs:**
 
-- à partir d'un certain nombre de GPU connectés ensemble, la distance fait
-ralentir le fonctionnement de l'ensemble de GPUs.[[doc_has.keypoint]]
+  Beyond a certain number of GPUs connected together, the distance slows down 
+the operation of the entire GPU system.  [[doc_has.keypoint]]
 
- C'est pourquoi pour le besoin de l'entrainement, une nouvelle génération de
-GPUs arrive sur le marché: les superchip:<br/>
- Au lieu d'avoir des dizaines de GPU indépendants que vous connectez en suite ensemble,
-chaque superchip regroupe une dizaines de GPUs sur une seule carte.
+  This is why, for training purposes, a new generation of
+GPUs is coming to market: superchips:<br/>
+Instead of having dozens of independent GPUs that you then connect together,
+each superchip groups about ten GPUs onto a single card.
 
- Bravo ! Vous avez réduit la distance entre les GPUs et vous pouvez connecter
-désormais 10 fois plus de GPUs ensemble sans ralentir le tout.
+  Bravo ! You have reduced the distance between the GPUs and you can now connect
+10 times more GPUs together without slowing everything down.
 
- En revanche, vous avez de nouveaux défis à résoudre:
 
- comment distribuer l'énergie et refroidir une infrastructure 10 fois plus
-dense Comment vous procurer une source d'énergie de 1GW et comment assurer sa
-redondance?
+However, you have new challenges to solve:
 
- Pour héberger la puissance de calcul dans un Datacenter, on utilise les baies
-aka les racks, qui est une sorte d'armoire de:
+- How to distribute power and cool an infrastructure 10 times denser? How to 
+  obtain a 1GW power source and ensure its redundancy?
+
+  To house computing power in a data center, we use racks, which are a type of cabinet:
 - 0,6m de large.
 - 1m de profondeur.
 - 2.5m de hauteur.
 
- Chaque baie est alimentée avec environ 20KW de puissance électrique. Pour la
-refroidir, on utilise de l'air frais qu'on pousse à travers la baie Si on veut
-utiliser plus que 20KW dans une baie, l'air ne suffit pas pour la refroidir. Il
-faut passer en watercooling. C'est là qu'on commence à parler de la nouvelle
-génération de Datacenter et dans certains cas on parle de 1GW.
+- Each rack is powered by approximately 20kW of electrical power. To cool it, 
+we use fresh air that is forced through the rack. If we want to use more than 
+20kW in a rack, air alone is insufficient for cooling. We need to switch to 
+water cooling. This is where we start talking about the new generation of data 
+centers, and in some cases, we're talking about 1GW.
 
- En effet, pour héberger les superchip, on parle désormais de baies à 120KW
-voir meme on spécule sur 240KW par baie et un système de watercooling pour
-capturer et extraire toute cette chaleur.
+- Indeed, to house superchips, we're now talking about 120kW racks, or even 
+speculating about 240kW per rack, and a water-cooling system to capture and 
+extract all that heat.
 
- C'est totalement nouveau par la puissance par baie mais aussi par ce système
-de refroidissement watercooling at scales.
+- This is completely new, not only in terms of power per rack but also in terms 
+of this water-cooling system at scale.
 
- Voilà pourquoi ce genre de Datacenter n'existent pas et donc faut les construire 1/3 [[year.2025]]
+That's why these kinds of data centers don't exist yet, and therefore need to be built. [[PM.year.2025]]
 [[hardware.101}]]
 
 [[{hardware.101,mlops.deployment]]
@@ -1094,4 +1081,29 @@ surprises. [[hardware.*,scalability.quantization]]
 [[use_case.documentation}]]
 
 [[PM.TODO}]]
+
+[[{PM.price.free_tier,mlops.routers]]
+## OpenRouter Free inference
+
+* <https://openrouter.ai/openrouter/free>
+
+- openrouter/free is a router that selects free models at random from the models 
+  available on OpenRouter.  (1Millon tokens input/output)
+
+- Context window: 200.000 tokens 
+
+- The router smartly filters for models that support 
+  features needed for your request such as image understanding, tool calling, 
+  structured outputs and more.  It allows also to filter by suported parameters 
+  like tools, reasoning, structured_outputs o response_format.
+
+- OpenRouter supports reasoning-enabled models that can show their step-by-step 
+  thinking process. 
+
+- **WARN**: Result can depend in a changing list of promotional models.
+
+- **WARN**: Prompts can be registered for internal training. No privacy is guaranteed.
+
+[[PM.price.free_tier}]]
+
 

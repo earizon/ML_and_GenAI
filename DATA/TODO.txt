@@ -230,3 +230,9 @@ multiple use cases and areas including:
 - Business Intelligence (Dashboarding)
 - ... many more.
 [[}]]
+
+[[{]]
+## ggsql: sql "syntax extension" to create charts and graphics
+
+* <https://ggsql.org/>
+[[}]]

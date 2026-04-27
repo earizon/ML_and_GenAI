@@ -3,7 +3,6 @@
 
 - Claude 4 Code Agent is based in Antrophic Claude
 
-
 C&P: <https://www.infoq.com/news/2025/06/anthropic-claude-4/>
 """ This is the first time I'm able to vibe code an app without major manual 
   interventions at every step. Not saying it's perfect, or that I'd necessarily 
@@ -253,5 +252,9 @@ session starts with a working app. [[doc_has.keypoint]]
 
 
 [[agents.3-Agent}]]
+
+## skills by matA
+
+* <https://github.com/mattpocock/skills> (25.4 stars in github)
 
 [[agents.claude_code}]]

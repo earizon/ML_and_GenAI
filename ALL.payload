@@ -4,7 +4,6 @@ Agents/ALL.payload
 DATA/ALL.payload
 RAG/ALL.payload
 MLOps/ALL.payload
-anthropic.md                         # ???
 # mistral.md                           # ???
 OpenVINO.txt
 PROMPTING/ALL.payload
@@ -35,7 +34,6 @@ TODO.txt                               # ???
 # Orange.txt                           # ??? 
 # ORTools.txt                          # ??? 
 # PyCaret.txt                          # ??? 
-# pytables.txt                         # ??? 
 # pytorch.txt                          # ??? 
 # rlang.txt                            # ??? 
 # scikit_learn.txt                     # ??? 

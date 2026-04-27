@@ -1,0 +1,46 @@
+[[{dev_stack.antropic,mlops.managed_agents]]
+
+# Antropic
+
+## Antropic Managed Agents for Claude platform
+
+* <https://www.infoq.com/news/2026/04/anthropic-managed-agents/>
+
+At a high level, Anthropic separates agent logic from execution infrastructure. 
+
+.... a managed execution layer designed to support the development and 
+operation of agent-based workflows. The capability allows developers to define 
+agent behavior, tools, and constraints while delegating runtime 
+responsibilities such as orchestration, sandboxing, session state management, 
+credential handling, and persistence to the platform
+... observability for debugging and auditing.
+ [[security.sandbox,mlops.orchestration,security.AAA,PM.low_code,persistence.*,mlops.observability]]
+
+The release targets production use cases where agents execute long-running, 
+multi-step workflows involving external tools, error recovery, and continuity 
+across sessions. [[qa.error_control]]
+
+...  Rather than requiring teams to build and maintain custom 
+infrastructure for these concerns, Managed Agents expose APIs that standardize 
+the deployment and execution of agent systems. [[mlops.101]]
+
+ Context management remains a consideration in long-running workflows, 
+where systems determine what information to retain, summarize, or externalize 
+beyond model context limits.
+
+Radhika Menon, senior director AI at NTT DATA, described in linked in post:
+
+All the infrastructure complexity that used to take months is now native to the 
+platform. At 8 cents per session hour, you go from idea to production in days 
+instead of months. [[PM.low_code,PM.price.8cents/hour]]
+
+Other practitioners have raised concerns ... :
+
+If the intention is to become a platform, the trajectory definition needs to be 
+open source, and proposing a public open standard. But from what I read, this 
+is a lock in into their SDK and their format. [[PM.RISK.VENDOR_LOCKIN]]
+
+...  Irreversible decisions to selectively retain or discard context can 
+lead to failures [[PM.RISK]]
+
+[[dev_stack.antropic}]]

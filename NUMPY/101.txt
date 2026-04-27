@@ -1,4 +1,4 @@
-[[{numpy.101]]
+[[{dev_stack.numpy.101]]
 # NumPY SUMMARY 
 
 [[{doc_has.comparative.benchmark]]
@@ -10,7 +10,7 @@ NOTE: NumPy has become an API
   <https://www.linkedin.com/feed/update/urn:li:activity:7417144051415588864/>
   ```
   | by Dávid IsztlDávid
-  | I replaced [[NumPy]] with [[PyTorch]] in my daily numerical code.
+  | I replaced [[dev_stack.NumPy]] with [[dev_stack.PyTorch]] in my daily numerical code.
   | (Benchmarked on an RTX PRO 6000 (Blackwell))
   |
   | FFT                           : 1700× faster.
@@ -193,7 +193,7 @@ NOTE: NumPy has become an API
   | np.intersect1d    #
   | np.diff1d         #
   |
-  | # NUMPY READ/WRITE FILES  [[numpy.I/O]] -----------------------------------
+  | # NUMPY READ/WRITE FILES  [[dev_stack.numpy.I/O]] --------------------------
   |
   | ndA=np.random.randint(20,30,size=(10,10))   # <- Create array
   | ...
@@ -237,9 +237,7 @@ NOTE: NumPy has become an API
   |   - Distributions
   |   - Random Generator.
   | [[}]]
-[[numpy.101}]]
-
-
+[[dev_stack.numpy}]]
 
 [[{PM.whats_new,PM.TODO]]
 # Numpy What's new
@@ -250,7 +248,7 @@ NOTE: NumPy has become an API
 
 [[PM.whats_new}]]
 
-[[{numpy.joblib,architecture.batch,scalability.joblib,]]
+[[{dev_stack.numpy.joblib,architecture.batch,scalability.joblib,]]
 ## Joblib: running Python functions as pipeline jobs
 
 * <https://joblib.readthedocs.io/en/stable/>
@@ -259,7 +257,7 @@ NOTE: NumPy has become an API
   * transparent disk-caching of functions and lazy re-evaluation (memoize pattern)
   * easy simple parallel computing [[scalability.joblib]]
 * optimized to be fast and robust on large data with specific optimizations for **numpy arrays**.
-[[numpy.joblib}]]
+[[dev_stack.numpy.joblib}]]
 
 [[{PM.TODO]]
 ## TOP NumPy question @ StackOverflow
@@ -269,4 +267,4 @@ NOTE: NumPy has become an API
 
 
 
-[[numpy.101}]]
+[[dev_stack.numpy.101}]]

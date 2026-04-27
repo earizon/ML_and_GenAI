@@ -21,8 +21,7 @@
 ## Yan André Lecun (Le Cun): Considered as one of th inventors of deep learning.
 
 - Turing Price 2018 shared with Geoffrey Hinton and Yoshua Bengio.
-- Who invented backpropagation [[training.backpropagation]]
-
+- Who invented back propagation [[training.back_propagation]]
 
 ## Yoshua Bengio: (Turing Price 2018).  Founder and director of the Quebec Institut "Mila".
 

@@ -272,3 +272,16 @@ loading an image or a draft.
   - chats.
   - ...
 [[use_case.CODING_ASSISTANT}]]
+
+[[{security.privacy]]
+## OpanAI privacy filter.
+
+* <https://github.com/openai/privacy-filter/tree/main>
+- 1B params MoE. 
+- Apache 2.0 Licence.
+
+C&P from Mitko Vasilev@LinkedIn: 
+
+""" local stack ... Names, secret keys, .... SSNs, IBANs, phones, addresses, ...all vaporized.  """
+  
+[[security.privacy}]]

@@ -9,7 +9,7 @@
  |                 ·   ·   ┌─· Inference
  | "BACKEND"       v   v   v   Notes
  | --------------------------- ---------------------------------------
- | llama.cpp      NO  NO  YES  CPU/local inference but also
+ | llama.cpp ³    NO  NO  YES  CPU/local inference but also
  |                             support CUstom CUDA kernels, Vulkan
  |                             and CPU+GPU hybrid inference
  |                             Plain C/C++ implementation without
@@ -43,6 +43,9 @@
  |   ollama is just a "bloated" wrapper on top of llama.cpp (Recheck this claim)
  | ² ggml is a general purpose inference library, valid for other 
  |   deep-learning architectures not related to GPT/LLM, for example whispper (speech-to-text,...)
+ | ³ C&P from Guilherme Monteiro Post@Linkedin
+ |   Georgi Gerganov wrote llama.cpp in pure C/C++. (No CUDA required) 
+ |   to LLMs running on your laptop. No hacking, quantization as compression algebra
  |
  | Practical Takeaway
  | - Training / Fine-tunning:

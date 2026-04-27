@@ -81,4 +81,33 @@ SOTA accuracy of 63.2%) datasets.
 compared to SOTA accuracy of 89.4%). 
 [[scalability.megatron}]]
 
+[[{scalability.quantization]]
+## llama.cpp quantization:
+* <https://www.linkedin.com/posts/guilherme-monteiro-3653b51a7_cpp-machinelearning-opensource-share-7443416664756400128-Pob1/>
+
+The llama.cpp's question is surgical: how much precision can I sacrifice 
+without destroying the output?
+
+  In the Q4_0 format, each block of 32 weights is compressed like this:
+
+  ```
+  given x = [x₁, x₂, ..., x₃₂], 
+
+  the scale factor is: d = max(|xi|) / 8
+
+  Each weight becomes a 4-bit integer: qi = round(xi / d)
+
+  The quantization error E is minimized via weighted least squares:
+  E = Σ wi(xi − s·li)²
+  
+  Deriving on s and equaling zero:
+  s* = Σ wi·xi·li / Σ wi·li²
+  
+  (no heuristic, just analytical minimization of the quadratic error)
+
+  ./llama-quantize: Result: 16 GB → 4 GB. Perplexity rises ~0.05. The tradeoff is absurd.
+  ```
+
+[[scalability.quantization}]]
+
 

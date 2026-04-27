@@ -1,8 +1,6 @@
 [[{agents.MCP,agents.101]]
 ## MCP 101
 
-
-
   ```
   | PROBLEM:
   |
@@ -377,3 +375,47 @@ Streamable HTTP is the preferred transport:
 * More flexible
 * Better for multimodal content
 * Easier to adopt in modern architectures
+
+
+[[{]]
+### Tool Attention is All You Need
+
+* <https://arxiv.org/abs/2604.21816>
+
+MCP has become a common interface for connecting LLMs agents to external tools,
+but its reliance on stateless, eager schema injection imposes a hidden 
+per-turn overhead the MCP Tax or Tools Tax that practitioner 
+reports place between roughly 10k and 60k tokens in typical multi-server 
+deployments inflating the key-value cache, ...  reasoning degradation 
+...
+as context utilization approaches published fracture points around 70% [[101]]
+... 
+We introduce Tool Attention, a middleware-layer mechanism that generalizes the 
+"Attention Is All You Need" paradigm from self-attention over tokens to gated 
+attention over tools. [[architecture.middleware]]
+
+Tool Attention combines:
+
+1. an Intent Schema Overlap (ISO) score from sentence embeddings
+2. a state-aware gating function enforcing preconditions and access scopes, and
+3. a two-phase lazy schema loader that keeps a compact summary pool in context
+   and promotes full JSON schemas only for top-k gated tools.
+
+In this simulation, Tool Attention directly reduces measured per-turn tool
+tokens by 95.0% (47.3k -> 2.4k) and raises effective context utilization 
+(a token-ratio quantity) from 24% to 91%.  [[scalability.token_ussage]]
+
+ Taken together, the results support a simple thesis: protocol-level 
+efficiency, not raw context length, is a binding constraint on scalable gentic 
+systems.  [[101]]
+
+**WARN**: Comment on Linked-in about the paper by Vitaliy Stepanov:
+
+> Right direction, but production version needs cache eviction policies you 
+> can reason about.
+> Lazy schema loading helps until your top-N tools shift mid-task and you
+> start paying the loading cost on every turn anyway.
+> Worth reading alongside Anthropic's MCP tool search work 
+> (different mechanisms, same problem).
+
+[[}]]

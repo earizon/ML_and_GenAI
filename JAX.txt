@@ -1,4 +1,4 @@
-[[{JAX]]
+[[{dev_stack.JAX]]
 # JAX
 
   ```
@@ -24,7 +24,7 @@
 * A similar software is CuPy, developed by NVidia: <br/>
 * **WARN**: While JAX works on different present and future hardware platforms, CuPy works just on NVidia products.
 
-[[{doc_has.comparative,numpy,JAX]]
+[[{doc_has.comparative,dev_stack.numpy,dev_stack.JAX]]
 ## JAX vs. NumPy (Key concepts)
 
 * JAX provides NumPy-inspired interface.
@@ -56,7 +56,7 @@ easy.
   ... JAX is numpy on a GPU/TPU, the saying goes. So I assume JAX is 
 very handy where TensorFlow is not pythonic, in particular for 
 describing mid to low level mathematical operations that are less 
-common or optimize common layers. [[numpy]]
+common or optimize common layers.
 
 ... Depending on what you’re doing JAX definitely can have some 
 advantages or even allow you to do things that are not possible in 
@@ -81,4 +81,4 @@ ranging from 20% to 350%.
 
 [[doc_has.comparative}]]
 
-[[JAX}]]
+[[dev_stack.JAX}]]

@@ -1,0 +1,471 @@
+
+[[{]]
+## L1/L2 regularization:
+
+* The Elements of statistical Learning, Trevor Hastie, Robert
+  Tibshirani and Jerome Friedman, Springer Science+Business Media, 2009
+[[}]]
+
+[[{]]
+## BInfeng Xu repos at Gihub
+
+* <https://github.com/billxbf>
+
+* NanoGPX | Clean collection of modern LLM recipes (RoPE, GQA, RMSNorm, MoE, SSM, etc.) in nanoGPT style.
+  [[architecture.RoPE,architecture.GQA,architecture.RMSNorm,architecture.MoE,architecture.SSM)
+  <https://github.com/billxbf/nanoGPX>
+* ArXplorer | A recommender engine of daily papers from arXiv, customized with your Prompt.
+* Gentopia & GentPool | An Agent Framework&Platform for the hardcore builders.
+* ReWOO | Discussing token efficiency of LLMs when decoupling reasoning from observations.
+[[}]]
+
+
+[[{training.101,training.model_prunning]]
+## 101 Model Prunning
+
+Not too long ago, the largest Machine Learning models most people would deal
+with merely reached a few GB in memory size. Now, every new generative model
+coming out is between 100B and 1T parameters! To get a sense of the scale, one
+float parameter that's 32 bits or 4 bytes, so those new models scale between
+400 GB to 4 TB in memory, each running on expensive hardware. Because of the
+massive scale increase, there has been quite a bit of research to reduce the
+model size while keeping performance up. There are 5 main techniques to
+compress the model size.
+
+- Model pruning is about removing unimportant weights from the network. The
+game is to understand what "important" means in that context. A typical
+approach is to measure the impact on the loss function of each weight. This can
+be done easily by looking at the gradient and second-order derivative of the
+loss. Another way to do it is to use L1 or L2 regularization and get rid of the
+low-magnitude weights. Removing whole neurons, layers or filters is called
+"structured pruning" and is more efficient when it comes to inference speed.
+
+- Model quantization is about decreasing parameter precision, typically by
+moving from float (32 bits) to integer (8 bits). That's 4X model compression.
+Quantizing parameters tends to cause the model to deviate from its convergence
+point, so it is typical to fine-tune it with additional training data to keep
+model performance high. We call this "Quantization-aware training". When we
+avoid this last step, it is called "Post training quantization", and additional
+heuristic modifications to the weights can be performed to help performance.
+
+- Low-rank decomposition comes from the fact that neural network weight
+matrices can be approximated by products of low-dimension matrices. A N x N
+matrix can be approximately decomposed into a product of 2 N x 1 matrices.
+That's an O(N^2) -> O(N) space complexity gain!
+
+- Knowledge distillation is about transferring knowledge from one model to
+another, typically from a large model to a smaller one. When the student model
+learns to produce similar output responses, that is response-based
+distillation. When the student model learns to reproduce similar intermediate
+layers, it is called feature-based distillation. When the student model learns
+to reproduce the interaction between layers, it is called relation-based
+distillation.
+
+- Lightweight model design is about using knowledge from empirical results to
+design more efficient architectures. That is probably one of the most used
+methods in LLM research.
+[[training.model_prunning}]]
+
+
+[[{scalability.PET,doc_has.comparative,LLM.GPT,scalability.PET,PM.TODO]]
+## Pattern-Exploiting Training: Exceeds GPT-3 Perf. 99.9% Fewer Params
+<https://www.infoq.com/news/2020/10/training-exceeds-gpt3/>
+
+  Using Pattern-Exploiting Training (PET), semi-supervised training
+technique the team fine-tunned a Transformer NLP model with 223M
+parameters that out-performed the 175B-parameter GPT-3 (non
+fine-tunned)by over 3 percentage points on the SuperGLUE benchmark.
+
+  PET is a technique for fine-tuning a pre-trained language model that
+generates additional "soft-labeled" training data from unlabeled
+examples ... the model improve performance in "few-shot" scenarios,
+such as NLP benchmarks which have very few labeled examples for
+fine-tuning. ... the researchers fine-tuned an ALBERT Transformer
+model and achieved an average score of 76.8 on the SuperGLUE benchmark,
+compared to GPT-3's 71.8.  [[training.fine_tuning.few_shots]]
+
+  Supervised machine learning often requires large datasets on tasks
+such as computer vision or NLP.... time-consuming and expensive,
+
+  ... For NLP tasks, many researchers have turned to transfer learning,
+where a large model is pre-trained via self-supervised learning on a
+large unlabeled dataset, such as the contents of Wikipedia.
+  Once pre-trained, it can be "fine-tuned" for a task (sentiment
+analysis), using supervised learning on a much smaller labeled dataset.
+  Most state-of-the-art NLP results are achieved by fine-tuning a
+pre-trained Transformer model.
+
+  Few-shot learning is related to fine-tuning testing a model's
+ability to generalize to a new task, given only a few examples
+of that new task (often just tens of examples, sometimes as few
+as one "**one-shot**" or even none "**zero-shot**").
+
+GPT-3 (175B-params) showed that a large pre-trained model could
+perform well in few-shot learning scenarios, **without even fine-tuning**:
+updating just the model "context" with a textual description of
+the task along with text examples was sufficient to produce
+"near state-of-the-art results" with only 32 examples.
+... However, Schick and Schütze point out some drawbacks of this
+strategy:
+- The max context size restrict the number of examples that can be used.
+- more importantly, it relies on a model that is so large it is
+  "unusable in many real-world scenarios."
+
+
+  PET generates additional training data from the few-shot examples.
+ It works by first by converting the input examples into cloze-style
+phrases. These are then used to fine-tune an ensemble of language
+models which are then used to annotate a large unlabeled dataset
+to produce a "soft-labeled" dataset.
+- The final model is then fine-tuned on the soft-labeled data.
+Applying PET to the SuperGLUE datasets, the team created a soft-labeled
+dataset called FewGLUE, which they used to fine-tune an ALBERT model
+that exceeded GPT-3's few-shot performance on the SuperGLUE benchmark.
+[[}]]
+
+[[{PM.low_code.RLGymnasium,training.RL,]]
+## Exploring the RL Gymnasium: A Gateway to Reinforcement Learning
+
+* by Maryam Miradi.
+
+... incredibly accessible platform for delving into the world
+of reinforcement learning (RL).
+
+... with its focus on training agents to make decisions in
+uncertain environments, mirrors how humans learn from interaction.
+
+RL Gymnasium Stands Out for:
+
+* Accessibility: makes RL  approachable for everyone from beginners
+  to advanced researchers. ... <br/>
+  Users get to experiment in a sandbox, applying theoretical concepts
+  in practice without the overhead of creating environments from
+  scratch.
+* Variety of Environments: From simple scenarios like "CartPole" to
+  complex setups, with a  gradient of challenges that cater to learners
+  at different stages.
+* Community and Collaboration for community of users to share experiences,
+  learn from others, and even contribute new environments.
+* ... Beginners can use the RL Gymnasium to grasp the basics of agents,
+  environments, actions, and rewards through direct interaction.
+* ... Advanced users have a testing ground for algorithms and theories in
+  a controlled yet varied set of environments.
+
+  ```
+  | # "super simple code":
+  | import gymnasium as gym
+  | env = gym.make("LunarLander-v2", render_mode="human")
+  ```
+[[PM.low_code.RLGymnasium}]]
+
+[[{training.fine_tunning.PEFT]]
+## HuggingFace PEFT Repo
+
+* <https://github.com/huggingface/peft>  
+[[training.fine_tunning.PEFT}]]
+
+[[{training.reinforced,scalability.SEED_RL,PM.TODO]]
+## Google's SEED RL: 80x Speedup Reinforced Learn.
+<https://www.infoq.com/news/2020/04/google-learning-speedup/>
+[[}]]
+
+[[{architecture.LO_shot,data.cleaning,performance,PM.radar,PM.breakthrough,PM.TODO]]
+## new technique enables very low data for training
+
+* <https://www.technologyreview.com/2020/10/16/1010566/ai-machine-learning-with-tiny-data/amp/>
+
+... “Less than one”-shot learning can teach a model to identify more objects 
+(vs "tons" of training examples).
+ 
+To recognize a horse, you need to show it thousands of images of horses.
+This is what makes the technology computationally expensive
+and very different from human learning.
+ A child often needs to see just a few examples of an object, or 
+even only one, before being able to recognize it for life.
+
+
+A team from the University of Waterloo (Ontario) suggests that AI models
+should be able to accurately recognize more objects than the 
+number of examples it was trained on.
+
+The researchers demonstrated this idea while experimenting with the 
+popular computer-vision data set known as MNIST. [[data.opendata]]
+(60,000 training images of handwritten digits from 0 to 9)
+
+In a previous paper, MIT researchers  “distilled” the giant data sets
+into tiny ones as a proof of concept compressing MNIST down to only 10 images. 
+ The images weren’t selected from the original data set but carefully engineered
+and optimized to contain an equivalent amount of information to the full set. 
+As a result, when trained exclusively on the 10 images, an AI model could
+achieve nearly the same accuracy as one trained on all MNIST’s images. [[101]]
+Waterloo researchers ... if it’s possible to shrink 60,000 images down to 10,
+why not squeeze them into five? The trick, they realized, was to create images
+that blend multiple digits together and then feed them into an AI model with
+hybrid, or “soft,” labels.
+“Soft labels try to capture these shared features. So instead of telling the
+machine, ‘This image is the digit 3,’ we say, ‘This image is 60% the digit 3,
+ 30% the digit 8, and 10% the digit 0.’” [[data.soft_labeling]]
+
+researchers began to wonder how far this idea could actually go.
+Is there a limit to the number of categories you can teach an AI 
+model to identify from a tiny number of examples?
+
+Surprisingly, the answer seems to be no. With carefully engineered soft labels, 
+even two examples could theoretically encode any number of categories.
+
+researches play out the concept with one of the simplest machine-learning
+algorithms, known as k-nearest neighbors (kNN), which classifies objects using
+a graphical approach.
+
+To explore LO-shot learning with the kNN algorithm, ... Using various tweaks 
+to the soft labels, they could get the kNN algorithm to draw precise patterns
+in the shape of flowers.
+... researchers used soft-labelled examples to train a kNN algorithm to encode 
+increasingly complex boundary lines, splitting the chart into far more classes 
+than data points.
+
+... these theoretical explorations have some limits. While the idea of 
+LO-shot learning should transfer to more complex algorithms, the task of 
+engineering the soft-labeled examples grows substantially harder.
+
+
+ The kNN algorithm is interpretable and visual, making it possible for humans 
+to design the labels; neural networks are complicated and impenetrable,
+meaning the same may not be true.
+
+ Data distillation, which works for designing soft-labeled examples for neural 
+networks, also has a major disadvantage: it requires you to start with a giant 
+data set in order to shrink it down to something more efficient.
+
+... conclusion: depending on what kind of data sets you have, you can probably 
+get massive efficiency gains
+
+....Most significantly, ‘less than one’-shot learning would radically reduce data
+requirements for getting a functioning model built
+
+[[architecture.LO_shot}]]
+
+
+[[{PM.RADAR,doc_has.comparative]]
+## ML: Deep Learning Pioneer Geoffrey Hinton Publishes New Deep Learning Algorithm 
+
+* <https://www.infoq.com/news/2023/01/hinton-forward-algorithm/>
+
+Geoffrey Hinton published a paper on "Forward-Forward" algorithm 
+(FF) for training neural networks that uses two forward passes of 
+data through the network, instead of backpropagation, to update the model 
+weights.
+
+Hinton's FF algorithm replaces the forward-backward passes of backpropagation 
+training with two forward passes that "operate in exactly the same way as each 
+other." The first forward pass operates on positive data from a training set, 
+and the network weights are adjusted to cause this input to increase a layer's 
+goodness value. In the second forward pass, the network is given a generated 
+negative example that is not taken from the dataset. The network weights are 
+adjusted such that this input decreases a layer's goodness.
+
+ Hinton showed that networks trained with FF could perform 
+computer vision (CV) tasks about as well as those trained using 
+backpropagation.
+
+...It is comparable in speed to backpropagation but has the
+advantage that it can be used when the precise details of the
+forward computation are unknown.
+
+ It also has the advantage that it can learn while pipelining
+sequential data through a neural network without ever storing the
+neural activities or stopping to propagate error derivatives....
+
+The two areas in which the forward-forward algorithm may be 
+superior to backpropagation are as a model of learning in cortex
+and as a way of making use of very low-power analog hardware without
+resorting to reinforcement learning.
+
+Although artificial neural networks (ANN) are based on a mathematical model of 
+the brain, the standard backpropagation algorithm used to train these networks 
+is not based on any known biological process.
+
+... Hinton points out that ANNs can be trained using reinforcement learning 
+(RL) without backpropagation, but this technique "scales badly...for large 
+networks containing many millions or billions of parameters."
+
+ In 2021, InfoQ covered a biologically-plausible alternative to backpropagation called 
+zero-divergence inference learning (Z-IL) which can exactly reproduce the 
+results of backpropagation. [[backpropagation]]
+
+Hinton used FF to train several neural networks to perform CV tasks on the 
+MNIST and CIFAR datasets. The networks were relatively small, containing two or 
+three hidden convolutional layers, and were trained for less than 100 epochs. 
+When evaluated on test datasets, the FF-trained networks performed "only 
+slightly worse" than those trained using backpropagation.
+
+Diego Fiori, CTO at Nebuly, implemented Hinton's FF algorithm and discussed his 
+results on Twitter:
+
+    Hinton’s paper proposed 2 different Forward-Forward algorithms, which I 
+called Base and Recurrent. Let’s see why, despite the name, Base is actually 
+the most performant algorithm....the Base FF algorithm can be much more memory 
+efficient than the classical backprop, with up to 45% memory savings for deep 
+networks.
+[[}]]
+
+[[{training.hyperparameter,scalability.algorithm,PM.trending,PM.year.2022]]
+
+## Tensor Programs V: Tuning Large Neural Networks via Zero-Shot Hyperparameter Transfer
+
+- <https://arxiv.org/abs/2203.03466v2>
+
+Hyperparameter (HP) is an expensive process, prohibitively so for
+neural networks (NNs) with billions of parameters. 
+
+We show that, in the recently discovered Maximal Update Parametrization (muP),
+many optimal HPs remain stable even as model size changes. [[101]]
+
+ This leads to a new HP tuning paradigm we call muTransfer:
+
+- parametrize the target model in muP, tune the HP indirectly on a
+ smaller model, and zero-shot transfer them to the full-sized model.
+
+ i.e., without directly tuning the latter at all. We verify 
+muTransfer on Transformer and ResNet. For example, 
+1. by transferring pretraining HPs from a model of 13M parameters,
+   we outperform published numbers of BERT-large (350M parameters),
+   with a total tuning cost equivalent to pretraining BERT-large once;
+2. by transferring from 40M parameters, we outperform published numbers
+   of the 6.7B GPT-3 model, with tuning cost only 7% of total 
+   pretraining cost. [[PM.price.saving]]
+- Pytorch implementation: <http://github.com/microsoft/mup>
+  (`pip install mup`).
+[[PM.trending}]]
+
+[[{pm.trending,pm.year.2022]]
+## Open Pre-trained Transformer Language Models
+
+- <https://arxiv.org/abs/2205.01068v4>
+
+.... We present Open Pre-trained Transformers (OPT), a suite of decoder-only 
+pre-trained transformers ranging from 125M to 175B parameters, which we aim to 
+fully and responsibly share with interested researchers. We show that OPT-175B 
+is comparable to GPT-3, while requiring only 1/7th the carbon footprint to 
+develop.  [[scalability.algorithm]]
+
+We are also releasing our logbook detailing the infrastructure 
+challenges we faced, along with code for experimenting with all 
+of the released models.   [[hardware.*]]
+[[PM.trending,PM.year.2022}]]
+
+
+[[{PM.RADAR,]]
+
+## LLM: Multi-token Prediction (vs current next-token)
+
+* <https://arxiv.org/abs/2404.19737>
+
+LLMs such as GPT and Llama are trained with a next-token prediction loss.
+
+ In this work, we suggest that training language models to predict
+multiple future tokens at once results in higher sample efficiency.
+
+ More specifically, at each position in the training corpus, we ask
+the model to predict the following n tokens using n independent output
+heads, operating on top of a shared model trunk.
+
+... Gains are especially pronounced on generative benchmarks like coding,
+where our models consistently outperform strong baselines by several
+percentage points.
+
+ Our 13B parameter models solves 12 % more problems on HumanEval and
+17 % more on MBPP than comparable next-token models. [[qa.coherence]]
+
+ Experiments on small algorithmic tasks demonstrate that multi-token
+prediction is favorable for the development of induction heads and
+algorithmic reasoning capabilities. As an additional benefit, models
+trained with 4-token prediction are up to 3 times faster at inference,
+even with large batch sizes.  [[scalability.algorithm.multi_token]]
+[[PM.RADAR}]]
+
+[[{101,training.federated,scalability.federated_training,PM.RADAR]]
+## Soft Arch: federated training
+
+Post by Tomas Paulik @ LinkedIn
+
+Last week, our research group at Cambridge announced a major AI milestone:
+
+- We have created the world’s first LLM (1.3B) trained completely from scratch
+  using Federated Learning.
+
+- Utilising our technique, individuals and organisations can collaborate
+  and use a mixture of various GPUs (or ML accelerators) to train their
+  own LLMs.  [[PM.price,architecture.distributed]]
+
+- The technique is entirely removing the barriers to entry to training
+  and design of custom LLMs.
+
+- Federated Learning-based LLMs can be trained using siloed and previously
+  unavailable data. This opens up new possibilities for data sourcing and
+  inevitably, larger training sets will lead to more advanced LLMs.
+[[scalability.federated_training}]]
+
+[[{scalability.algorithm]]
+## Addition is All You Need for Energy-efficient Language Models
+
+* <https://arxiv.org/abs/2410.00907>
+  **The new algorithm costs significantly less computation resource
+than 8-bit floating point multiplication but achieves higher precision**.
+
+... the proposed method achieves higher precision but consumes
+significantly less bit-level computation since multiplying floating
+point numbers requires substantially higher energy compared to
+integer addition operations, applying the L-Mul operation in tensor
+processing hardware can potentially reduce 95% energy cost by
+element-wise floating point tensor multiplications and 80% energy
+cost of dot products. [[scalability.algorithm]]
+
+ Our numerical analysis experiments agree with the theoretical error
+estimation, which indicates that L-Mul with 4-bit mantissa achieves
+comparable precision as float8_e4m3 multiplications, and L-Mul with
+3-bit mantissa outperforms float8_e5m2.
+ ... We further show that replacing all floating point multiplications
+with 3-bit mantissa L-Mul in a transformer model achieves equivalent
+precision as using float8_e4m3 as accumulation precision in both
+fine-tuning and inference.  [[training.fine_tunning,inference.*]]
+[[scalability.algorithm}]]
+
+
+[[{PM.low_code,local_ai.training]]
+
+[[{training.fine_tuning]]
+
+## torchtune
+* <https://pytorch.org/torchtune/stable/overview.html>
+* <https://meta-pytorch.org/torchtune/stable/overview.html>
+
+* PyTorch library for easily authoring, fine-tuning and experimenting with
+  LLMs. The library emphasizes 4 key aspects:
+  * Simplicity and Extensibility. Native-PyTorch, componentized design and easy-to-reuse abstractions
+  * Correctness. High bar on proving the correctness of components and recipes
+  * Stability. PyTorch just works. So should torchtune
+  * Democratizing LLM fine-tuning. Works out-of-the-box on different hardware
+
+[[training.fine_tuning}]]
+
+
+## TransformerLabs: local training, fine-tuning and chat
+
+by Avi Chawla
+
+It allows anyone to experiment with LLMs.
+
+Features:
+- One-click download of hundreds of popular models (DeepSeek, Llama3, Gemma, etc.)
+- Finetune or train across different Hardware (Apple Silicon, GPU, etc.)
+- RLHF and Preference Optimization are available.  [[training.RLHF]]
+- Chat with models (chat, completion, tool use, template prompts, etc.)
+- Use several inference engines like vLLM, Llama CPP
+- Drag and drop file UI for RAG.
+- Pull from 1000s of datasets available on HuggingFace.
+- Log all inference requests. Everything within a single interface.
+- Local or cloud support.
+[[PM.low_code}]]
+
+

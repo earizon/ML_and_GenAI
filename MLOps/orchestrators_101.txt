@@ -1,0 +1,41 @@
+[[{mlops.101,doc_has.decision_tree]]
+## MLOps Kubeflow vs Dagster vs ...
+
+By Lucas Gonthier, founding machine learning engineer @Kawaak
+
+Choosing the wrong ML orchestrator can blow up the budget and complexity. Here's how to choose, from the simplest to the most complex:
+
+### Level 0: bash + cron script, (No orchestrator)
+
+- Just a cron that launches a .sh. If the pipeline is 3 linear stages, that is 
+  enough. Many people skip this step out of ego. [[mlops.101]]
+
+- Bonus level 0: GitHub Actions A cron in the cloud, free (2,000 minutes/month 
+  on the free tier). Perfect for a lightweight pipeline with no infrastructure to 
+  maintain. You push, it turns. Zero setup. [[PM.price.free_tier]]
+
+
+### Level 1: Prefect / Dagster:
+
+- You want scheduling, monitoring, retries.
+- Your pipeline has 5 to 10 stages with dependencies.
+- Quick setup. Clean UI.
+- Perfect for a small team.
+
+### Level 2: Airflow
+
+- You manage dozens of DAGs.
+- Several teams.
+- Cross dependencies.
+- Airflow is ugly, verbose, sometimes painful. But it scales. And everyone knows him.
+
+### Level 3:
+- Kubeflow You are on Kubernetes.
+- Your pipelines are heavy.
+- You need container isolation, native versioning, GPU scheduling.
+- High installation complexity. But maximum power.
+
+> The rule is simple: If you can solve your problem with the level below, do it.
+> Over-engineering an orchestrator costs more than the wrong model in production.
+> The best orchestrator is the one a team understands in 10 minutes.
+[[mlops.101}]]
