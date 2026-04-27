@@ -20,14 +20,15 @@ GPQA                 : Graduate-Level Google-Proof Q&A dataset of 448 multiple-c
                        questions written by domain experts in biology, physics, and chemistry. 
                        Questions are Google-proof and extremely difficult, with PhD experts reaching 
                        65% accuracy.
-MMLU:
+MMLU                 : Multitask metric covering elementary math, US history, computer science, law, ...
 MSUR                 : Massive Multitask Language Understanding benchmark (more robust that MMLU)
 MMULU-PRO            : 
 
 
-HellaSwag            : 
+HellaSwag            : tests of common sense.
 Wino Grande          :
-ARC-Challenge        : (25-shot,...) Mesure de la compréhension des connaissances scientifiques et du raisonnement
+ARC-Challenge        : (25-shot,...) set of grade-school questions meassuring scientific knowledge and reasoning.
+* ARC: 
 
 HumanEval            :
 MBPP                 :
@@ -38,5 +39,9 @@ BIG-Bench Hard 3-shot: CoT: Evaluation des capacités de raisonnement complexe e
 DROP 3-shot, F1      : Evaluation de la compréhension des textes et du raisonnement
 
 OmniDocBench         : OCR Benchmarck <https://github.com/opendatalab/OmniDocBench>
+TruthfulQA           : Measures a model's propensity to reproduce falsehoods commonly found only.
 ```
+
+
+
 [[101.LLM_benchmarks}]]

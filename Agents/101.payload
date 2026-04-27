@@ -1,4 +1,5 @@
 101.txt                       # OK
+101_LLM_planning.txt          # md OK, content 20%
 eval_driven_goals_hypot.txt   # OK
 # agentic_patterns.txt        # <https://github.com/nibzard/awesome-agentic-patterns>
 LANGCHAIN/101.payload

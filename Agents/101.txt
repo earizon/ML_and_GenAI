@@ -286,7 +286,7 @@ Based on the physcologist Daniel Kahneman's framework:
   |            |                     |                                    |   - history token sumarization.            |
   |            |                     |                                    |   - result eviction.                       |
   |            |                     |                                    |   - ....                                   |
-  |            |                     |                                    | [[agents.persistence.file_system]]         |
+  |            |                     |                                    | [[persistence.file_system]]                |
   |            |                     |                                    | [[agents.tokent_management,agents.memory]] |
   |------------+---------------------+------------------------------------+--------------------------------------------+-
   | When       | - quick project     | - Low-level control                | - More autonomous agents                   |

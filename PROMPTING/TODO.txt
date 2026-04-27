@@ -275,3 +275,167 @@ only achieves very low accuracy with standard prompts.
 
 [[}]]
 
+
+[[{]]
+
+## Parameter-Efficient Transfer Learning for NLP
+
+* <https://arxiv.org/pdf/1902.00751>
+Neil Houlsby 1 Andrei Giurgiu 1 * Stanisław Jastrze¸bski 2 * Bruna Morrone 1 Quentin de Laroussilhe 1
+Andrea Gesmundo 1 Mona Attariyan 1 Sylvain Gelly 1
+Abstract
+Fine-tuning large pre-trained models is an effec-
+tive transfer mechanism in NLP. However, in the
+presence of many downstream tasks, fine-tuning
+is parameter inefficient: an entire new model is
+required for every task. As an alternative, we
+propose transfer with adapter modules. Adapter
+modules yield a compact and extensible model;
+they add only a few trainable parameters per task,
+and new tasks can be added without revisiting
+previous ones. The parameters of the original
+network remain fixed, yielding a high degree of
+parameter sharing. To demonstrate adapter’s ef-
+fectiveness, we transfer the recently proposed
+BERT Transformer model to 26 diverse text clas-
+sification tasks, including the GLUE benchmark.
+Adapters attain near state-of-the-art performance,
+whilst adding only a few parameters per task. On
+GLUE, we attain within 0.4% of the performance
+of full fine-tuning, adding only 3.6% parameters
+per task. By contrast, fine-tuning trains 100% of
+the parameters per task.1When to use it:
+
+## "Prefix-Tuning”:
+
+* <https://arxiv.org/pdf/2101.00190>
+[[prompting.prefix_tunning]]
+
+Prefix-tuning draws inspira-
+tion from prompting, allowing subsequent to-
+kens to attend to this prefix as if it were “vir-
+tual tokens”. We apply prefix-tuning to GPT-2
+for table-to-text generation and to BART for
+summarization. We find that by learning only
+0.1% of the parameters, prefix-tuning obtains
+comparable performance in the full data set-
+ting, outperforms fine-tuning in low-data set-
+tings, and extrapolates better to examples with
+topics unseen during training
+
+## Prompt Tunning
+
+[[prompting.tunning]]
+* <https://arxiv.org/pdf/2104.08691>
+
+... simple yet effective mechanism for learning
+“soft prompts” ... Unlike discrete text prompts
+used by GPT-3, soft prompts are learned through
+back-propagation and can be tuned to incorporate
+signals from any number of labeled examples.
+Our end-to-end learned approach outperforms
+GPT-3’s few-shot learning by a large margin.
+
+... we show that prompt tuning becomes more
+competitive with scale: as models exceed
+billions of parameters, our method 
+“closes the gap” and matches the strong performance
+of model tuning (where all model weights are tuned).
+[[scalability.prompting]]
+
+  Our method can be seen as a simplification of
+the recently proposed “prefix tuning” of Li
+and Liang (2021) ...
+
+ Finally, we show that conditioning a frozen model
+with soft prompts confers benefits in robustness
+to domain transfer and enables efficient “prompt ensembling.
+
+
+
+[[}]]
+
+[[{]]
+* Guides, papers, lecture, and resources for prompt engineering
+  <https://github.com/dair-ai/Prompt-Engineering-Guide>
+[[}]]
+
+
+[[{prompting.RLPrompt,PM.year.2023Q1]]
+## Meet RLPrompt: New Prompt Optimization Approach with Reinforcement Learning (RL)
+
+* <https://www.marktechpost.com/2023/03/01/meet-rlprompt-a-new-prompt-optimization-approach-with-reinforcement-learning-rl/>
+
+By Niharika Singh
+March 1, 2023
+Source: <https://arxiv.org/pdf/2205.12548.pdf>
+
+Unlike conventional fine-tuning that updates the massive LM parameters
+for each downstream task, prompting concatenates inputs with additional
+text to steer the LM towards producing the desired outputs.
+
+
+ A key question is finding optimal prompts to improve the LM’s performance
+on various tasks with few training examples.
+
+Reinforcement Learning (RL) for prompt optimization challenges learning 
+efficiency as the large black-box language model navigates a complex
+environment involving multiple transitions before computing rewards.
+
+ This complexity makes it challenging to learn from the unstable reward
+signals. However, to overcome this, we propose two simple but
+effective strategies:
+
+1. normalizing the training signal by computing the z-score of rewards
+  for the same input can stabilize the reward signals.
+2. designing piecewise reward functions that offer sparse, qualitative
+  bonuses for desirable behaviors, such as achieving a certain accuracy
+  on a specific class, can improve optimization efficiency.
+
+
+ Discrete prompt optimization is complex, and heuristics such as
+paraphrasing and selection must be more systematic. 
+
+
+... researchers from CMU and UCSD propose RLPrompt, an efficient discrete
+prompt optimization approach using reinforcement learning (RL) applicable
+to different LLMs for classification and generation tasks.
+
+
+Experiments show superior performance over finetuning or prompting methods
+for few-shot classification and unsupervised text style transfer.
+
+Interestingly, optimized prompts often consist of ungrammatical
+gibberish text, which shows LMs may have understood common frameworks
+for prompting, but they do not adhere to human language
+norms.
+
+
+this method combines desirable properties for optimizing prompts across
+different tasks and language models.
+
+Instead of editing the discrete tokens directly, which has proven
+difficult and inefficient, RLPrompt employs a policy network that
+generates the desired prompts.
+
+
+ Learning a small number of policy parameters enables discrete prompt
+optimization by inserting them as an MLP layer into a frozen compact
+model like distilGPT-2.
+
+
+This formulation also enables off-the-shelf RL algorithms (such as
+soft Q-learning) that learn the policy with arbitrary reward functions.
+
+
+The study found that strongly optimized prompts are less coherent
+but transferable between language models, resulting in a remarkable
+performance. This observation opens up new and promising possibilities
+for prompting, such as learning cheap prompts from smaller models
+and performing inferences with larger ones.However, the limitations and 
+potential drawbacks of RLPrompt are yet to be explored,
+
+ and it is uncertain whether it is a suitable method for all types of
+applications.
+
+[[}]]

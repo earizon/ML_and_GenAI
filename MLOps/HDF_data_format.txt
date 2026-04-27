@@ -1,4 +1,4 @@
-[[{data.format.HDF,architecture.bigdata,qa.standards,data.persistence,PM.TODO]]
+[[{data.format.HDF,architecture.bigdata,qa.standards,persistence.HDF,PM.TODO]]
 # HDF data format 
 
 * <https://en.wikipedia.org/wiki/Hierarchical_Data_Format>

@@ -22,4 +22,20 @@
 # Equation Learner:
 <https://github.com/BlockScience/EQL_Tensorflow>
 
+[[{]]
+## TensorFlow.js: Teaching Computer to Play Dinosaurs
 
+* <https://www.infoq.com/news/2019/04/tensorflow-chrome-dinosaur-game/>
+[[}]]
+
+
+[[{security.privacy]]
+## TensorFlow Privacy:
+https://www.infoq.com/news/2019/03/TensorFlow-Privacy
+
+In a recent blog post, the TensorFlow team announced TensorFlow
+Privacy, an open source library that allows researchers and
+developers to build machine learning models that have strong privacy.
+Using this library ensures user data are not remembered through the
+training process based upon strong mathematical guarantees.
+[[security.privacy}]]

@@ -193,11 +193,11 @@ NOTE: NumPy has become an API
   | np.intersect1d    #
   | np.diff1d         #
   |
-  | # NUMPY READ/WRITE FILES  [[numpy.I/O,numpy.persistence]] ------------------
+  | # NUMPY READ/WRITE FILES  [[numpy.I/O]] -----------------------------------
   |
   | ndA=np.random.randint(20,30,size=(10,10))   # <- Create array
   | ...
-  | np    .save ("data1.npy",ndA)               # <- Save   to disk
+  | np    .save ("data1.npy",ndA)               # <- Save   to disk [[persistence.numpy]]
   | ndB=np.load ("data1.npy")                   # <- Load from disk
   |
   | # REF: <https://docs.scipy.org/doc/numpy/reference/generated/numpy.savetxt.html>
@@ -219,7 +219,7 @@ NOTE: NumPy has become an API
   | # )
   | A[ 'Param1' ]         # <··  Now we can access by name
   | 
-  | # See also Joblib for fast Serialization [[{scalability.joblib,data.persistence,data.serialization,PM.TODO]]
+  | # See also Joblib for fast Serialization [[{scalability.joblib,data.serialization,PM.TODO]]
   | # <https://pypi.org/project/joblib/>
   | # <https://joblib.readthedocs.io/en/latest/auto_examples/serialization_and_wrappers.html>
   | # - Alternative to Pickle to serialize NumPy matrices, ...

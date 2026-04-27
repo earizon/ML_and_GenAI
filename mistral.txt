@@ -52,9 +52,10 @@ community-based AI development.
 ## Mistral Code generation models
 
 * <https://docs.mistral.ai/capabilities/code_generation>
-  * Check the original link for integration with majors IDEs through the Continue.dev
-    plugin -aplies to VS Code/Codium, IntelliJ, ...- and integration of the REST 
-    API with Agentic dev. platforms (Tabnine, LangChain, LlamaIndex, Jupyter AI, JupyterLie, Tabby, E2B)
+  * Check the original link for integration with:
+    - majors IDEs through the Continue.dev plugin -aplies to VS Code/Codium, IntelliJ, ...
+    - Tabnine Coding Platform
+    - Major Agentic frameworks: LangChain, LlamaIndex, Jupyter AI, JupyterLite, Tabby, E2B
 
 We provide 2 major families of llms for coding:
 

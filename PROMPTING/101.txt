@@ -1,111 +1,81 @@
+[[{prompting.101]]
 # Prompt "Engineering"
 
 ## Prompting 101
 
- Contrary to a Search engine where we place a text or question waiting for an answer,
-in an LLM prompt we must provide **context** to avoid potential allucinations.
 
- The context is what really helps the underlying GPT architecture to find for the
-desired related information and skip non-related information.
+  It has been experimentally probed that Large Language Models (LLM) learn,
+during the training phase, not only "lot of data and vocabulary" but also,
+in their aim to "guess" the next word (next token actually), its internal
+network of billions of parameters is also trained on human-language
+"thinking process" allowing to replicate (or emulate) human reasoning and
+even some reflection pattern ("evaluate my own answer from outside myself").
+ The LLM is also able to capture succinct nuances like the language style
+(formal, informal, direct, verbose, scientific, legal, computer language, ...)
+and head answers and context according to them. They also also to be asked for
+ 
+ LLM can also adapt to conditional questions ("If the user likes action movies,
+recommend a recent release"). In this sense, prompt are "programmable" and emulate
+loops and conditional branches as a software program. This is possible because
+the underlying Neural Network with billions of parameters has captured this
+possibility.
+  TIP: be warned that it has captured it statistically, in a very
+inefficient and unreliable way compared to traditional computer programming 
+languages, still good enough for many purposes.
 
-  When appropiate, do not ask for a single response, ask for as much as your prompting
-budget allows you.
+ LLMs They are not just "big" databases providing mechanic and simple 
+question-answer flows as a convention search engine.  [[doc_has.keypoint]]
 
+ To profit from the internal knowledge stored in the trained network, and
+in direct contrast to big text databases (search engines), when consulting
+to the LLM a first "MUST TO" is to **PROVIDE CONTEXT**. This context can be:
 
-[[{prompting.101,prompting.CoT]]
-## "Explain your reasoning step by step before answering" 8 words "Miracle"
+- The "world around" our problem or question and/or
+- known related facts surrounding our prompt  and/or
+- the expected way of thinking and/or
+- The level of details or the style of the answer
+- ...
 
-Initial prompt engineering started to grew in complexity:
+To differentiate from conventional **search queries**, we speak of **PROMPTING**.
 
-- People traded massive prompt templates.
-- Threads promised "perfect prompts."
-
-As a consecuence:
-
-- The prompts got longer and rigid.
-- The results got more predictable.
-- Models "played it safe" instead of exploring ideas.
-
-Then a group of researchers connected to Stanford They noticed that 
-
-"""Large language models don’t just autocomplete text.
-   **They simulate reasoning when invited to do so**.""" [[prompting.101,doc_has.keypoint]]
-
-- When prompts demanded final answers immediately, models collapsed their internal reasoning into a short path.
-- But when prompts encouraged process, performance jumped:
-  - More original ideas.
-  - Fewer shallow answers.
-  - Better logical consistency.
-  - Higher creativity scores.
-
-
-### "Explain your reasoning step by step before answering"
-
-- Eight words.
-- No frameworks.
-- No role-playing.
-- No giant prompt blocks.
-- No fine-tuning.
-- No plugins.
-- No custom training.
+Providing context helps also to avoid hallucinations.
+- Modern LLMs are trained using a GPT architecture, that basically try to find 
+  the next most probable word based on the previous set of text. At some point the
+  "most probable word" can fail or start deviating from the expected answer.
+  The more context it has (the more "previous set of text" or the more previous hints)
+  to guess the next word, the less probably it will be to hallucinate and take the
+  wrong path.
+- Since modern LLMs **do** understand human language we can use the prompt context 
+  to also indicate what we **DO NOT** expect in the answer.
 
 
-- Just an instruction that changes how the model allocates attention.
+  Example prompt:
+  ```
+  You are a sociologist ellaborating a report that allows to guide social actions
+  in the metropolitan area of Paris.
+  - Detail data and about socio-demographic information and related trends.
+  - Do NOT include information related to tourism in Paris.
+  - Do NOT include any information related to the Olympic Games.
+  - Exclude information older than 20 years.
+  - Use and academic style for the answer.
+  - Support your claims with any external reference to original sources
+  - Highlight and emphasize any measurable metric.
+  ```
 
-When you ask for reasoning before answers, three things happen inside the model:
-
-1. The model slows down: 
-  - Instead of jumping to the most statistically likely response, it explores intermediate paths.
-  - Creativity lives in those paths:
-
-2. Multiple solution branches appear:
-  - Step-by-step reasoning encourages the model to surface alternatives, trade-offs, and edge cases.
-
-3. The model self-corrects
-  - **As it reasons, it notices weak assumptions and adjusts**,
-    often producing better final outputs than direct prompting.
-
-Just better instructions.
+**WARN**: In many scenarios (chatbots, LLM agents with long term evolution cycles) the prompt
+needs frequent quality assurance.
+- New LLM models are smarter and previous prompt can become outdated with non needed hints
+  for the new models.
+- Also the new LLM models can allow for new "thinking mode" prompts that previously failed.
+  For example "think step by step and self reflect about mistakes on each step" can work
+  on brand new models and fail in old or embedded models.
 
 
-**The future belongs to people who understand how models think, not those who memorize prompt formulas**.
+### Prompting Best patterns
 
 
-[[prompting.101,}]]
-
-[[{prompting.planning]]
-## Planning and decision making
-
-Smart planning and decision making are critical to achieving predefined goals.
-
-As they are trained on vast amount of world knowledge and human examples, LLMs
-are known to have already absorbed rich commonsense that makes it possible
-to propose reasonable plans conditioned on problem setting and environmental states 
-(Huang et al., 2022a; Zhang et al., 2023; Wang et al., 2023b; Huang et al., 2022b; Wang et al., 2023a; Yao et al., 
-2022; Yang et al., 2023). 
-- REFs: 
- - Language models as zero-shot planners: Extracting actionable knowledge for embodied agents, 2022a. 
-   - Huang et al. (2022a) W. Huang, P. Abbeel, D. Pathak, and I. Mordatch. 
- - Inner monologue: Embodied reasoning through planning with language models. arXiv preprint arXiv:2207.05608, 2022b. 
-   - W. Huang, F. Xia, T. Xiao, H. Chan, J. Liang, P. Florence, A. Zeng, J. Tompson, I. Mordatch, Y. Chebotar, et al. 
- - Planning with large language models for code generation. In The Eleventh International Conference on Learning Representations, 2023. 
-   - S. Zhang, Z. Chen, Y. Shen, M. Ding, J. B. Tenenbaum, and C. Gan. 
-   - URL <https://openreview.net/forum?id=Lr8cOOtYbfL>
- - Describe, explain, plan and select: Interactive planning with large language models enables open-world multi-task agents, 2023b.
-   - Z. Wang, S. Cai, A. Liu, X. Ma, and Y. Liang. 
- - Foundation models for decision making: Problems, methods, and opportunities, 2023. 
-   - S. Yang, O. Nachum, Y. Du, J. Wei, P. Abbeel, and D. Schuurmans. 
-
-[[prompting.planning}]]
-
-[[{]]
-# Prompt-Engineering @ OpenAI
-
-* <https://platform.openai.com/docs/guides/prompt-engineering>
-
-Open AI just released their own Prompt Engineering guide. 
-
-... summary of their 6 strategies for getting better results when prompting GPT:
+A summary of 5 best prompting patterns or strategies extracted from OpenAI Prompt Engineering guide 
+(<https://platform.openai.com/docs/guides/prompt-engineering>) <!-- [[PM.TODO.summarize]] -->
 
 1. Write Clear Instructions:
   - Be specific: Clarity in instructions leads to more relevant outcomes.
@@ -128,6 +98,5 @@ Open AI just released their own Prompt Engineering guide.
    - Measure improvements with a comprehensive testing approach
    - Ensure that modifications lead to overall performance enhancements.
 
-Full Guide: <https://developers.openai.com/api/docs/guides/prompt-engineering> [[PM.TODO.summarize]]
 
-[[}]]
+[[prompting.101}]]

@@ -1,0 +1,84 @@
+[[{LLM.101]]
+## understanding Large Language Models -- A Transformative Reading List 
+
+* <https://sebastianraschka.com/blog/2023/llm-reading-list.html>
+
+[[LLM.101}]]
+
+[[{PM.RADAR,LLM.101.Blade]]
+##  BLADE: "Small LLM hyper-specialized"
+
+* <https://arxiv.org/html/2403.18365v1>
+
+The idea is to link 2 models:
+
+Large Language Models developed on open-domain data, may lack the
+domain-specific knowledge essential for tasks in vertical domains, 
+such as legal, medical, etc.
+
+ To address this issue, previous approaches either conduct continuous 
+pre-training with domain-specific data or employ retrieval augmentation 
+to support general LLMs. 
+
+ Unfortunately, these strategies are either cost-intensive or unreliable in 
+practical applications.
+
+
+... we present a novel framework named BLADE, which enhances 
+(B)lack-box (LA)rge language models with small (D)omain-sp(E)cific 
+models.  [[architecture.blade]]
+
+- The small LM preserves domain-specific knowledge and offers specialized insights, 
+- The general LLM contributes robust language comprehension and reasoning 
+  capabilities. 
+
+
+Specifically, our method involves three steps: 
+1. pre-training the small LM with domain-specific data.
+2. fine-tuning this model using knowledge instruction data, and
+3. joint Bayesian optimization of the general LLM and the small LM.
+
+ Extensive experiments conducted on public legal and 
+medical benchmarks reveal that BLADE significantly outperforms existing 
+approaches.  [[qa.coherence]]
+
+This shows the potential of BLADE as an effective and 
+cost-efficient solution in adapting general LLMs for vertical domains.
+[[LLM.101.Blade}]]
+
+[[{training,scalability.megatron]]
+##  Megatron-LM: Training LLM Using Model Parallelism
+* <https://arxiv.org/abs/1909.08053>
+* <https://github.com/NVIDIA/Megatron-LM>: Ongoing research training transformer models at scale
+
+
+... very large models can be quite difficult to train due to memory constraints.
+
+ In this work, we present our techniques for training very large transformer 
+models and implement a simple, efficient intra-layer model parallel approach
+that enables training transformer models with billions of parameters.
+
+ Our approach does not require a new compiler or library changes, is 
+orthogonal and complimentary to pipeline model parallelism, and **can be fully 
+implemented with the insertion of a few communication operations in native 
+PyTorch**. [[dev_stack.PyTorch]]
+
+- We illustrate this approach by converging transformer based models up 
+  to 8.3 billion parameters using 512 GPUs.
+- We sustain 15.1 PetaFLOPs across the entire application with 76% scaling
+  efficiency when compared to a strong single GPU baseline that sustains 
+  39 TeraFLOPs, which is 30% of peak FLOPs. [[scalability.cluster]]
+
+ We show that careful attention to the placement of layer normalization in 
+BERT-like models is critical to achieving increased performance as the model 
+size grows
+
+. Using the GPT-2 model we achieve SOTA results on the WikiText103 
+(10.8 compared to SOTA perplexity of 15.8) and LAMBADA (66.5% compared to
+SOTA accuracy of 63.2%) datasets.
+
+ Our BERT model achieves SOTA results on the RACE dataset (90.9% 
+compared to SOTA accuracy of 89.4%). 
+[[scalability.megatron}]]
+
+

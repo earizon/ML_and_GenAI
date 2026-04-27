@@ -1,4 +1,4 @@
-[[{data.gathering,data.versioning.DVC,data.versioning,data.persistence,mlops.dvc,standards,PM.TODO]]
+[[{data.gathering,data.versioning.DVC,data.versioning,mlops.dvc,standards,PM.TODO]]
 
 # DVC: ML Data Version Control ("Git for big data")
 

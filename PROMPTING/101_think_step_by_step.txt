@@ -1,0 +1,93 @@
+[[{prompting.101,prompting.CoT]]
+## "Explain your reasoning step by step before answering" 8 words "Miracle"
+
+  A group of researchers in Stanford noticed next important fact.
+
+> Large language models don’t just autocomplete text.
+>   **They emulate reasoning when invited to do so**.
+[[prompting.101,doc_has.keypoint]]
+
+- When prompts demanded final answers immediately, models collapsed their internal reasoning into a short path.
+- But when prompts encouraged a thinking process, the quality of the answer just jumped providing:
+  - More original ideas.
+  - Fewer shallow answers.
+  - Better logical consistency.
+  - Higher creativity scores.
+
+The "Explain your reasoning step by step before answering" excels because:
+- It does not require new frameworks, reusing the LLM in place.
+- It does not require new role-playing.
+- It does not require new giant prompt blocks.
+- It does not require new fine-tuning of the internal Neural Network (costly and requiring lot of expertise).
+
+It is just an prompt instruction that changes how the model allocates attention.
+
+When you ask for reasoning before answers, three things happen inside the model:
+
+1. The model slows down: 
+  - Instead of jumping to the most statistically likely response, it explores intermediate paths.
+  - Creativity lives in those paths:
+
+2. Multiple solution branches appear:
+  - Step-by-step reasoning encourages the model to surface alternatives, trade-offs, and edge cases.
+
+3. The model self-corrects
+  - **As it reasons, it notices weak assumptions and adjusts**,
+    often producing better final outputs than direct prompting.
+
+Just better instructions.
+
+**The future belongs to people who understand how models think, not those who memorize prompt formulas**.
+
+
+## think-step-by-step vs fine tunning
+
+
+* LLMs are trained in "epochs" until the reach an stable behaviour and are able to guess data with confidence.
+* To do so, they have been pre-trained on huge (terabytes) amounts of text data. This allows the LLM to
+- understand language structure and language thinking structures (in different humand languages).
+- Set phrases.
+- General knowledge.
+- ....
+* Fine tunning continues the training with new "epochs" (and some Neural Networks advanced techniques) training
+  in a particular set of domain-scoped data (health, finance, physics, computer programming, ...).
+  During the fine-tunning the Neural Network "forgets" non important data and strengthen its behaviour for
+  the particular area or domain of interest.
+* Said otherwise, fine tunning is a technique to re-traing a given LLM neural network to provide scoped and focused 
+  answer in a particular context or area of knowledge.
+* In practice it requires to come back to the "workbench" and call LLM developers to setup "complex" frameworks
+  (PyTorch, ...) and hardware (powerful GPUs) to continue the evolution of a generic (base) mode".
+  (This is not exactly true anymore as of 2026 since the process has been mostly automated and now is possible to
+   fine tune base models from OpenAI, Mistral, ... using a web portal and paying for the service).
+
+* In some contexts, specially AI agents, it the "fine tunning" of prompts is mentioned. This fine tunning of
+  prompts has nothing to do with the fine-tunning of the LLM:
+  - prompt fine-tunning does not require to re-traing the LLM model.
+  - prompt fine-tunning just adjust the prompt to obtain better results.
+  - LLM    fine-tunning generated a brand new model that will perform better for the target domain in most/all
+    circumstances, even with a "low quality" prompt. It will underperform in any other domain not targeted during
+    the fine-tunne "post training".
+
+  ``` 
+  | [[doc_has.comparative]] 
+  |      ┌───────────────────────────┬───────────────────────────────┐
+  |      │     PROMPTING             │      FINE─TUNNING             │
+  | ┌────┼───────────────────────────┼───────────────────────────────┤
+  | │Pros│ - No data to get started  │                               │
+  | │    │ - Smaller upfront cost    │ - Learn new information       │
+  | │    │ - No expertise needed     │ - Fix incorrect information   │
+  | │    │                           │ - Less inference costs        │
+  | │    │                           │   (smaller models will work)  │
+  | │    │                           │ - Fewer hallucinations.       │
+  | │    │                           │ - reduce unwanted info.       │
+  | ├────┼───────────────────────────┼───────────────────────────────┤
+  | │Cons│ - lower data fits.        │ - high─quality data needed    │
+  | │    │ - Can miss important data.│ - High training costs.        │
+  | │    │ - More Hallucinations     │ - Needs NN training expertise.│
+  | │    │                           │ - High training costs.        │
+  | └────┴───────────────────────────┴───────────────────────────────┘
+  ```
+
+
+
+[[prompting.101,}]]

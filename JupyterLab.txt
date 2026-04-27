@@ -32,6 +32,14 @@ DAILY-USE)
     $ pipenv shell    #  ← Activate environment
     $ jupyter lab 1>jupyter.log 2>&1 & # ← http://localhost:8888/lab/workspaces/
 
-## Voilà: notebook to apps/dashboard: [[{PM.low_code]]
+[[{PM.low_code]]
+## Voilà: notebook to apps/dashboard
+
+* <https://github.com/voila-dashboards/voila>
+## voila-dashboards: turns Jupyter notebooks into standalone web apps
+
+[[PM.low_code}]]
+
+
 <https://voila-gallery.org> [[}]]
 [[jupyterlab}]]

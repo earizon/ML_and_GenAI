@@ -304,6 +304,7 @@ REF: <https://www.cybertec-postgresql.com/en/data-science/>
 
 [[{data.visualization,library.matplot,numpy]]
 
-# Process large datasets without running out of memory [[{data.processing,Pandas,NumPy,scalability,profiling]]
+[[{data.processing,Pandas,NumPy,scalability,profiling]]
+# Process large datasets without running out of memory
 * <https://pythonspeed.com/memory/>
 [[}]]

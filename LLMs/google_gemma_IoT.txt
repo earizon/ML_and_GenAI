@@ -1,0 +1,5 @@
+[[{]]
+## Google Gemma Quantized for Desktops, Mobile and Edge LLMs
+
+* <https://www.infoq.com/news/2025/04/google-gemma-qat/>
+[[}]]

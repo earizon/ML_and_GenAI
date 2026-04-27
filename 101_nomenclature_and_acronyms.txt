@@ -187,4 +187,17 @@ THE CONCEPTUAL BOUNDARY BETWEEN FEATURE-EXTRACTION AND CLASSIFICATION IS ARBITRA
 [[}]]
 [[PM.draft.intention_to_be}]]
 
+[[{]]
+- Autoregressive Transformer Language Model (ATLM): Technical architecture behind Language Models from OpenAI GPT, Facebook Llama, ...
+  - Autoregressive: The model generates text by predicting one token at a time,
+    conditioning each prediction on the previously generated tokens.
+  - Transformer: The underlying neural network architecture.
+  - Language Model: A model trained to understand and generate human-like text.
+  - Common Shorthands  include:
+    - "Autoregressive LLM"
+    - "Causal Language Model" (since it uses causal masking to predict the next token)
+    - "Transformer-based LLM"
+    - LLM: This is technically incorrect since there exists LLM not based on ATLM.
+[[}]]
+
 

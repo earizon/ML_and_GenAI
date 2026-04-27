@@ -147,3 +147,128 @@ thoughts, and there is no reflection or voting steps. Another approach, LLM+P
 process to a classical planner.
 [[}]]
 
+
+[[{]]
+In chatbot development, prompts are typically based on the data collected from 
+previous interactions between the chatbot and users. During fine-tuning, this 
+data helps the chatbot understand:
+- The patterns in user queries and responses
+- The specific language that users typically use in each situation
+[[}]]
+
+
+[[{LLM.GPT,LLM.promptEng]]
+
+## JARVIS: a system to connect LLM with ML community
+
+- new system by Microsoft based on HuggingGPT paper.
+
+ Here is how it works in a nutshell:
+
+1) Task Planning: It uses ChatGPT to analyze the requests of users to understand their
+   intention, and disassemble them into possible solvable sub-tasks.
+2) Model Selection: Based on the sub-tasks, ChatGPT invokes the corresponding models
+   hosted on HuggingFace.
+3) Task Execution: It executes each invoked model and returns the results to ChatGPT.
+4) Response Generation: Finally, it uses ChatGPT to integrate the
+   prediction of all models, and generate a response.
+Paper: <https://lnkd.in/dC2fppSg>
+Github: <https://lnkd.in/dASZPzBe_>
+[[}]]
+
+[[{]]
+## Language Models as Zero-Shot Planners: Extracting Actionable Knowledge for Embodied Agents
+
+- <https://arxiv.org/abs/2201.07207v2>
+
+- (trending paper in 2022)
+
+  Can world knowledge learned by large language models (LLMs) be used to act in 
+interactive environments?
+ In this paper, we investigate the possibility of grounding high-level tasks,
+expressed in natural language (e.g. "make breakfast"), to a chosen set of actionable
+steps (e.g. "open fridge"). 
+
+ While prior work focused on learning from explicit step-by-step examples of how to 
+act, we surprisingly find that if pre-trained LMs are large enough and prompted 
+appropriately, they can effectively decompose high-level tasks into mid-level 
+plans without any further training.
+
+ However, the plans produced naively by LLMs often cannot map precisely to
+admissible actions. We propose a procedure that conditions on existing demonstrations 
+and semantically translates the plans to admissible actions.
+
+ Our evaluation in the recent VirtualHome environment shows 
+that the resulting method substantially improves executability over the LLM 
+baseline. The conducted human evaluation reveals a trade-off between 
+executability and correctness but shows a promising sign towards extracting 
+actionable knowledge from language models.
+[[}]]
+
+
+[[{agents.101,PM.trending,PM.year.2022]]
+## DeepMind Gato
+
+- <https://arxiv.org/abs/2205.06175v3>
+
+  Inspired by progress in large-scale language modeling, we apply a similar 
+approach towards building a single generalist agent beyond the realm of text 
+outputs.
+
+  an agent built to work as a multi-modal, multi-task, multi-embodiment
+generalist policy; The same network with the same weights performs all 
+sorts of general tasks can play Atari, caption images, chat, stack blocks
+with a real robot arm and much more, deciding based on its context whether
+to output text, joint torques, button presses, or other tokens.
+  arm. [[use_case.*]]
+
+[[}]]
+
+[[{agents.swarm,]]
+## Microsoft Semantic Kernel 
+
+* <https://github.com/microsoft/semantic-kernel>
+
+- model-agnostic SDK to build, orchestrate, and deploy AI multi-agent systems.
+- Python 3.10+, .NET 10.0+, JDK 17+
+
+Key Features:
+- Model   Independent: with built-in support for OpenAI, Azure OpenAI, Hugging Face, NVidia and more
+- Agent     Framework: Build modular AI agents with access to tools/plugins, memory, and planning capabilities
+- Multi-Agent Systems: Orchestrate complex workflows with collaborating specialist agents
+- Plugin    Ecosystem: Extend with native code functions, prompt templates, OpenAPI specs, or Model Context Protocol (MCP)
+- Vector   DB Support: Azure AI Search, Elasticsearch, Chroma, ...
+- Multimodal  Support: Process text, vision, and audio inputs
+- Local    Deployment: Run with Ollama, LMStudio, or ONNX
+- Process   Framework: Model complex business processes with a structured workflow approach
+- Enterprise    Ready: Built for observability, security, and stable APIs [[qa.best_patterns]]
+[[}]]
+
+[[{use_case.CODING_ASSISTANT,PM.low_code]]
+
+## Google Firebase Studio: "Prompt to app"
+
+"""In a minute I created my app, using only a web browser"""
+
+- end-to-end Google Agentic platform, covering the full life-cycle of the app.
+  - design, development, testing, documentation, deployment and monitorization.
+
+- PROMPT: """I want an app to save my favourites pictures""" Done!!!
+
+- You can detail using diagrams.
+
+The prototyping agent allows to generate functional apps describing the prompt,
+loading an image or a draft.
+
+
+- Based on Code OSS (aka "Visual Studio Code")
+
+- programming languages: Java, Python, Node.js, Go, .NET...
+- Frameworks:  React, Angular, Vue, Flutter, Next.js, Android [[use_case.mobile_apps]]...
+
+- 60 predefined templates in place:
+  - dashboards.
+  - reserve tickets.
+  - chats.
+  - ...
+[[use_case.CODING_ASSISTANT}]]

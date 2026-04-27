@@ -196,7 +196,7 @@ methods," such as DeepWalk and MILE.
  vector space).
 [[pytorch.biggraph}]]
 
-[[{devmlops,QA.standards,data.model,data.persistence,PM.low_code,]]
+[[{devmlops,QA.standards,data.model,PM.low_code,]]
 ## TorchServe 
 
 * <https://aws.amazon.com/es/about-aws/whats-new/2020/04/introducing-torchserve/>
@@ -238,4 +238,10 @@ methods," such as DeepWalk and MILE.
   <https://www.infoq.com/news/2019/05/pytorch-release-performance>
 [[PM.whats_new}]]
 
+[[{]]
+## PyTorch 1.10 Release Includes CUDA Graphs APIs, Compiler Improvements,
+  and Android NNAPI Support
+  https://www.infoq.com/news/2021/11/pytorch-release-cuda-android/
+
+[[}]]
 

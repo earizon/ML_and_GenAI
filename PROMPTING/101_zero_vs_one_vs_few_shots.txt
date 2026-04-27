@@ -1,0 +1,31 @@
+[[{prompting.101]]
+## Basic prompting: Zero-shot vs One-shot vs Few-shots
+
+- Basic prompting does bare use the ability of the LLM for reasoning. 
+- It enhances over standard search engines by providing focuses answers without even
+  having the complete information to pose the correct question. The LLM can resolve
+  the "Unkown unknowns". (The question you don't ask to a search engine because you
+  are not aware of them in first place).
+
+
+  ```
+  |   SEARCH LIKE PROMPT                ZERO-SHORT PROMPTING                ONE-SHOT PROMPTING                 FEW-SHOTS PROMPTING
+  |   -------------------               --------------------                ------------------                 -------------------
+  |                                                                        
+  |   (Not really a prompt)             PROMPT instruction                 PROMP instruction + Example         Prompt instruction + 
+  |                                                                        
+  |   What is the capital               As an expert in history of         As an expert in history of          As an expert in history of    
+  |   of France                         France, report important           France, report important            France, report important      
+  |                                     facts about the history of         facts about the history of          facts about the history of    
+  |                                     its capital.                       its capital, for example            its capital, for example      
+  |                                                                        its origins in Lutèce and the       its origins in Lutèce and the
+  |                                                                        Medieval Age.                       Medieval Age, big war conflicts
+  |                                                                                                            and plagues that determined
+  |                                                                                                            architectural decisions.
+  |
+  |
+  |   Do not use an LLM.                Relly on the LLM ability to        Rely also on a simple guiding       Rely on the LLM ability to 
+  |   Prefer a direct search            understand instructions            example to focus the context.       generalize based on related
+  |   in "Google".                                                                                             examples.
+  ```
+[[prompting.101}]]

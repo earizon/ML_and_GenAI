@@ -1,0 +1,232 @@
+[[{PM.low_code]]
+## TimeSeries data analysis
+
+* <https://www.influxdata.com/>
+[[PM.low_code}]]
+
+[[{data.visualization.High_dimensional]]
+## HiPlot: High dimensional interactive visualization/ploting tool 
+
+* <https://www.linkedin.com/posts/itay-gabbay_datascientist-python-datascientist-activity-7035911297799991296-RW-l>
+
+- In many ML problems we usually need to handle high dimensional data.
+- In classic ML applications it happen a lot, but with unstructured data
+  (vision, nlp) this is almost always the case. [[101,data.unstructured]]
+
+ Visualization of high-dimensional data is hard. When needed, datascientist
+usually use dimensionality reduction techniques (e.g. PCA/SVD) that loses
+some information of the data.
+
+HiPlot is a python package that enables interactive visualizations to help
+#datascientists discover correlations and patterns in high-dimensional data
+using parallel plots and other graphical ways to represent information.
+
+It can be used as a web server, within jupyter notebooks and even as a CLI
+tool.
+- Github: <https://lnkd.in/dVF6my7A>
+- Docs: <https://lnkd.in/dE7sqT5b>
+
+[[data.visualization.High_dimensional}]]
+
+[[{]]
+
+## https://youtu.be/_8V5o2UHG0E
+
+dataset types: Tables, networks, spatial (fileds/continuos, geometry/position)
+
+[[}]]
+
+
+[[{data.visualization.shiny]]
+## Shiny examples
+
+- <https://shinylive.io/py/examples/#reactive-calc>
+
+- Reactive data & AI apps in pure Python
+- Elegant, efficient, and ready for production
+- Quickly build attractive and scalable dashboards. [[PM.low_code]]
+
+- Shiny eliminates the hassle of manual state management. Rather than requiring 
+  callback functions and state variables, Shiny automatically determines the best 
+  execution path for your app at runtime. This allows you to focus on delivering 
+  insights instead of troubleshooting execution issues.
+- Efficient: Shiny uses a reactive execution engine to minimize rerendering of 
+  your application. Outputs are rendered on-demand and only when their upstream 
+  components change, which means that Shiny can support everything from the 
+  simplest dashboard to full-featured web apps.
+- Robust: Shiny is built atop the modern Python web stack, leveraging Starlette 
+  and asyncio for robust web applications. It offers full support for CSS and 
+  JavaScript customization, enabling rich, interactive user experiences.
+
+[[data.visualization.shiny}]]
+
+[[{data.analysis,mlops.data_workflow]]
+
+## SnakeMake: create reproducible and scalable data analyses
+
+* <https://snakemake.readthedocs.io/en/stable/>
+
+- Snakemake workflow management system is a tool to create
+reproducible and scalable data analyses.
+-  Workflows are described via human readable, Python based script.
+   - essentially python + declarative code to define rules.
+   - Rules describe how to create output files from input files.
+- They can be seamlessly scaled to server, cluster, grid and cloud environments,
+  without the need to modify the workflow definition. [[scalability.cluster]]
+- Finally, Snakemake workflows can entail a description of required software,
+   which will be automatically deployed to any execution environment.
+
+Quick Example:
+
+
+  ```
+  | rule targets:
+  |     input:
+  |         "plots/myplot.pdf"
+  | 
+  | rule transform:
+  |     input:
+  |         "raw/{dataset}.csv"
+  |     output:
+  |         "transformed/{dataset}.csv"
+  |     singularity:
+  |         "docker://somecontainer:v1.0"
+  |     shell:
+  |         "somecommand {input} {output}"
+  | 
+  | rule aggregate_and_plot:
+  |     input:
+  |         expand("transformed/{dataset}.csv", dataset=[1, 2])
+  |     output:
+  |         "plots/myplot.pdf"
+  |     conda:
+  |         "envs/matplotlib.yaml"
+  |     script:
+  |         "scripts/plot.py"
+  ```
+[[}]]
+
+[[{use_case.research.science]]
+## DENSE: DeepLearning for Science
+
+* <https://www.infoq.com/news/2020/03/deep-learning-simulation/>
+* <https://arxiv.org/abs/2001.08055>
+
+  researchers from several physics and geology laboratories have developed 
+Deep Emulator Network SEarch (DENSE), a technique for using deep-learning
+to perform scientific simulations from various fields,
+from high-energy physics to climate science. 
+
+Compared to previous simulators, the results from DENSE achieved
+speedups ranging from 10 million to 2 billion times. [[scalability.algorithm]]
+
+... Motivated by a need to efficiently generate neural network
+emulators to replace slower simulations, the team developed a neural search
+method and a novel super-architecture that generates convolutional neural
+networks (CNNs); [[architecture.ConvNet]]
+
+ CNNs were chosen because they perform well on a large set of
+"natural" signals that are the domain of many scientific models. [[data.analysis.101]]
+[[use_case.research.science}]]
+
+[[{data.gathering,data.unstructured,use_case.CMS]]
+## Document Understanding AI:
+https://www.infoq.com/news/2019/04/Google-Document-Understanding
+
+- Google announced a new beta machine learning service, called Document
+  Understanding AI. The service targets Enterprise Content Management
+  (ECM) workloads by allowing customers to organize, classify and
+  extract key value pairs from unstructured content, in the enterprise,
+  using Artificial Intelligence (AI) and Machine Learning (ML).
+
+[[data.gathering}]]
+
+[[{data.labeling.Snorkel]]
+## Scales Weak Supervision
+
+(Overcome Labeled Dataset Problem)
+* <https://www.infoq.com/news/2019/05/google-snorkel-drybell>
+
+Google recognizes that the need for labeled data in machine learning (ML) is a 
+significant bottleneck and recently adapted the open-source Snorkel framework 
+to overcome the problem at scale.  ... Google documented the results ...
+ [[PM.101,PM.bottleneck]]
+
+- Snorkel uses software algorithms to create labels for training data
+  instead of hand labeling data. [[data.gathering,data.labeling]]
+
+- This technique is known as weak supervision. [[training.weak_supervision]]
+
+- The algorithms can use any available organizational knowledge (graphs, 
+  rules, statistics).
+
+- Each algorithm can assign one or more labels or abstain from assigning a label.
+
+- Then Snorkel automatically weights the algorithms based on an estimate of 
+  their accuracy.
+
+- It completes its work by creating a single probabilistic label for each
+  data point.
+
+- Google adapted Snorkel to create Snorkel Drybell with the expressed intent of 
+  handling web-scale data.
+
+...  Google did **NOT** enforce a strict context hierarchy for the data model
+that represents training data, which was initially present in Snorkel. 
+
+ Google also moved away from the usage of a database for storing data and
+instead uses a distributed file system to share data. 
+ Lastly, Google made the independent labeling functions separate executables
+ that share data through the filesystem. 
+ These changes allowed Google to scale the open source Snorkel project to
+use large amounts of organizational knowledge at web scale 
+[[persistence.file_system,scalability.architecture]]
+
+... Google boosted its performance by an average of 52% 
+
+P.S.: Snorkel is part of the Standford DAWN portfolio:
+- "DAWN is a five-year research project to democratize AI by making
+  it dramatically easier to build AI-powered applications. ...
+[[data.labeling.Snorkel}]]
+
+[[{data.gathering]]
+## XML processing xmlstarlet ('jq' for xml)
+
+* <https://xmlstar.sourceforge.net/doc/xmlstarlet.txt>
+* <https://www.videlibri.de/xidel.html>
+[[data.gathering}]]
+
+[[{data.gathering]]
+## data loading by Itay Gabbay
+
+FFCV: "cool" python package to accelerate data loading and training times!!!
+
+... One of the annoying things when trying a new model is the huge waiting 
+time one needs to wait to get the results of the new model.
+
+...In the docs it also provides a performance guide with best practices
+of how to investigate performance issues and improve the overall
+performance
+
+* <https://lnkd.in/d32aN-pa>
+* Docs: <https://ffcv.io>
+[[data.gathering}]]
+
+[[{]]
+## DATASETS 32 datasets you could use  
+
+...Using standard and static datasets is no longer relevant 
+you need to work on something related to the real world 
+
+Data Science Dojo lists 32 different datasets that will help you
+uplift and grow your portfolio in the data science world.
+
+multiple use cases and areas including: 
+
+- Predictive Analytics
+- Classification
+-based Analytics Clustering & Segmentation
+- Forecasting Analytics Natural Language Vision Analytics
+- Business Intelligence (Dashboarding)
+- ... many more.
+[[}]]

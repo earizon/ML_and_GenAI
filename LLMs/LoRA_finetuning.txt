@@ -1,0 +1,51 @@
+[[{training.fine_tunning]]
+# LoRA fine-tunning
+
+
+- LoRA beats other adaptation methods like adapters and prefix-tuning. [[doc_has.comparative]]
+- It's like getting great results with fewer moving parts.
+
+
+[[{LLM.fine_tunning,training.101]]
+###  QLoRA
+
+ It's crazy how far fine-tuning LLMs have reached ...
+
+* by Leandro von Werra
+
+.... A year ago it was challenging to fine-tune GPT-2 (1.5B) on a
+single GPU without looking into DeepSpeed, Megatron or other distributing
+frameworks which are their own beasts to tame.
+
+... Today: You can train Llama 2 7B on a T4 GPU which you get for free on
+Google Colab or even train the 70B model on a single A100 [[PM.price.free_tier]]
+
+How? The power of 4bit quantization and QLoRA which are easily accessible
+via bits and bytes and the peft libraries! [[training.fine_tunning.lora,scalability.quantization]]
+
+... the following snippet train any llama model on your own dataset
+with minimal infrastructure! [[model.llama,PM.low_code]]
+
+   ```
+   | pip install trl
+   | git clone https://github.com/lvwerra/trl
+   |
+   | python trl/examples/scripts/sft_trainer.py \
+   |   --model_name meta-llama/Llama-2-7b-hf \
+   |   -- dataset_name timdettmers/openassistant-guanaco \
+   |   --load_in_4bit \
+   |   --use_peft \
+   |   --batch_size 4 \
+   |   --gradient_accumulation_steps 2
+   ```
+[[LLM.fine_tunning}]]
+
+[[{LLM.fine_tunning]]
+## Create Your Own ChatGPT Guide: Fine-Tuning LLMs with LoRA
+
+* <https://ai.plainenglish.io/creating-your-own-chatgpt-a-guide-to-fine-tuning-llms-with-lora-d7817b77fac0>
+[[LLM.fine_tunning}]]
+
+
+[[training.fine_tunning}]]
+

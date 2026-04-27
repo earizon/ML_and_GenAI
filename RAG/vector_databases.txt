@@ -1,8 +1,8 @@
-[[{data.persistence,data.vector_ddbb]]
+[[{architecture.vector_ddbb]]
 
 Vector stores are used in practice with large documents, where the documents need to be
 chunked in order to be passed to the LLM. These parts of the document are ussually 
-stored as embeddings, ie, as document chunck representation in the embedded space. [[data.vector_DDBB]].
+stored as embeddings, ie, as document chunck representation in the embedded space. [[architecture.vector_DDBB]].
 
 Implementations include Meta AI's Annoy library for Approximate Nearest Neighbor (ANN) search, 
 Cassandra, Chroma, ElasticSearch, ... ** Posgresql PGVector**, scikit-learn SKLearnVectorStore for 
@@ -132,7 +132,7 @@ agregar contexto adicional y mejorar la búsqueda y el análisis.
 particular o cómo implementarla?
 [[}]]
 
-[[{doc_has.comparative,data.vector_ddbb,benchmark,performance,data.persistence,]]
+[[{doc_has.comparative,architecture.vector_ddbb,benchmark,performance,]]
 
 ## approximate nearest neighbor libraries in Python Benchmarks 
 
@@ -140,7 +140,7 @@ particular o cómo implementarla?
 
 [[doc_has.comparative.benchmark}]]
 
-[[{data.vector_ddbb.embedding.doc_has.comparative]]
+[[{architecture.vector_ddbb.embedding.doc_has.comparative]]
 ## Choosing the right embedding model
 
 ### C&P from "random" web page:
@@ -202,5 +202,4 @@ particular o cómo implementarla?
 |   limits the possibility of comparison with other available solutions,
 ```
 
-
-[[data.vector_ddbb}]]
+[[architecture.vector_ddbb}]]

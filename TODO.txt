@@ -1,3 +1,77 @@
+[[{PM.TODO]]
+# Pool of unordered notes 
+
+<!--
+- Move and remove notes.txt
+- retag: training.finetunning training.llm_finetunning (it does not apply outside LLM'
+- Clean/Reorder/Complete ./101.txt
+- PyTorch vs GPTQ vs AWQ vs ...: (Check if the compartive makes sense)
+- Recheck local_IA tags
+- Remove any tag prefixed like ml. ...
+- Review tag GPT for architecture. It must be Autoregressive Transformer Language Model (ATLM)
+- move numpy dev_stack.numpy
+- Review *vector*db
+-->
+
+[[{101.*,doc_has.tutorial]]
+## ML Papers Explained
+
+* <https://github.com/dair-ai/ML-Papers-Explained>
+
+
+Recheck: Doesn't look to really explain, just to repeat
+
+## ML-Papers-Explained: Explanation to key concepts in ML
+* <https://github.com/dair-ai/ML-Papers-Explained>
+  * Literature Reviewed
+  - [Convolutional Neural Networks](https://medium.com/dair-ai/papers-explained-review-01-convolutional-neural-networks-78aeff61dcb3)
+  - [Layout Transformers](https://medium.com/dair-ai/papers-explained-review-02-layout-transformers-b2d165c94ad5)
+  - [Region-based Convolutional Neural Networks](https://medium.com/dair-ai/papers-explained-review-03-rcnns-42c0a3974493)
+  - [Tabular Deep Learning](https://medium.com/dair-ai/papers-explained-review-04-tabular-deep-learning-776db04f965b)
+  - [Generative Adversarial Networks](https://ritvik19.medium.com/papers-explained-review-05-generative-adversarial-networks-bbb51b160d5e)
+  - [Parameter Efficient Fine Tuning](https://ritvik19.medium.com/papers-explained-review-06-parameter-efficient-finetuning-6934fafa74e5)
+  - [Convolution Layers](https://ritvik19.medium.com/papers-explained-review-07-convolution-layers-c083e7410cd3)
+  - [Recurrent Layers](https://ritvik19.medium.com/papers-explained-review-08-recurrent-layers-ff2f224af059)
+  - [Attention Layers](https://ritvik19.medium.com/papers-explained-review-09-attention-layers-beeef323e7f5)
+  - [Normalisation Layers](https://ritvik19.medium.com/papers-explained-review-10-normalization-layers-56b556c9646e)
+  - [Auto Encoders](https://ritvik19.medium.com/papers-explained-review-11-auto-encoders-3b8f08b4eac0)
+  - [LLMs for Maths](https://ritvik19.medium.com/papers-explained-review-12-llms-for-maths-1597e3c7251c)
+
+[[101.*}]]
+
+[[{101,doc_has.catalog,101,PM.TODO]]
+## "Ares Almanac": MIT DDBB classifying IA tools by category.
+
+<https://ludd.es/dime-que-ia-necesitas-que-esta-web-te-la-encuentra-el-mit-lanza-una-base-de-datos-que-organiza-en-categorias-todas-las-herramientas-de-ia/>
+
+* DDBB with all IA apps opens to public, with detailed information.
+* Part of project Pantheon Technologies, a company funded by engineers
+  from MIT and BU.
+
+""" Nuestro inicio fue impulsado por una ambición compartida de cerrar la
+brecha entre las tecnologías complejas de IA y los usuarios
+cotidianos, haciendo que el poder de la inteligencia artificial sea
+accesible para todos. Nuestra empresa se basa en una base de
+investigación de vanguardia, colaboración interdisciplinaria y un
+profundo compromiso para ampliar los límites de la tecnología,
+aprovechando nuestros conocimientos y experiencia únicos para
+desarrollar herramientas intuitivas y potentes que simplifiquen la
+integración y utilización de la IA en diversos sectores. """
+[[doc_has.catalog}]]
+
+
+[[{101]]
+## Neural Network Zoo
+- perceptron, feed forward, ...:
+<http://www.asimovinstitute.org/neural-network-zoo/>
+[[101}]]
+
+[[{]]
+## Convolutional vs Recurrent NN @ma
+<https://stackoverflow.com/questions/20923574/whats-the-difference-between-convolutional-and-recurrent-neural-networks>
+[[}]]
+
+
 [[{101]]
 ## reasoning vs thinking
 
@@ -12,6 +86,8 @@
 [[101}]]
 
 [[{]]
+## AI Fatigue
+
 This massive amount of generated information by Agents can cause AI fatigue and exhaustion to the human in the loop (HITL).
 
 - Break flow into isolated steps or features can help to manage AI fatigue. [[qa.101,qa.best_patterns]]
@@ -19,38 +95,6 @@ This massive amount of generated information by Agents can cause AI fatigue and 
 [[PM.RISK.AI_fatigue,PM.HITL]]
 [[}]]
 
-[[{PM.TODO]]
-# Pool of unordered notes 
-
-<!--
-- Clean TODO.txt and move dirty TODOs to TODO_dirty.txt
-  - Move TODO.txt to unordered_pool.txt
-- Moving  prompting "staff" to PROMPTING/...
-- remove ml_type.* ...
-- retag: training.finetunning training.llm_finetunning (it does not apply outside LLM'
-- Move and remove notes.txt
-- Clean/Reorder/Complete ./101.txt
-- PyTorch vs GPTQ vs AWQ vs ...: (Check if the compartive makes sense)
--->
-
-
-[[{architecture.constrain_solver,dev_stack.TimeFold,use_case.scheduling,101.*]]
-<!-- TODO: Move to Optimization folder (move also Google ORTools, ...) -->
-## TimeFold
-
-when it comes to everyday tasks like creating work schedules for 30 employees
-across 3 shifts or optimizing truck routes for 100 deliveries LLM models
- models often derail.
-
-Fortunately, there’s another branch of AI for solving these challenges.
-
-we’ll introduce you to Timefold, an open-source constraint solver
-which can tackle complex scheduling problems.
-
-by simply annotating your domain classes (just like you would annotate JPA
-entities) and defining your constraints, Timefold can generate an optimized
-schedule (no complex math required!).
-[[architecture.constrain_solver}]]
 
 [[{101,doc_has.tutorial]]
 ## AlphaSignal
@@ -78,114 +122,7 @@ of Generative AI, showing us that even the most advanced concepts can be underst
 13. MLP in Pytorch     : <https://lnkd.in/gnjif8mX>
 14. Matrix Multiplica. : <https://lnkd.in/gXKnQQF3>
 [[101}]]
-[[{training.101,training.model_prunning]]
-## 101 Model Prunning
 
-Not too long ago, the largest Machine Learning models most people would deal
-with merely reached a few GB in memory size. Now, every new generative model
-coming out is between 100B and 1T parameters! To get a sense of the scale, one
-float parameter that's 32 bits or 4 bytes, so those new models scale between
-400 GB to 4 TB in memory, each running on expensive hardware. Because of the
-massive scale increase, there has been quite a bit of research to reduce the
-model size while keeping performance up. There are 5 main techniques to
-compress the model size.
-
-- Model pruning is about removing unimportant weights from the network. The
-game is to understand what "important" means in that context. A typical
-approach is to measure the impact on the loss function of each weight. This can
-be done easily by looking at the gradient and second-order derivative of the
-loss. Another way to do it is to use L1 or L2 regularization and get rid of the
-low-magnitude weights. Removing whole neurons, layers or filters is called
-"structured pruning" and is more efficient when it comes to inference speed.
-
-- Model quantization is about decreasing parameter precision, typically by
-moving from float (32 bits) to integer (8 bits). That's 4X model compression.
-Quantizing parameters tends to cause the model to deviate from its convergence
-point, so it is typical to fine-tune it with additional training data to keep
-model performance high. We call this "Quantization-aware training". When we
-avoid this last step, it is called "Post training quantization", and additional
-heuristic modifications to the weights can be performed to help performance.
-
-- Low-rank decomposition comes from the fact that neural network weight
-matrices can be approximated by products of low-dimension matrices. A N x N
-matrix can be approximately decomposed into a product of 2 N x 1 matrices.
-That's an O(N^2) -> O(N) space complexity gain!
-
-- Knowledge distillation is about transferring knowledge from one model to
-another, typically from a large model to a smaller one. When the student model
-learns to produce similar output responses, that is response-based
-distillation. When the student model learns to reproduce similar intermediate
-layers, it is called feature-based distillation. When the student model learns
-to reproduce the interaction between layers, it is called relation-based
-distillation.
-
-- Lightweight model design is about using knowledge from empirical results to
-design more efficient architectures. That is probably one of the most used
-methods in LLM research.
-[[training.model_prunning}]]
-
-
-[[{scalability.PET,doc_has.comparative,LLM.GPT,scalability.PET,PM.TODO]]
-## Pattern-Exploiting Training: Exceeds GPT-3 Perf. 99.9% Fewer Params
-<https://www.infoq.com/news/2020/10/training-exceeds-gpt3/>
-
-  Using Pattern-Exploiting Training (PET), semi-supervised training
-technique the team fine-tunned a Transformer NLP model with 223M
-parameters that out-performed the 175B-parameter GPT-3 (non
-fine-tunned)by over 3 percentage points on the SuperGLUE benchmark.
-
-  PET is a technique for fine-tuning a pre-trained language model that
-generates additional "soft-labeled" training data from unlabeled
-examples ... the model improve performance in "few-shot" scenarios,
-such as NLP benchmarks which have very few labeled examples for
-fine-tuning. ... the researchers fine-tuned an ALBERT Transformer
-model and achieved an average score of 76.8 on the SuperGLUE benchmark,
-compared to GPT-3's 71.8.  [[training.fine_tuning.few_shots]]
-
-  Supervised machine learning often requires large datasets on tasks
-such as computer vision or NLP.... time-consuming and expensive,
-
-  ... For NLP tasks, many researchers have turned to transfer learning,
-where a large model is pre-trained via self-supervised learning on a
-large unlabeled dataset, such as the contents of Wikipedia.
-  Once pre-trained, it can be "fine-tuned" for a task (sentiment
-analysis), using supervised learning on a much smaller labeled dataset.
-  Most state-of-the-art NLP results are achieved by fine-tuning a
-pre-trained Transformer model.
-
-  Few-shot learning is related to fine-tuning testing a model's
-ability to generalize to a new task, given only a few examples
-of that new task (often just tens of examples, sometimes as few
-as one "**one-shot**" or even none "**zero-shot**").
-
-GPT-3 (175B-params) showed that a large pre-trained model could
-perform well in few-shot learning scenarios, **without even fine-tuning**:
-updating just the model "context" with a textual description of
-the task along with text examples was sufficient to produce
-"near state-of-the-art results" with only 32 examples.
-... However, Schick and Schütze point out some drawbacks of this
-strategy:
-- The max context size restrict the number of examples that can be used.
-- more importantly, it relies on a model that is so large it is
-  "unusable in many real-world scenarios."
-
-
-  PET generates additional training data from the few-shot examples.
- It works by first by converting the input examples into cloze-style
-phrases. These are then used to fine-tune an ensemble of language
-models which are then used to annotate a large unlabeled dataset
-to produce a "soft-labeled" dataset.
-- The final model is then fine-tuned on the soft-labeled data.
-Applying PET to the SuperGLUE datasets, the team created a soft-labeled
-dataset called FewGLUE, which they used to fine-tune an ALBERT model
-that exceeded GPT-3's few-shot performance on the SuperGLUE benchmark.
-[[}]]
-
-[[{]]
-## Google Gemma Quantized for Desktops, Mobile and Edge LLMs
-
-* <https://www.infoq.com/news/2025/04/google-gemma-qat/>
-[[}]]
 
 [[{scalability.gpu,]]
 ## GPU Scalability
@@ -321,106 +258,6 @@ Lectures      : https://lnkd.in/gKS74pzh
 * <https://distill.pub/2017/momentum/>
 [[doc_has.externalresouce}]]
 
-[[{architecture.offline.ollama,]]
-## o(ffline)Llama:
-
-* <https://github.com/ollama/ollama>
-[[architecture.offline.ollama}]]
-
-[[{doc_has.catalog,101,PM.TODO]]
-## "Ares Almanac": MIT DDBB classifying IA tools by category.
-
-<https://ludd.es/dime-que-ia-necesitas-que-esta-web-te-la-encuentra-el-mit-lanza-una-base-de-datos-que-organiza-en-categorias-todas-las-herramientas-de-ia/>
-
-* DDBB with all IA apps opens to public, with detailed information.
-* Part of project Pantheon Technologies, a company funded by engineers
-  from MIT and BU.
-
-""" Nuestro inicio fue impulsado por una ambición compartida de cerrar la
-brecha entre las tecnologías complejas de IA y los usuarios
-cotidianos, haciendo que el poder de la inteligencia artificial sea
-accesible para todos. Nuestra empresa se basa en una base de
-investigación de vanguardia, colaboración interdisciplinaria y un
-profundo compromiso para ampliar los límites de la tecnología,
-aprovechando nuestros conocimientos y experiencia únicos para
-desarrollar herramientas intuitivas y potentes que simplifiquen la
-integración y utilización de la IA en diversos sectores. """
-[[doc_has.catalog}]]
-
-[[{PM.low_code.RLGymnasium,training.RL,]]
-
-## Exploring the RL Gymnasium: A Gateway to Reinforcement Learning
-
-* by Maryam Miradi.
-
-... incredibly accessible platform for delving into the world
-of reinforcement learning (RL).
-
-... with its focus on training agents to make decisions in
-uncertain environments, mirrors how humans learn from interaction.
-
-RL Gymnasium Stands Out for:
-
-* Accessibility: makes RL  approachable for everyone from beginners
-  to advanced researchers. ... <br/>
-  Users get to experiment in a sandbox, applying theoretical concepts
-  in practice without the overhead of creating environments from
-  scratch.
-* Variety of Environments: From simple scenarios like "CartPole" to
-  complex setups, with a  gradient of challenges that cater to learners
-  at different stages.
-* Community and Collaboration for community of users to share experiences,
-  learn from others, and even contribute new environments.
-* ... Beginners can use the RL Gymnasium to grasp the basics of agents,
-  environments, actions, and rewards through direct interaction.
-* ... Advanced users have a testing ground for algorithms and theories in
-  a controlled yet varied set of environments.
-
-  ```
-  | # "super simple code":
-  | import gymnasium as gym
-  | env = gym.make("LunarLander-v2", render_mode="human")
-  ```
-[[PM.low_code.RLGymnasium}]]
-
-[[{doc_has.catalog]]
-## Ultimate guide to ML frameworks
-
-* <https://thenewstack.io/the-ultimate-guide-to-machine-learning-frameworks/>
-[[doc_has.catalog}]]
-
-[[{LLM.fine_tunning,101,scalability]]
-##  It's crazy how far fine-tuning LLMs have reached ...
-
-* by Leandro von Werra
-
-.... A year ago it was challenging to fine-tune GPT-2 (1.5B) on a
-single GPU without looking into DeepSpeed, Megatron or other distributing
-frameworks which are their own beasts to tame.
-
-... Today: You can train Llama 2 7B on a T4 GPU which you get for free on
-Google Colab or even train the 70B model on a single A100
-
-How? The power of 4bit quantization and QLoRA which are easily accessible
-via bits and bytes and the peft libraries!
-
-... You can use the following snippet to train any llama model on your own
-dataset with minimal infrastructure!
-
-   ```
-   | pip install trl
-   | git clone https://github.com/lvwerra/trl
-   |
-   | python trl/examples/scripts/sft_trainer.py \
-   |   --model_name meta-llama/Llama-2-7b-hf \
-   |   -- dataset_name timdettmers/openassistant-guanaco \
-   |   --load_in_4bit \
-   |   --use_peft \
-   |   --batch_size 4 \
-   |   --gradient_accumulation_steps 2
-   ```
-[[LLM.fine_tunning}]]
-
 [[{LLM.101]]
 ## GPT2 in 60 lines of NumPy Code!!!
 
@@ -437,345 +274,36 @@ surprisingly is trivial to convert his numpy code into jax. [[scalability.jax]]
 * Blog: <https://lnkd.in/d5BJMGpe>
 [[LLM.101}]]
 
-[[{LLM.fine_tunning]]
-## Create Your Own ChatGPT Guide: Fine-Tuning LLMs with LoRA
-
-* <https://ai.plainenglish.io/creating-your-own-chatgpt-a-guide-to-fine-tuning-llms-with-lora-d7817b77fac0>
-[[LLM.fine_tunning}]]
-
-[[{QA.model_explainability]]
-## explainability ML models (half-day) seminar by Stanford university:
-  by Prof. Hima Lakkaraju covering the following topics:
-- Intro to interpretable models.
-- Post hoc explanation methods.
-- Evaluating and analyzing model interpretations and explanations
-- Analyzing model interpretations and explanations,
-- Future research directions
-- Resources
-  - Video: https://lnkd.in/gBaURmTA
-  - Slides: https://lnkd.in/gKS_c6mv
-[[QA.model_explainability}]]
-
-## PEFT: Paramete Efficient Fine-tunning [[{]]
-
-Full fine-tuning of LLMs is insane, But which PEFT to choose? A brute-force technique to try all is not practical. Having a mental model helps, here we go.
-
-> Prompt Tuning:
-
-𝗧𝗵𝗲 𝗪𝗵𝗮𝘁: Prompt Tuning involves learning a set of continuous, trainable params that modify the pre-trained LLM's hidden states in response to task-specific prompts during inference, effectively fine-tuning the model at inference time.
-
-𝗪𝗵𝗲𝗻 𝘁𝗼 𝘂𝘀𝗲: When you want to fine-tune it for 𝙢𝙪𝙡𝙩𝙞𝙥𝙡𝙚 𝙙𝙞𝙛𝙛𝙚𝙧𝙚𝙣𝙩 𝙙𝙤𝙬𝙣𝙨𝙩𝙧𝙚𝙖𝙢 𝙩𝙖𝙨𝙠𝙨 𝙖𝙩 𝙞𝙣𝙛𝙚𝙧𝙚𝙣𝙘𝙚 𝙩𝙞𝙢𝙚 𝙬𝙞𝙩𝙝 𝙢𝙞𝙣𝙞𝙢𝙖𝙡 𝙘𝙤𝙢𝙥𝙪𝙩𝙖𝙩𝙞𝙤𝙣𝙖𝙡 𝙧𝙚𝙨𝙤𝙪𝙧𝙘𝙚𝙨. It is also useful when you want to generate diverse and high-quality text outputs based on specific prompts.
-
-→ 𝗟𝗼𝗥𝗔:
-
-𝗧𝗵𝗲 𝗪𝗵𝗮𝘁: LoRA (Low-Rank Adaptation) is a technique that modifies the pre-trained LLM's attention mechanism during fine-tuning by introducing a low-rank matrix factorization that learns task-specific attention patterns.
-
-𝗪𝗵𝗲𝗻 𝘁𝗼 𝘂𝘀𝗲: When you want to fine-tune for a 𝙨𝙥𝙚𝙘𝙞𝙛𝙞𝙘 𝙙𝙤𝙬𝙣𝙨𝙩𝙧𝙚𝙖𝙢 𝙩𝙖𝙨𝙠 𝙩𝙝𝙖𝙩 𝙧𝙚𝙦𝙪𝙞𝙧𝙚𝙨 𝙩𝙖𝙨𝙠-𝙨𝙥𝙚𝙘𝙞𝙛𝙞𝙘 𝙖𝙩𝙩𝙚𝙣𝙩𝙞𝙤𝙣 𝙥𝙖𝙩𝙩𝙚𝙧𝙣𝙨.
-
-→ 𝗔𝗱𝗮𝗽𝘁𝗲𝗿𝘀:
-
-𝗧𝗵𝗲 𝗪𝗵𝗮𝘁: Adapters are tiny NN modules that are added to pre-trained LLMs, typically between the pre-trained layers, to adapt the model to new downstream tasks. During fine-tuning, only the weights of the adapter are learned, while the pre-trained model's parameters remain fixed.
-
-𝗪𝗵𝗲𝗻 𝘁𝗼 𝘂𝘀𝗲: When you need to fine-tune 𝙢𝙪𝙡𝙩𝙞𝙥𝙡𝙚 𝙙𝙤𝙬𝙣𝙨𝙩𝙧𝙚𝙖𝙢 𝙩𝙖𝙨𝙠𝙨 𝙤𝙣 𝙩𝙝𝙚 𝙨𝙖𝙢𝙚 𝙥𝙧𝙚-𝙩𝙧𝙖𝙞𝙣𝙚𝙙 𝙢𝙤𝙙𝙚𝙡. Additionally, Adapters are flexible and can be quickly and easily plugged into different parts of the pre-trained model without requiring major modifications.
-
-→ 𝗣𝗿𝗲𝗳𝗶𝘅 𝗧𝘂𝗻𝗶𝗻𝗴:
-
-𝗧𝗵𝗲 𝗪𝗵𝗮𝘁: Prefix tuning involves adding a small trainable prefix to the input of the pre-trained LLM during fine-tuning, which modifies the representation learned by the pre-trained model to better suit the downstream task.
-
-𝗪𝗵𝗲𝗻 𝘁𝗼 𝘂𝘀𝗲: When you want to fine-tune a pre-trained LLM for a 𝙨𝙥𝙚𝙘𝙞𝙛𝙞𝙘 𝙙𝙤𝙬𝙣𝙨𝙩𝙧𝙚𝙖𝙢 𝙩𝙖𝙨𝙠 𝙖𝙣𝙙 𝙝𝙖𝙫𝙚 𝙡𝙞𝙢𝙞𝙩𝙚𝙙 𝙘𝙤𝙢𝙥𝙪𝙩𝙖𝙩𝙞𝙤𝙣𝙖𝙡 𝙧𝙚𝙨𝙤𝙪𝙧𝙘𝙚𝙨 𝙬𝙝𝙚𝙣 𝙮𝙤𝙪 𝙬𝙖𝙣𝙩 𝙩𝙤 𝙢𝙤𝙙𝙞𝙛𝙮 𝙩𝙝𝙚 𝙧𝙚𝙥𝙧𝙚𝙨𝙚𝙣𝙩𝙖𝙩𝙞𝙤𝙣 learned by the pre-trained model for a particular task.
-
-## Papers:
-* "Adapters” - https://lnkd.in/epXRCzRN
-* “LoRA”. https://lnkd.in/eFGq3yZW
-* "Prefix-Tuning”. https://lnkd.in/eJ9ixFpk
-* “Prompt Tuning” - https://lnkd.in/ezB5zM8Q
-
-Repos:
-* LoRA https://lnkd.in/exAMvMfG
-* HuggingFace PEFT: https://lnkd.in/e7b-uzMN
-
-[[}]]
-
-
-
-
-## Numpy cheatsheet:
-https://cdn-images-1.medium.com/max/1000/1*qvSMwAWOd4cfett-57FUHA.jpeg
-
-## Super cheat-sheet ML pdf:
-<./BecomingHumanCheatSheets.pdf>
-
-[[{PM.TODO]]
-## Probabilistic Algorithms for View Counting
-<https://www.infoq.com/presentations/algorithms-counting-reddit>
-[[}]]
-
-[[{101]]
-## https://streamlit.io/: fastest way to build+share data.
-
-* <https://streamlit.io/>:
-* OOSS framework, quick to learn.
-[[101}]]
-
-## CITRIS (Center for Information Technology Research in the Interest of [[{101,data.mining,PM.TODO]]
-  Society) está subiendo a su canal de Youtube los vídeos de las
-  clases de un curso de minería de datos impartidos por el profesor
-  Ram Akella en la Universidad de Berkeley.
-  <https://www.datanalytics.com/2011/05/17/un-curso-completo-de-mineria-de-datos-en-youtube/>
-  Están disponibles los vídeos:
-  - 26 de enero, sobre la regresión lineal
-  -  2 de febrero, sobre la regresión logística
-  -  9 de febrero, continuación del anterior
-  - 16 de febrero, sobre métodos de clasificación (NN y naive bayes)
-  - 23 de febrero, sobre naive bayes
-     2 de marzo
-  -  9 de marzo  , sobre diversas aplicaciones de SVD a problemas de minería de texto y motores de búsqueda
-  - 16 de marzo  , sobre métodos de arracimamiento con aplicaciones a segmentación de mercados
-  - 30 de marzo  , sobre extracción de la información
-  - 13 de abril  , 20 de abril (día en el que todos llegaron tarde) y 27 de abril sobre motores de recomendación
-  -  4 de mayo   , curiosamente al final, sobre aspectos más formales y globales de la minería de datos
-[[}]]
-
-## Probability vs Statistics
-  https://towardsdatascience.com/probability-vs-statistics-95f221cc74f7
-
-## L1/L2 regularization:
-  The Elements of statistical Learning, Trevor Hastie, Robert
-  Tibshirani and Jerome Friedman, Springer Science+Business Media, 2009
-
-## Stacking algorithm: [[{ml,101,PM.TODO]]
-- Stacking is an ensemble learning technique to combine multiple
-  classification models via a meta-classifier. The individual
-  classification models are trained based on the complete training set;
-  then, the meta-classifier is fitted based on the outputs
-  (meta-features) of the individual classification models in the
-  ensemble. The meta-classifier can either be trained on the predicted
-  class labels or probabilities from the ensemble.
-http://rasbt.github.io/mlxtend/user_guide/classifier/StackingClassifier/
-http://rasbt.github.io/mlxtend/user_guide/classifier/StackingCVClassifier/
-[[}]]
-
-
-- Fundations Video Tutorials by Brandon Rohrer
-  <https://www.youtube.com/user/BrandonRohrer>
-
-## BIBLIOGRAPHY:
-  - Probability:
-    Statistics, third edition, by Freedman, Pisani, and Purves,
-    published by W.W. Norton, 1997.
-  - The Lack of A Priori Distinctions Between Learing Algorithms, D.H.Wolpert (1996); [101]
-    No free lunch theorems for optimization, D.H. Wolpert y W.G.Macready (1997)
-
-  - McCullock-Pitts  (MCP), A Logical Calculus of the Ideas Immanet in Nervous Activity,
-    W.S. McCulloch  and W.Pitts, Bulletin of Mathematical Biophysics, 5(4): 115-133, 1943
-
-  - An algorithm for finding best matches in logarithmic Expected Time,  101
-    J.H.Friedman, J.L,  Bentley, and R.A. Finkel, ACM transactions on
-    mathematical software (TOMS), 3(3): 209-226, 1977
-
-  - https://github.com/rasbt/python-machine-learning-book-2nd-edition
-
-  - https://1lib.eu/book/4989630/29a81f?dsource=mostpopular
-  - https://1lib.eu/book/3717886/b95236?dsource=mostpopular
-  - https://1lib.eu/book/3698789/ad21bb
-  - https://1lib.eu/book/5668172/a7be15
-
-## ML explotation: Predictive Model Markup Language - Wikipedia
-  https://en.m.wikipedia.org/wiki/Predictive_Model_Markup_Language 
-  https://github.com/AmadeusITGroup/H2O-to-PMML
-
-## Internal Machine-Learning Courses Public                        [[{cloud}]]
-https://www.infoq.com/news/2020/08/amazon-machine-learning-courses/
-
-## GPT-3 https://planaspa.com/2020/07/26/GPT-3.html
-
-## Feature Importance Is All You Need | Kaggle
-
-* <https://www.kaggle.com/louise2001/rapids-feature-importance-is-all-you-need>
-
- RAPIDS is a suite of packages developed out of NVIDIA, that intends
-to execute end-to-end data science and analytics pipelines entirely
-on GPUs. The goal of this notebook is to perform univariate
-regressions of each target on every feature, namely 872 x 206 =
-179632 logistic models to estimate separately. The good news ? This
-is possible within minutes with RAPIDS !
-
-
-## Diagram of universal machine learning
-  https://www.linkedin.com/posts/marco-tavora_machinelearning-activity-6684717542117847040-iaxM
-## Cheatsheet IA scikit / RLang
-  https://www.analyticsvidhya.com/blog/2017/09/common-machine-learning-algorithms/
-
-## Salesforce Releases Photon Natural Language Interface for Databases
-  https://www.infoq.com/news/2020/09/salesforce-natural-language/
-
-## Diffbot's Natural Language API
-  https://www.diffbot.com/products/natural-language/
-
-
-[[PM.low_code]]
-## octosql: query tool to join, analyse and transform data from multiple sources
-
-  https://github.com/cube2222/octosql
- ... streaming sources and file formats using SQL.Problems OctoSQL
-  SolvesYou need to join / analyze data from multiple datasources.Think
-  of enriching an Excel file by joining it with a PostgreSQL
-  database.You need stream aggregates over time, with live output
-  updates.Think of a live-updated leaderboard with cat images based on
-  a "like" event stream.You need aggregate streams per time window,
-  with live output updates.Think of a unique user count per hour, per
-  country live summary.
-  https://github.com/cube2222/octosql/releases/tag/v0.3.0
-
-## Hardware Acceleration for Big Data Analytics:
-
-  How Enterprises Can Achieve Better Performance?
- https://medium.com/ntt-disruption/hardware-acceleration-for-big-data-analytics-how-enterprises-can-achieve-better-performance-d473ca721f28
-
-## Databrick Mlflow
-  https://www.infoq.com/news/2020/07/mlflow-linux-foundation/
-
-[[{PM.low_code]]
-## voila-dashboards: turns Jupyter notebooks into standalone web apps
-
-* <https://github.com/voila-dashboards/voila>
-[[PM.low_code}]]
-
+[[{use_case.surveillance,use_case.object_detection]]
 ## smart security camera with a Raspberry Pi
 
 * <https://chollinger.com/blog/2019/12/tensorflow-on-edge-or-building-a-smart-security-camera-with-a-raspberry-pi/>
 
 * Object Detection in RPi:
- <https://github.com/EdjeElectronics/TensorFlow-Object-Detection-on-the-Raspberry-Pi>
-  A tutorial showing how to set up TensorFlow's Object Detection API on the Raspberry Pi
 
-## What's new spark 3
+* <https://github.com/EdjeElectronics/TensorFlow-Object-Detection-on-the-Raspberry-Pi>
+*  A tutorial showing how to set up TensorFlow's Object Detection API on the Raspberry Pi
+[[}]]
 
-* <https://www.infoq.com/news/2020/07/spark-ai-summit-performance-gpu/>
-
-[[{PM.low_code]]
-## TimeSeries data analysis
-
-* <https://www.influxdata.com/>
-[[PM.low_code}]]
-
-[[{101]]
-## Real Time Sudoku solver from webcam OpenCV -> TensorFlow.js -> Rus/WebAssembly.
-
-* <https://blog.scottlogic.com/2020/01/03/webassembly-sudoku-solver.html>
-
-* OpenCV used to clean data before being injected to Tensorflow
-  for number recognition and localization into 2D.  Finally
-  Rust/WebAssemble solves the puzzle.
-[[101}]]
-
-[[PM.low_code]]
-## Low code ML tools
-
-* <https://www.managedfunctions.com/pirate/managedfunctions/>
-
-## Apache Ignite
-
-* <https://ignite.apache.org/features/machinelearning.html>
-
-## TensorFlow.js: Teaching Computer to Play Dinosaurs
-
-* <https://www.infoq.com/news/2019/04/tensorflow-chrome-dinosaur-game/>
-
-
-[[{scalability]]
+[[{scalability.petaflop]]
 ## Scale deep learning to petaflops
 
 * <https://www.infoq.com/presentations/scale-dl-petaflops/>
 
 ... Prabhat explores 2D and 3D convolutional architectures for solving
   pattern classification, regression and segmentation problems in
-  high-energy physics, cosmology and climate science.
-[[scalability}]]
+  high-energy physics, cosmology and climate science. [[architecture.ConvNet]]
+[[scalability.petaflop}]]
 
-## Better Language Models and Their Implications</span>
-<https://openai.com/blog/better-language-models/>
-  We’ve trained a large-scale unsupervised language model which
-  generates coherent paragraphs of text, achieves state-of-the-art
-  performance on many language modeling benchmarks, and performs
-  rudimentary reading comprehension, machine translation, question
-  answering, and summarization—all without task-specific training.
+[[{scalability.ROOT_CERN,]]
+## root.cern: analyzing petabytes scientifically
 
-## Algoritmo capaces de descubrir conocimiento científico
-
-* <https://m.europapress.es/ciencia/laboratorio/noticia-algoritmos-son-capaces-descubrir-conocimiento-cientifico-oculto-20190704110622.html>
-
-[[{cloud.*,]]
-## Google Releases Deep Learning Containers into Beta
-
-* <https://www.infoq.com/news/2019/07/google-dlc-beta-release/>
-[[cloud.*}]]
-
-
-## Google launches end-to-end AI Platform
-
-* <https://www.infoq.com/news/2019/05/google-ai-platform/>
-
-[[{101]]
-## 100$ camera, 50%+ "NewYorkers" detected
-
-* <https://www.nytimes.com/interactive/2019/04/16/opinion/facial-recognition-new-york-city.html>
-
-* Related:
-  <http://www.redusers.com/noticias/investigadores-belgas-descubren-metodo-enganar-camaras-ia/>
-[[101}]]
-
-[[{doc_has.cheatsheet]]
-## ml-cheatsheets
-
-* <https://ml-cheatsheet.readthedocs.io>
-[[doc_has.cheatsheet}]]
-
-[[{doc_has.bibliography]]
-..  Detailed evaluations of different secuencials algorithms  can be found on:
-Comparative Study of Techniques for Large-Scale Feature Selection,
-F.Ferri, P. Pudil, M. Hatef and J. Kittler, pages 403-413, 1994
-
-... A Study of Cross-Validation and Bootstrap for Accuracy Estimation and
-  Model Selection, Kohavi, Ron, International Joint
-  Conference on Artificial Intelligence (IJCAI), 14(12): 1137-43, 1995
-
-... Analysis of Variance of Cross-Validation Estimators of the
-Generalization Error, M.Markatou, H.Tian, S.Biswas, and G.M.
-Hripcsak, Journal of Machine Learning Research, 6: 1127-1168, 2005
-
-... Improvements on Cross-validation: The .632+ Bootstrap Method, B.
-Efron and R. Tibshirani, Journal of the American Statistical
-Association, 92 (438): 548-560, 1997
-... model evaluation selection
-* <https://sebastianraschka.com/blog/2016/model-evaluation-selection-part1.html>
-* <https://sebastianraschka.com/blog/2016/model-evaluation-selection-part2.html>
-* <https://sebastianraschka.com/blog/2016/model-evaluation-selection-part3.html>
-
-... Model evaluation and hyper-params
-  Error Estimation When Using Cross-validation for Model Selection,
-  BMC Bioinformatics, S. Varna and R. Simon, 7(1):91, 2006
-[[doc_has.bibliography}]]
-
-## https://www.infoq.com/news/2019/11/alexa-genetic-deep-learning/
-  https://arxiv.org/abs/1908.09942
-  Amazon's Alexa Science researchers published a paper providing a
-  theoretical basis for neural-network optimization. While showing that
-  it is computationally intractable to find a perfect solution, the
-  paper does provide a formulation, the Approximate Architecture Search
-  Problem (a-ASP), that can be solved with genetic algorithms.
-
-## kubeflow: ML Toolkit for Kubernetes
-
-* <https://www.kubeflow.org/>
-
-[[{scalability.ROOT]]
-## https://root.cern/primer/: analyzing petabytes scientifically
+* <https://root.cern/primer/> 
 
 ...  ROOT enables statistically sound scientific analyses and
 visualization of large amounts of data: today, more than 1 exabyte
 (1,000,000,000 gigabyte) are stored in ROOT files. The Higgs was
-found with ROOT!
+found with ROOT! [[scalability.exabyte,persistence.scalability]]
 
 ... ROOT comes with an incredible C++ interpreter, ideal for fast
 prototyping. Don’t like C++? ROOT integrates super-smoothly with
@@ -783,18 +311,17 @@ Python thanks to its unique dynamic and powerful Python <··> C++
 binding. Or what about using ROOT in a Jupyter notebook?
 
 * <https://blog.llvm.org/posts/2020-12-21-interactive-cpp-for-data-science/>
-[[scalability}]]
+[[scalability.ROOT_CERN}]]
 
-
-[[{scalability.algorithm,scalability.matrix_multiplication]]
-## MIT MADDNESS:  Approximate Matrix Multiplication
+[[{scalability.algorithm.MADDNESS]]
+## MIT MADDNESS:  Approximate Matrix Multiplication 
 
 * <https://www.infoq.com/news/2021/10/mit-matrix-multiplication/>
 
 ... Unlike many other AMM algorithms, MADDNESS **uses no multiply-add
 operations**. Instead, it uses a set of efficient learned hash functions
 that **achieve coding rates of 100GB/second using only one CPU thread**.
-by **trading off accuracy for speed**.
+by **trading off accuracy for speed**. [[hardware.CPU]]
 
 Matrix multiplication is a fundamental operation in ML
 one of the most time-consuming, due to extensive use of
@@ -815,613 +342,15 @@ the error
   exact multiplication" while being 10x faster.
 [[}]]
 
-## https://blog.ephorie.de/why-r-for-data-science-and-not-python
-
-## R vs python, by Keith McNulty
-Expert Mathematician, Applied Statistician, Psychometrician, Data Scientist
-   If you are new to programming and If your priority is deeply
-  understanding statistical relationships, you may wish to start with
-  #rstats. If your priority is running predictions of a phenomenon with
-  a minimum amount of code you may wish to start with #python
-  especially if you are already familiar with object-oriented
-  principles. But if you are committed, over time eventually you’ll
-  learn both because they are both very interesting and capable
-  languages. #datascience #analytics #peopleanalytics #data Comment
-
-Comments:
- William Ferreira
-... R is a purpose designed environment for statistical modelling, inference and many other related things.
- R also happens to be a programming language, and Turing-complete, but not a general purpose one,
-having been designed to work within the R framework; a bit like VBA being associated with Excel and other
-MS applications.
-
-Holger K. von Jouanne-Diedrich
-I am a professor ... I don't agree. When you want to learn data science with Python you basically
-have to learn two languages, with R only one because it was designed for that matter.
-More here in my blog post: https://blog.ephorie.de/why-r-for-data-science-and-not-python
-
- Sergey Mastitsky Data Science Lead at Aviva
-Especially with technologies like Docker, which allow Data Scientists to develop their applications in
-pretty much any language they are comfortable with, and then pass on to engineers, who will know what
-to do next.
-
-Valeriy M.
-Machine Learning | Data science | Systematic Trading | Forecasting Innovation | Industry 4.0 | Advanced Analytics | Time-series
-  IF “UNDERSTAND THE PHENOMENON” MEANS FITTING PARAMETRIC MODEL THEN YES.
-  IT IS CALLED STATISTICS, R IS CERTAINLY BETTER FOR STATISTICS BECAUSE IT WAS DEVELOPED BY STATISTICIANS FOR STATISTICIANS..
-  BUT FUNDAMENTALLY IT IS NOT ABOUT WHICH LANGUAGE TO USE. IT IS ABOUT MAKING QUALITY PREDICTIONS.
-  MACHINE LEARNING MOVED PAST PARAMETRIC MODELS AND IS USING DATA DRIVEN PREDICTIONS BECAUSE
-  THE MAIN GOAL OF ANY MODEL IS NOT TO FIT A CONTRIVED PARAMETRIC MODEL TO THE DATASET,
-  BUT TO PREDICT WELL OUT OF SAMPLE TO GENERATE VALUE.
-
-   ALL PARAMETRIC MODELLING DOES IS GIVING FALSE SENSE OF "MASTERING THE DATA" BY FITTING GAUSSIAN AND
-  OTHER CLASSICAL DISTRIBUTIONS TO DATA THAT, UNLESS BEING SYNTHETIC, NEVER FOLLOWS SUCH DISTRIBUTIONS.
-   AND THE RESULT IS MODEL MISMATCH RESULTING IN INCORRECT AND BIASED PREDICTIONS.
-    SO WOULD ONE REALLY PREFER TO "UNDERSTAND" THE DATA (AS IN FITTING PARAMETRIC MODEL)
-  OR HAVE MUCH BETTER PREDICTIONS THAT GENERATE BUSINESS VALUE?
-  DEPENDS ON PERSPECTIVE, “UNDERSTAND” WORKS WELL IN SCHOOL STATISTICS 1.01 CLASSES AND ACADEMIA,
-  BUT IS NOT VERY USEFUL TO GENERATE BUSINESS VALUE VIA BETTER PREDICTIONS.
-
- Rami KrispinData Science Manager at Apple
-I find this statement fundamentally wrong, I am doing both descriptive and predictive solely with R
-(and deploy it on production). And definitely, nowadays, you can do both with Python.
-There are some applications that may available in one but not on the other, and this a good motivation
-for focusing on one out the two.
-
-Adrian Olszewski
-Principal Biostatistician at 2KMM CRO, Clinical Research with R
- My field is a good example. The community didn't care and overslept one of the most prestigious
-and beneficial industries the Clinical Research (drug evaluation and approval),
-)LETTING SAS AND R TO CONSTITUTE TWO DE FACTO INDUSTRY STANDARDS (SAS - the absolute majority, R - supportive yet,
- as it still lacks a few key features).
- Actually, a similar thing happens to R. SAS has all the stuff required by the industry,
-so people choose it rather than bringing the stuff to R. Luckily, as R was present in Pharma for decades,
-they started contributing a lot recently, yet a lot is still to be done.
-
-Jason Cherry
-...As time has gone on the divergence of analytical capabilities between the two languages has decreased.
-I will say that ggplot is still way better than anything comparable dataviz-wise in Python,
-but those cases are rarer and rarer.
-For me, I chose Python because of the libraries that exist for it are more general-purpose.
- I can not only build a fully-functioning analytical solution in Python, but I can wrap it in
-a REST API and spin that up more easily as a containerized solution that plays nice with other
-functionality it may need to interact with.
- R has some functionality here too, but it's lagging behind enough that I really do prefer Python
-in a setting where I'm working on something that could have a pipeline to production, and/or
-I'm working with software engineers at some point of the project.
-
-Alberto Almuiña
-There are also some time series methods that are not implemented in Python, such as the
-multiple seasonal decomposition from the forecast package and others.
-
-Adrian Olszewski:
-it's about numerous key tools I use every day at work... I maintain a list
-(it's outdated, have to add new stuff soon):
-https://www.quora.com/What-domain-specific-statistical-capabilities-exist-in-R-but-do-not-in-Python/answer/Adrian-Olszewski-1?ch=10&share=a32559e2&srid=MByz 2
-
-Keith McNulty Expert Mathematician, Applied Statistician, Psychometrician, Data Scientist
-In Python last time I looked you can NOT do proportional odds regression for the purposes
-of inference in stats-models although they do have a version for predictive classification.
- And mixed GLMs don’t exist. Also major limitations on tests of significant coefficient
-difference like the wald test. Also no packages for effect sizes.
-  R is still working towards a mature consistent framework for predictive analytics.
-The tidymodels ecosystem is making progress but it is not at the Python level yet.
-
-## ML: La nueva y sorprendente IA de Facebook es capaz de transcribir de voz a texto sin haber sido entrenada
-  con transcripciones
-  https://www.xataka.com/robotica-e-ia/nueva-sorprendente-ia-facebook-capaz-transcribir-voz-a-texto-haber-sido-entrenada-transcripciones 
-
-  Para ello, el sistema se vale de una GAN (red generativa
-  antagónica) que, de acuerdo a Facebook, compite de tú a tú con los
-  mejores sistemas supervisados de hace unos años.
-
-## Chatear con tu yo del pasado como opción de futuro:
-  la inteligencia artificial y sistemas como GPT-3 lo hacen posible
-  https://www.xataka.com/robotica-e-ia/chatear-tu-yo-pasado-como-opcion-futuro-inteligencia-artificial-sistemas-como-gpt-3-hacen-posible
-
-## Crean el primer cerebro electrónico que aprende como el humano
-  https://www.elconfidencial.com/amp/tecnologia/novaceno/2021-04-30/cerebro-neuronas-ciencia-computadoras_3059171/
-
-## Microsoft Releases AI Training Library ZeRO-3 Offload
-  https://www.infoq.com/news/2021/04/microsoft-zero3-offload/ 
-  Microsoft recently open-sourced ZeRO-3 Offload, an extension of their
-  DeepSpeed AI training library that improves memory efficiency while
-  training very large deep-learning models. ZeRO-3 Offload allows users
-  to train models with up to 40 billion parameters on a single GPU and
-  over 2 trillion parameters on 512 GPUs.
-
-## ML: amrrs/30-seconds-of-r-code: Collection of small base-R expressions (r snippets)
-  https://github.com/amrrs/30-seconds-of-r-code
-
-## Text2Code: A Jupyter extension to convert English text to python code
-  https://www.marktechpost.com/2020/09/13/text2code-a-jupyter-extension-to-convert-english-text-to-python-code/
-
-## DebugEverything
- https://blog.debugeverything.com/virtual-environments-with-python-virtualenv/
-
-## http://pkpd.kmu.edu.tw/ 
-  https://www.quora.com/What-domain-specific-statistical-capabilities-exist-in-R-but-do-not-in-Python/answer/Adrian-Olszewski-1?ch=10&share=a32559e2&srid=MByz
-
-## ML: Software Development Lab. for Free PK/PD/Pharma R&D (drug stability, ivivc & BE/BA) Data Analytical Tools
-
-## Booking.com released UpliftML, a new #python library for scalable
-  unconstrained and constrained uplift modeling from experimental data.
-  The library leverages PySpark and H2O models as the framework for uplift models.
-  - Uplift modeling is a family of techniques for estimating the Conditional
-  Average Treatment Effect (CATE) from experimental or observational
-  data using machine learning. In particular, we are interested in
-  estimating the causal effect of treatment T on the outcome Y of an
-  individual characterized by features X. In experimental data with
-  binary treatments and binary outcomes, this is equivalent to
-  estimating Pr(Y=1 | T=1, X=x) - Pr(Y=1 | T=0, X=x).Thanks to the
-  library contributors - Javier Albert and Irene Teinemaa, and to Noa
-  Barbiro and Dima Goldenberg for sharing!
-  𝐋𝐢𝐜𝐞𝐧𝐬𝐞: Apache 2 Documentation:
-  https://lnkd.in/gPYUm3DZ Source Code:
-  https://lnkd.in/ghGTMYZV
-  Examples:
-  https://lnkd.in/gdsQDyxB
-  https://booking.ai/#machinelearning #causalinference #experimentation #ml #datascience #datascientist #h2o #pyspark
-
-## [https://www.infoq.com/news/2021/09/tesla-dojo-ai-models/]
-
-## MIT Demonstrates Energy-Efficient Optical Accelerator for Deep-Learning Inference
-  https://www.infoq.com/news/2021/08/mit-optical-deep-learning/
-
-## Anomaly detection: ML: Screenshot (29 sept. 2021 21:52:23)
-  file:///tmp/mozilla_earizon0/Screenshot_20210929-215223.png
-
-## Una inteligencia artificial refuta cinco conjeturas matemáticas sin ayuda humana
-  https://www.lavanguardia.com/tecnologia/actualidad/20210525/7477912/inteligencia-artificial-refuta-conjeturas-matematicas-ayuda-humana.html
-
-## https://www.kdnuggets.com/2021/05/data-scientist-data-engineer-data-careers-explained.html
-
-## https://youtu.be/_8V5o2UHG0E
-  dataset types: Tables, networks, spatial (fileds/continuos, geometry/position)
-
-
-## Hasta AWS se pasa al low-code:
-  Workflow Studio es su primera herramienta de desarrollo de bajo código
-https://www.xataka.com/pro/aws-se-pasa-al-low-code-workflow-studio-su-primera-herramienta-desarrollo-codigo
-
-## Bicameral Mind - Humanoid Robot With GPT-3 as the Story-Teller | by Suphi Evrakzade | The Startup | Medium
-  https://medium.com/swlh/bicameral-mind-humanoid-robot-with-gpt-3-as-the-story-teller-dcd06d5c7f8d
-
-## https://github.com/deepmind/deepmind-research
-  This repository contains implementations and illustrative code to
-  accompany DeepMind publications
-
-## https://www.freemaptools.com/
-  geo-data:
-  An online resource that enables visitors to easily and quickly use
-  maps in order to measure, search and overlay mark-up elements on maps
-  for a wide range of useful applications. Click on one of the Map
-  Tools below to find out more...
-
-
-## https://bookdown.org/:
-  Write HTML, PDF, ePub, and Kindle books with R Markdown
-  OOSS R package that facilitates writing books and
-  long-form articles/reports with R Markdown. Features include:
-  - Generate printer-ready books and ebooks from R Markdown documents.
-  - A markup language easier to learn than LaTeX, and to write elements
-    such as section headers, lists, quotes, figures, tables, and
-    citations.
-  - Multiple choices of output formats: PDF, LaTeX, HTML, EPUB, and
-    Word.
-  - Possibility of including dynamic graphics and interactive
-    applications (HTML widgets and Shiny apps).
-  - Support a wide range of languages: R, C/C++, Python, Fortran,
-    Julia, Shell scripts, and SQL, etc.
-  - LaTeX equations, theorems, and proofs work for all output formats.
-  - Can be published to GitHub, bookdown.org, and any web servers.
-  - Integrated with the RStudio IDE.
-  - One-click publishing to https://bookdown.org.
-
-## ML: Shiny examples
-  https://shinylive.io/py/examples/#reactive-calc
-
-## https://media-exp1.licdn.com/dms/image/C5622AQHl_03AIXIH2A/feedshare-shrink_480/0/1658555003262?e=1661990400&v=beta&t=IHb6CXAmfVpviXA7NCKgMf7gQXo0s0OaAHXV_CybOqg
-
-## PyTorch 1.10 Release Includes CUDA Graphs APIs, Compiler Improvements,
-  and Android NNAPI Support
-  https://www.infoq.com/news/2021/11/pytorch-release-cuda-android/
-
+[[{use_case.weather_forecasting]]
 ## DeepMind Releases Weather Forecasting AI Deep Generative Models of Rainfall
-  https://www.infoq.com/news/2021/12/deepmind-weather-forecasting/ 
 
-## Stan (Stats Inference):
-  <https://en.wikipedia.org/wiki/Stan_(software)>
-  Stan is a probabilistic programming language for statistical
-  inference written in C++.[1] The Stan language is used to specify a
-  (Bayesian) statistical model with an imperative program calculating
-  the log probability density function.[1]
+* <https://www.infoq.com/news/2021/12/deepmind-weather-forecasting/>
+[[use_case.weather_forecasting}]]
 
-  Named in honour of Stanislaw Ulam, pioneer of the Monte Carlo method.
 
-  Stan was created by a development team consisting of 34 members
-  that includes Andrew Gelman, Bob Carpenter, Matt Hoffman, and Daniel
-  Lee.
-
-  Interfaces
-
-  Stan can be accessed through several interfaces:
-
-      CmdStan    - command-line executable for the shell
-      RStan      - integration with the R software environment, maintained
-                   by Andrew Gelman and colleagues
-      PyStan     - integration with the Python programming language
-      MatlabStan - integration with the MATLAB numerical computing
-                   environment
-      Stan.jl    - integration with the Julia programming language
-      StataStan  - integration with Stata
-
-  <https://mc-stan.org/>
-
-  Stan is a state-of-the-art platform for statistical modeling and
-  high-performance statistical computation.
-  - Use cases:
-    - statistical modeling
-    - data analysis
-    - prediction in social, biological, physical sciences, engineering, and business.
-
-  Users specify log density functions in Stan's probabilistic programming language and get:
-  - full Bayesian statistical inference with MCMC sampling (NUTS, HMC)
-  - approximate Bayesian inference with variational inference (ADVI)
-  - penalized maximum likelihood estimation with optimization (L-BFGS)
-  - Stan's math library provides differentiable probability functions&linear algebra
-    (C++ autodiff).
-    - Additional R packages provide expression-based linear modeling,
-      posterior visualization, and leave-one-out cross-validation.
-
-## Pyro: Deep Universal Probabilistic Programming
-  <http://pyro.ai/>
-  REF(ES): <https://www.datanalytics.com/2019/10/14/pyro/>
-  "Stan en Python y a escala...
-  ... parece que su especialidad es la inferencia variacional estocástica.
-  Que parece funcionar de la siguiente manera. En el MCMC tradicional
-  uno obtiene una muestra de la distribución (a posteriori, para los amigos)
-  de los parámetros de interés. Eso es todo: vectores de puntos.
-  En la inferencia variacional estocástica, uno preespecifica la forma
-  paramétrica de la posteriori y el algoritmo calcula sus parámetros
-  a partir de los valores simulados. Por ejemplo, uno va y dice:
-  me da que la distribución del término independiente de mi regresión lineal
-  va a ser normal. Entonces, Pyro responde: si es normal, la mejor media
-  y desviación estándar que encuentro son tal y cual.
-
-  La segunda observación que me permito hacer es que la forma que adquiere la
-  implementación de modelos en Pyro está muy alejada de la forma en que los
-  plantearía un estadístico. Uno lee código en Stan o Jags y entiende lo
-  que está ocurriendo: las servidumbres al lenguaje subyacente son mínimas y
-  existe un DSL conciso que permite expresar los modelos de una manera natural.
-  Pero no pasa así con Pyro. "
-
-## SnakeMake: create reproducible and scalable data analyses  [[qa]]
-<https://snakemake.readthedocs.io/en/stable/>
-The Snakemake workflow management system is a tool to create
-reproducible and scalable data analyses. Workflows are described via
-a human readable, Python based language. They can be seamlessly
-scaled to server, cluster, grid and cloud environments, without the
-need to modify the workflow definition. Finally, Snakemake workflows
-can entail a description of required software, which will be
-automatically deployed to any execution environment.
-
-Snakemake is highly popular with, ~3 new citations per week.
-Quick Example
-
-Snakemake workflows are essentially Python scripts extended by
-declarative code to define rules. Rules describe how to create output
-files from input files.
-
-rule targets:
-    input:
-        "plots/myplot.pdf"
-
-rule transform:
-    input:
-        "raw/{dataset}.csv"
-    output:
-        "transformed/{dataset}.csv"
-    singularity:
-        "docker://somecontainer:v1.0"
-    shell:
-        "somecommand {input} {output}"
-
-rule aggregate_and_plot:
-    input:
-        expand("transformed/{dataset}.csv", dataset=[1, 2])
-    output:
-        "plots/myplot.pdf"
-    conda:
-        "envs/matplotlib.yaml"
-    script:
-        "scripts/plot.py"
-
-[[{]]
-## Luigi: build complex pipelines of batch jobs
-  Python (2.7, 3.6, 3.7 tested) package that helps you
-  build complex pipelines of batch jobs. It handles dependency
-  resolution, workflow management, visualization, handling failures,
-  command line integration, and much more.
-
-  There are other software packages that focus on lower level aspects
-  of data processing, like Hive, Pig, or Cascading. Luigi is not a
-  framework to replace these. Instead it helps you stitch many tasks
-  together, where each task can be a Hive query, a Hadoop job in Java,
-  a Spark job in Scala or Python, a Python snippet, dumping a table
-  from a database, or anything else. It’s easy to build up
-  long-running pipelines that comprise thousands of tasks and take days
-  or weeks to complete. Luigi takes care of a lot of the workflow
-  management so that you can focus on the tasks themselves and their
-  dependencies.
-[[}]]
-
-[[{]]
-## DENSE (DeepLearning for Science)
-https://www.infoq.com/news/2020/03/deep-learning-simulation/
-https://arxiv.org/abs/2001.08055
-researchers from several physics and geology laboratories have developed Deep
-Emulator Network SEarch (DENSE), a technique for using deep-learning to perform
-scientific simulations from various fields, from high-energy physics to climate
-science. Compared to previous simulators, the results from DENSE achieved
-speedups ranging from 10 million to 2 billion times.
-
-The scientists described their technique and several experiments in a paper
-published on arXiv. Motivated by a need to efficiently generate neural network
-emulators to replace slower simulations, the team developed a neural search
-method and a novel super-architecture that generates convolutional neural
-networks (CNNs); CNNs were chosen because they perform well on a large set of
-"natural" signals that are the domain of many scientific models. Standard
-simulator programs were used to generate training and test data for the CNNs,
-and according to the team,
-[[}]]
-
-## Singa:
-https://www.infoq.com/news/2019/11/deep-learning-apache-singa/
-Acceptance as a top-level project in Apache::
-- instead of building upon an existing API for modeling neural networks,
-  such as Keras, it implements its own.
-  -Horovod framework (Uber) allows developers to port existing models
-  written for TensorFlow and PyTorch.
-- Designed specifically for deep-learning's large models.
-
-## H2O: java  [[scalability]]
-  http://docs.h2o.ai/h2o/latest-stable/h2o-docs/welcome.html
-  H2O is an open source, in-memory, distributed, fast, and scalable machine
-  learning and predictive analytics platform that allows you to build machine
-  learning models on big data and provides easy productionalization of those
-  models in an enterprise environment.
-
-  H2O’s core code is written in Java. Inside H2O, a Distributed Key/Value store
-  is used to access and reference data, models, objects, etc., across all nodes
-  and machines. The algorithms are implemented on top of H2O’s distributed
-  Map/Reduce framework and utilize the Java Fork/Join framework for
-  multi-threading. The data is read in parallel and is distributed across the
-  cluster and stored in memory in a columnar format in a compressed way. H2O’s
-  data parser has built-in intelligence to guess the schema of the incoming
-  dataset and supports data ingest from multiple sources in various formats.
-
-  See also:
-  Understanding Titanic Dataset with H2O’s AutoML, DALEX, and lares library
-  https://datascienceplus.com/understanding-titanic-dataset-with-h2os-automl-dalex-and-lares-library/
-
-## AMD ROCm:
-<https://rocm.github.io/>
-
-AMD ROCm is the first open-source software development platform for
-HPC/Hyperscale-class GPU computing. AMD ROCm brings the UNIX
-philosophy of choice, minimalism and modular software development to
-GPU computing.
-
-Since the ROCm ecosystem is comprised of open technologies:
-frameworks (Tensorflow / PyTorch), libraries (MIOpen / Blas / RCCL),
-programming model (HIP), inter-connect (OCD) and up streamed Linux®
-Kernel support – the platform is continually optimized for
-performance and extensibility. Tools, guidance and insights are
-shared freely across the ROCm GitHub community and forums.
-
-## Tableau: [[{PM.low_code]]
-- A Dead-Simple Tool That Lets Anyone Create Interactive Maps, reports, charts, ...
-  focused on business intelligence.
-  WARN : Not open-source
-
-- Founded January 2003 by Christian Chabot, Pat Hanrahan and Chris Stolte,
-  at that moment researchers at the Department of Computer Science at Stanford University
-  specialized in visualization techniques for exploring and analyzing relational databases
-  and data cubes.
-  Now part of  Salesforce since 2019-09.
-
-- Tableau products query relational databases, online analytical processing cubes,
-  cloud databases, and spreadsheets to generate graph-type data visualizations.
-  The products can also extract, store, and retrieve data from an in-memory data engine.
-[[}]]
-
-## SWBlocks-DecisionTree,  decision_tree
-https://github.com/jpmorganchase/swblocks-decisiontree
-- high performance library, highly flexible service which evaluates
-  inputs to a set of rules to identify one and only one output rule
-  which in term results in a set of outputs. It can be used to model
-  complex conditional processing within an application.
-
-## Quantum IA:
-<https://www.infoq.com/news/2019/01/exploring-quantum-neural-nets>
-    An important area of research in quantum computing concerns the
-application of quantum computers to training of quantum neural
-networks. The Google AI Quantum team recently published two papers
-that contribute to the exploration of the relationship between
-quantum computers and machine learning.
-
-
-## Neural Network Zoo: @ma
-- perceptron, feed forward, ...:
-<http://www.asimovinstitute.org/neural-network-zoo/>
-
-## Convolutional vs Recurrent NN @ma
-<https://stackoverflow.com/questions/20923574/whats-the-difference-between-convolutional-and-recurrent-neural-networks>
-
-## Machine Learning Mind Map:
-https://github.com/dformoso/machine-learning-mindmap
-
-## TensorFlow Privacy:
-https://www.infoq.com/news/2019/03/TensorFlow-Privacy
-
-In a recent blog post, the TensorFlow team announced TensorFlow
-Privacy, an open source library that allows researchers and
-developers to build machine learning models that have strong privacy.
-Using this library ensures user data are not remembered through the
-training process based upon strong mathematical guarantees.
-
-## Document Understanding AI:
-https://www.infoq.com/news/2019/04/Google-Document-Understanding
-
-- Google announced a new beta machine learning service, called Document
-  Understanding AI. The service targets Enterprise Content Management
-  (ECM) workloads by allowing customers to organize, classify and
-  extract key value pairs from unstructured content, in the enterprise,
-  using Artificial Intelligence (AI) and Machine Learning (ML).
-
-## ML: Not just glorified Statistics:
-<https://towardsdatascience.com/no-machine-learning-is-not-just-glorified-statistics-26d3952234e3>
-
-## Scales Weak Supervision(Overcome Labeled Dataset Problem)
-  https://www.infoq.com/news/2019/05/google-snorkel-drybell
-
-## Insights into text data:
-  OReilly Text Analysis for Business Analytics with Python
-  Extracting Insight from Text Data, Walter Paczkowski, Ph.D., June 12, 2019
-""" Unlike well-structured and organized numbers-oriented data of the
-  pre-Internet era, text data are highly unstructured and chaotic. Some
-  examples include: survey verbatim responses, call center logs, field
-  representatives notes, customer emails, of online chats, warranty
-  claims, dealer technician lines, and report orders.  Yet, they are
-  data, a structure can be imposed, and they must be analyzed to
-  extract useful information and insight for decision making in areas
-  such as new product development, customer services, and message
-  development.
-
-  ... This course will show you how to work with text data to extract
-  meaningful insight such as sentiments (positive and negative) about
-  products and the company itself, opinions, suggestions and
-  complaints, customer misunderstandings and confusions, and
-  competitive and positions.
-
-  By the end of this live, hands-on, online course, you’ll understand:
-  - the unstructured nature of text data, including the concepts of a document and a corpus
-  - the issues involved in preparing text data for analysis, including data
-    cleaning, the importance of stop-words, and how to deal with inconsistencies
-    in spelling, grammar, and punctuation
-  - how to summarize text data using Text Frequency/Inverse Document Frequency (TF/IDF) weights
-  - the very important Singular Value Decomposition (SVD) of a document-term matrix (DTM)
-  - how to extract meaning from a DTM: keywords, phrases, and topics
-  - which Python packages are used for text analysis, and when to use each
-
-  And you’ll be able to:
-  - impose structure on text data
-  - use text analysis tools to extract keywords, phrases, and topics from text data
-  - take a new business text dataset and analyze it for key insights using the Python packages
-  - apply all of the techniques above to business problems
-
-## DEBUGGING DATA SCIENCE: [[{training.debugging,]]
-
-* Hands-on applied machine learning with Python (Jonathan Dinu)
-
- .. focus will be on debugging problems that arise during model training to improve the
-effectiveness of the model.
-
-What you'll learn-and how you can apply it:
-- Properly evaluate machine learning models with advanced metrics and diagnose learning problems.
-- Improve the performance of a machine learning model through
-  feature selection, data augmentation, and hyperparameter optimization.
-- Walk through an end-to-end applied machine learning problem applying
-  cost-sensitive learning to optimize “profit.”
-
-  - <https://www.oreilly.com/library/view/data-science-fundamentals/9780134660141/>
-  - <https://www.oreilly.com/library/view/strata-hadoop/9781491944608/video243981.html>
-
-* About Jonathan Dinu: "currently" (202?) pursuing a Ph.D. in Computer Science at
-Carnegie Mellon’s Human Computer Interaction Institute (HCII) where he is working
-to democratize machine learning and artificial intelligence through interpretable
-and interactive algorithms. Previously, he co-founded Zipfian Academy (an immersive
-data science training program acquired by Galvanize), has taught classes at the
-University of San Francisco, and has built a Data Visualization MOOC
-with Udacity....  In addition he has run data science trainings for a Fortune 100
-company and taught workshops at Strata, PyData, & DataWeek (among others).
-[[}]]
-
-## Approximate Nearest Neighbour:
-https://www.infoq.com/news/2019/05/bing-nns-algorithm-open-sourced/
-
-Microsoft's latest contribution to open source, Space Partition Tree
-And Graph (SPTAG), is an implementation of the approximate nearest
-neighbor search (NNS) algorithm that is used in Microsoft Bing search
-engine.
-
-In sheer mathematical terms, SPTAG is able to efficiently find those
-vectors in a given set that minimize the distance from a query
-vector. In reality, SPTAG does an approximate NNS, meaning it takes a
-guess at which vectors are the nearest neighbors, and does not
-guarantee to return the actual nearest neighbors. This, in exchange,
-improves the algorithms requirements in terms of memory and time
-consumption.
-
-
-## Out Systems:
-<https://www.outsystems.com/platform/>
-- Full-stack Visual Development
-- Single-click Deployment
-- In-App Feedback
-- Automatic Refactoring
-  OutSystems analyzes all models and immediately refactors
-  dependencies. Modify a database table and all your queries are
-  updated automatically.
-
-- Mobile Made Easy
-  Easily build great looking mobile experiences with offline data
-  synchronization, native device access, and on-device business logic.
-
-- Architecture that Scales
-  Combine microservices with deep dependency analysis. Create and
-  change reusable services and applications fast and at scale.
-
-## Uber OOSS Plug-and-Play Lang.Model for Controlling AI-Generated Text
-<https://www.infoq.com/news/2019/12/uber-ai-language-model/>
-Uber AI open-sourced their plug-and-play language model (PPLM) which can control
-the topic and sentiment of AI-generated text. The model's output is evaluated
-by human judges as achieving 36% better topic accuracy compared to the baseline GPT-2 model.
-
-The team provided a full description of the system and experiments in a paper
-published on arXiv. PPLM starts with a pre-trained  language model (LM), such as GPT-2.
-These LMs can produce complex output which approaches human fluency, but it is difficult
-to control the specific properties of the generated text. Instead of "fine-tuning" the LM
-with additional training data, PPLM uses a separate attribute model that can evaluate the
-LM's output for sentiment or topic; this model is used to control the text produced by the
-LM. A strength parameter can tune how much the attribute model adjusts the LM output.
-According to Uber's researchers,
-
-## Cerebras largest computer chips  [[hardware.year.2019]]
-https://www.bbc.com/news/technology-49395577
-46,225 mm2 chip
-56x larger than the biggest GPU ever made
-400,000 cores
-78x more cores
-18 GB on-chip SRAM
-3000x more on-chip memory
-100 Pb/s interconnect
-33,000x more bandwidth
-
-
-[[{101,ml_type.general,PM.RADAR]]
-## Pictionary: bringing AI with common sense 
-<https://www.zdnet.com/article/pictionary-provides-ai-with-common-sense/?ftag=TRE-03-10aaa6b&bhid=28374205867001011904732094012637>
-
-· As reported by MIT Technology Review, researchers at the Allen
-  Institute for AI (Ai2) believe that Pictionary, in which players draw
-  an image to convey a word or phrase, could bridge the gap between the
-  use of algorithms, machine learning (ML), cognitive computing and
-  what we know as "common sense."
-[[}]]
-
-## stanford-ai-report: [[{resource,year.2020,PM.TODO]]
+[[{PM.year.2020,PM.TODO]]
+## stanford-ai-report
 https://www.infoq.com/news/2020/01/stanford-ai-report/
 https://hai.stanford.edu/news/introducing-ai-index-2019-report
 https://drive.google.com/drive/folders/1Tl2HyuXHTGufDTsF-h0cb0InlMD3gvSQ
@@ -1433,21 +362,10 @@ https://drive.google.com/drive/folders/1Tl2HyuXHTGufDTsF-h0cb0InlMD3gvSQ
   and societal considerations.
 [[}]]
 
-[[{mlops,scalability.Fiber,PM.TODO]]
-## Fiber: Library for Distributed ML
+[[{hardware.Asus_Tinker,architecture.IoT,PM.TODO]]
+## Asus Tinker-Edge-T
 
-* <https://www.infoq.com/news/2020/04/uber-fiber-distributed-ml/>
-- by  Uber and OpenAI
-[[}]]
-
-
-[[{training.reinforced,scalability.SEED_RL,PM.TODO]]
-## Google's SEED RL: 80x Speedup Reinforced Learn.
-<https://www.infoq.com/news/2020/04/google-learning-speedup/>
-[[}]]
-
-## Asus Tinker-Edge-T: [[{hardware,dev_stack.IoT,PM.TODO]]
-<https://www.asus.com/AIoT-Industrial-Solutions/Tinker-Edge-T/?_ga=2.222749464.2064642975.1576720131-30811311.1528449725>
+- <https://www.asus.com/AIoT-Industrial-Solutions/Tinker-Edge-T/>
 IA performance for edge devices
 - Google Edge TPU
 - Advanced power design
@@ -1458,1274 +376,95 @@ IA performance for edge devices
   second (TOPS) using only 0.5 watts per unit of computation. It is
   also optimized for TensorFlow Lite models, making it easy to compile
   and run common ML models.
-[[}]]
+[[hardware.Asus_Tinker}]]
 
-## Google Coral: IA Platform: [[{hardware,PM.TODO]]
-<https://www.xataka.com/inteligencia-artificial/google-renueva-coral-plataforma-inteligencia-artificial-pequena-nuevo-modulo-acelerador-ia>
+[[{data.open_data,data.geographical]]
+## countries-states-cities-database
 
-- Nueva versión más pequeña y un nuevo módulo acelerador de IA
-- Plataforma de hardware y herramientas para desarrollar y prototipar
-  productos de inteligencia artificial. Uno de los más llamativos fue
-  la Dev Board, una placa base muy similar a una Raspberry Pi para
-  desarrolladores basada en el chip Edge TPU,
-[[}]]
+* <https://github.com/dr5hn/countries-states-cities-database>
+World countries, states, regions, provinces, cities, towns in JSON, SQL, XML, 
+YAML, and CSV. All Countries, States, Cities with ISO2, ISO3, Country Code, 
+Phone Code, Capital, Native Language, Timezones, Latitude, Longitude, Region, 
+Subregion, Flag Emoji, and Currency.
+[[data.open_data}]]
 
-## AI for AI: NN That Actually Work [[{NN,101,PM.TODO]]
-<https://www.wired.com/2016/05/facebook-trying-create-ai-can-create-ai/>
 
-Finally, Neural Networks That Actually Work
+[[{101]]
+## Neural Networks are Decision Trees
 
-"It's almost like being the coach rather than the player," says Demis
-Hassabis, co-founder of DeepMind, the Google outfit behind the
-history-making AI that beat the world's best Go player. "You're
-coaxing these things, rather than directly telling them what to do."
+* <https://doi.org/10.48550/arXiv.2210.05189>
 
-That's why many of these companies are now trying to automate this
-trial and error—or at least part of it. If you automate some of the
-heavily lifting, the thinking goes, you can more rapidly push the
-latest machine learning into the hands of rank-and-file
-engineers—and you can give the top minds more time to focus on
-bigger ideas and tougher problems. This, in turn, will accelerate the
-progress of AI inside the Internet apps and services that you and I
-use every day.
+By Caglar Aytekin
 
-In other words, for computers to get smarter faster, computers
-themselves must handle even more of the grunt work. The giants of the
-Internet are building computing systems that can test countless
-machine learning algorithms on behalf of their engineers, that can
-cycle through so many possibilities on their own. Better yet, these
-companies are building AI algorithms that can help build AI
-algorithms. No joke. Inside Facebook, engineers have designed what
-they like to call an "automated machine learning engineer," an
-artificially intelligent system that helps create artificially
-intelligent systems. It's a long way from perfection. But the goal is
-to create new AI models using as little human grunt work as possible.
-Feeling the Flow
+* <https://lnkd.in/epBj-gXq>
+  
+* <https://www.linkedin.com/posts/montrealai_artificialintelligence-deeplearning-neuralnetworks-activity-7038553387348500481-fiFH>
 
-After Facebook's $104 billion IPO in 2012, Hussein Mehanna and other
-engineers on the Facebook ads team felt an added pressure to improve
-the company's ad targeting, to more precisely match ads to the
-hundreds of millions of people using its social network. This meant
-building deep neural networks and other machine learning algorithms
-that could make better use of the vast amounts of data Facebook
-collects on the characteristics and behavior of those hundreds of
-millions of people.
+we show that any NN with any activation function can be represented
+as a decision tree.
 
-    'The more ideas you try, the better. The more data you try, the
-better.'
+ The representation is equivalence and not an approximation, thus keeping
+the accuracy of the NN exactly as is.
 
-According to Mehanna, Facebook engineers had no problem generating
-ideas for new AI, but testing these ideas was another matter. So he
-and his team built a tool called Flow. "We wanted to build a
-machine-learning assembly line that all engineers at Facebook could
-use," Mehanna says. Flow is designed to help engineers build, test,
-and execute machine learning algorithms on a massive scale, and this
-includes practically any form of machine learning—a broad
-technology that covers all services capable of learning tasks largely
-on their own.
+ We believe that this work provides better understanding of NN and
+paves the way to tackle their black-box nature.
 
-Basically, engineers could readily test an endless stream of ideas
-across the company's sprawling network of computer data centers. They
-could run all sorts of algorithmic possibilities—involving not just
-deep learning but other forms of AI, including logistic regression to
-boosted decision trees—and the results could feed still more ideas.
-"The more ideas you try, the better," Mehanna says. "The more data
-you try, the better." It also meant that engineers could readily
-reuse algorithms that others had built, tweaking these algorithms and
-applying them to other tasks.
+ We share equivalent trees of some neural networks and show that
+besides providing interpretability, tree representation can also
+achieve some computational advantages for small networks. [[qa.interpretability]]
 
-Soon, Mehanna and his team expanded Flow for use across the entire
-company. Inside other teams, it could help generate algorithms that
-could choose the links for your Faceboook News Feed, recognize faces
-in photos posted to the social network, or generate audio captions
-for photos so that the blind can understand what's in them. It could
-even help the company determine what parts of the world still need
-access to the Internet.
+ The analysis holds both for fully connected and convolutional networks,
+which may or may not also include skip connectionsand/or normalizations.
 
-With Flow, Mehanna says, Facebook trains and tests about 300,000
-machine learning models each month. Whereas it once rolled a new AI
-model onto its social network every 60 days or so, it can now release
-several new models each week.
-The Next Frontier
-
-The idea is far bigger than Facebook. It's common practice across the
-world of deep learning. Last year, Twitter acquired a startup,
-WhetLab, that specializes in this kind of thing, and recently,
-Microsoft described how its researchers use a system to test a sea of
-possible AI models. Microsoft researcher Jian Sun calls it
-"human-assisted search."
-
-    Engineers even built their own 'automated machine learning
-engineer.'
-
-Mehanna and Facebook want to accelerate this. The company plans to
-eventually open source Flow, sharing it with the world at large, and
-according to Mehanna, outfits like LinkedIn, Uber, and Twitter are
-already interested in using it. Mehanna and team have also built a
-tool called AutoML that can remove even more of the burden from human
-engineers. Running atop Flow, AutoML can automatically "clean" the
-data needed to train neural networks and other machine learning
-algorithms—prepare it for testing without any human
-intervention—and Mehanna envisions a version that could even gather
-the data on its own. But more intriguingly, AutoML uses artificial
-intelligence to help build artificial intelligence.
-
-As Mehana says, Facebook trains and tests about 300,000 machine
-learning models each month. AutoML can then use the results of these
-tests to train another machine learning model that can optimize the
-training of machine learning models. Yes, that can be a hard thing to
-wrap your head around. Mehanna compares it to Inception. But it
-works. The system can automatically chooses algorithms and parameters
-that are likely to work. "It can almost predict the result before the
-training," Mehanna says.
-
-Inside the Facebook ads team, engineers even built that automated
-machine learning engineer, and this too has spread to the rest of the
-company. It's called Asimo, and according to Facebook, there are
-cases where it can automatically generate enhanced and improved
-incarnations of existing models—models that human engineers can
-then instantly deploy to the net. "It cannot yet invent a new AI
-algorithm," Mehanna says. "But who knows, down the road..."
-
-It's an intriguing idea—indeed, one that has captivated science
-fiction writers for decades: an intelligent machine that builds
-itself. No, Asimo isn't quite as advanced—or as frightening—as
-Skynet. But it's a step toward a world where so many others, not just
-the field's sharpest minds, will build new AI. Some of those others
-won't even be human.
-
-[[}]]
-
-## Jetson nano 2Gb+SDK: 59$ [[{hardware,PM.TODO]]
-https://www.infoq.com/news/2020/10/nvidia-jetson-nano-2gb/
-[[}]]
-
-## new techn. enables very low data ML: [[{ml.101,data.cleaning,performance,PM.TODO]]
-<https://www.technologyreview.com/2020/10/16/1010566/ai-machine-learning-with-tiny-data/amp/>
-[[}]]
-
-## Deepmind descubre secreto plegamiento proteinas:
-[[{ml_type.unsupervised,optimization,PM.TODO]]
-https://www.xataka.com/medicina-y-salud/deepmind-acaba-dar-salto-gigante-para-resolver-uno-grandes-misterios-biologia-molecular-50-anos-buscando-entender-plegamiento-proteinas
-[[}]]
-
-[[{training.dimension_reduction,PM.TODO]]
-## iForest: Best anomaly detection algo.
-<https://towardsdatascience.com/isolation-forest-is-the-best-anomaly-detection-algorithm-for-big-data-right-now-e1a18ec0f94f >
-· Isolation Forest is the best Anomaly Detection Algorithm for Big Data Right Now [2020-11]
-· astoundingly beautiful and elegantly simple
-· It identifies anomalies with few parameters.
-· It compares (and wins) to ABOD CBLOF FB HBOS KNN LOF MCD OCSVM Principal Component Analysis(PCA) algorigtms.
-[[}]]
-
-## Adversarial Machine Learning Introduction[[{ml.unsupervised,PM.TODO]]
-Adversarial Machine Learning: una introducción.
-¿Motivo de preocupación? BBVA Next Technologies
-<https://www.bbvanexttechnologies.com/adversarial-machine-learning/>
-[[}]]
-
-
-
-## cPMML: Scoring ML models [[{data.persistence,pmml,qa,PM.TODO]]
-· cPMML is C++ library for scoring machine learning models
-  serialized with the Predictive Model Markup Language (PMML).It
-  exposes a minimalist and user-friendly API and it targets high
-  performance in model scoring, keeping a predictable and minimal
-  memory footprint.
-[[}]]
-
-## Driving a car with 19 control neurons!
-[[{nn,101,PM.TODO]]
-ML: Ver "A new brain-inspired intelligent system can drive a car using only 19 control neurons!" en YouTube
-<https://youtu.be/wAa358pNDkQ>
-[[}]]
-
-## NetWorkX:  analytics and rendering   [data.visualization][data.analytics][ui]
-https://networkx.org/documentation/stable/index.html
-- Python package for the creation, manipulation, and
-  study of the structure, dynamics, and functions of complex networks.
-  - Gallery:
-  <https://networkx.org/documentation/stable/auto_examples/index.html>
-
- ºGraphViz Graph Visualizationº
-<http://www.graphviz.org>
-http://www.graphviz.org/gallery/
-
-
-## Query Distributed Graph DB: db_engine.graph_db
-<https://www.infoq.com/presentations/graph-query-distributed-execution/>
-
-## RocksDB has flexible tradeoffs between:
-  - Write-Amplification-Factor (WAF)
-  - Read-Amplification-Factor  (RAF)
-  - Space-Amplification-Factor (SAF)
-
-## https://github.com/dr5hn/countries-states-cities-database
-World countries, states, regions, provinces, cities, towns in JSON, SQL, XML, YAML, and CSV. All Countries, States, Cities with ISO2, ISO3, Country Code, Phone Code, Capital, Native Language, Timezones, Latitude, Longitude, Region, Subregion, Flag Emoji, and Currency. #countries #states #cities
-
-[[{use_case.NLP,theory.geometry_of_linguistics,PM.TODO]]
-## NLP geometry of linguistics  
-
-(by Dr. Ahmad Al-Yasry, Doctor of Mathematics from Max Planck institute for Mathematics)
-
-- The geometry of linguistics, also known as computational geometry of
-language, is a field that studies the relationship between language
-and geometry.
-- This field has several applications in machine learning (ML) and
- artificial intelligence (AI).One of the main applications of
-the geometry of linguistics in ML and AI is in natural language
-processing (NLP). NLP involves the development of algorithms and
-models that enable computers to understand, interpret, and generate
-human language. The geometry of linguistics provides a framework for
-representing language in a geometric space, which enables the use of
-geometric algorithms and techniques in NLP tasks.For example, one
-application of the geometry of linguistics in NLP is in the
-development of word embeddings. Word embeddings are vector
-representations of words in a high-dimensional space that capture
-their semantic and syntactic properties. These embeddings are used in
-various NLP tasks, such as language modeling, sentiment analysis, and
-machine translation. The geometry of linguistics provides a
-mathematical framework for understanding the geometric properties of
-word embeddings and how they relate to language semantics.Another
-application of the geometry of linguistics in ML and AI is in the
-development of deep learning models. Deep learning is a subfield of
-ML that involves the development of neural networks with multiple
-layers. These models are used in various AI applications, such as
-image recognition, speech recognition, and natural language
-processing. The geometry of linguistics provides insights into the
-geometric properties of neural networks and how they affect their
-performance.Topological data analysis (TDA) is another field that has
-applications in ML and AI. TDA is a mathematical framework for
-analyzing complex datasets using techniques from algebraic topology.
-TDA has been applied in various ML and AI tasks, such as clustering,
-dimensionality reduction, and anomaly detection.There is a relation
-between the geometry of linguistics and TDA. Both fields involve the
-study of geometric and topological properties of data. For example,
-the geometry of linguistics provides a geometric framework for
-representing language data, while TDA provides a topological
-framework for analyzing the structure of complex datasets. The
-combination of these two fields can lead to new insights and
-techniques for solving complex problems in ML and AI.
-[[}]]
-
-[[{PM.low_code,data.analysis]]
-## ChatGPTClassifier and ChatGPTRegressor is part of sklearn now!
-
-... and it works impressively well!
-[[}]]
-
-[[{LLM.GPT,LLM.promptEng]]
-
-## JARVIS: a system to connect LLM with ML community
-
-* <https://www.linkedin.com/posts/sergios-karagiannakos_%3F%3F%3F%3F%3F%3F-%3F-%3F%3F%3F%3F%3F%3F-%3F%3F-%3F%3F%3F-activity-7048273723044298752-Z1Ns>
-
-- new system by Microsoft that is based on the recent HuggingGPT
-paper. Here is how it works in a nutshell:
-
-
-1) Task Planning: It uses ChatGPT to analyze the requests of users to understand their
-   intention, and disassemble them into possible solvable sub-tasks.
-2) Model Selection: Based on the sub-tasks, ChatGPT invokes the corresponding models
-   hosted on HuggingFace.
-3) Task Execution: It executes each invoked model and returns the results to ChatGPT.
-4) Response Generation: Finally, it uses ChatGPT to integrate the
-   prediction of all models, and generate a response.
-Paper: https://lnkd.in/dC2fppSgGithub: https://lnkd.in/dASZPzBe_
-[[}]]
-
-## Five solutions to transform the climate data ecosystem [[{]]
-https://climatearc.org/insights/5-solutions-to-transform-the-climate-data-ecosystem/
-[[}]]
-## XML processing xmlstarlet ('jq' for xml)
-  https://xmlstar.sourceforge.net/doc/xmlstarlet.txt
-  https://www.videlibri.de/xidel.html
-
-## Taichi High Perf. Computing using low-code Python. [[{101,scalability]]
-
-* <https://docs.taichi-lang.org/docs/overview>
-General-purpose computing. While originally designed for physics
-simulation, Taichi has found its application in many other areas that
-can be boosted by GPU general-purpose computing.taichimd:
-Interactive, GPU-accelerated Molecular (& Macroscopic) Dynamics using
-the Taichi programming languageTaichiSLAM: a 3D Dense mapping backend
-library of SLAM based Taichi-Lang, designed for the aerial
-swarm.Stannum: Fusing Taichi into PyTorch.
-[[}]]
-
-## AutoKeras [[{]]
-Giannis Tolios
-AutoKeras is a Python library based on Keras/TensorFlow that lets you
-easily train deep learning models. The library supports numerous
-tasks, including image classification, text classification, tabular
-data regression and time series forecasting. Notably, AutoKeras
-models can be trained with a few lines of code, making the library
-significantly useful for professionals who want to streamline their
-workflow. You can check the links below for more information, and
-make sure to follow me for regular data science
-content!𝗔𝘂𝘁𝗼𝗞𝗲𝗿𝗮𝘀
-𝗼𝗳𝗳𝗶𝗰𝗶𝗮𝗹 𝘄𝗲𝗯𝘀𝗶𝘁𝗲:
-https://autokeras.com/𝗡𝗲𝘂𝗿𝗮𝗹
-𝗡𝗲𝘁𝘄𝗼𝗿𝗸𝘀 𝗮𝗻𝗱 𝗗𝗲𝗲𝗽
-𝗟𝗲𝗮𝗿𝗻𝗶𝗻𝗴 𝗖𝗼𝘂𝗿𝘀𝗲 :
-https://lnkd.in/dCd7YmaJ𝗜𝗕𝗠 𝗗𝗮𝘁𝗮
-𝗦𝗰𝗶𝗲𝗻𝗰𝗲
-𝗣𝗿𝗼𝗳𝗲𝘀𝘀𝗶𝗼𝗻𝗮𝗹
-𝗖𝗲𝗿𝘁𝗶𝗳𝗶𝗰𝗮𝘁𝗲 :
-https://lnkd.in/dT5EeKsy#datascience #python #machinelearning
-#deeplearning #linkedin
-
-https://www.linkedin.com/posts/damienbenveniste_machinelearning-datascience-artificialintelligence-activity-7046142288112009217-oXqT 
-[[}]]
-
-
-
-## report: La mega-guía de 71 herramientas de inteligencia artificial: [[{]]
-dime para qué la necesitas y te digo qué IAs son las mejoreshttps://www.xataka.com/basics/mega-guia-71-herramientas-inteligencia-artificial-dime-necesitas-te-digo-que-ias-mejores 
-Consensus: Un buscador especializado en papers de investigación. Esto quiere decir que tú le preguntas algo, y la IA te responderá basándose en información científica, y no en lo que ponga en webs de Internet. Enlace: consensus.app.
-....
-[[}]]
-
-## https://github.com/microsoft/semantic-kernel
-
-## data loading by Itay Gabbay [[{]]
- I post interesting stuff!1d 𝗙𝗙𝗖𝗩: 𝗔 𝗰𝗼𝗼𝗹
-𝗽𝘆𝘁𝗵𝗼𝗻 𝗽𝗮𝗰𝗸𝗮𝗴𝗲 𝘁𝗼
-𝗮𝗰𝗰𝗲𝗹𝗲𝗿𝗮𝘁𝗲 𝗱𝗮𝘁𝗮
-𝗹𝗼𝗮𝗱𝗶𝗻𝗴 𝗮𝗻𝗱
-𝘁𝗿𝗮𝗶𝗻𝗶𝗻𝗴 𝘁𝗶𝗺𝗲𝘀! One of the
-annoying things when trying a new model is the huge waiting time one
-needs to wait to get the results of the new model. Usually,
-#deeplearning models require a lot of data to train on which leads to
-high compute costs and to exhausting process of training. Today, I
-found a new #python package that accelerates the data loading process
-that is being fed to the model, thus reducing the overall training
-time by orders of magnitude (and the cost!) In the docs it also
-provides a performance guide with best practices of how to
-investigate performance issues and improve the overall
-performanceCheck it out!𝗚𝗶𝘁𝗛𝘂𝗯:
-https://lnkd.in/d32aN-pa𝗗𝗼𝗰𝘀: https://ffcv.io
-[[}]]
-
-## dair-ai/Prompt-Engineering-Guide:
-  Guides, papers, lecture, and resources for prompt engineering
-  https://github.com/dair-ai/Prompt-Engineering-Guide
-
-
-
-## kmeans ++  [[{]]
-https://www.linkedin.com/posts/avi-chawla_python-datascience-activity-7039558488242466816-L6Bg 
-KMeans is a popular but high-run-time clustering algorithm. Here's
-how a small tweak can significantly improve its run time.KMeans
-selects the initial centroids randomly. As a result, it fails to
-converge at times. Thus, one has to repeat clustering several times
-with different initialization and select the best model.Instead,
-KMeans++ takes a smarter approach to initialize centroids. The first
-centroid is selected randomly. But the next centroid is chosen based
-on the distance from the first centroid.
-[[}]]
-
-
-## Neural Networks are Decision Trees  [[{]]
-  https://doi.org/10.48550/arXiv.2210.05189
-  Caglar Aytekin
-  https://lnkd.in/epBj-gXq
-  https://www.linkedin.com/posts/montrealai_artificialintelligence-deeplearning-neuralnetworks-activity-7038553387348500481-fiFH 
-  Neural Networks are Decision Trees Caglar Aytekin Download PDF In
-  this manuscript, we show that any neural network with any
-  activationfunction can be represented as a decision tree. The
-  representation isequivalence and not an approximation, thus keeping
-  the accuracy of the neuralnetwork exactly as is. We believe that this
-  work provides better understandingof neural networks and paves the
-  way to tackle their black-box nature. We shareequivalent trees of
-  some neural networks and show that besides providinginterpretability,
-  tree representation can also achieve some computationaladvantages for
-  small networks. The analysis holds both for fully connected
-  andconvolutional networks, which may or may not also include skip
-  connectionsand/or normalizations. Subjects: Machine Learning
-  (cs.LG)Cite as:arXiv:2210.05189 [cs.LG] (or arXiv:2210.05189v3
-  [cs.LG] for this version)  
-[[}]]
-
-##  prompt engineering [[{]]
-Aldrin is hiring a Web3 Prompt Engineer (Remote)Location: Remote4h
-agoPlease Note: This is a fully remote position.About Aldrin
-LabsAldrin Labs is an ecosystem of DeFi products that integrate with
-each other to provide easy functionality and purposefully help people
-achieve financial freedom. The ecosystem also includes a core DeFi
-product, our leading wallet application.
-
-The RoleWe are looking for a skilled Prompt Engineer to join our team
-and help us build context around our language model, ChatGPT. In this
-role, you will leverage the power of AI to build context and develop
-prompts that align with our product vision. You will collaborate with
-our product development team to understand user needs and create
-custom prompts that improve the user experience.Responsibilities:When
-applying, mention the word CANDYSHOP to show you read the job post
-completely. This is a beta feature to avoid spam applicants.
-Companies can search these words to find applicants that read this
-and see they are human RODguNS4zMi4yNTQM
-[[}]]
-
-## linear algebra 101 [[{]]
-https://www.linkedin.com/posts/nick-singh-tech_datascience-machinelearning-activity-7036934508939501568-zUfm 
- Nick Singh Author of Ace the Data Science Interview
-
-
-
-* At only ~2.5 hours long, in the time it takes you to watch
-  a movie you could instead develop some helpful intuitions about
-  Linear Algebra!
-  <https://lnkd.in/eeTHWC9E>
-
-* Course from Lemna: Has an ‘Essential’ or ‘In Depth’ setting so you can get the level of
-detail you need (and toggle between the two granularities).Takes about a week of work to get
-through!
-  <https://lnkd.in/ekgpfvzc>
-
-* MIT OCW Lecture by Gilbert Strang: If you really wanna develop your LA skills,
-  Strang is the man!Check out this MIT course & work through the
-  homework + exams to really test your understanding. Takes a month or
-  two!
-  * <https://lnkd.in/g5EJAJKA===>
-
-[[}]]
-
-## When reinforcement learning and structured Gaussian Processes meet [[{]]
-  Sergei Kalinin3rdAmazon, special projects. University of Tennessee,
-Knoxville, machine learning in physical sciences 4. : hypothesis
-learningOver the last 2 years, AI4Science is rapidly gaining
-prominence across multiple communities. The concept per se is very
-appealing - we have powerful ML algorithms for advanced data
-analysis, emerging automated labs and microscopes, so certainly we
-can put them together and make automated scientists!However, what
-does it mean to do science? Science is not simply analyzing data.
-Ultimately, science is the feedback cycle between theory and
-experiment that allows to go where no one has gone before and learn
-what happens there. The role of theory is to analyze existing data
-and make hypothesis about what may be happening in the parts of the
-parameter space we did not explore. The role of experiment is to
-actually go there, collect new data, use it to falsify the
-hypothesis, and also discover serendipitous behaviors and phenomena.
-Over time, we also develop better tools for doing experiment, but
-this is slower. The reason we need hypotheses is because we cannot
-explore *all* possible eventualities - our experimental budgets are
-usually limited. Which means that we need to formulate the questions
-in such a way that they can be answered in a small number of
-attempts. Maxim Ziatdinov and I have started to think about these
-concepts 2 years ago when playing with the reinforcement learning
-(RL) and observing Mario making large number of random attempts when
-learning to navigate the perils of the Mushroom Kingdom. Surely the
-progress would have been much faster if Mario have asked some basic
-questions - should I step on suspicious moving brown mushrooms with
-eyes? Should I pick the gold coin? Rather then randomly attempting
-moving and jumping, it would be far more efficient to define possible
-models of behavior with respect to specific objects. Making
-hypotheses for outcomes and falsifying them would make learning much
-faster!Much like for Mario, classical data driven reinforcement
-learning is very limited for experiment - it is too data intensive.
-We cannot try everything. However, in physical sciences we often have
-hypotheses!The hypothesis learning is a combination of the basic
-reward concept from RL and Bayesian probabilistic learning. We assume
-that the *right* model of system behavior allows to learn faster -
-the behavior you have seen in the previous notebooks comparing GP and
-sGP. To recognize it, we introduce reward to the model that learns
-faster. To make sure that we do not get trapped into local minimum,
-we add epsilon-greedy policy to explore all models.If you are
-interested in the real-world examples, have a look at our recent work
-on:Combinatorial materials libraries: https://lnkd.in/e47eNJuwFully
-autonomous Scanning Probe Microscopy: https://lnkd.in/euvpBJktThe
-implementation of the hypothesis learning in a fully actionable GPax
-Colab:https://lnkd.in/eTQrvH5K#bayesian #hypothesis #rl #ml #mario
-#ai4science #ml4science #ai
-[[}]]
-
-## HiPlot High dimensional interactive visualization/ploting tool [[{]]
-  https://www.linkedin.com/posts/itay-gabbay_datascientist-python-datascientist-activity-7035911297799991296-RW-l 
- In many ML problems we usually need
-to handle high dimensional data. In classic ML applications it happen
-a lot, but with unstructured data (vision, nlp) this is almost always
-the case. Visualization of high-dimensional data is hard. When
-needed, #datascientist usually use dimensionality reduction
-techniques (e.g. PCA/SVD) that loses some information of the data.
-Today I discovered HiPlot - a #python package that enables
-interactive visualizations to help #datascientist discover
-correlations and patterns in high-dimensional data using parallel
-plots and other graphical ways to represent information.It can be
-used as a web server, within jupyter notebooks and even as a CLI
-tool.Check it out!𝗚𝗶𝘁𝗛𝘂𝗯:
-https://lnkd.in/dVF6my7A𝗗𝗼𝗰𝘀:
-https://lnkd.in/dE7sqT5bFollow Itay Gabbay for more updates!
-[[}]]
-
-## Math 101: What is the role of eigenvalues and eigenvectors in machine learning? [[{]]
-https://www.rebellionresearch.com/what-is-the-role-of-eigenvalues-and-eigenvectors-in-machine-learning
-[[}]]
-
-## Ml: Meet RLPrompt: A New Prompt Optimization Approach with Reinforcement Learning (RL) - MarkTechPosthttps://www.marktechpost.com/2023/03/01/meet-rlprompt-a-new-prompt-optimization-approach-with-reinforcement-learning-rl/ 
-## Meet RLPrompt: A New Prompt Optimization Approach with Reinforcement Learning (RL) [[{]]
-By Niharika Singh
-March 1, 2023
-Source: https://arxiv.org/pdf/2205.12548.pdf
-
-Prompting is a promising approach to solving NLP problems with
-pre-trained language models (LMs) such as GPTs and BERT. Unlike
-conventional fine-tuning that updates the massive LM parameters for
-each downstream task, prompting concatenates inputs with additional
-text to steer the LM towards producing the desired outputs. A key
-question is finding optimal prompts to improve the LM’s performance
-on various tasks with few training examples.Reinforcement Learning
-(RL) for prompt optimization challenges learning efficiency as the
-large black-box language model navigates a complex environment
-involving multiple transitions before computing rewards. This
-complexity makes it challenging to learn from the unstable reward
-signals. However, to overcome this, we propose two simple but
-effective strategies. Firstly, normalizing the training signal by
-computing the z-score of rewards for the same input can stabilize the
-reward signals. Secondly, designing piecewise reward functions that
-offer sparse, qualitative bonuses for desirable behaviors, such as
-achieving a certain accuracy on a specific class, can improve
-optimization efficiency.Existing work relies on soft prompt tuning
-that needs more interpretability, reusability, and applicability in
-the absence of gradients. Discrete prompt optimization is complex,
-and heuristics such as paraphrasing and selection must be more
-systematic. In the latest research paper, researchers from CMU and
-UCSD propose RLPrompt, an efficient discrete prompt optimization
-approach using reinforcement learning (RL) applicable to different
-LMs for classification and generation tasks. Be a part of the fastest
-growing AI subreddit community with 15k membersExperiments show
-superior performance over finetuning or prompting methods for
-few-shot classification and unsupervised text style transfer.
-Interestingly, optimized prompts often consist of ungrammatical
-gibberish text, which shows LMs may have understood common frameworks
-for prompting, but they do not adhere to human language
-norms.What’s newThis paper introduces RLPrompt, a new approach to
-prompt optimization that utilizes reinforcement learning (RL). This
-method combines desirable properties for optimizing prompts across
-different tasks and language models.Instead of editing the discrete
-tokens directly, which has proven difficult and inefficient, RLPrompt
-employs a policy network that generates the desired prompts. Learning
-a small number of policy parameters enables discrete prompt
-optimization by inserting them as an MLP layer into a frozen compact
-model like distilGPT-2.This formulation also enables off-the-shelf RL
-algorithms (such as soft Q-learning) that learn the policy with
-arbitrary reward functions. These reward functions can be defined
-with available data, such as in few-shot classification, or with
-other weak signals when supervised data is not accessible, like in
-controllable text generation.The study found that strongly optimized
-prompts are less coherent but transferable between language models,
-resulting in a remarkable performance. This observation opens up new
-and promising possibilities for prompting, such as learning cheap
-prompts from smaller models and performing inferences with larger
-ones.However, the limitations and potential drawbacks of RLPrompt are
-yet to be explored, and it is uncertain whether it is a suitable
-method for all types of applications. Further research is needed to
-fully understand the strengths and weaknesses of RLPrompt.Check out
-the Paper, Github, and Reference Article. All Credit For This
-Research Goes To the Researchers on This Project. Also, don’t
-forget to join our 14k+ ML SubReddit, Discord Channel, and Email
-Newsletter, where we share the latest AI research news, cool AI
-projects, and more.                  Niharika Singh
-   + posts   Niharika is a Technical consulting intern at
-Marktechpost. She is a third year undergraduate, currently pursuing
-her B.Tech from Indian Institute of Technology(IIT), Kharagpur. She
-is a highly enthusiastic individual with a keen interest in Machine
-learning, Data science and AI and an avid reader of the latest
-developments in these fields.
-[[}]]
+( Cite as:arXiv:2210.05189 [cs.LG] or arXiv:2210.05189v3 [cs.LG] for this version)  
+[[101}]]
 
 [[{cloud.aws,doc_has.tutorial]]
-## Ml 101: MLU-Explain
+## 101: MLU-Explain
 
 * <https://mlu-explain.github.io/>
-
-
-Machine Learning University (MLU) is an education initiative from Amazon 
-designed to teach machine learning theory and practical application.
-
-As part of that goal, MLU-Explain exists to teach important machine learning 
-concepts through visual essays in a fun, informative, and accessible manner.
 [[}]]
 
-## ML: Deep Learning Pioneer Geoffrey Hinton Publishes New Deep Learning Algorithm [[{]]
-https://www.infoq.com/news/2023/01/hinton-forward-algorithm/?itm_source=infoq
-[[}]]
+[[{architecture.ConvNet,PM.trending,PM.year.2022]]
+## A ConvNet for the 2020s
 
+- <https://arxiv.org/abs/2201.03545v2> 
 
-## 101: ChatGPT is everywhere. Here's where it came from [[{]]
-https://www.technologyreview.com/2023/02/08/1068068/chatgpt-is-everywhere-heres-where-it-came-from/ 
-[[}]]
+(trending paper in 2022)
 
-## chatgpt [[{]]
-  https://www.linkedin.com/posts/montrealai_a-categorical-archive-of-chatgpt-failures-activity-7029101210116706305-USNg
-[[}]]
+The "Roaring 20s" of visual recognition began with the introduction of Vision 
+Transformers (ViTs), which quickly superseded ConvNets as the state-of-the-art 
+image classification model.
 
-[[{]]
-## how do stable diffusion models work
+ A vanilla ViT, on the other hand, faces difficulties when applied to general
+computer vision tasks such as object detection and semantic segmentation.
 
-* <https://www.linkedin.com/posts/eric-feuilleaubois-ph-d-43ab0925_how-diffusion-models-work-the-math-from-activity-7027772874375491584-zz7o>
+ It is the hierarchical Transformers (e.g., Swin Transformers) that 
+reintroduced several ConvNet priors, making Transformers practically
+viable as a generic vision backbone and demonstrating remarkable performance
+on a wide variety of vision tasks.
 
-How diffusion models work: the math from scratch | AI Summer
-  https://buff.ly/3HTbi4j
-[[}]]
+ However, the effectiveness of such hybrid approaches is still largely credited to the 
+intrinsic superiority of Transformers, rather than the inherent inductive 
+biases of convolutions.
 
+ In this work, we reexamine the design spaces and test the limits of what a
+pure ConvNet can achieve.
 
-## ML: 22 funciones y cosas que puedes hacer con ChatGPT para exprimir al máximo esta inteligencia artificial [[{]]
-https://www.xataka.com/basics/22-funciones-cosas-que-puedes-hacer-chatgpt-para-exprimir-al-maximo-esta-inteligencia-artificial 
-[[}]]
-## 101, understanding Large Language Models -- A Transformative Reading List [[{]]
-https://sebastianraschka.com/blog/2023/llm-reading-list.html 
-[[}]]
+ We gradually "modernize" a standard ResNet toward the design of a vision
+Transformer, and discover several key components that contribute to the
+performance difference along the way.
 
-## What is Spatial Data Science? | Definition from CARTO [[{]]
-  https://carto.com/what-is-spatial-data-science
-[[}]]
+ The outcome of this exploration is a family of pure ConvNet models 
+dubbed ConvNeXt. 
 
-## prompt-entineer, Las IAs como ChatGPT ya crean nuevas profesiones
-(muy bien pagadas): a qué se dedica esta nueva clase de
-'ingenieros'
-https://www.genbeta.com/actualidad/ingeniero-instrucciones-que-bien-pagado-nuevo-trabajo-que-ha-surgido-gracias-a-ias-como-chatg
-pt 
+Constructed entirely from standard ConvNet modules, ConvNeXts compete favorably 
+with Transformers in terms of accuracy and scalability, achieving 87.8% 
+ImageNet top-1 accuracy and outperforming Swin Transformers on COCO detection 
+and ADE20K segmentation, while maintaining the simplicity and efficiency of 
+standard ConvNets. 
+[[architecture.ConvNet}]]
 
-## Bayesian optimization - Martin Krasser's Blog
-  http://krasserm.github.io/2018/03/21/bayesian-optimization/ 
-
-## Release v1.0.0 · dmlc/dgl · GitHubhttps://github.com/dmlc/dgl/releases/tag/1.0.0 
-
-## Unlocking Power of GNNs: [[{]]
-  10 Top graph Neural Networks and Python Lib to Make it Happen
- https://www.linkedin.com/posts/maryammiradi_machinelearning-artificialintelligence-ai-activity-7021810138831314945-YOoM
-
-Neural Networks:GNN is a type of Neural Network operating on Graph structure providing an easy way
-to do node-level, edge-level, and graph-level prediction tasks for
-many applications such as Medical Diagnosis, Drug discovery, Social
-influence prediction, Traffic forecasting, Link Prediction, Text
-Classification and many more.
-
-Top 10   Python libs:
-Graph LSTM:Instead of GRU, we can apply
-LSTM instead. As shown below, the are different variants of Graph
-LSTM with slightly different equations. Deep Graph Library (DGL)
-Graph Autoencoders (GAEs):It encodes a graph into a latent feature
-space and reconstructs the graph from it. GAE is trained to minimize
-the reconstruction loss between the real adjacency matrix and the
-decoded adjacency matrix of the decoder. PyTorch Geometric Structural
-Deep Network Embedding (SDNE): SDNE exploits proximity to preserve
-the network structure (pairwise similarity between nodes connected by
-edges). SDNE Variational Graph Auto-EncodersA better version of SDNE
-because encode both node structural information and node feature
-information. PyTorch Geometric Spatial-temporal graph neural networks
-(STGNNs):It analyze spatial-temporal graphs that utilize both spatial
-and temporal information to make predictions. Node representation
-depends on neighboring nodes in the spatial and temporal directions.
-Deep Graph Library (DGL) Graph convolutional recurrent network
-(GCRN):similar to LSTM it applies graph convolution to the spatial
-and temporal data. Deep Graph Library (DGL) Diffusion convolutional
-recurrent neural network (DCRNN): it utilizes the encoder-decoder
-architecture and the GRU to capture the spatial and temporal
-information of a graph. StellarGraph Convolutional Graph Neural
-Network (CON-GNN):It operates on adjacency matrix and nodes’ input
-features at time t to capture the spatial dependency. Deep Graph
-Library (DGL) Graph Attention Networks (GATs):GATs uses attention
-mechanisms to weight the importance of the different nodes in a graph
-when computing node representations. This allows them to focus on the
-most important parts of the graph and ignore less relevant parts.
-PyTorch Geometric GraphSAGE:GraphSAGE is a graph neural network
-architecture that uses a combination of graph convolutional layers
-and graph-pooling layers to learn node representations. StellarGraph
-And another 3 extra libraries: NetworkX Spektral PyTorch-BigGraph
-(PBG)
-
-[[}]]
-
-## BoTorch · Bayesian Optimization in PyTorch
-  https://botorch.org/ 
-
-## palm + rlhr + pytorch [[{]]
-https://www.linkedin.com/posts/omarsar_machinelearning-deeplearning-ai-activity-7013910442238484480-31Bh
-  PaLM + RLHF - PyTorch (1K )An open-source implementation of RLHF +
-PaLM (Google's large language model). RLHF (Reinforcement Learning
-from Human Feedback) is what's used to train ChatGPT. Looks like
-there's also a plan to add retrieval which could enable cool
-functionalities. Amazing!Had to share this one! Go
-open-source!https://lnkd.in/eQvXqEBP#machinelearning #deeplearning #ai
-[[}]]
-
-## DATASETS 32 datasets you could use  [[{]]
-Building a portfolio is important to stand out in the industry today
-if you want to be noticed and get hired.Using standard and static
-datasets is no longer relevant and doesn't excite recruiters about
-your capabilities in building some real solution.To get noticed, you
-need to work on something related to the real world and use unique
-datasets that belong to actual business problems.Data Science Dojo
-lists 32 different datasets in the below graphic that will help you
-uplift and grow your portfolio in the data science world.These
-datasets cater to multiple use cases and areas like: Predictive
-Analytics Classification-based Analytics Clustering & Segmentation
-Forecasting Analytics Natural Language Vision Analytics Business
-Intelligence (Dashboarding)and many more.The idea is to start
-using/sourcing such datasets and build a portfolio that helps you
-grow your knowledge in the field and also leads to better
-credibility.Feel free to share this list of datasets with your
-network.
-[[}]]
-
-## Summary of reinforcement learning [[{]]
-  https://www.linkedin.com/posts/omarsar_machinelearning-deeplearning-ai-activity-7016582788921360384-9Cev 
-[[}]]
-
-## Deep Learning Pioneer Geoffrey Hinton Publishes New Deep Learning Algorithm [[{]]
-https://www.infoq.com/news/2023/01/hinton-forward-algorithm/
-[[}]]
-
-## josephmisiti/awesome-machine-learning:
-  A curated list of awesome Machine Learning frameworks, libraries and software.
-  https://github.com/josephmisiti/awesome-machine-learning
-
-## Machine Learning with Etnaviv and OpenCL
-  https://www.collabora.com/news-and-blog/blog/2022/12/15/machine-learning-with-etnaviv-and-opencl/
-
-## Generalized mean [[{]]
-  https://www.linkedin.com/posts/danny-butvinik_machinelearning-deeplearning-mathematics-activity-7014140457320374272-G8QG 
-  Ml statistics
-[[}]]
-
-## Ml: causal programming [[{]]
-  Here are 4 Python causality libraries to learn in 2023.Python
-causal ecosystem grows rapidly. While writing my book
-(https://causalpython.io) I analyzed it thoroughly, looking for
-packages that have stable support, enthusiastic contributors and
-simply do their job. Here are my four recommendations:
-𝗗𝗼𝗪𝗵𝘆 (https://lnkd.in/dcZ_YkzV)This package
-originally from Microsoft Research has now moved to an independent
-project. Provides a unified interface for causal inference using
-structural causal models, graphical models, and more. It has a
-user-friendly API and can handle both observational and experimental
-data. Very comprehensive! A great candidate for the Sci-kit Learn of
-Causality!Learn DoWhy - check the blog post!
-(https://lnkd.in/d3x9t5Yv) 𝗘𝗰𝗼𝗻𝗠𝗟
-(https://lnkd.in/dumHpNx8)DoWhy’s sister package built with
-conditional treatment effect estimation in mind. Supported by
-Microsoft. Integrates smoothly with DoWhy’s casual flow, whichj is
-a great advantage! The greatest competitor of another amazing package
-- Uber’s CausalML 𝗴𝗖𝗮𝘀𝘁𝗹𝗲
-(https://lnkd.in/ezRq5QkS)A causal discovery super-hero! Supported by
-Huawei, it’s the only package out there that implements the most
-recent causal discovery and causal structure learning methods,
-including gradient-based and reinforcement-learning-based stuff!
-Great for benchmarking. Want to learn more? - Check the blog post!
-(https://lnkd.in/duqJmBaZ) 𝗖𝗮𝘂𝘀𝗮𝗹𝗣𝘆
-(https://lnkd.in/dVQu93PH)A new kid on the block released less than
-two months ago. CausalPy is based on PyMC Labs' PyMC - a
-well-established probabilistic programming framework in Python.
-CausalPy has been developed by PyMC’s prolific Dr Benjamin Vincent
-with contributions from Wolt’s excellent data scientist Juan Camilo
-Orduz. CausalPy implements a bunch of methods to work with
-quasi-experimental data. Everything in Bayesian fashion! Watch out as
-it’s still in beta (!) yet a great candidate for the best new
-causal package of 2023!Happy learning & productive 2023! The code
-snippet below comes from chapter 9 of my upcoming causal book:
-https://causalpython.io#python #causality
-[[}]]
-
-## RIP correlation. [[{]]
-101
-https://towardsdatascience.com/rip-correlation-introducing-the-predictive-power-score-3d90808b9598 
- Introducing the Predictive Power Score
-We define and open-source the Predictive Power Score (PPS).
- The PPS is an alternative to the
-correlation that finds more patterns in your data.Too many problems
-with the correlationIt is Friday afternoon and your boss tells you
-that the data delivery surprisingly arrived early — after only 4
-weeks of back and forth. This was the missing piece for your
-predictive model. You’re excited but also a little bit anxious
-because you know what’s next: exploring the data. All. 45. Columns.
-This will take many hours but you know it’s worth it because
-without data understanding you are walking blind. One obvious step is
-to have a look at all the univariate column distributions. But this
-won’t be enough.You ask yourself: what relationships exist between
-columns?To answer this question, you just repeat the typical drill:
-calculate a correlation matrix and check for some surprising
-relationships. Whenever you are surprised, you take a moment to plot
-a scatterplot of the two columns at hand and see if you can make any
-sense of it. Hopefully you can but too often you cannot because you
-don’t even know what the columns mean in the first place. But this
-is a story for another day.After inspecting the correlation matrix
-you move on and you don’t even know what you don’t know
-(scary).Let’s take a moment to review the correlation. The score
-ranges from -1 to 1 and indicates if there is a strong linear
-relationship — either in a positive or negative direction. So far
-so good. However, there are many non-linear relationships that the
-score simply won’t detect. For example, a sinus wave, a quadratic
-curve or a mysterious step function. The score will just be 0,
-saying: “Nothing interesting here”. Also, correlation is only
-defined for numeric columns. So, let’s drop all the categoric
-columns. In my last project more than 60% of the columns were
-categoric, but hey. Never mind. And no, I won’t convert the columns
-because they are not ordinal and OneHotEncoding will create a matrix
-that has more values than there are atoms in the universe. Too many
-scenarios where the correlation is 0. This makes me wonder if I
-missed something… (Excerpt from the image by Denis Boigelot)If you
-are a little bit too well educated you know that the correlation
-matrix is symmetric. So you basically can throw away one half of it.
-Great, we saved ourselves some work there! Or did we? Symmetry means
-that the correlation is the same whether you calculate the
-correlation of A and B or the correlation of B and A. However,
-relationships in the real world are rarely symmetric. More often,
-relationships are asymmetric. Here is an example: The last time I
-checked, my zip code of 60327 tells strangers quite reliably that I
-am living in Frankfurt, Germany. But when I only tell them my city,
-somehow they are never able to deduce the correct zip code. Pff …
-amateurs. Another example is this: a column with 3 unique values will
-never be able to perfectly predict another column with 100 unique
-values. But the opposite might be true. Clearly, asymmetry is
-important because it is so common in the real world.Thinking about
-those shortcomings of correlation, I started to wonder: can we do
-better?The requirements: One day last year, I was dreaming about a
-score that would tell me if there is any relationship between two
-columns — no matter if the relationship is linear, non-linear,
-gaussian or only known by aliens. Of course, the score should be
-asymmetric because I want to detect all the weird relationships
-between cities and zip codes. The score should be 0 if there is no
-relationship and the score should be 1 if there is a perfect
-relationship. And as the icing on the cake, the score should be able
-to handle categoric and numeric columns out of the box. Summing it up
-for all my academic friends: an asymmetric, data-type-agnostic score
-for predictive relationships between two columns that ranges from 0
-to 1.Calculating the Predictive Power Score (PPS)First of all, there
-is not the one and only way to calculate the predictive power score.
-In fact, there are many possible ways to calculate a score that
-satisfies the requirements mentioned before. So, let’s rather think
-of the predictive power score as a framework for a family of
-scores.Let’s say we have two columns and want to calculate the
-predictive power score of A predicting B. In this case, we treat B as
-our target variable and A as our (only) feature. We can now calculate
-a cross-validated Decision Tree and calculate a suitable evaluation
-metric. When the target is numeric we can use a Decision Tree
-Regressor and calculate the Mean Absolute Error (MAE). When the
-target is categoric, we can use a Decision Tree Classifier and
-calculate the weighted F1. You might also use other scores like the
-ROC etc but let’s put those doubts aside for a second because we
-have another problem:Most evaluation metrics are meaningless if you
-don’t compare them to a baselineI guess you all know the situation:
-you tell your grandma that your new model has a F1 score of 0.9 and
-somehow she is not as excited as you are. In fact, this is very smart
-of her because she does not know if anyone can score 0.9 or if you
-are the first human being who ever scored higher than 0.5 after
-millions of awesome KAGGLErs tried. So, we need to “normalize”
-our evaluation score. And how do you normalize a score? You define a
-lower and an upper limit and put the score into perspective. So what
-should the lower and upper limit be? Let’s start with the upper
-limit because this is usually easier: a perfect F1 is 1. A perfect
-MAE is 0. Boom! Done. But what about the lower limit? Actually, we
-cannot answer this in absolute terms.The lower limit depends on the
-evaluation metric and your data set. It is the value that a naive
-predictor achieves.If you achieve a F1 score of 0.9 this might be
-super bad or really good. If your super fancy cancer detection model
-always predicts “benign” and it still scores 0.9 on that highly
-skewed dataset then 0.9 is obviously not so good. So, we need to
-calculate a score for a very naive model. But what is a naive model?
-For a classification problem, always predicting the most common class
-is pretty naive. For a regression problem, always predicting the
-median value is pretty naive. Example 2: Comparing the Pearson
-correlation matrix (left) with the PPS matrix (right) for the Titanic
-dataset.Two findings about the correlation matrix:The correlation
-matrix is smaller and leaves out many interesting relationships. Of
-course, that makes sense because columns like Sex, TicketID or Port
-are categoric and the correlation cannot be computed for them.The
-correlation matrix shows a negative correlation between TicketPrice
-and Class of medium strength (-0.55). We can double-check this
-relationship if we have a look at the PPS. We will see that the
-TicketPrice is a strong predictor for the Class (0.9 PPS) but not
-vice versa. The Class only predicts the TicketPrice with a PPS of
-0.2. This makes sense because whether your ticket did cost 5.000$ or
-10.000$ you were most likely in the highest class. In contrast, if
-you know that someone was in the highest class you cannot say whether
-they paid 5.000$ or 10.000$ for their ticket. In this scenario, the
-asymmetry of the PPS shines again.Four findings about the PPS
-matrix:The first row of the matrix tells you that the best univariate
-predictor of the column Survived is the column Sex. This makes sense
-because women were prioritized during the rescue. (We could not find
-this information in the correlation matrix because the column Sex was
-dropped.)If you have a look at the column for TicketID, you can see
-that TicketID is a fairly good predictor for a range of columns. If
-you further dig into this pattern, you will find out that multiple
-persons had the same TicketID. Thus, the TicketID is actually
-referencing a latent group of passengers who bought the ticket
-together, for example the big Italian Rossi family that turns any
-evening into a spectacle. Thus, the PPS helped me to detect a hidden
-pattern.What’s even more surprising than the strong predictive
-power of TicketID is the strong predictive power of TicketPrice
-across a wide range of columns. Especially, the fact that the
-TicketPrice is fairly good at predicting the TicketID (0.67) and vice
-versa (0.64). Upon further research you will find out that tickets
-often had unique prices. For example, only the Italian Rossi family
-paid a price of 72,50$. This is a critical insight! It means that the
-TicketPrice contains information about the TicketID and thus about
-our Italian family. An information that you need to have when
-considering potential information leakage.Looking at the PPS matrix,
-we can see effects that might be explained by causal chains. (Did he
-just say causal? — Of course, those causal hypotheses have to be
-treated carefully but this is beyond the scope of this article.) For
-example, you might be surprised why the TicketPrice has predictive
-power on the survival rate (PPS 0.39). But if you know that the Class
-influences your survival rate (PPS 0.36) and that the TicketPrice is
-a good predictor for your Class (PPS 0.9), then you might have found
-an explanation.
-.Applications of the PPS and the PPS matrixAfter we learned about the
-advantages of the PPS, let’s see where we can use the PPS in the
-real life.Disclaimer: There are use cases for both the PPS and the
-correlation. The PPS clearly has some advantages over correlation for
-finding predictive patterns in the data. However, once the patterns
-are found, the correlation is still a great way of communicating
-found linear relationships.Find patterns in the data: The PPS finds
-every relationship that the correlation finds — and more. Thus, you
-can use the PPS matrix as an alternative to the correlation matrix to
-detect and understand linear or nonlinear patterns in your data. This
-is possible across data types using a single score that always ranges
-from 0 to 1.Feature selection: In addition to your usual feature
-selection mechanism, you can use the predictive power score to find
-good predictors for your target column. Also, you can eliminate
-features that just add random noise. Those features sometimes still
-score high in feature importance metrics. In addition, you can
-eliminate features that can be predicted by other features because
-they don’t add new information. Besides, you can identify pairs of
-mutually predictive features in the PPS matrix — this includes
-strongly correlated features but will also detect non-linear
-relationships.Detect information leakage: Use the PPS matrix to
-detect information leakage between variables — even if the
-information leakage is mediated via other variables.Data
-Normalization: Find entity structures in the data via interpreting
-the PPS matrix as a directed graph. This might be surprising when the
-data contains latent structures that were previously unknown. For
-example: the TicketID in the Titanic dataset is often an indicator
-for a family.How to use the PPS in your own (Python) projectIf you
-are still following along you are one of the rare human beings who
-still have an attention span — you crazy beast! If you can’t wait
-to see what the PPS will reveal on your own data, we have some good
-news for you: we open-sourced an implementation of the PPS as a
-Python library named ppscore.Before using the Python library, please
-take a moment to read through the calculation detailsInstalling the
-package:pip install ppscoreCalculating the PPS for a given pandas
-dataframe:import ppscore as pps
-pps.score(df, "feature_column", "target_column")You can also
-calculate the whole PPS matrix:pps.matrix(df)How fast is the PPS in
-comparison to the correlation?Although the PPS has many advantages
-over the correlation, there is some drawback: it takes longer to
-calculate. But how bad is it? Does it take multiple weeks or are we
-done in a couple of minutes or even seconds? When calculating a
-single PPS using the Python library, the time should be no problem
-because it usually takes around 10–500ms. The calculation time
-mostly depends on the data types, the number of rows and the used
-implementation. However, when calculating the whole PPS matrix for 40
-columns this results in 40*40=1600 individual calculations which
-might take 1–10 minutes. So you might want to start the calculation
-of the PPS matrix in the background and go on that summer vacation
-you always dreamed of! ️For our projects and datasets the
-computational performance was always good enough but of course there
-is room for improvement. Fortunately, we see many ways how the
-calculation of the PPS can be improved to achieve speed gains of a
-factor of 10–100. For example, using intelligent sampling,
-heuristics or different implementations of the PPS. If you like the
-PPS and are in need of a faster calculation, please reach out to
-us.LimitationsWe made it — you are excited and want to show the PPS
-to your colleagues. However, you know they are always so critical
-about new methods. That’s why you better be prepared to know the
-limitations of the PPS:The calculation is slower than the correlation
-(matrix).The score cannot be interpreted as easily as the correlation
-because it does not tell you anything about the type of relationship
-that was found. Thus, the PPS is better for finding patterns but the
-correlation is better to communicate found linear relationships.You
-cannot compare the scores for different target variables in a strict
-mathematical way because they are calculated using different
-evaluation metrics. The scores are still valuable in the real world,
-but you need to keep this in mind.There are limitations of the
-components used underneath the hood. Please remember: you might
-exchange the components e.g. using a GLM instead of a Decision Tree
-or using ROC instead of F1 for binary classifications.If you use the
-PPS for feature selection you still want to perform forward and
-backward selection in addition. Also, the PPS cannot detect
-interaction effects between features towards your
-target.ConclusionAfter years of using the correlation we were so bold
-(or crazy?) to suggest an alternative that can detect linear and
-non-linear relationships. The PPS can be applied to numeric and
-categoric columns and it is asymmetric. We proposed an implementation
-and open-sourced a Python package. In addition, we showed the
-differences to the correlation on some examples and discussed some
-new insights that we can derive from the PPS matrix.Now it is up to
-you to decide what you think about the PPS and if you want to use it
-on your own projects. We have been using the PPS for over a year as
-part of the library bamboolib where the PPS is essential to add some
-advanced features and thus we wanted to share the PPS with the
-broader community. Therefore, we hope to receive your feedback about
-the concept and we would be thrilled if you try the PPS on your own
-data. In case that there might be a positive reception, we are happy
-to hear about your requests for adjustments or improvements to the
-implementation. As we mentioned before, there are many ways on how to
-improve the speed and on how to adjust the PPS for more specific use
-cases.Github: https://github.com/8080labs/ppscoreEmail: florian AT
-8080labs.comNewsletter: if you want to hear more about the PPS and
-our other upcoming Data Science projects and tools, you can subscribe
-here. We will not write about paid products, you can unsubscribe
-anytime and — sad that we even have to mention this — we will
-never give away your email.Originally published at
-https://8080labs.com on April 23, 2020.
-[[}]]
-
-## How to interpret a ML model [[{101,ml,troubleshooting,PM.TODO]]
-<https://francescopochetti.com/whitening-a-black-box-how-to-interpret-a-ml-model/>
-[[}]]
-
-[[{PM.UX,dev_stack.web]]
-## Pyodid: Data Science on the browser
-  https://www.infoq.com/news/2021/05/pyodide-python-webassembly/
-Mozilla announced that Pyodide, a project aiming at providing a full
-Python data science stack running entirely in the browser, has become
-an independent community-driven project. Pyodide leverages the
-CPython 3.8 interpreter compiled to WebAssembly, and thus allows
-using Python, NumPy, Pandas, Matplotlib, SciPy, and more in Iodide,
-an experimental interactive scientific computing environment for the
-web.
-[[}]]
-
-
-## ML: 2022 REPORT [[{]]
-https://www.linkedin.com/posts/omarsar_machinlearning-deeplearning-ai-activity-7012856741537140736-mBl1 
-2022: A Year in Review (ML Papers Edition)Let's take a look at some
-of the top trending ML papers of 2022:
-
-1. A ConvNet for the 2020s (Liu et al) - Vision Transformers took off this year but this work
-proposes ConvNeXt to reexamine the design spaces and test the limits
-of a pure ConvNet on several vision tasks. The ConvNets vs.
-Transformers debate continues.https://lnkd.in/eTJthp4g
-2) Language Models as Zero-Shot Planners (Huang et al) - studies the possibility
-of grounding high-level tasks to actionable steps for embodied
-agents. Pre-trained LLMs are used to extract knowledge to perform
-common-sense grounding by planning actions.https://lnkd.in/e5gCZ44c
-3) OFA (Wang et al) - introduces a unified paradigm for effective
-multimodal pre-training that support all kinds of uni-modal and
-cross-modal tasks.https://lnkd.in/eyu9Vtf6
-4) Tensor Programs V (Yang et al) - proposes a new paradigm for more efficiently tuning large
-neural networks via zero-shot hyperparameter
-tuning.https://lnkd.in/eBzjCXMt
-
-5) OPT (Zhang et al) - an open
-pre-trained transformer-based language model that follows other
-open-sourcing LLM efforts such as GPT-Neo; model sizes range from
-125M to 175B parameters. https://lnkd.in/ey4UdY8J
-
-6) Gato (DeepMind) -
-an agent built to work as a multi-modal, multi-task, multi-embodiment
-generalist policy; it performs all sorts of general tasks ranging
-from playing Atari to chatting to stacking blocks with a real robot
-arm.https://lnkd.in/eZr8FdHG
-
-7) Minerva (Lewkowycz et al) - an LLM pretrained on general natural
-language data and further trained on technical content; evaluated on several tasks
-requiring quantitative reasoning.https://lnkd.in/ecE2hKtG
-
-8) No Language Left Behind (Meta AI) - introduces a massive translation
-model (NLLB-200), capable of translating between 200
-languages.https://lnkd.in/en7X6xey
-
-9) Stable Diffusion (Rombach et al)
-- a text-to-image model to generate detailed images conditioned on
-text descriptions; can be applied to other tasks such as inpainting,
-outpainting, and generating image-to-image translations guided by a
-text prompt.https://lnkd.in/e_cmuUrc
-
-10) Whisper (OpenAI) - an
-open-source model called Whisper that approaches human-level
-robustness and accuracy in English speech
-recognition.https://lnkd.in/eryyF2MC
-
-11) Make-A-Video (Singer et al) -
-introduces a state-of-the-art text-to-video model that can generate
-videos from a text prompt.https://lnkd.in/eEqdJ8vz
-
-12) Galactica (Ross et al) - a large language model for the science domain trained on a
-massive scientific corpus.https://lnkd.in/ejbBSW4W#machinlearning
-#deeplearning #ai
-[[}]]
-
-[[{PM.RADAR.Snorkel]]
-## Snorkel: training data (not models)
-
-* <https://github.com/snorkel-team/snorkel>
-
-  The Snorkel team is now focusing their efforts on Snorkel Flow, an end-to-end
-AI application development platform based on the core ideas behind
-Snorkel—you can check it out here or join us in building it!
-
-  The Snorkel project started at Stanford in 2015 with a simple technical bet:
-that it would increasingly be the training data, not the models, algorithms, or
-infrastructure, that decided whether a machine learning project succeeded or
-failed. Given this premise, we set out to explore the radical idea that you
-could bring mathematical and systems structure to the messy and often entirely
-manual process of training data creation and management, starting by empowering
-users to programmatically label, build, and manage training data.
-
-  To say that the Snorkel project succeeded and expanded beyond what we had ever
-expected would be an understatement. The basic goals of a research repo like
-Snorkel are to provide a minimum viable framework for testing and validating
-hypotheses. Four years later, we’ve been fortunate to do not just this, but
-to develop and deploy early versions of Snorkel in partnership with some of the
-world’s leading organizations like Google, Intel, Stanford Medicine, and many
-more; author over sixty peer-reviewed publications on our findings around
-Snorkel and related innovations in weak supervision modeling, data
-augmentation, multi-task learning, and more; be included in courses at top-tier
-universities; support production deployments in systems that you’ve likely
-used in the last few hours; and work with an amazing community of researchers
-and practitioners from industry, medicine, government, academia, and beyond.
-[[}]]
-
-
-[[{PM.RADAR]]
-
-## LLM: Multi-token Prediction (vs current next-token)
-
-* <https://arxiv.org/abs/2404.19737>
-
-LLMs such as GPT and Llama are trained with a next-token prediction loss.
-
- In this work, we suggest that training
-language models to predict multiple future tokens at once results in
-higher sample efficiency.
-
- More specifically, at each position in the training corpus, we ask the model to predict the following n tokens
-using n independent output heads, operating on top of a shared model
-trunk.
-
-... Gains are especially pronounced on generative benchmarks like coding,
-where our models consistently outperform strong baselines by several
-percentage points.
-
- Our 13B parameter models solves 12 % more problems on HumanEval and
-17 % more on MBPP than comparable next-token models. [[qa.coherence]]
-
- Experiments on small algorithmic tasks demonstrate that multi-token
-prediction is favorable for the development of induction heads and
-algorithmic reasoning capabilities. As an additional benefit, models
-trained with 4-token prediction are up to 3 times faster at inference,
-even with large batch sizes.  [[scalability.multi_token]]
-[[PM.RADAR}]]
-
-[[{scalability.federated_training,PM.RADAR]]
-## Soft Arch: federated training
-
-
-Post by Tomas Paulik @ LinkedIn
-
-Last week, our research group at Cambridge announced a major AI milestone:
-
-- We have created the world’s first LLM (1.3B) trained completely from scratch
-  using Federated Learning.
-
-- Utilising our technique, individuals and organisations can collaborate
-  and use a mixture of various GPUs (or ML accelerators) to train their
-  own LLMs.
-
-- The technique is entirely removing the barriers to entry to training
-  and design of custom LLMs.
-
-- Federated Learning-based LLMs can be trained using siloed and previously
-  unavailable data. This opens up new possibilities for data sourcing and
-  inevitably, larger training sets will lead to more advanced LLMs.
-[[scalability.federated_training}]]
-
-[[{use_case.symbolic_maths,dev_stack.sympy]]
-
-## Math SymPy
-
-- SymPy Python allows for symbolic math calculations.
-- it supports statistics, linear algebra, calculus and much more!
-- output formats include LaTeX, MathML and ASCII.
-
-
-"""...  I have a very good experience with this library. There is also
-a nice function called lambdify which enables you to turn these symbols
-into practically useful functions. I used this package when I elaborated
-a method of numerical maximum likelihood which requires the knowledge of
-the characteristic function (or moment generating function) and its
-partial derivative with respect to the parameter of interest.
-Sympy's functions diff and lambdify enabled me to spare lots of hours
-of work. I could just rewrite one line and get the estimation procedure
-for an entirely new distribution.
-
-It can be seen in this Google Colab link:
-<https://colab.research.google.com/drive/1eFRaA0bcN0FmPGrGyjb0FaI7ZeysE00J>
-"""
-
-
-""" This is useful if you are doing a presentation in something like RISE and are
-quick enough to think on your feet, otherwise probably less useful. I tried it
-a few times during presentations but it's almost too much to take in. Instead
-I've opted to write my notes up in detail in LaTeX with embedded links to a
-Colab notebook with code also in the LaTeX using lstlisting. This seems to work
-better. Most of my notes and accompanying notebooks make extensive use of
-SymPy. See for example:
-<https://github.com/fdd-eiu/afew/blob/main/notes-gordon-schaefer.pdf> or
-<https://github.com/fdd-eiu/afew<
-"""
-
-
-""" Another very powerful concept related to symbolic math is symbolic
-regression, the attempt to find a mathematical transformation of the
-predictors that can accurately approximate y.
-<https://github.com/trevorstephens/gplearn> """
-
-
-""" Giannis Tolios It's particularly useful when you hypothesize there's some
-mathematical relationship between X and y but it's a non-parametric approach,
-as there's no a-priori assumption on the form of the relationship between them.
-
-The pros are:
-
-a. interpretability (sort of, in the case of not very complex relationships)
-b. ability to extrapolate Particularly useful in physics and engineering,
-   when you want to create a flexible enough model that is not completely black-box.
-
-* a good introductory article:
-  <https://medium.com/analytics-vidhya/python-symbolic-regression-with-gplearn-cbc24dbbc271>
-"""
-
-[[dev_stack.sympy}]]
-
-
-[[{LLM.101.Blade]]
-##  BLADE: "Small LLM hyper-specialized"
-
-The idea is to link 2 models:
-
-- The first one is small, very specialized, serving the knowledge,
-
-- The second one, a "big" LLM to handle the human language interaction.
-[[LLM.101.Blade}]]
-
-[[{scalability.algorithm]]
-## Addition is All You Need for Energy-efficient Language Models
-
-* <https://arxiv.org/abs/2410.00907>
-  **The new algorithm costs significantly less computation resource
-than 8-bit floating point multiplication but achieves higher precision**.
-
-... the proposed method achieves higher precision but consumes
-significantly less bit-level computation since multiplying floating
-point numbers requires substantially higher energy compared to
-integer addition operations, applying the L-Mul operation in tensor
-processing hardware can potentially reduce 95% energy cost by
-element-wise floating point tensor multiplications and 80% energy
-cost of dot products. [[scalability.algorithm]]
-
- Our numerical analysis experiments agree with the theoretical error
-estimation, which indicates that L-Mul with 4-bit mantissa achieves
-comparable precision as float8_e4m3 multiplications, and L-Mul with
-3-bit mantissa outperforms float8_e5m2.
- ... We further show that replacing all floating point multiplications
-with 3-bit mantissa L-Mul in a transformer model achieves equivalent
-precision as using float8_e4m3 as accumulation precision in both
-fine-tuning and inference.  [[training.fine_tunning,inference.*]]
-[[scalability.algorithm}]]
 
 
 [[{use_case.3D_models]]
@@ -2741,9 +480,8 @@ fine-tuning and inference.  [[training.fine_tunning,inference.*]]
   understanding.
 [[use_case.3D_models}]]
 
-[[{PM.RADAR,scalability.TabPFN,data.structured,use_case.prediction,]]
+[[{PM.RADAR,scalability.TabPFN,data.structured,use_case.classification,use_case.prediction,]]
 ## TabPFN: tabular data classification under 1 second
-
 
 by Itay Gabbay <https://www.linkedin.com/feed/update/activity:6991305559983419392>
 
@@ -2755,7 +493,7 @@ an ML pipeline for a new problem.
 
 Usually using meta-learning concepts to achieve it.
 
-- TabPFN based on a single transformer
+- TabPFN: based on a single transformer.
 
 -  approximates Bayesian inference with a prior for principles of
 causality and simplicity.
@@ -2802,26 +540,7 @@ the direction is clear: we're moving from "run AI on computers" to
 
 [[scalability.ASIC}]]
 
-[[{scalability.algorithm,architecture.transformers,training.*,]]
-## Diffusion Training from Scratch on a Micro-Budget
 
-- 118× lower cost than stable diffusion models
--  14× lower cost than current state-of-the-art approach
-
-* <https://arxiv.org/abs/2407.15811>
-
-Vikash Sehwag, Xianghao Kong, Jingtao Li, Michael Spranger, Lingjuan Lyu
-
-... scaling laws .. concentrate the development of Generative AI models among
-actors with large computational resources. With a focus on text-to-image (T2I)
-we aim to address this bottleneck **by demonstrating very low-cost training
-of large-scale T2I diffusion transformer models**.
-... we propose to **randomly mask up to 75% of the image patches during training**
-... We also incorporate mixture-of-experts layers,
-
-**our model achieves competitive FID and high-quality generations while
-
-[[scalability.algorithm}]]
 
 [[{]]
 ## Memory compaction and graphs
@@ -2922,25 +641,6 @@ herramientas de depuración del código.
 
 - Teóricament es también compatible con NVidia CUDA.
 [[101.hardware}]]
-
-[[{PM.low_code,MLOps.local_training]]
-## TransformerLabs: local training, fine-tuning and chat
-
-by Avi Chawla
-
-It allows anyone to experiment with LLMs.
-
-Features:
-- One-click download of hundreds of popular models (DeepSeek, Llama3, Gemma, etc.)
-- Finetune or train across different Hardware (Apple Silicon, GPU, etc.)
-- RLHF and Preference Optimization are available.  [[training.RLHF]]
-- Chat with models (chat, completion, tool use, template prompts, etc.)
-- Use several inference engines like vLLM, Llama CPP
-- Drag and drop file UI for RAG.
-- Pull from 1000s of datasets available on HuggingFace.
-- Log all inference requests. Everything within a single interface.
-- Local or cloud support.
-[[PM.low_code}]]
 
 [[{PM.RADAR,architecture.LCM]]
 ## Large Concept Model: Language Model Predicting Entire Sentences
@@ -3136,35 +836,6 @@ de refroidissement watercooling at scales.
  Voilà pourquoi ce genre de Datacenter n'existent pas et donc faut les construire 1/3 [[year.2025]]
 [[hardware.101}]]
 
-[[{use_case.CODING_ASSISTANT,PM.low_code]]
-
-## Google Firebase Studio: "Prompt to app"
-
-"""In a minute I created my app, using only a web browser"""
-
-- end-to-end Google Agentic platform, covering the full life-cycle of the app.
-  - design, development, testing, documentation, deployment and monitorization.
-
-- PROMPT: """I want an app to save my favourites pictures""" Done!!!
-
-- You can detail using diagrams.
-
-The prototyping agent allows to generate functional apps describing the prompt,
-loading an image or a draft.
-
-
-- Based on Code OSS (aka "Visual Studio Code")
-
-- programming languages: Java, Python, Node.js, Go, .NET...
-- Frameworks:  React, Angular, Vue, Flutter, Next.js, Android [[use_case.mobile_apps]]...
-
-- 60 predefined templates in place:
-  - dashboards.
-  - reserve tickets.
-  - chats.
-  - ...
-[[use_case.CODING_ASSISTANT}]]
-
 [[{hardware.101,mlops.deployment]]
 ## Running DeepSeek R1 locally
 
@@ -3220,18 +891,6 @@ via Reinforcement Learning, check it out!
   en réduisant les coûts de formation à quelques dollars.
 
 [[}]]
-
-[[{qa.interpretability]]
-## explainerdashboard: xgboost catboost lightgbm
-
-* <https://github.com/oegedijk/explainerdashboard>
-* <explainerdashboard.readthedocs.io>
-* Quickly build Explainable AI dashboards that show the inner workings of
-  so-called "blackbox" machine learning models.
-* WARN: It applies to **NON** deep-leaarning frameworks like xgboost,
-  catboost and lightgbm trying to predict categories or regressions.
-  [[learning.xgboost,learning.catboost,learning.lightgbm]]
-[[qa.interpretability}]]
 
 [[{hardware.Azure_DPU]]
 ## Azure DPU
@@ -3357,21 +1016,6 @@ outline a general LLM-to-SLM agent conversion algorithm.
 - It also offers pre and post-processing operations, including text splitting, filtering, and embedding generation.
 [[use_case.OCR}]]
 
-[[{training.fine_tuning]]
-
-## torchtune
-* <https://pytorch.org/torchtune/stable/overview.html>
-* <https://meta-pytorch.org/torchtune/stable/overview.html>
-
-* PyTorch library for easily authoring, fine-tuning and experimenting with
-  LLMs. The library emphasizes 4 key aspects:
-  * Simplicity and Extensibility. Native-PyTorch, componentized design and easy-to-reuse abstractions
-  * Correctness. High bar on proving the correctness of components and recipes
-  * Stability. PyTorch just works. So should torchtune
-  * Democratizing LLM fine-tuning. Works out-of-the-box on different hardware
-
-[[training.fine_tuning}]]
-
 [[{use_case.OCR]]
 ### PaddleOCR-VL
 
@@ -3394,80 +1038,6 @@ outline a general LLM-to-SLM agent conversion algorithm.
 * <https://research.google/blog/neuralgcm-harnesses-ai-to-better-simulate-long-range-global-precipitation/>
 
 [[use_case.weather_prediction}]]
-
-[[{]]
-## BInfeng Xu repos at Gihub
-
-* <https://github.com/billxbf>
-
-* NanoGPX | Clean collection of modern LLM recipes (RoPE, GQA, RMSNorm, MoE, SSM, etc.) in nanoGPT style.
-  [[architecture.RoPE,architecture.GQA,architecture.RMSNorm,architecture.MoE,architecture.SSM)
-  <https://github.com/billxbf/nanoGPX>
-* ArXplorer | A recommender engine of daily papers from arXiv, customized with your Prompt.
-* Gentopia & GentPool | An Agent Framework&Platform for the hardcore builders.
-* ReWOO | Discussing token efficiency of LLMs when decoupling reasoning from observations.
-[[}]]
-
-
-[[{PM.low_code,architecture.IoT]]
-## Koboldcpp
-
-* <https://github.com/LostRuins/koboldcpp>
-
-Run GGUF models easily with a KoboldAI UI. One File. Zero Install.
-
-- Looks to be base also in llama.cpp. (Recheck)
-  - Supports NVidia Cuda and Vulkan out of the box.
-- While ollama supports just text generationa, Koboldcpp looks to also support 
-  Image, Video, Speech-to-Text, MCP tool calling, RAG, ...<br/>
-  In such sense koboldcpp looks closer to LocalAI.
- 
-
-### Features:
-- Single file executable, with no installation required and no external
-  dependencies.
-- Runs on CPU or GPU, supports full or partial offloaded
-- LLM text generation (Supports all GGML and GGUF models, backwards
-  compatibility with ALL past models).
-- Image Generation and Image Editing (Stable Diffusion 1.5, SDXL, SD3, Flux,
-  Qwen Image, Z-Image, Klein).
-- Video Generation (WAN 2.2)
-- Speech-To-Text (Voice Recognition) via Whisper
-- Text-To-Speech (Voice Generation) via Qwen3TTS, Kokoro, OuteTTS, Parler and Dia.
-- Music Generation (Ace Step 1.5)
-- Image Recognition (Multimodal Vision)
-- MCP Server support and tool calling.
-- Provides many compatible APIs endpoints for many popular webservices
-  (KoboldCppApi OpenAiApi OllamaApi A1111ForgeApi ComfyUiApi WhisperTranscribeApi
-  XttsApi OpenAiSpeechApi).
-- Bundled KoboldAI Lite UI with editing tools, save formats, memory, world
-  info, author's note, characters, scenarios.
-- Includes multiple modes (chat, adventure, instruct, storywriter) and UI
-  Themes (aesthetic roleplay, classic writer, corporate assistant, messsenger)
-- Supports loading Tavern Character Cards, importing many different data
-  formats from various sites, reading or exporting JSON savefiles and persistent
-  stories.
-- Many other features including new samplers, regex support, websearch, RAG via
-  TextDB, image recognition/vision and more.
-- Ready-to-use binaries for Windows, MacOS, Linux. Runs directly with Colab,
-Docker, also supports other platforms if self-compiled (like Android (via
-Termux) and Raspberry PI).
-[[PM.low_code}]]
-
-[[{training,scalability.megatron]]
-
-[[{]]
-##  Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism
-* <https://arxiv.org/abs/1909.08053>
-* <https://github.com/NVIDIA/Megatron-LM>: Ongoing research training transformer models at scale
-[[}]]
-
-[[{]]
-- What's great about LoRA:
-  - It beats other adaptation methods like adapters and prefix-tuning. [[doc_has.comparative]]
-  - It's like getting great results with fewer moving parts.
-
-[[}]]
 
 [[{architecture.PRU]]
 ## Pyramidal Recurrent Unit for Language Modeling
@@ -3500,14 +1070,7 @@ on the language modeling tasks. Our code is open-source and available at
 https://sacmehta.github.io/PRU/.
 [[architecture.PRU}]]
 
-[[{architecture.REST]]
-## Ollama looks to be just an opinionated REST API
 
-* according to <https://github.com/djcopley/ShellOracle/tree/main/src/shelloracle/providers>
-  Ollama "competes" with REST APIs from Google, DeppSeek, LocalAI, OpenAI, openai_compat, XAI
-
-
-[[architecture.REST}]]
 
 [[{local_ai]]
 ## VRAM Calculator for Local AI
@@ -3531,5 +1094,4 @@ surprises. [[hardware.*,scalability.quantization]]
 [[use_case.documentation}]]
 
 [[PM.TODO}]]
-
 

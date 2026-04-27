@@ -1,4 +1,7 @@
-[[{sklearn,101]]
+[[{sklearn,PM.TODO]]
+
+
+[[{sklearn.101]]
 [[doc_has.decission_tree]]
 [[training.linear_regression]]
 [[training.logistic_regression]]
@@ -201,6 +204,14 @@ http://scikit-learn.org/stable/modules/generated/skleran.metrics.precision_recal
 Synthetic Minority Over-sampling Technique, 
 Journal of Artificial Intelligence Reseach, 16: 321-357, 2002
 https://github.com/scikit-learn-contrib/imbalanced-learn
+
+
+
+[[{PM.low_code,data.analysis]]
+## ChatGPTClassifier and ChatGPTRegressor is part of sklearn now!
+
+... and it works impressively well!
+[[}]]
 
 
 [[sklearn}]]

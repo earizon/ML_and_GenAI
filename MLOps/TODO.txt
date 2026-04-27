@@ -1,4 +1,6 @@
 [[{mlops.*,PM.TODO]]
+
+
 <!-- { -->
 # ServingMachineLearningModels.pdf (Oreilly): <./OreillyServingMachineLearningModels.pdf>
 
@@ -59,5 +61,50 @@ and run up to 18,000 experiments.
 [[}]]
 
 
+[[{cloud.*,]]
+## Google Releases Deep Learning Containers into Beta
+
+* <https://www.infoq.com/news/2019/07/google-dlc-beta-release/>
+[[cloud.*}]]
+
+[[{]]
+## Google launches end-to-end AI Platform
+
+* <https://www.infoq.com/news/2019/05/google-ai-platform/>
+[[}]]
+
+[[{mlops.kubeflow]]
+## kubeflow: ML Toolkit for Kubernetes
+
+* <https://www.kubeflow.org/>
+
+[[mlops.kubeflow}]]
+
+[[{mlops.luigi]]
+## Luigi: build complex pipelines of batch jobs
+
+* Python package to help building complex pipelines of batch jobs. [[architecture.batch]]
+* It handles dependency resolution, workflow management, visualization,
+  handling failures, command line integration, and much more.
+
+-  There are other software packages that focus on lower level aspects
+  of data processing, like Hive, Pig, or Cascading. Luigi is not a
+  framework to replace these. Instead it helps you stitch many tasks
+  together, where each task can be a Hive query, a Hadoop job in Java,
+  a Spark job in Scala or Python, a Python snippet, dumping a table
+  from a database, or anything else. It’s easy to build up
+  long-running pipelines that comprise thousands of tasks and take days
+  or weeks to complete. Luigi takes care of a lot of the workflow
+  management so that you can focus on the tasks themselves and their
+  dependencies.
+[[mlops.luigi}]]
+
 
 [[mlops.*,PM.TODO}]]
+
+[[{mlops,scalability.Fiber,PM.TODO]]
+## Fiber: Library for Distributed ML
+
+* <https://www.infoq.com/news/2020/04/uber-fiber-distributed-ml/>
+- by  Uber and OpenAI
+[[}]]

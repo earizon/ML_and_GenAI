@@ -1,11 +1,19 @@
-[[{data.visualization,PM.TODO]]
-# https://streamlit.io/ [[{]]
-Streamlit turns data scripts into shareable web apps in minutes.
-All in pure Python. No front‑end experience required.
+[[{101,data.visualization,data.sharing,PM.TODO]]
+# Streamlit: fastest way to build+share data.
 
-Eg: https://github.com/cjgb/q2distr
+* <https://streamlit.io/>
 
-[[}]]
+* turns data scripts into shareable web apps in minutes.
+* 100% pure Python. No front‑end experience required.
+
+* Example: <https://github.com/cjgb/q2distr>
+
+ fastest way to build+share data.
+
+* <https://streamlit.io/>:
+* OOSS framework, quick to learn.
+[[101}]]
+
 
 [[{lib.seaborn,data.visualization,theory.statistics]]
 

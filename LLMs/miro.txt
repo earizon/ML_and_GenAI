@@ -1,4 +1,4 @@
-[[{models.miro,scalability.model,scalability.mirothinker,PM.RADAR,PM.breakthrough]]
+[[{model.miro,scalability.model,scalability.mirothinker,PM.RADAR,PM.breakthrough]]
 ## MiroThinker 1.5: 30B Parameters That Outperform 1T Models
 
 * <https://research.miromind.ai/blog/introducing-mirothinker-1.5-30b-parameters-that-outperform-1t-models>
@@ -76,4 +76,4 @@ information published before the specific timestamp of the problem**.
 model behavior and reasoning methods, bringing the model closer to real-world
 cognition and decision-making processes**.  [[doc_has.keypoint]]
 
-[[models.miro}]]
+[[model.miro}]]

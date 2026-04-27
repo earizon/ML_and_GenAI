@@ -1,0 +1,25 @@
+[[{agents.101,prompting.planning]]
+## Planning and decision making
+
+Smart planning and decision making are critical to achieving predefined goals.
+
+As they are trained on vast amount of world knowledge and human examples, LLMs
+are known to have already absorbed rich commonsense that makes it possible
+to propose reasonable plans conditioned on problem setting and environmental states 
+(Huang et al., 2022a; Zhang et al., 2023; Wang et al., 2023b; Huang et al., 2022b; Wang et al., 2023a; Yao et al., 
+2022; Yang et al., 2023). 
+- REFs: 
+ - Language models as zero-shot planners: Extracting actionable knowledge for embodied agents, 2022a. 
+   - Huang et al. (2022a) W. Huang, P. Abbeel, D. Pathak, and I. Mordatch. 
+ - Inner monologue: Embodied reasoning through planning with language models. arXiv preprint arXiv:2207.05608, 2022b. 
+   - W. Huang, F. Xia, T. Xiao, H. Chan, J. Liang, P. Florence, A. Zeng, J. Tompson, I. Mordatch, Y. Chebotar, et al. 
+ - Planning with large language models for code generation. In The Eleventh International Conference on Learning Representations, 2023. 
+   - S. Zhang, Z. Chen, Y. Shen, M. Ding, J. B. Tenenbaum, and C. Gan. 
+   - URL <https://openreview.net/forum?id=Lr8cOOtYbfL>
+ - Describe, explain, plan and select: Interactive planning with large language models enables open-world multi-task agents, 2023b.
+   - Z. Wang, S. Cai, A. Liu, X. Ma, and Y. Liang. 
+ - Foundation models for decision making: Problems, methods, and opportunities, 2023. 
+   - S. Yang, O. Nachum, Y. Du, J. Wei, P. Abbeel, and D. Schuurmans. 
+
+[[prompting.planning}]]
+

@@ -336,6 +336,20 @@ math—beating a model 8x its size. [[qa.coherence]]
 
 [[101}]]
 
+[[{PM.breakthrough,PM.year.2019Q1]]
+## Better Language Models and Their Implications
+
+* <https://openai.com/blog/better-language-models/>
+
+(Historical Announcement of ChatGPT)
+
+  We’ve trained a large-scale unsupervised language model which
+generates coherent paragraphs of text, achieves state-of-the-art
+performance on many language modeling benchmarks, and performs
+rudimentary reading comprehension, machine translation, question
+answering, and summarization—all **without task-specific training**.
+[[PM.breakthrough}]]
+
 [[{101]]
 ## AI passed Turing tests better than humans
 
@@ -468,3 +482,21 @@ bridge between them. © Commenter GEO from Telegram.
 > Which of these postscripts is more accurate is hard to say. I hope it’s the second one.
 
 [[}]]
+
+[[{101,use_case.surveillance,PM.TODO]]
+## 100$ camera, 50%+ "NewYorkers" detected
+
+* <https://www.nytimes.com/interactive/2019/04/16/opinion/facial-recognition-new-york-city.html>
+
+* Related:
+  <http://www.redusers.com/noticias/investigadores-belgas-descubren-metodo-enganar-camaras-ia/>
+[[101}]]
+
+[[{101,architecture.ConvNet,]]
+## Convolutional Neural Networks and "natural" signals
+
+Extracted from <https://www.infoq.com/news/2020/03/deep-learning-simulation/>
+
+ CNNs were chosen because they perform well on a large set of
+"natural" signals that are the domain of many scientific models.
+[[101}]]

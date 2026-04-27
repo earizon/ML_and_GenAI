@@ -1,4 +1,4 @@
-[[{mlops.model_deployment,data.persistence]]
+[[{mlops.model_deployment,persistence.GGUF]]
 
 ## GGUF: GPT-Generated Unified Format: (used by Ollama, ...)
 
