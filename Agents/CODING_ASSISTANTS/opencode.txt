@@ -1,4 +1,4 @@
-[[{use_case.coding_assitant]]
+[[{use_case.coding_assistant]]
 # OpenCode Coding Agent
 
 
@@ -6,4 +6,4 @@
 
 * Integrates with major LSP (Language Server Protocols)
 
-[[use_case.coding_assitant}]]
+[[use_case.coding_assistant}]]

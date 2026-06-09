@@ -142,7 +142,55 @@ Codestral is a cutting-edge generative model that has been specifically designed
 - It also support entreprise features such as speaker identification, emotion detection, diarization and others.
 [[}]]
 
+[[{]]
+## Mistral-MCP
 
+https://mcpservers.org/servers/swih/mistral-mcp
+
+mistral-mcp exposes the full Mistral AI API as a set of MCP tools, resources, 
+and prompts. An MCP client (Claude Code, Cursor, etc.) can call mistral_ocr to 
+extract text from a PDF, voxtral_transcribe to transcribe a meeting recording, 
+or workflow_execute to start a durable multi-step process — all without 
+leaving the agent loop.
+
+
+Mistral's free 1B tokens/month [[PM.price.free_tier]]
+
+
+
+Quick start for claude Code (recommended — auto-installs, prompts for API key, ships skills):
+
+/plugin install mistral-mcp@swih-plugins
+```
+{
+  "mcpServers": {
+    "mistral": {
+      "command": "npx",
+      "args": ["-y", "mistral-mcp@latest"],
+      "env": { "MISTRAL_API_KEY": "your_key_here" }
+    }
+  }
+}
+```
+
+Alternatively:
+
+```
+$ claude mcp add mistral -- npx -y mistral-mcp@latest # manual setup
+```
+
+
+
+Unique to Mistral and not available from other MCP servers:
+
+- mistral_ocr — Mistral Document AI: structured text + bbox annotations from any PDF or image
+- voxtral_transcribe — Voxtral: transcription with optional speaker diarization
+- codestral_fim — Codestral fill-in-the-middle (FIM) for inline code completion
+- workflow_execute / status / interact — Temporal-backed durable execution with 
+- human-in-the-loop signals
+- French-optimized models (mistral-large-latest, mistral-medium-latest) and curated French prompts
+
+[[}]]
 
 
 [[mistral}]]

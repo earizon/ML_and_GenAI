@@ -5,6 +5,222 @@ And using sub-agents preserves the main agent's context window, rather than poll
 [[agents.101}]]
 
 [[{]]
+# PROMPT: (Claude 4.6) do you know of a simple way to make a multiagent architecture by just using shell script and the claude command line client?
+  
+  Yes! Claude Code (the CLI) combined with shell scripts is actually a pretty 
+  elegant way to build simple multi-agent pipelines. The core idea is just piping 
+  output from one claude call into the next.
+  
+  Here's the basic pattern:
+  
+  ```bash
+  | # Agent 1 output becomes Agent 2 input
+  | result1=$(echo "Your task here"    | claude -p "You are a researcher. Summarize this topic: ...  ")
+  | result2=$(echo "$result1"          | claude -p "You are a critic. Find flaws in this summary: ...")
+  | result3=$(echo "$result1 $result2" | claude -p "You are an editor. Produce a final version: ...  ")
+  | 
+  | The -p flag runs a non-interactive "print" mode — gives you a response and exits, perfect for scripting.
+  ```
+  
+  A few useful patterns:
+  
+  Sequential pipeline (each agent builds on the last):
+  
+  ```bash
+  |    draft=$(claude -p "Write a short blog post about $TOPIC")
+  | reviewed=$(echo "$draft"                          | claude -p "Review this post and suggest improvements")
+  |    final=$(echo "$draft reviewed with: $reviewed" | claude -p "Apply the suggestions and output the final post")
+  ```
+  
+  ```bash
+  | Parallel agents (run simultaneously, merge results):
+  | angle1=$(claude -p "Argue FOR remote work" &    )
+  | angle2=$(claude -p "Argue AGAINST remote work" &)
+  | wait
+  | synthesis=$(echo "FOR: $angle1 AGAINST: $angle2" | claude -p "Synthesize both arguments neutrally")
+  ```
+  
+  ```bash
+  | Loop with condition (agent keeps iterating until done):
+  | 
+  | content="Write a haiku about coffee"
+  | for i in {1..3}; do
+  |   content=$(echo "$content" | claude -p "Improve this haiku, output only the haiku")
+  | done
+  | echo "$content"
+  ```
+
+  ```bash
+  | man-in-the-loop agent:
+  | #!/bin/bash
+  | 
+  | readonly TOPIC="the future of human-computer interaction"
+  | readonly MAX_ROUNDS=5
+  | 
+  | # Agent 1: Writer - produces the initial draft
+  | echo "🖊️  Writer agent working..."
+  | content=$(claude -p "Write a short paragraph about: $TOPIC")
+  | 
+  | for round in $(seq 1 $MAX_ROUNDS); do
+  |   echo "(round $round) CURRENT VERSION:"
+  |   echo "$content"
+  | 
+  |   echo "🔍 Critic agent automated feedback reviewer..."
+  |   critique=$(echo "$content" | claude -p "You are a sharp editor. Give 2-3 concise improvement suggestions for this paragraph. Be specific.")
+  |   echo ">>> Agent 2 (Critic) says: $critique"
+  |   echo ""
+  | 
+  |   # Agent 3: Human-in-the-loop - treated just like any other agent
+  |   cat << __EOF
+  |   1. write feedback
+  |   2. 'skip' to trust critic.
+  |   3. 'done' to finish
+  |__EOF
+  |   read -p "> " human_input
+  |   if [[ "$human_input" == "done" ]]; then
+  |     echo ">>> Approved by human agent. Finalizing..."
+  |     break
+  |   fi
+  | 
+  |   # Merge critic + human feedback (or just critic if human skipped)
+  |   if [[ "$human_input" == "skip" ]]; then
+  |     combined_feedback="$critique"
+  |   else
+  |     combined_feedback="Critic says: $critique --- Human says: $human_input"
+  |   fi
+  | 
+  |   echo ">>> Agent 4 (Rewriter) applying feedback..."
+  |   content=$(echo "Original: $content Feedback: $combined_feedback" | \
+  |     claude -p "Rewrite the paragraph incorporating all feedback. Output only the improved paragraph.")
+  | done
+  ```
+
+echo ""
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "🏁 FINAL VERSION:"
+echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "$content"
+  
+A few things to keep in mind: [[qa.101]]
+  
+- Pass context explicitly — each claude call is stateless, so you have to feed prior results manually.
+- Watch token costs; chaining many calls adds up fast.
+- For complex branching logic, you can use jq to parse structured JSON output 
+  if you prompt Claude to respond in JSON.
+  `--output-format` json can help if you need structured data between agents.
+- It's surprisingly powerful for how simple it is. 
+
+
+# PROMPT: (Mistral 3 Large) do you know of a simple way to make a multiagent architecture by just using shell script and the mistral-cli line client?
+
+   ```bash
+   pip install mistral-cli # <·· PRESETUP: Install the Mistral CLI.
+   mistral auth login      # <·· PRESETUP: Authenticate.  (This saves `MISTRAL_API_KEY` to `~/.mistral/config.json`
+
+   $ edit  agent1.sh
+   + #!/bin/bash
+   + # agent1.sh - The "Planner" agent
+   + SYSTEM_PROMPT="You are a Planner. Given a task, output a step-by-step plan in bullet points. Be concise."
+   + 
+   + INPUT=$(cat)         # Read input from stdin
+   + 
+   + # Call Mistral with the role + input
+   + mistral-chat \
+   +   --model mistral-tiny \
+   +   --messages "[{\"role\":\"system\",\"content\":\"$SYSTEM_PROMPT\"},{\"role\":\"user\",\"content\":\"$INPUT\"}]"
+
+   TIP: Use
+   - `mistral-chat` for chat-style interactions (recommended for multi-turn).
+   - `mistral`      for raw completions         (simpler, but less control over roles).
+
+
+   $ edit orchestrator.sh
+   + #!/bin/bash
+   + USER_INPUT="Write a Python script to fetch and parse a JSON API."
+   + 
+   + PLAN=$(echo "$USER_INPUT" | ./agents/agent1.sh)                         # Agent 1: Planner
+   + 
+   + CODE=$(echo "Task: $USER_INPUT\n\nPlan:\n$PLAN" | ./agents/agent2.sh)   # Agent 2: Coder
+   + 
+   + REVIEW=$(echo "Task: $USER_INPUT\n\nCode:\n$CODE" | ./agents/agent3.sh) # Agent 3: Reviewer
+   + 
+   + echo "=== FINAL REVIEW ==="
+   + echo "$REVIEW"
+   ```
+   
+   $ edit agent2.sh
+   + #!/bin/bash
+   + SYSTEM_PROMPT="You are a Coder. Write clean, runnable Python code based on the task and plan provided. Output only the code."
+   + mistral-chat --model mistral-small --messages "[{\"role\":\"system\",\"content\":\"$SYSTEM_PROMPT\"},{\"role\":\"user\",\"content\":\"$(cat)\"}]"
+
+   
+   $ edit agent3.sh
+   #!/bin/bash
+   SYSTEM_PROMPT="You are a Reviewer. Analyze the code for errors or improvements. Be critical."
+   mistral-chat --model mistral-small --messages "[{\"role\":\"system\",\"content\":\"$SYSTEM_PROMPT\"},{\"role\":\"user\",\"content\":\"$(cat)\"}]"
+
+
+   $ chmod +x agents/*.sh orchestrator.sh
+   $ ./orchestrator.sh   # <··················· RUN IT!!!!
+   ```bash
+
+### Alternative using `curl` + `jq` + Mistral API
+
+
+  ```
+  + #!/bin/bash
+  + SYSTEM_PROMPT="You are a Planner..."
+  + INPUT=$(cat)
+  + 
+  + curl -s -X POST "https://api.mistral.ai/v1/chat/completions" \
+  +   -H "Content-Type: application/json" \
+  +   -H "Authorization: Bearer $MISTRAL_API_KEY" \
+  +   -d '{
+  +     "model": "mistral-tiny",
+  +     "messages": [
+  +       {"role": "system", "content": "'"$SYSTEM_PROMPT"'"},
+  +       {"role": "user", "content": "'"$INPUT"'"}
+  +     ]
+  +   }' | jq -r '.choices[0].message.content'
+  ```
+  
+  ---
+  ---
+  ```
+  Key Differences between mistral-cli and Claude CLI [[doc_has.comparative]]
+  /-----------------------|-----------------------------------------|-----------------------------------|
+  | Feature               | Claude CLI                              | Mistral CLI (`mistral-chat`)      |
+  |-----------------------|-----------------------------------------|-----------------------------------|
+  | Install               | `npm install -g @anthropics/claude-cli` | `pip install mistral-cli`         |
+  | Auth                  | `ANTHROPIC_API_KEY` env var             | `mistral auth login`              |
+  | Chat Mode             | `--system` + `--prompt`                 | `--messages` (JSON)               |
+  | Streaming             | Yes (`--stream`)                        | Yes (`--stream`)                  |
+  | Model Selection       | `--model` (e.g., `claude-3-haiku`)      | `--model` (e.g., `mistral-small`) |
+  |-----------------------|-----------------------------------------|-----------------------------------|
+  ```
+  
+  ---
+  ---
+  ### 💡 Pro Tips for Mistral
+  1. **Models**: Use `mistral-tiny` (fast/cheap), `mistral-small`, or `mistral-medium` (most capable).
+  2. **JSON Mode**: Add `"response_format": {"type": "json_object"}` to the API request for structured outputs.
+  3. **Parallel Agents**: Run agents in parallel with `&` and `wait`:
+     ```bash
+     ./agent1.sh > plan.txt &
+     ./agent2.sh > code.txt &
+     wait
+     ```
+  4. **Debugging**: Add `set -x` to scripts to trace inputs/outputs.
+  
+  ---
+  ---
+  ### 🔗 Resources
+  - [Mistral CLI GitHub](https://github.com/mistralai/mistral-cli)
+  - [Mistral API Docs](https://docs.mistral.ai/api/)
+[[}]]
+
+
+[[{]]
 ## ML 101 Agent Agent Definition Language
 
 * <https://www.infoq.com/news/2026/02/agent-definition-language/>
@@ -285,3 +501,6 @@ C&P from Mitko Vasilev@LinkedIn:
 """ local stack ... Names, secret keys, .... SSNs, IBANs, phones, addresses, ...all vaporized.  """
   
 [[security.privacy}]]
+
+
+

@@ -1,0 +1,28 @@
+[[{hardware.intel]]
+## Intel ML GPU Ubuntu LTS 26.04
+
+- Intel DPC++ compiler and related packages are now available
+- Added in version 26.04.
+- Intel’s open-source oneAPI DPC++ compiler for building SYCL code is now 
+  available in the Ubuntu Archive. The compiler runtime includes adapters for 
+  running on Intel GPU hardware.
+
+The following related packages are also now available from the Ubuntu archive:
+
+- DPC++ library (oneDPL), which provides a high-productivity API for developers.
+- Deep Neural Network Library (oneDNN) built with the dpclang-6 compiler for 
+  running on Intel GPUs.
+
+These tools provide support for AI workloads on Intel GPU hardware. Note that 
+users need to be in the render group in order to leverage Intel GPUs with these 
+packages.
+
+
+```
+sudo apt install dpclang-6           # Install compiler.
+sudo apt install onedpl-headers      # Install library.
+sudo apt install libdnnl-sycl-dev    # Install oneDNN development package 
+sudo apt install libdnnl-sycl3       # Install oneDNN runtime.
+```
+
+[[hardware.intel}]]

@@ -16,7 +16,7 @@ used as Agent context input and handling permanent (permanent == sort of "system
   | INTENTIONS    ···············>  SPECIFICATION  ················> IMPLEMENTATION
   | AND INTERESTS └──────┬───────┘    ^            └───────┬───────┘
   |                      ·            ·                    ·    
-  |              humans with the      ·              Code assitants with
+  |              humans with the      ·              Code assistants with
   |              help of Agent/s.     ·              human supervision
   |              (engineers,...)      ·
   |                                   ·

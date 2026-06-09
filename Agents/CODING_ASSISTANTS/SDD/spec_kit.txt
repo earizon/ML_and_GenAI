@@ -1,4 +1,4 @@
-[[{use_case.code_assistant]]
+[[{use_case.coding_assistant]]
 ## Spec-Kit: Spec Driven Development
 
 - Instead of asking AI to write code ("vibe coding"), AI is feed with formal "specs".
@@ -45,4 +45,4 @@ Alternatives include:
   Based around management of "Deltas" (vs full spec).
   - Very interesting alternative to Spec-Kit when using modern code.
   - Worst to migrate "old" code.
-[[use_case.code_assistant}]]
+[[use_case.coding_assistant}]]

@@ -98,5 +98,46 @@ A summary of 5 best prompting patterns or strategies extracted from OpenAI Promp
    - Measure improvements with a comprehensive testing approach
    - Ensure that modifications lead to overall performance enhancements.
 
+[[{prompting.planning,agents.101]]
+
+## Depp-looking reasoning != deep planning
+
+* <https://arxiv.org/pdf/2605.06840>
+
+Most current LLMs do not appera to "plan" the way humans think they do. 
+
+The paper, on four-in-a-row, finds that even when models generate long 
+chain-of-thought traces that look like tree search, their actual decisions are 
+best explained by shallow, near-term evaluation rather than deep lookahead.
+
+The key result is striking:
+- Models that considered more candidate moves performed better.
+- But models that searched deeper did not reliably improve.
+- The best predictor of the model’s final move was a myopic evaluator, not 
+  a full minimax-style search over the generated reasoning tree.
+
+- authors also performed causal interventions on the reasoning traces.
+- Removing deeper parts of the chain-of-thought had surprisingly little 
+  effect on the final move, while restoring only the first layer of 
+  reasoning almost recovered the original behavior.
+
+- This matters because many people implicitly assume:
+  - Longer CoT = deeper planning.
+
+- The result has important implications for:
+  - AI interpretability    [[qa.interpretability]]
+  - reasoning faithfulness [[qa.coherence,qa.perplexity]]
+  - agent design
+  - safety evaluation
+  - benchmark construction
+
+It reinforces an important distinction in AI systems:
+
+- Generating **reasoning-like text** is not the same thing as
+  performing robust internal search or planning. [[101]]
+
+- paper: <https://lnkd.in/gJZwv3aY>
+
+[[prompting.planning}]]
 
 [[prompting.101}]]

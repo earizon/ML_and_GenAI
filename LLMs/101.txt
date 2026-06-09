@@ -1,0 +1,16 @@
+## Autoregressive Transformer Language Model (ATLM)
+
+ATLM is the most generic term to refer to an LLM model based on the Transformer 
+architecture and trained to predict the next token.
+
+- Autoregressive: The model generates text by predicting one token at a time, 
+   conditioning each prediction on the previously generated tokens.
+
+- Transformer: The underlying neural network architecture (introduced in the paper "Attention Is All You Need").
+- Language Model: A model trained to understand and generate human-like text.
+
+  Common Shorthand are "Autoregressive LLM", "Causal Language Model" (since it 
+uses causal masking to predict the next token) and "Transformer-based LLM".
+
+  Note that GPT or Llama are just specific models from different companies 
+(OpenAI, Meta,...) following the ATLM architecture.

@@ -1,0 +1,32 @@
+[[{agents.agent_zero,agents.101]]
+## Agent-Zero
+
+- One Docker container shipping a fully containerized Linux XFCE desktop
+  session and a plugin hub that the agent can extend using Skills (ex: Blender,...)
+  (LibreOffice Writer, Calc, and Impress are wired up too)
+- built-in Browser with an optional live surface in the Canvas.
+- The agent can open/read/manage web pages, upload files or  take screenshots.
+
+### Agent-Zero Annotate mode.
+
+- The Canvas includes a rich Markdown editor designed for genuine cowork.
+- Ask the agent to "write a plan to do X in a TODO.md in the open doc"
+  and you'll see the file appear in the editor, character by character, while 
+  you keep typing in another section.
+
+### Built for extension.
+
+- The built-in Plugin Hub browses a growing catalog of community plugins
+  (currently more than 100) covering:
+  - Development frameworks like the BMAD Method (full software development 
+    lifecycle with 20 specialist agents) and Agent Skills.
+  - Memory systems: alternative memory backends, intelligent consolidation 
+    strategies, vector recall plugins. [[agents.memory]]
+  - Tools and integrations: embedded terminals, custom browsers, deployment 
+    helpers, API clients.
+  - UI extensions: chat rename controls, sidebar tweaks, theme packs, custom 
+    Canvas panels.
+  - Workflow plugins: schedulers, multi-agent orchestration, project automations.
+
+- <https://github.com/agent0ai/agent-zero>
+[[101}]]

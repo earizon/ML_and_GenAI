@@ -1,7 +1,103 @@
 [[{agents.claude_code]]
 # Anthropic Claude Code
 
-- Claude 4 Code Agent is based in Antrophic Claude
+[[{agents.claude_code]]
+
+## Quick "bootstrap"
+
+```
+  .claude/skills/my_reusable_skill/SKILL.md <·· STEP 1: ~20-30 minutes
+                                                "Script" your prompts with skills.
+                                                Claude will invoke them on-demand when the affected
+                                                skill is needed.
+  .claude/hooks/pre-commit.sh               <·· STEP 2: ~10 minutes
+   if git diff --cached --name-only | \         Example: block commits that contain .env files.
+      grep -qE '\. env$'; 
+   then
+       echo "BLOCKED: .env file detected"  exit 1 
+   fi 
+
+
+   claude mcp add mistral \                 <·· STEP 3: Connect MCP server at will (~10-15min)
+      -- npx -y mistral-mcp@latest              
+                                                
+   /mcp                                         <·· see what's connected and how tokens it does consume.                
+                                            
+
+   .claude/agents/test-runner/AGENT.md      <·· STEP 4: A Subagent runs in its own CLEAN CONTEXT and returns
+                                                only a summary avoiding to polute the main context.
+                                                - Give your sub-agent one well defined job: 
+                                                  "run test suite, parse failures, return short report"
+   ./CLAUDE.md.                             <·· ~20-60 minutes. This is the project memory Claude reads
+     ^                                          on **every session** (every "chat").
+     │                                          Do not overfill it, update when needed.
+     └─ A good CLAUDE.md has 4 sections:
+        1. How to run the project (commands, ports, env)
+        2. Code style rules adopted by our team.
+        3. What NOT to touch / NOT to do. (legacy files, third-party code)
+        4. Current priorities (what you're actively working on)
+   - Claude works 3x better with a good CLAUDE.md. [[agents.claude_code.101]]
+```
+
+[[agents.claude_code}]]
+
+## Claude Batch mode how-to
+
+```
+| [[{]] 
+|   CLAUDE_OPTS=""
+|   CLAUDE_OPTS="${CLAUDE_OPTS} --permission-mode acceptEdits"               # ¹
+|   CLAUDE_OPTS="${CLAUDE_OPTS} --allowedTools "Bash(git *) Edit Write Read" # <·· Allow some tools (Agentic mode)
+|   CLAUDE_OPTS="${CLAUDE_OPTS} --disallowedTools "Bash(rm *)"               # <·· disallow (Guardrail)
+|   CLAUDE_OPTS="${CLAUDE_OPTS} --model claude-sonnet-4-6"                   # 
+|   CLAUDE_OPTS="${CLAUDE_OPTS} --max-turns 3 "                              # 
+| # CLAUDE_OPTS="${CLAUDE_OPTS} --output-format json"                        # := json | stream-json for Machine-readable output
+| # CLAUDE_OPTS="${CLAUDE_OPTS} --session-id <uuid> / --resume "             # Resumable runs            
+| # CLAUDE_OPTS="${CLAUDE_OPTS} --add-dir /path "                            # Grant access to extra dirs
+| # CLAUDE_OPTS="${CLAUDE_OPTS} --mcp-config servers.json "                  # Load MCP servers          
+| # CLAUDE_OPTS="${CLAUDE_OPTS} --max-budget-usd 3.00"                       # Cost cap                  
+| # CLAUDE_OPTS="${CLAUDE_OPTS} " # 
+| 
+| PROMPT="Generate TS types for our API and write to ./output/types.ts"
+| echo ${PROMPT} |   claude --print ${CLAUDE_OPTS} > result.json             # <·· -p/--print => print and exit (batch mode)
+| echo $?  # 0 => success, 1 => error (API / tool / permission), 2 => pre-tool-use hook blocked.
+|
+| ¹ Permission mode values:
+|   - default           (unusable in batch).
+|   - acceptEdits       (auto-approve edits in CWD — recommended)
+|   - bypassPermissions (skip all — dangerous).
+|   - plan              (read-only)
+|   - dontAsk           (deny unless allow-listed).
+| 
+| Alternatively edit .claude/settings.json:
+|
+|   + "permissions": {
+|   +   "allow": [
+|   +     "Bash(git *)",
+|   +     "Bash(npm run *)",
+|   +     "Edit(/src/**)",
+|   +     "Write(/output/**)",
+|   +     "Read"
+|   +   ],
+|   +   "deny": ["Bash(rm *)", "Bash(curl *)"]
+|   + },
+|
+| [[security.101]]
+| 
+|   - Avoid --dangerously-skip-permissions outside sandboxed/disposable environments.
+|   - Prefer acceptEdits + an explicit permissions.allow list over bypassPermissions.
+|   - Settings precedence: managed → CLI args → project .claude/settings.json → user ~/.claude/settings.json → defaults.
+| 
+| REF:
+| - <https://code.claude.com/docs/en/permissions.md>
+| - <https://code.claude.com/docs/en/settings.md>
+| - claude --help
+| [[}]] 
+```
+
+## Claude Code Agent:
+
+- Claude (4) Code Agent is based in Antrophic Claude
 
 C&P: <https://www.infoq.com/news/2025/06/anthropic-claude-4/>
 """ This is the first time I'm able to vibe code an app without major manual 
@@ -9,7 +105,7 @@ C&P: <https://www.infoq.com/news/2025/06/anthropic-claude-4/>
   trust it without human review, but I did vibe code an entire production-ready 
   iOS/Android/web app that accepts payments in less than 24 hours and barely had 
   to manually intervene at all, besides telling it what I wanted to do next. """ 
-[[doc_has.feedback]]
+  [[doc_has.feedback]]
 
 [[{doc_has.comparative]]
 ## Alternatvies to Claude Code
@@ -59,7 +155,7 @@ C&P: <https://www.infoq.com/news/2025/06/anthropic-claude-4/>
 * ...
 [[doc_has.comparative}]]
 
-## Some warnings:
+## Some warnings
 
 C&P from <https://www.infoq.com/news/2026/03/morgan-stanley-apis-mcp-calm/>
 
@@ -145,8 +241,10 @@ The results:
 
 (Summary from post by Cerdá Enguix, -Kenmei.ai- on LinkedIN)
 
-- RTK (Rust Token Killer) is a single binary rust client tool between your terminal and your AI agent.
+- rtk (Rust Token Killer) is a single binary rust client tool between your terminal and your AI agent.
   providing up 90% of token saving.
+
+- It compares with other tools such as `lean-ctx` and  `Context+`. [[PM.price]]
 
 - Each time the agent executes `git status` or `pytest` it receives hundreds of non-needed lines,
   comments, Boilerplate filling the context.
@@ -256,5 +354,104 @@ session starts with a working app. [[doc_has.keypoint]]
 ## skills by matA
 
 * <https://github.com/mattpocock/skills> (25.4 stars in github)
+
+
+[[{agents.local_AI,]]
+## Local Claude code
+
+- Claude Code normally sends every request to Anthropic's paid API.
+- free-claude-code (local proxy) intercepts the traffic and reroutes it "somewhere else".
+-  point the CLI at localhost, and requests go to a free NVIDIA NIM key instead. 
+- That gets you 40 requests per minute with no subscription and no bill ever. [[PM.price.free_tier]]
+
+- "Backends" supported include: Kimi K2, GLM 4.7, MiniMax M2, DeepSeek, 
+  Ollama, and llama.cpp for fully local runs.
+
+- It handles the tricky parts automatically:
+  - Streaming thinking tokens live.
+  - Tool calls and reasoning blocks.
+  - Per-model routing across Opus, Sonnet, Haiku 
+  - Native /model picker support
+
+- built-in Telegram to remotely drive coding sessions.
+
+- Quick setup.  [[PM.low_code]]
+
+- Repo: <https://github.com/Alishahryar1/free-claude-code>
+[[agents.local_AI}]]
+
+[[{]]
+## Claude Code Routines (2026-05)
+
+* <https://www.infoq.com/news/2026/05/anthropic-routines-claude/?utm_content=051920>
+
+- Routines allows developers to configure automated coding workflows that
+  run on schedules, through API calls, or in response to external events.
+- Routines runs on Claude Code’s cloud infrastructure (no need for local
+  cron jobs, servers, or automation pipelines).  [[architecture.batch]]
+- A routine consists of:
+  - a prompt.
+  - repository access.
+  - connected tools or services.
+
+- Example ussage: 
+  - automated issue triage. 
+  - documentation updates.
+  - scanning documentation drift.
+  - generating pull requests.
+  - deployment verification.
+  - alert analysis.
+  - cross-language / cross-SDK synchronization.
+  - ...
+
+- API-triggered routines expose endpoints and authentication tokens,
+  enabling external systems such as deployment pipelines, monitoring platforms,
+  or internal tooling to trigger Claude Code sessions through HTTP requests.
+
+- Webhook-based routines are added for GitHub events.
+
+- Routines compare to Schedules in Claude Cowork, which run on the local machine.
+
+- The release reflects a broader trend toward asynchronous AI coding agents that 
+  operate continuously in cloud environments instead of interactive local 
+  sessions. [[architecture.async]]
+[[}]]
+
+[[{]]
+## Inside Claude Code Auto Mode
+
+- Anthropic’s Autonomous Coding System with Human Approval Gates 
+
+* <https://www.infoq.com/news/2026/05/anthropic-claude-code-auto-mode/>
+[[}]]
+
+[[{]]
+## 27 Claud Code Concepts Explained
+
+1. agent == chatbot + (ReAct) actions (files, websites).
+1. Permissions: Safety gate. Pre-approve safe moves (read/test) in 'settings.json'
+1. Tools inlcude bash, local FS + MCP Server "plugins"
+1. session == chat  == "short term memory"
+   ```
+   $ claude --verbose # <·· start with fress new short-term memory
+   $ claude --resume  # <·· Inject previous session 
+   $ claude -p .....  # <·· Batch mode (non-interactive)
+   /help
+   /compact           # <·· Compact Context (summarize and clear noise).
+   /clear             # <·· clear short-term memory
+   /model             # <·· Choose model. WARN: the most expensive is choosen by default.
+                            Haiku (fast/cheap), Sonnet (all-rounder), Opus(genius)
+                            --model (flag)
+   /stats             # <·· track token usage+cost`
+   settings.json      # <·· 
+   /init
+   /re                # <·· rewind mistakes [[agents.claude.troubleshooting]]
+   ```
+1. Skills: Expert playbooks (eg, Copywriting Skill, null killer skip, ...).
+1. Hooks: Automatics 'if-this-then-that' rules (eg auto-formatting).
+1. Sub-Agents: Delegation. Specialist run in clean windows.
+1. Sub-Agent Teams: Collaboration. Multiple sub-agents with a shared goal.
+1. Extended Thinking: Dedicated reasoning budget before action.
+[[}]]
 
 [[agents.claude_code}]]

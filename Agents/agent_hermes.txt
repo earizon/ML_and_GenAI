@@ -1,0 +1,21 @@
+[[{agents.self_learning,agents.hermes]]
+##  hermes agent: SELF improving/built-in learning loop. (by NousResearch)
+
+* <https://github.com/NousResearch/hermes-agent>
+
+- agent with a **built-in learning loop**. [[agents.101]]
+- Hermes include 15.000+ predefined skills , but it also
+  creates new skills from experience and improves them 
+  during use.
+- Hermes is also very customizable.
+- WARN: C&P from <https://www.youtube.com/watch?v=ubxDCAtYQwE>
+  Hermes tends to create a new skill for each new task "bloating" 
+  the environment, so guard-trails must be added.
+- nudges itself to persist knowledge.
+- searches its own past conversations.
+- builds a deepening model of who you are across sessions.
+- Run it on a $5 VPS.
+
+- Advanced users can use OpenClaw to orchestrate and plan and Hermes to execute.
+
+[[agents.self_learning}]]

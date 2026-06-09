@@ -1,0 +1,45 @@
+[[{agents.MetaGPT,use_case.coding_assistant,use_case.software_company]]
+## MetaGPT: "Software Company as Multi-Agent System"
+
+- IA Employees to validate ideas, create products, capture clients in minutes, with no code. [[PM.lean]]
+
+
+  ```
+  |   INPUT         >>>  PROCESSING          >>> OUTPUT
+  |                      AGENTS                       
+  |   -------------      --------------------   -------------
+  |   - On-line           - product managers    - user stories          [[PM.101]]
+  |    requirements       - architects          - competitive analysis
+  |                       - project managers    - requirements
+  |                       - engineers           - data structures
+  |                       - QA                  - APIs
+  |                                             - documents
+  |                                             - ...
+  |
+  | TOTAL COST: (2026, using OpenAI GPT-4 API fees)
+  | ~ $0.2 to generate one example with analysis and design.
+  | ~ $2.0 for a full project.  [[PM.price]]
+  ```
+
+- Code = Standard Operation Procedures (SOP) Team is the core philosophy. [[PM.SOP]]
+
+- Supported LLM remote APIs:
+  - Aliyun DashScope API
+  - Amazon Bedrock API
+  - Ark API.
+  - Azure OpenAI
+  - Baidu QianFan API
+  - Claude API
+  - Fireworks API
+  - Google Gemini
+  - groq
+  - iFlytek's large model Spark AP
+  - Mistral API
+  - Moonshot / Kimi API
+  - Ollama API
+  - OpenaAI
+  - OpenRouter
+  - Yi/lingyiwanwu API
+  - Zhipu
+  - ...
+[[agents.MetaGPT}]]

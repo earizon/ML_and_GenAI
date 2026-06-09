@@ -1,0 +1,49 @@
+[[{]]
+## Curated OOSS GitHub repos for AI Agents.
+
+...  This is the stack I wish I had on day one.  (by Maryam Miradi, PhD)
+
+
+### $0.00 MULTI-AGENT ORCHESTRATION  
+
+[[PM.price.free_tier]]
+
+- Atomic Agents: <https://github.com/BrainBlend-AI/atomic-agents>
+
+
+- Apache Burr  : <https://github.com/apache/burr>.<br/>
+  - Build applications that make decisions (chatbots, agents, simulations, etc...). 
+  - Monitor, trace, persist, and execute on your own infrastructure.
+
+
+### AUTONOMOUS BUILDERS
+
+- OpenHands    : <https://github.com/OpenHands/OpenHands>
+- Devika       : <https://github.com/stitionai/devika>
+  - first OOSS implementation of an Agentic Software Engineer. 
+
+- Plandex      : <https://github.com/plandex-ai/plandex>
+  - OOSS AI coding agent. Designed for large projects and real world tasks.
+
+
+Letta Code: run agents locally in your terminal
+Letta API: build agents into your applications
+
+
+TOOLS & OBSERVABILITY
+- Skyvern: https://lnkd.in/eKensnw9
+- E2B: github.com/e2b-dev/E2B
+- AgentOps: https://lnkd.in/e6vpsCQ5
+- Composio: https://lnkd.in/eZiA_R2Q
+
+ Total cost: $0.00 Knowledge value: infinite
+
+[[}]]
+
+
+[[{]]
+ such as chain of thought (COT) (Wei et al., 2022), ReAct 
+(Yao et al., 2022), tree of thought (TOT) (Yao et al., 2023), Reflexion (Shinn 
+et al., 2023), and Graph of Thought (GOT) (Besta et al., 2023), to improve 
+text-based reasoning.
+[[}]]

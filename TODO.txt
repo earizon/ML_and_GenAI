@@ -1,6 +1,107 @@
 [[{PM.TODO]]
 # Pool of unordered notes 
 
+[[{agents.101,doc_has.comparative]]
+## Single Agent vs Multi-Agent: When to Build a Multi-Agent System
+
+* <https://towardsdatascience.com/single-agent-vs-multi-agent-when-to-build-a-multi-agent-system/>
+
+ReAct (Reasoning + Acting) in Agents
+
+An AI agent differs from a basic chatbot because a chatbot usually follows a 
+more direct workflow: user query → LLM → response. The LLM receives the 
+user’s message and generates a reply based mainly on the prompt and its 
+existing context.
+
+An AI agent goes beyond this by using the LLM to reason about the task, decide 
+what needs to be done, choose whether tools are needed, call those tools, 
+observe the results and continue until it can produce a useful answer. 
+
+This is where the ReAct approach comes in. ReAct means Reasoning + Acting. It 
+is an agent pattern where the LLM reasons about a task and takes actions, 
+usually through tools, based on that reasoning. It involves designing a core 
+logic loop around an LLM. [[prompting.react]]
+[[agents.101}]]
+
+[[{scalability.token_ussage,architecture.101,scalability.101,PM.low_code,use_case.coding_assisstant]]
+## LLM ctx reduction (lean-ctx vs rtk vs context+ vs...) 
+
+- WARN: It just looks to work for coding agentict tasks or in agents that
+  are backed by tools similar to those used during coding/software development.
+
+- rtk: cli reducing LLM token consumption by 60-90% on common dev commands.
+  - <https://github.com/rtk-ai/rtk>
+  -  495 open issues on Github
+  -  48K starts.
+- lean-ctx:
+  - <https://github.com/yvgude/lean-ctx>
+  -    0 open issues
+  -   15 contributors.
+  - 1.7K starts
+- Context+:
+  - 
+
+
+* <https://github.com/vjvkrm/langcost>
+
+It compares with other tools such as `rtk` and  `Context+`. [[PM.price]]
+
+[[scalability.token_ussage,scalability.101}]]
+
+  ```
+  | rkt Token Savings (30-min Claude Code Session)
+  | Operation      | Frequency | Standard | rtk     | Savings
+  | ---------------+-----------+----------+---------+--------
+  | ls / tree      | 10x       | 2,000    | 400     | -80%
+  | cat / read     | 20x       | 40,000   | 12,000  | -70%
+  | grep / rg      | 8x        | 16,000   | 3,200   | -80%
+  | git status     | 10x       | 3,000    | 600     | -80%
+  | git diff       | 5x        | 10,000   | 2,500   | -75%
+  | git log        | 5x        | 2,500    | 500     | -80%
+  | git add/com/psh| 8x        | 1,600    | 120     | -92%
+  | cargo/npm test | 5x        | 25,000   | 2,500   | -90%
+  | ruff check     | 3x        | 3,000    | 600     | -80%
+  | pytest         | 4x        | 8,000    | 800     | -90%
+  | go test        | 3x        | 6,000    | 600     | -90%
+  | docker ps      | 3x        | 900      | 180     | -80%
+  | Total          |           | ~118,000 | ~23,900 | -80
+  ```
+[[}]]
+
+
+
+[[{MlOps.proxy,prompting.proxy,]]
+## OptiLLM: proxy that sits between your app and any OpenAI-compatible API.
+
+* <https://github.com/algorithmicsuperintelligence/optillm>
+
+- Boost any LLM's accuracy 2-10x without training it.
+
+- OptiLLM open-source proxy sits between your app and any OpenAI-compatible API.  [[PM.low_code]]
+
+- Instead of training, **it spends extra compute at inference time to think 
+  harder before answering** improving the accuracy of results without 
+  fine-tuning or bigger models.
+
+- The repo bundles 20+ reasoning techniques you can switch on with one parameter, including
+  - Multi-agent cross-verification   [[prompting.cross_verification]]
+  - Monte Carlo tree search          [[prompting.montecarlo_tree_search]]
+  - Chain-of-thought with reflection [[prompting.Chain-of-thought]]
+  - Best-of-N sampling               [[prompting.best_of_N]]
+
+- On AIME 2025, Gemini 2.5 Flash Lite jumps from 43.3% to 73.3% accuracy. [[qa.coherence]]
+- Llama 3.3 70B gains 18.6 points on Math-L5.
+- GPT-4o-mini matches GPT-4 on Arena-Hard-Auto. 
+[[}]]
+
+[[{prompting.101]]
+## Think anywhere in code generation
+
+(focus "thinking" where the maximum entrophy resides)
+
+* <https://www.youtube.com/watch?v=20AlC2drKT4>
+[[prompting.101}]]
+
 
 [[{101.*,doc_has.tutorial]]
 ## ML Papers Explained
@@ -599,7 +700,7 @@ Main features:
 - Paper: <https://arxiv.org/pdf/2503.11576>
 [[}]]
 
-[[{use_case.legal,architecture.agent]]
+[[{use_case.legal,agents.maite]]
 ## Maite.ai: Agente IA que dicta sentencias
 
 * <https://www.maite.ai/>
@@ -697,7 +798,7 @@ perfectionistic curation of our web data.
 
 [[architecture.transformers.MoE}]]
 
-[[{industry.cinemma]]
+[[{sector.entertainment]]
 ## Microfilms
 
 * <https://www.youtube.com/watch?v=ChRuH0F678A&t=104s>
@@ -713,7 +814,7 @@ He uses:
 - Midjourney for stills.
 - Cling for motion. [[use_case.video_production]]
 - Suno for music.   [[use_case.music_composition]]
-[[industry.cinemma}]]
+[[sector.entertainment}]]
 
 [[{architecture.IoT,architecture.mobile,dev_stack.android,dev_stack.iOS]]
 ## ML Kit
@@ -1103,7 +1204,666 @@ surprises. [[hardware.*,scalability.quantization]]
 - **WARN**: Result can depend in a changing list of promotional models.
 
 - **WARN**: Prompts can be registered for internal training. No privacy is guaranteed.
-
 [[PM.price.free_tier}]]
+
+[[{PM.price.monitoring]]
+## LangCost
+
+* <https://github.com/vjvkrm/langcost>
+[[PM.price.monitoring}]]
+
+[[{agents.claude_code]]
+## ML claude desktop (MCP support) on linux
+
+  The aaddrick/claude-desktop-debian project is a set of build scripts that takes 
+the official Claude Desktop Windows installer, extracts the Electron app inside 
+it, swaps out the Windows-specific native modules for Linux equivalents, and 
+repackages the whole thing into a proper Linux binary.
+
+The result is a native desktop app that feels identical to the Mac and Windows
+versions, with full support for Model Context Protocol (MCP) servers, global 
+hotkeys, and system tray integration
+[[agents.claude_code}]]
+
+
+[[{101]]
+## Linguistica == Morfología + Semántica + Sintaxis + Pragmática
+
+- Morfología: forma de las palabras
+- Semántica: semántica de palabras aisladas
+- Sintaxis: "arbol" . Semábtica de la frase completa.
+
+Pragmática: estudia el contexto ... Cambio de interpretaciones... Base del prompting:
+
+1. "maxima de grice"
+2 trámita la ibterpretación comunicativa precisa. ??? Acto directivo ("cállate!!")
+3 reduce l ambiguedad pragmática (principio de relevancia).
+[[101}]]
+
+[[{]]
+## Google GKE Agent Sandbox a
+
+
+https://www.infoq.com/news/2026/05/gke-agent-sandbox-hypercluster/
+
+- Announced at Hypercluster 26. [[PM.year.2026]]
+
+- It Positions Kubernetes as AI Agent Google with several major updates
+  to Google Kubernetes Engine (GKE) to provide secure agent code execution
+  and allowing execution of **up to a million accelerator chips from a
+  single control plane**.
+
+- GKE provides kernel-level isolation for untrusted agent code 
+  execution using gVisor, the same sandboxing technology that secures Gemini. [[security.sandbox]]
+- Google claims 300 sandboxes per second at sub-second latency and up to 30% 
+  better price-performance. [[scalability.cloud.GKE]]
+
+- ... SandboxClaim, a transactional resource for requesting execution
+environments from higher-level frameworks like ADK or LangChain.
+
+- Compares to:
+  - Cloudflare Sandboxes, using container-based isolation 
+  - E2B Firecracker microVMs. 
+  - ...
+
+- Alex Gkiouros, Google Cloud Ambassador, observed, GKE Agent Sandbox is
+  currently the only native agent sandbox offering among the three major hyperscalers.
+
+- ... Automatic KV Cache storage tiering across RAM, Local SSD, and Google 
+  Cloud Storage solves long-context memory bottlenecks, with Google reporting 
+  a 50% throughput gain for 10K prompts offloaded to RAM and a nearly 70%
+  throughput improvement for 50K prompts offloaded to SSD. [[scalability.KV_Cache]]
+[[}]]
+
+
+[[{]]
+## DAIR.AI  (by Microsoft Research)
+- <https://arxiv.org/abs/2605.03808>
+
+- The entire interpretability literature is built around human readers.
+  As more analysis gets delegated to agents, the right target of interpretability shifts.
+
+- This paper is a **recipe for designing tools that agents can actually reason about**.
+
+- They introduce Agentic-imodels, an autoresearch loop where a coding agent
+(Claude Code, Codex) iteratively evolves scikit-learn-compatible regressors 
+that are simultaneously accurate AND readable by other LLMs. [[agents.imodels]]
+
+- Interpretability is measured by whether a small LLM can simulate the fitted
+model's behavior just by reading its string representation. [[qa.agent_evaluation]]
+
+- Predictions, feature effects, counterfactuals, all from the 
+`__str__` output alone.
+
+- Run on 65 tabular datasets, the discovered models push 
+  the Pareto frontier past every classical interpretable baseline (decision 
+  trees, GAMs, sparse linear), and improve four downstream agentic data science 
+  systems on the BLADE benchmark by 8% to 73%.
+
+[[}]]
+
+
+[[{use_case.computer_vision]]
+## roboflow
+
+* <https://supervision.roboflow.com/latest/>
+* <https://github.com/roboflow/supervision>
+
+- Supervision is an open-source Python library by Roboflow for building computer 
+vision applications. It provides a unified Detections object that works with 
+YOLO, SAM, Grounding DINO, Transformers, and 20+ model frameworks — use any 
+detector, get the same composable API. [[dev_stack.python]]
+
+With Supervision you can annotate images and video with bounding boxes, masks, 
+and labels; track objects across frames with persistent IDs; count and filter 
+detections inside polygon zones; load and convert datasets between YOLO, COCO, 
+and Pascal VOC formats; and benchmark model performance with mAP and confusion 
+matrices.
+
+ Trusted by researchers (cited in 4,000+ papers) and practitioners (38,000+ 
+GitHub stars, 1M+ monthly PyPI downloads), Supervision is the standard toolkit 
+for production computer vision workflows.
+[[use_case.computer_vision}]]
+
+
+[[{scalability.algorithm,PM.radar]]
+## OCR ofr context compression??
+
+DeepSeek-OCR tests an unusual idea: render text as an image, hand it to a 
+vision encoder, fit 10x more into an LLM's context. 1 vision token reconstructs 
+10 text tokens at 97% accuracy, ~60% at 20x. A 570M-active MoE decodes it. 100 
+vision tokens/page beat GOT-OCR2.0's 256; under 800 beat MinerU2.0's 6000+. One 
+A100 processes 200K pages daily. If it generalizes, feeding a book costs what 
+an article does today.
+[[}]]
+
+[[{scalability.quantization]]
+
+- 
+[[}]]
+
+[[{scalability.quantization]]
+## TurboVec compress 31GBytes into 4GBytes
+
+... by rotating and TurboQuant.
+
+
+* <https://github.com/RyanCodrai/turbovec>
+
+A vector index built on TurboQuant, written in Rust with Python bindings
+
+A 10 million document corpus takes 31 GB of RAM as float32. turbovec fits it in 
+4 GB - and searches it faster than FAISS.
+
+turbovec is a Rust vector index with Python bindings, built on Google 
+Research's TurboQuant algorithm - a data-oblivious quantizer that matches the 
+Shannon lower bound on distortion with zero training and zero data passes.
+
+No codebook training. Add vectors, they're indexed. No data-dependent 
+calibration, no rebuilds as the corpus grows.
+Faster than FAISS. Hand-written NEON (ARM) and AVX-512BW (x86) kernels beat 
+FAISS IndexPQFastScan by 12–20% on ARM and match-or-beat it on x86.
+Pure local. No managed service, no data leaving your machine or VPC. Pair with 
+any open-source embedding model for a fully air-gapped RAG stack.
+
+
+Building RAG where privacy, memory, or latency matters? You're in the right 
+place.
+
+Python
+
+pip install turbovec
+
+from turbovec import TurboQuantIndex
+
+index = TurboQuantIndex(dim=1536, bit_width=4)
+index.add(vectors)
+index.add(more_vectors)
+
+scores, indices = index.search(query, k=10)
+
+index.write("my_index.tq")
+loaded = TurboQuantIndex.load("my_index.tq")
+
+
+Framework integrations
+
+LangChain — pip install turbovec[langchain]
+LlamaIndex — pip install turbovec[llama-index]
+Haystack — pip install turbovec[haystack]
+[[}]]
+
+
+
+[[{]]
+## Generative Recursive Reasoning
+
+* <https://huggingface.co/papers/2605.19376>
+
+- How should future neural reasoning systems implement extended computation? 
+
+- Recursive Reasoning Models (RRMs) offer a promising alternative to 
+  autoregressive sequence extension by performing iterative latent-state 
+  refinement with shared transition functions.<br/>
+  Yet existing RRMs are largely deterministic, following a single latent
+  trajectory and converging to a single prediction. [[architecture.RRM]]
+
+   We introduce Generative Recursive reAsoning Models (GRAM), a 
+framework that turns recursive latent reasoning into probabilistic 
+multi-trajectory computation. [[architecture.GRAM]]
+
+   GRAM models reasoning as a stochastic latent trajectory, 
+enabling multiple hypotheses, alternative solution strategies, and 
+inference-time scaling through both recursive depth and parallel trajectory 
+sampling.
+
+  This yields a latent-variable generative model supporting conditional 
+reasoning via `p_θ(y mid x)` and, with fixed or absent inputs, unconditional 
+generation via `p_θ(x)`. [[use_case.probabilistic_programming]]
+
+- Trained with amortized variational inference, GRAM improves over 
+  deterministic recurrent and recursive baselines on structured reasoning and 
+  multi-solution constraint satisfaction tasks, while demonstrating an 
+  unconditional generation capability. 
+
+- SITE: <https://ahn-ml.github.io/gram-website>
+[[}]]
+
+[[{training.101,PM.TODO]]
+
+## Reward LearningAlgorithms:
+
+- MCE-IRL vs AIRL vs Text2Reward vs ...
+
+[[training.101}]]
+
+[[{agents,use_case.coding_assistant,qa.Harness]]
+## BMAD-METHOD
+
+- By André Lindenberg
+
+- BMAD-METHOD (47k stars as of 2026-04) 
+- planning loop that runs before the IDE loop touches code.
+
+- 12 agent "personas" (PM, Architect, Dev, UX, QA) produce 
+  PRD, architecture spec, and stories first; 
+- Claude Code or Cursor implements them after.
+- SpecKit and OpenSpec (99k and 48k stars) bet on artifacts
+  you hand the agent; [[agents.speckit]]
+- BMAD bets on personas that produce them. [[agents.BMAD]]
+- The planning step has its own harness now.
+[[}]]
+
+[[{PM.price.calculator]]
+
+## gemba-token-cost-calculator 
+
+- REAL COST for different models.
+
+- Use real tokenizers: OpenAI tiktoken, HuggingFace transformers (Llama 3, Qwen, 
+  Mistral, T5 y BERT), Anthropic API, then it combines with table of prices.
+ 
+- Enter an example text or file, choose a model and language and it returns 
+  the real cost.
+
+- It can be invoked as a Claude Code skill:
+  /calcular-tokens texto.md gpt-4o,claude-opus,qwen3-8b. 
+
+  ```
+  | Example Output (2026-05)
+  |                               INPUT             OUTPUT
+  |                            ----------       ------------
+  | Claude Opus 4.7               $15.0              $75      [[101]]
+  | Claude Sonnet 4.6              $3.0              $15
+  | Calude Haiku 4.5               $1.0               $5
+  | GPT-4o                        ~$2.5             ~$10
+  | Qwen 3 8B (self-hosted)        $0.1-$0.3         ~$0.1-$0.3
+  ```
+
+[[PM.price.calculator}]]
+
+[[{101]]
+## Linguistica == Morfología + Semántica + Sintaxis + Pragmática
+
+- Morfología: forma de las palabras.
+-  Semántica: semántica de palabras aisladas.
+-   Sintaxis: "arbol" . Semántica de la frase completa.
+- Pragmática: estudia el contexto ... Cambio de interpretaciones... Base del 
+  prompting.
+  1. "maxima de grice"
+  2. trámita la interpretación comunicativa precisa. ??? Acto directivo ("cállate!!")
+  3. reduce la ambiguedad pragmática (principio de relevancia).
+[[101}]]
+
+[[{]]
+## DAIR.AI from Microsoft Research.
+
+The entire interpretability literature is built around human readers.
+
+... As more analysis gets delegated to agents, the right target of
+interpretability shifts. This paper is a recipe for designing tools
+that agents can actually reason about. 
+
+They introduce Agentic-imodels, an autoresearch loop where a coding agent
+(Claude Code, Codex, ...) iteratively evolves scikit-learn-compatible
+regressors that are simultaneously accurate AND readable by other LLMs.
+
+ Interpretability is measured by whether a small LLM can simulate the
+fitted model's behavior just by reading its string representation. 
+[[qa.interpretability]]
+
+ Predictions, feature effects, counterfactuals, all from the 
+__str__ output alone.
+
+- Run on 65 tabular datasets.
+
+- the discovered models push the Pareto frontier past every classical
+  interpretable baseline (decision trees, GAMs, sparse linear), and
+  improve four downstream agentic data science systems on the BLADE
+  benchmark by 8% to 73%. [[qa.101,use_case.research,qa.coherence]]
+
+
+Paper: https://arxiv.org/abs/2605.03808
+[[}]]
+
+[[{]]
+## Think anywhere in code generation
+
+- focus "thinking" where the maximum entrophy resides. [[101,qa.101]]
+
+https://www.youtube.com/watch?v=20AlC2drKT4
+[[}]]
+
+[[{use_case.computer_vision]]
+## roboflow: SDK for computer vision applications
+
+* <https://supervision.roboflow.com/latest/>
+* <https://github.com/roboflow/supervision>
+
+- Supervision is an open-source Python library by Roboflow for building computer 
+  vision applications. 
+
+- It provides a unified Detections object that works with 
+  YOLO, SAM, Grounding DINO, Transformers, and 20+ model frameworks — use any 
+  detector, get the same composable API.
+
+- With Supervision you can annotate images and video with bounding boxes, masks, 
+  and labels; track objects across frames with persistent IDs; count and filter 
+  detections inside polygon zones; load and convert datasets between YOLO, COCO, 
+  and Pascal VOC formats; and benchmark model performance with mAP and confusion 
+  matrices.
+
+- Trusted by researchers (cited in 4,000+ papers) and practitioners (38,000+ 
+  GitHub stars, 1M+ monthly PyPI downloads), Supervision is the standard toolkit 
+  for production computer vision workflows.
+[[use_case.computer_vision}]]
+
+[[{mlops.proxy]]
+## OptiLLM: proxy that sits between your app and any OpenAI-compatible API.
+
+* <https://github.com/algorithmicsuperintelligence/optillm>
+
+- Boost any LLM's accuracy 2-10x without training it. [[qa.coherence]]
+
+-  Most teams improve model accuracy by fine-tuning or swapping to a bigger 
+model. Both cost time and money.
+
+- OptiLLM takes a different route. It is an open-source proxy that sits between 
+your app and any OpenAI-compatible API. [[PM.low_code]]
+
+- Instead of training, it spends extra compute at inference time to think 
+  harder before answering.
+
+- The repo bundles 20+ reasoning techniques you can switch on with one 
+  parameter.  A few of the methods inside:
+  - Multi-agent cross-verification.
+  - Monte Carlo tree search.
+  - Chain-of-thought with reflection.
+  - Best-of-N sampling.
+  - Z3 theorem prover routing The numbers are the headline.
+
+- On AIME 2025, Gemini 2.5 Flash Lite jumps from 43.3% to 73.3% accuracy. [[qa.101]]
+- Llama 3.3 70B gains 18.6 points on Math-L5.
+- GPT-4o-mini matches GPT-4 on Arena-Hard-Auto. 
+[[mlops.proxy}]]
+
+[[{PM.RADAR]]
+## OCR context compression??
+
+DeepSeek-OCR tests an unusual idea:
+
+1. render text as image.
+2. hand it to a vision encoder.
+
+Result: fit 10x more into an LLM's context.
+
+ 1 vision token reconstructs 10 text tokens at 97% accuracy, ~60% at 20x!!! [[scalability.token_ussage]]
+
+- A 570M-active MoE decodes it. 
+
+- 100 vision tokens/page beat GOT-OCR2.0s 256;
+-  under 800 beat MinerU2.0's 6000+.
+
+- One A100 processes 200K pages daily.
+-  If it generalizes, feeding a book will costs what an article does today.
+[[PM.RADAR}]]
+
+[[{agents.deerflow,agents.101]]
+## deerflow superagent by ByteDance
+
+- long-horizon SuperAgent.
+- With the help of sandboxes, memories, tools, skill, subagents and 
+  message gateway, it handles different levels of tasks that could take minutes 
+  to hours.
+- open-source. 68k stars. 
+- Built-in skills ship for:
+  - research.                      [[use_case.research]]
+  - report generation.             [[use_case.reporting]]
+  - slide decks.
+  - web pages.                     [[use_case.web_pages]]
+  - image+video generation.        [[use_case.video_production,use_case.image_generation]]
+  
+
+- Sub-agents run in isolated sandboxes with filesystem and bash.
+- Memory persists across sessions.
+- multi-channel task input.
+- Tasks come from a web UI, six IM channels including Slack and Telegram,
+  or Claude Code via the `claude-to-deerflow` skill.
+
+- Hand it a prompt, get back a finished artifact. 
+
+
+- It shows how quickly we’re moving from simple copilots to 
+  full execution environments.
+
+"""... I wonder how well this works? Lots of features are great, but the most common 
+complaint I hear from those who've tried the agent is something like this: too 
+expensive and the results are too low quality. It's just a constant 
+back-and-forth. """ [[PM.Risk]]
+
+* <https://deerflow.tech>
+* <https://github.com/bytedance/deer-flow>
+
+
+[[agents.deerflow}]]
+
+[[{101.*,doc_has.tutorial]]
+## Excellent Summary of Machine Learning
+
+* <https://www.linkedin.com/feed/update/urn:li:activity:6614480425756782592/>
+[[doc_has.tutorial}]]
+
+[[{use_case.coding_assistant,use_case.web_pages,architecture.mobile,]]
+
+## Taste Skills
+
+* <https://github.com/Leonxlnx/taste-skill>
+
+Portable Agent Skills that upgrade AI-built interfaces:
+
+- stronger layout, typography, motion, and spacing instead of boilerplate-looking UIs.
+
+- It also includes image-generation skills for reference boards
+  - (web, mobile, brand kits).
+
+- Pair them with ChatGPT Images or similar generators, then hand the 
+  frames to Codex, Cursor, or Claude Code for implementation.
+[[}]]
+
+[[{PM.RADAR]]
+## Frontier Coding Agents Performs Comparably to External "Connect Four" Solver
+
+* <https://arxiv.org/abs/2604.25067>
+
+- We propose measuring AI's capability to autonomously implement end-to-end 
+  machine learning pipelines from past AI research breakthroughs, given a minimal 
+  task description. By providing a concise task description instead of the full 
+  prior work as reference, we hope to better elicit emerging AI research taste.
+[[PM.RADAR}]]
+
+[[{101,scalability.NP]]
+## Leveraging transformers and heuristic strategies for solving the Traveling Salesman (NP) Problem
+
+
+* <https://link.springer.com/article/10.1007/s00521-026-12120-0>
+
+
+By Denis Levchenko, ML Research Scientist
+
+- Did you know neural nets can solve NP-hard problems?
+  <https://lnkd.in/ebb2x2pE>
+
+  And I don’t mean a massive LLM writing a performant code for it,
+but a relatively small custom transformer architecture. 
+
+  It takes city coordinates of a Travelling Salesman Problem instance as input, 
+and outputs the cities one by one, like an LLM, **in optimal tour order**
+
+  In joint work with Eric Taillard, we took a trained model and evaluated 
+its generalization on a very different class of input data to what it was 
+trained on.
+  We then introduced a new sampling technique to improve performance 
+across the board without the need for costly re-training. Lastly, we checked 
+whether you even need transformers with such sampling or a simple fast 
+heuristic may suffice (spoilers, you do need the transformers).
+
+ We are excited for new ML approaches to classical combinatorial 
+optimization problems, and the interplay between the two fields :)
+[[scalability.NP,use_case.optimization_problems}]]
+
+[[{architecture.IoT,use_case.text_to_speech,101]]
+## supertonic: Lightning-Fast, On-Device, Multilingual TTS 
+
+* <https://github.com/supertone-inc/supertonic?trk=feed_main-feed-card_comment-text>
+
+- designed for local inference.
+- no GPU required.
+- Low-latency
+, real-time synthesis across desktop, browser, mobile, and edge [[architecture.mobile,use_case.web_pages]]
+- fast enough to turn an entire webpage into audio in under a second.
+- 31-Language Multilingual 
+- 99M-Parameter Open-Weight Model, a fraction of the size of 0.7B–2B class
+  open TTS systems 
+  (smaller downloads, faster cold starts)
+- 44.1kHz, 16-bit WAV High-Quality studio-grade Audio.
+- Expression Tags (<laugh>, <breath>, <sigh>, ...) bring natural human 
+  nuance into generated speech without prompt engineering or reference audio
+- Multi-Runtime SDKs. powered by ONNX Runtime, runs locally with
+  no GPU required across [[local_AI]]:
+  - Python.
+  - Node.js.
+  - Browser (WebGPU). [[architecture.web]]
+  - Java/C++/C#/Go/Swift/iOS/Rust/Flutter.
+[[architecture.IoT}]]
+
+[[{data.graph]]
+## GraphLite: Embeddable Graph DDBB 
+
+
+https://github.com/GraphLite-AI/GraphLite
+
+- ISO Graph Query Support. [[standards.ISO]]
+
+- Graph database as simple as SQLite for embedded processes [[architecture.IoT]]
+
+- fast, light-weight and portable.
+[[data.graph}]]
+
+[[{data.SQL,mlops]]
+## pganalyze MCP Server
+
+
+- <https://pganalyze.com/blog/mcp-server-public-preview>
+
+- Typical Postgres data sources for incident response
+- Aggregated query statistics from `pg_stat_statements`, to see which queries 
+  dominate runtime over a given window.
+- EXPLAIN plans (ideally historic information from auto_explain) for the suspect 
+  query, to understand the planner's chosen access path.
+- Table and index stats from `pg_stat_user_tables` and `pg_stat_user_indexes`:
+  - dead tuples, scan counts, unused indexes. [[qa.data]]
+- Autovacuum activity from `pg_stat_progress_vacuum` and the Postgres log.
+- Connection state and wait events from pg_stat_activity.
+- Replication lag and replica health, whenever replicas are involved. [[security.backups]]
+[[}]]
+
+[[{data.gathering]]
+## obscura: headless browser for AI agents and web scraping
+
+* <https://github.com/h4ckf0r0day/obscura>
+[[data.gathering}]]
+
+[[{agents.cocoindex,agents.long_horizon]]
+## cocoindex: Incremental engine for long horizon agents
+
+* <https://github.com/cocoindex-io/cocoindex>
+
+- CocoIndex turns codebases, meeting notes, inboxes, Slack, PDFs,
+  and videos into live, continuously fresh context for your AI agents
+  and LLM apps to reason over effectively
+
+- minimal incremental processing. 
+
+- Get your production AI agent ready in 10 minutes with reliable,
+  continuously fresh data. [[PM.low_code]]
+
+- no stale batches, no context gap.
+[[agents.cocoindex}]]
+
+[[{local_AI.open_design,use_case.coding_assistant]]
+## open-design: Local-first.
+
+- OOSS alternative  to Anthropic's Claude Design.
+
+- 19 skills.
+- 71 brand-grade Design Systems
+
+* <https://github.com/nexu-io/open-design?trk=feed_main-feed-card_comment-text>
+[[}]]
+
+[[{scalability.token_ussage]]
+## Claude. Save tokens
+
+* <https://computingforgeeks.com/reduce-claude-code-token-usage-tools/>
+
+[[scalability.token_ussage}]]
+
+[[{use_case.coding_agent,agents.oh_my_openagent]]
+
+
+## Oh-my-OpenAgent (Claude++?)
+
+* <https://github.com/code-yeongyu/oh-my-openagent>
+
+ """ If Claude Code does in 7 days what a human does in 3 months,
+ Sisyphus does it in 1 hour. It just works until the task is done.
+It is a discipline agent. """ - B, Quant Researcher  [[PM.low_code]]
+
+ """ Knocked out 8000 eslint warnings with Oh My Opencode, just in a day """ - Jacob Ferrari
+
+ """  I converted a 45k line Tauri App into a SaaS web app overnight using 
+Ohmyopencode and Ralph Loop. Started with "interview me" prompt, asked it
+for ratings and recommendations on the questions """ - James Hargis [[prompting.tunning]]
+[[use_case.coding_agent}]]
+
+[[{agents.memory,agents.mem0]]
+## mem0
+
+- <https://github.com/mem0ai/mem0>
+
+- Universal intelligent memory layer.
+
+- mem0 continuously learns over time
+
+- ideal for customer support chatbots, AI assistants, and
+  autonomous systems. [[use_case.chatbots,use_case.autonomous_systems]]
+[[}]]
+
+[[{]]
+## Letta Memory
+
+- <https://github.com/letta-ai/letta>
+
+- Advanced memory that can learn and self-improve over time. [[agents.self_learning]]
+[[}]]
+
+[[{]]
+## STORM: Synthesis of Topic Outlines through Retrieval and Multi-perspective Question Asking
+
+- By Standford
+
+- STORM LLM system writes Wikipedia-like articles from scratch based on 
+  Internet search.<br/>
+    While the system cannot produce publication-ready articles that often 
+  require a significant number of edits, experienced Wikipedia editors 
+  have found it helpful in their pre-writing stage.
+ [[use_case.story_telling,use_case.research]]
+
+- Co-STORM further enhanced its feature by enabling human to collaborative
+  LLM system to support more aligned and preferred information seeking
+  and knowledge curation.
+
+- <https://github.com/stanford-oval/storm>
+[[}]]
 
 

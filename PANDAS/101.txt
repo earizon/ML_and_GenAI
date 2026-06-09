@@ -485,7 +485,7 @@ csv files ... now on par with Polars in that regard. [[data.arrow]]
 * <https://levelup.gitconnected.com/introducing-pandasai-the-generative-ai-python-library-568a971af014>
 [[}]]
 
-[[{pandas.DQ,data.cleaning,PM.low_code]]
+[[{pandas.DQ,data.cleaning,qa.data,PM.low_code]]
 ## Pandas_DQ
 
 * library, focussing on detecting data quality issues and fixing them automatically like:

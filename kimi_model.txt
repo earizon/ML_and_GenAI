@@ -1,0 +1,38 @@
+[[{models.kimi]]
+## Kimi
+
+* <https://en.wikipedia.org/wiki/Kimi_(chatbot)>
+
+- Kimi is an artificial intelligence (AI) chatbot and series of large language models developed by Chinese company Moonshot AI. 
+
+C&P from Igor Lobanov, Principal Software Engineer @ Maersk (LinkedIn) [[PM.year.2026Q1]]
+
+- Kimi 2.5+: native multimodal model, it turns text, images, and video inputs into functional front-end code.
+  - generated output closely matches visual designs with high fidelity and support for rich interactions.
+  - From recreating complex page layouts to building full websites with animations, 
+    Kimi K2.5 supports complete visual-to-code workflows.
+
+- Kimi-K2.6 was released to public exactly 7 days ago, and it's 
+  already the top-ranking model on OpenRouter.
+- It scores 58.6% at SWE-Bench Pro coding benchmark. About the same as 
+  just-released GPT-5.5 and last month’s GLM-5.1. Kimi-K2.6 is ~6 times cheaper 
+                                          
+  ```
+  │                   Release    ┌─··························· SWE-Bench Pro coding benchmark
+  |                   Date       ·     
+  | ──────────                ┌──┴──┐
+  | Kimi-K2.6         2026-04  ~58.6%     $1.7/1M tokens
+  | GPT-5.5           2026-03  ~58.6%
+  | Claude Opus 4.6   2025-??  ~51.9%    $10.0/1M tokens
+  | Claude Opus 4.7   2026-04  ~64.0%
+  
+
+   ( vs $10/1M tok 
+  blended 3:1 in/out). 
+  ```
+
+
+I argue that on most day-to-day tasks the difference between top-performing models and next-tier is negligible. Claude users often switch between Sonnet and Opus to make better use of the token allowance. Well, Kimi-K2.6 is 3.5x cheaper than Claude Sonnet 4.6 too ($1.7/1M tok vs $6/1M tok blended 3:1 in/out). Bear in mind, Opus 4.7 (and likely Sonnet 4.7/4.8 when it comes out) is going to take 30-40% more tokens for the same job due to the new tokenizer, which is another reason to avoid these models for tasks that other models could do just as easily. The data from OpenRouter shows that people are already voting with their feet, but that’s only a small fraction of the overall user base.
+
+Of course, if you are on a Claude subscription and the token allowance is enough for you, use Claude. For those less fortunate, for example Claude Enterprise customers who have to pay at API rates for all their usage, a much cheaper but just as good alternative is hard to resist. Doubly so now, since Kimi-K2.6 is available on Microsoft Foundry from a dozen of other inference providers including companies in European jurisdiction, so you can keep your data safe.
+[[models.kimi}]]

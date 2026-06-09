@@ -20,7 +20,8 @@ GPQA                 : Graduate-Level Google-Proof Q&A dataset of 448 multiple-c
                        questions written by domain experts in biology, physics, and chemistry. 
                        Questions are Google-proof and extremely difficult, with PhD experts reaching 
                        65% accuracy.
-MMLU                 : Multitask metric covering elementary math, US history, computer science, law, ...
+MMLU                 : (M)assive (M)ultitask (L)anguage (U)nderstanding metric covering elementary math,
+                       US history, computer science, law, ...
 MSUR                 : Massive Multitask Language Understanding benchmark (more robust that MMLU)
 MMULU-PRO            : 
 
@@ -30,10 +31,17 @@ Wino Grande          :
 ARC-Challenge        : (25-shot,...) set of grade-school questions meassuring scientific knowledge and reasoning.
 * ARC: 
 
-HumanEval            :
+HumanEval            : The HumanEval dataset (Chen et al., 2021), is known to be sensitive to prompt design.
 MBPP                 :
 GSM8K                :
-
+GAIA                 : GAIA is a benchmark specifically designed for testing the 
+                       generality of AI assistants focusing on real-world questions 
+                       (Mialon et al., 2023) by including questions that require 
+                       several of these tools for successful completion.<br/>
+                         Abilities required to answer GAIA questions include reasoning, 
+                       multi-modality processing, web browsing, and other tool use.
+                         Although conceptually straightforward for humans, these questions
+                       present significant challenges for current AI systems.
 AGIEval Engli.       :
 BIG-Bench Hard 3-shot: CoT: Evaluation des capacités de raisonnement complexe et de génération de texte
 DROP 3-shot, F1      : Evaluation de la compréhension des textes et du raisonnement

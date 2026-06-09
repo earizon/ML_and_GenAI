@@ -1,4 +1,4 @@
-[[{agents.tool.tree-sitter,use_case.code_assistant]]
+[[{agents.tool.tree-sitter,use_case.coding_assistant]]
 
 ## Tree-sitter
 

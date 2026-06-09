@@ -3,12 +3,22 @@
 
 * <https://github.com/google/A2A>
 
-One of the biggest challenges in enterprise AI adoption is getting agents built 
-on different frameworks and vendors to work together. That’s why we created 
-an open Agent2Agent (A2A) protocol, a collaborative way to help agents across 
-different ecosystems communicate with each other.
+- A2A Core objective: Allow agents built on different frameworks and vendors to work together.
 
-- With A2A, agents can show each other their capabilities and negotiate how 
-they will interact with users (via text, forms, or bidirectional audio/video).
-all while working securely together.
+- A2A: Standard protocol to "expose" an Agent to another (probably remote) client Agent.
+  A2A allows a (client) Agent to find another agent, let both agents expose each other their
+  capabilities and negotiate how they will interact with users (via text, forms, or
+  bidirectional audio/video), all while working securely together.
+
+### A2A Specs.
+
+* <https://a2a-protocol.org/latest/specification/>
+
+
+## TODO:
+
+* <https://www.confluent.io/blog/google-agent2agent-protocol-needs-kafka/>
+
+
+
 [[agents.A2A}]]

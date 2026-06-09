@@ -1,0 +1,18 @@
+[[{101,mlops.gradio,PM.low_code,qa.UX]]
+## Gradio: UI framework to put models into production
+
+"""It helped us scale to our first million users. """
+
+- Gradio focuses on easing the deployment of ML models with user-friendly interfaces. 
+- It emphasizes ease of use and aims to enable even non-technical users to interact with complex models.
+
+Key Features:
+
+- Interface Generation using a straightforward easy-to-use Python API.
+- Input Types: images, text, audio. 
+- 40+ components: Images, Audio, video, 3D, Dataframes, Maps, chatbot streaming, ...
+- Multi-Model Integration: facilitating ensemble deployments and model comparisons.
+- Shareable URLs: allows to share model interfaces as URLs.
+- Adversarial Robustness: Provides a level of protection against adversarial attacks,
+  enhancing the security of your deployed models.
+[[mlops.gradio}]]

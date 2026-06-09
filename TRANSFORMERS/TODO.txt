@@ -186,5 +186,114 @@ vision-language understanding.
 
 [[}]]
 
+[[{]]
+## Geometry behind self-attention In transformers.
+
+- The attention matrix reflects an underlying geometric process.
+
+- Each query and key corresponds to a point in a high-dimensional embedding 
+  space.
+
+- The keys act as vertices of a convex polytope, while the queries lie 
+  within or along its faces.
+
+- When a query aligns with certain vertices, it produces stronger dot products 
+  with the associated keys, leading to higher attention weights.
+
+- This geometry determines how information is selected and integrated.
+
+- Spatial proximity in the embedding space becomes a measure of 
+  relevance, while the softmax operation converts those distances into smooth 
+  weighting patterns.
+
+- The resulting matrix is a numerical trace of these 
+  geometric interactions, mapping structure into computation.
+[[}]]
+
+[[{data.structured,data.strings,qa.Benchmarking]]
+## Benchmarking Tabular Machine Learning with Strings
+
+STRABLE: Benchmarking Tabular Machine Learning with Strings
+
+- It includes 108 real-world tables with strings.
+
+- We evaluate modular pipelines (a string encoder feeding a tabular learner)
+  as well as end-to-end architectures that jointly model strings and numbers.
+
+### Key findings
+
+- Decoder-only LLM embeddings need the right post-processing 
+  (i.e. dimensionality reduction). [[training,scalability.dimension_reduction]].
+
+- Default PCA hurts them; standard-scaling-then-PCA, or no-PCA
+  (slicing the first N raw embedding dimensions), recovers their 
+  performance. [[training.PCA]]
+[[data.structured}]]
+
+[[{]]
+## Agentic Harness Engineering
+
+By Elvis S., Founder at DAIR.AI 
+
+
+* <https://arxiv.org/abs/2604.25850>
+
+
+ Most coding-agent harnesses are still tuned by hand or brittle 
+trial-and-error self-evolution.
+
+  The paper introduces Agentic Harness Engineering, a framework 
+to make harness evolution observable. [[qa.agent_evaluation.101]]
+
+  They do this through three layers:
+1. components as revertible files.
+2. experience as condensed evidence from millions of trajectory tokens,
+3. decisions as falsifiable predictions checked against task outcomes.
+
+ Each edit becomes a contract you can verify or revert. [[doc_has.keypoint]]
+
+### Results:
+
+- pass@1 on Terminal-Bench 2 climbs from 69.7% to 77.0% in ten iterations,
+  beating human-designed Codex-CLI (71.9%) and self-evolving baselines like
+  ACE and TF-GRPO.
+- The evolved harness also transfers across model families with +5.1 to
+  +10.1 point gains, while using 12% fewer tokens than the seed on
+  SWE-bench-verified.
+
+- Harness work is the biggest hidden cost in most agent systems. [[agents.101]]
+
+- This is the first credible recipe for letting the harness improve itself 
+  without drifting into noise.
+[[}]]
+
+[[{data.time_series,use_case.prediction]]
+## Toto 2.0 TimeSeries (by Datadog)
+
+- open time-series forecasting models based on Transformers.
+- Size: 4M to 2.5B parameters!!!
+
+- Scaling curve still climbing with no saturation in sight. 
+
+"... Not another chatbot model pretending to be a strategy 
+consultant ...".
+
+ Model looking at messy, noisy, production-grade signals and saying: 
+“Your future latency is about to ruin your weekend.” That is useful AI!
+
+* <https://github.com/DataDog/toto>
+
+Features include:
+
+- Zero-Shot Forecasting: no need for fine-tuning  [[PM.low_code]]
+- State-of-the-Art Performance: top scores on multi-domain GIFT-Eval benchmark.
+- Multi-Variate Support: using alternating time/variate attention.
+- Probabilistic Predictions: Generate both point forecasts and uncertainty 
+  estimates via a quantile head.
+- High-Dimensional Support: Handle time series with a large number of variables 
+  efficiently. [[data.multidimensional]]
+- Decoder-Only Architecture: Supports variable prediction horizons and context 
+  lengths.
+[[data.time_series}]]
 
 [[PM.TODO}]]

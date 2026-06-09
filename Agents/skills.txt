@@ -299,4 +299,21 @@ Tags benefits:
   ```
 [[doc_has.catalog}]]
 
+[[{agents.skills,QA.best_patterns]]
+## SkillOpt by Microsoft Research
+
+- Common anti-pattern: handwriting agent skills docs "hoping" that they generalize.
+
+Microsoft introduces SkillOpt:
+-  an optimizer model makes validation-gated edits (adds/deletes/replaces) to the skill file.
+   with a textual learning rate that controls how aggressively each round rewrites the doc. 
+- The agent itself never changes.
+
+- On GPT-5.5 it adds 23.5 points in direct chat, 24.8 with Codex, and 19.1 with 
+  Claude Code over no skill.
+- It beats human-written skills, TextGrad, GEPA, and EvoSkill, carries zero
+  extra inference-time cost, and the learned skills transfer across models and harnesses.
+* PAPER: <https://arxiv.org/abs/2605.23904>
+[[agents.skills}]]
+
 [[agents.skills]]

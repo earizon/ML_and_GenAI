@@ -1,77 +1,123 @@
 [[{agents.101]]
 
-# AI Agents
-
-  Agentic systems promise to extend the possibility of computer programs 
-  beyond the mere execution of pre-determined workflows conceived to 
-  solve narrow tasks. <br/>
-
-   In fact, most real-life problems do not fit in pre-determined workflows
-  commonly used in Enterprise Automation tools (scripted workflows, 
-  Robotic Process Automation (RPA), AI workflows, ...) [[doc_has.keypoint]]<br/>
-
-  Example: think of the infinite possibilities of GNU Text utils 
-     <https://www.gnu.org/software/coreutils/manual/coreutils.html>
-    vs the limited set of well-known or enterprise deployed scripts making
-  use of them for particular use cases or scenarios.
-
-  Cite by Roucher, Noyan, and Wolf (Hugging Face Smolagents engineers):
-
-> If a deterministic workflow fits all queries, by all means just code 
-> everything! This will give you a 100% reliable system with no risk of error 
-> introduced by letting unpredictable LLMs meddle in your workflow. For the sake 
-> of simplicity and robustness, it's advised to regularize towards not using any 
-> agentic behavior.
-  [[qa.101,qa.dont's]]
+# AI Agents 101
 
 * An AI Agent can be described as an intelligent system designed to interact 
   with an environment. (self-driving car, chatbot, coding or research assistant, ...)
 
-* An AI Agent **MUST** be capable of four key actions:
-  - Perceiving its environment: a robot identifying "space time",  coding assistant
-    aware of files in a hard-disk, research assistant aware of "papers", 
-    health assistant aware of scanners, ...<br/>
-    TIP: the environment "perceived" replaces the INPUT data in conventional 
-    software architecture, while the prompt input replaces the "shell commands"
-    (interface between humans and computers).
-  - Processing information: doing request to an API, evaluating results, ...
-  - **Taking action to achieve specific goals**: Setting up heating room,
-    searching for related content, ...
-  - **Adapting its behavior based on experience**: Re-try when finding an error, 
+  Agentic systems promise to extend the possibility of computer programs 
+beyond the mere execution of pre-determined workflows conceived to 
+solve narrow tasks.<br/>
+
+
+
+  In fact **MOST REAL-LIFE PROBLEMS DO NOT FIT IN PRE-DETERMINED WORKFLOWS**
+(scripted or AI workflows, Robotic Process Automation (RPA), ...): [[doc_has.keypoint]]
+<br/> 
+> """think of the infinite workflows possibles using just combination
+> of command in GNU Core utils (<https://www.gnu.org/software/coreutils/manual/coreutils.html>)
+> vs the limited set of poorly documented scripts deployed in enterprise making
+> use of such tools for particular use cases or scenarios."""
+
+  Cite by Roucher, Noyan, and Wolf (Hugging Face Smolagents engineers):
+> If a deterministic workflow fits all queries, by all means just code 
+> everything! This will give you a 100% reliable system with no risk of error 
+> introduced by letting unpredictable LLMs meddle in your workflow. For the sake 
+> of simplicity and robustness, **it's advised to regularize towards not using any 
+> agentic behavior**.
+  [[qa.101,qa.dont's]]
+
+An AI Agent **MUST** be capable of four key actions:
+
+1. **PERCEIVING ITS ENVIRONMENT**: 
+   A robot identifying "space time",  coding assistant aware of files 
+   in a hard-disk, research assistant aware of "papers", health 
+   assistant aware of scanners, ...<br/>
+   TIP: 
+   - the environment (context) "perceived" replaces the INPUT data in conventional software architecture.
+   - the prompt input replaces the "shell commands" (interface between humans and computers).
+   - the reasoning LLM  replaces the computation in conventional software architecture.
+
+2. **PROCESSING INFORMATION**: 
+   doing request to an API, evaluating results, ...
+
+3. **TAKING ACTION TO ACHIEVE SPECIFIC GOALS**:
+    Setting up heating room, searching for related content, ...
+   TIP:
+   - "achieve specific goals" can be considered "declarative programming" in conventional 
+     software architecture. We describe the desired end state (vs the steps following 
+
+4. **ADAPTING ITS BEHAVIOR BASED ON EXPERIENCE**: Re-try when finding an error, 
     or learn from user feedback, ...
     ...
-* AI agents can be categorized into:
-  - **Reactive Agents**: These agents respond to specific stimuli in their 
-    environment without maintaining an internal state or memory.
-  - **Deliberative Agents**: These agents maintain an internal model of the 
-    world and can plan and reason about their actions.
 
-* AI agents can be also categorized into:
-  - multi-step single agent.
-  - multi-agent, with each agent "prompt set of knowledge" developed in
-    isolation by different groups.
+## Agent Categorization
 
-* * AI agents can be also categorized into:
-  * "full agency" agents, with agents operating on their own derived plans.
-  * "on-rails" workflows, where humans remain in the loop. (most common as of 2026)
+### robot vs persona Classification
+ 
+- **REACTIVE AGENTS/IA "robots"**     : These agents respond to specific stimuli in their 
+  environment without maintaining an internal state or memory.
+- **DELIBERATIVE AGENTS/IA "personas"**: These agents maintain an internal model of the 
+  world and can plan and reason about their actions. 
 
+### SINGLE vs MULTI-AGENT Classification
 
-* AI agents can also be tagged as  **Learning Agents** if they improve their
-  performance over time by learning from data and experiences.
+- MULTI-STEP SINGLE AGENT.
+  - Single short/long term memory.
+  - Single LLM.
 
-* Agentic AI refers in practice (as of 2026) to AI Agents using GPT/LLM architectures.
+- MULTI-AGENT: 
+  - each agent has an isolated set of "prompt and skills knowledge" 
+  - each agent has its own memory.
+  - All  agents can share also a shared memory.
+  - each agent can use a different LLM model (light local models for some simple tasks
+    and heavy and expensive cloud ones for complex tasks like plannification and 
+    evaluation).
+
+### System 1 vs System 2 Thinking model classification:
+
+(according to the physcologist Daniel Kahneman's framework)
+- System 1 Thinking: A mode of thinking that is fast, automatic, intuitive, and reactive. 
+  ("simple" or "standard" LLMs often exhibit this type of response).
+- System 2 Thinking: A mode of thinking, that is slow, deliberate, conscious, and
+  controlled. (LLM Reasoning models)
+
+## "Full agency" vs "on-rails" Classification
+
+- "full agency" agents, with agents operating on their own derived plans.
+- "on-rails" workflows, where humans remain in the loop. (most common as of 2026) [[PM.HITL]]
+
+## Learning vs non-learning Classification
+
+-  **Learning Agents**  improve their performance over time by learning
+   from data and experiences self-modifying their prompts and internal 
+   structures (Hermes, SwarmGPT, ...  are good examples).
+-  **Non Learning Agents** require human intervention to upgrade version.
+
+## Agent micro-history
+
+  Agentic AI refers in practice (as of 2026) to AI Agents using GPT/LLM architectures.
+
   In a future other type of newer ML architectures could apply (world models,
-  hierarchical reasoning Models, KAN networks, ...)
+hierarchical reasoning Models, KAN networks, ...)
 
 * Years 2022-2023: "turning point" in AI agents with the introduction 
-  of techniques to not only ask the LLM to complete text but order it
+  of prompting techniques to not only ask the LLM to complete text but order it
   about the way of thinking unlocking powerful new capabilities
   foundational to today's advanced AI products. 
   * **REASONING**: ("think step by step" Chain of Thought, "imagine you
-    are a set of 3 experts", "create a socratic dialogue"):<br/>
-    in the context of LLMs, is refered to the way "we" (the prompt)
+    are a set of 3 experts", "create a socratic dialogue"), Tree of Thoughts, ...:<br/>
+    in the context of LLMs, is refered to the way "we" (our prompt)
     guides the LLM in the method of thinking.<br/>
-    **It is the most important part off an agentic AI system**.
+    **It is the most important part off an agentic AI system**.<br/>
+    Modern Reasoning Models have been trained to ... 
+    1. Use hardcoded content learn during training.
+    2. Form Hypothesis!!!.
+    3. Identify a Problem.
+    4. Create and revise intermediate (action) Plans.
+    4. Attempt to Correct.
+       "lesson learned: I prematurely chose target B before target A being ready".
+    7. Create Final Plan.
   * **ReAct**: (Reasoning->Acting) refers to the ability of the AI Agent 
     to deconstruct a problem, take sequential action, and utilize external
     tools to achieve a goal.<br/>
@@ -79,9 +125,33 @@
     another step (in a multi-step Agent) or another Agent (in a multi-agent
     or Swarm architecture).
 
-###  Core Components of an Agentic AI System
+##  Core Components of an Agentic AI System
 
-- Planning: Creating a step-by-step approach to solve a problem.
+- Planning: Creating a step-by-step approach to solve a problem. In 
+  practice this means that the agent (its LLM) support the following 
+  building blocks features: 
+  1. Capacity to split "large" goals into "thin" tasks. 
+  2. Proper task ordering.
+  3. Decision Points: Map out moments when the agent must evaluate information 
+     and choose a path (business event that must trigger a path selection).<br/>
+       Decision nodes include "checkpoints", "retry", "short-circuit" and
+     "fail-fast" (REFs: [1](https://en.wikipedia.org/wiki/Fail_fast_(business),
+     [2](<https://en.wikipedia.org/wiki/Fail-fast_system>) ) mechanisms.
+  4. Identification and integration of external tools. (REST APIs, File System, ...).
+  5. Context memory management keeping track of outputs from "executed" tasks.
+  
+  TIP: Points 1, 2, and 4 can be seen as if the Agent were the "build tool" in 
+  a conventional software project (POSIX `make`/`cmake`, Java `maven`/`gradle`, ...):<br/>
+   In conventional build tools, the "large" goal (build a software), is split into
+  tasks (by humans), then tasks are ordered using a directed acyclic graph, and
+  external tools (compiler, linter, ...) are used to build the app.<br/>
+   In conventional software the only decision point is to "stop and surrender"
+  if some task fail while an Agent (IA persona) can try new alternative strategies.<br/>
+  
+   Also, in convertion software, the external tools are invoked in a set of small 
+  restricted ways mandated by hardcoded rules written by a developer once in a while.
+  With AI agents, a set of tools can be used "spontaneously" in million of different
+  ways and combinations according to the user's prompt goal or intermediate task.
 - Tools   : Identifying and using the right tools.
 - Action  : Executing steps by making programmatic calls and retrieving information.
 - Memory  : Keeping track of learned information to make an informed final decision.
@@ -91,22 +161,22 @@
   * **MEMORY IS A SIMULATION**: What looks like memory is actually constructed by
     including previous interactions in the current prompt creating the illusion of
     continuity. The agent doesn't remember; it’s simply reminded. [[doc_has.keypoint]]<br/>
-  * State in Agentic Framewokks is just some context added to the "next PROMPT" by
+  * State in Agentic Frameworks is just some context added to the "next PROMPT" by
     the agentic app ("HOST" using MCP nomenclature). In general the "state" will include
     data such as:
     - new "user" (or tool output, or peer agent) prompt
     - System instructions ("immutable prompt").
     - history of previous messages and tool outputs.
     Memory simulation APIs usually contain methods like "pop()/remove_last_message()",
-    "reset()/clean_memory()", "shift()/forget old messages()", ...
+    "reset()/clean_memory()/compact_memory()", "shift()/forget old messages()", ...
   * There are 2 TYPES OF MEMORY: [[agents.short_term_mem,agents.long_term_mem]]
-    - Short-term (Ephemeral) memory (In-application): Exists only during the chat session.
+    - SHORT-TERM (Ephemeral) memory (In-application): Exists only during the chat session.
       Common patterns are:
       - Full Conversation History: Send all previous messages (full details) with each new input.
         (consume more tokens).
       - Sliding Window: Send only up to N recent messages.
       - Summarization: Send a compact summary of earlier messages.
-    - Long -term (Durable  ) memory : Persisted in databases, vector stores, ...  and 
+    - LONG-TERM (Durable  ) memory : Persisted in databases, vector stores, ...  and 
       available across sessions (days, months, ...). Use to store essential facts,
       (long term "true claims", user preferences, ...).<br/>
       - Long-term memory typically falls into three categories:
@@ -122,104 +192,127 @@
         - Consider privacy issues 
       - NOTE a long-term memory that does not expires can end up being part of the
         "absolute true" in the RAG.
-  * short-term memory must not be confused with state of a task. This State is an special
-    isolated sort term memory used for a single task composed of multiple steps. When the 
-    task finishes the state is removed.<br/>
-  * A State of an State Machine can be seen as an specialized structured 
+  * TIP: short-term memory must not be confused with state of a task.
+    This State is an special isolated (very) sort term memory used for a single task.
+  * TIP: An State of an State Machine can be seen as an specialized structured 
     memory. Depending on the State Machine live time (task or session) it
     can be seen as simple task's state or an isolated short-term memory for
     the session.<br/>
     - This applies to agentic flows designed around state machines and its
       value is commonly controlled by the code invoking the LLM.
       [[agents.structured_mem,architecture.state_machine]]
+- Evaluators: Rules, heuristics, or models (like an LLM) to assess success.
 
-- Modern Reasoning Models have been trained to:
-  1. Use hardcoded content learn during training.
-  2. Form Hypothesis.
-  3. Identify a Problem.
-  4. Create and revise intermediate (action) Plans.
-  4. Attempt to Correct.
-     "lesson learned: I prematurely chose target B before target A being ready".
-  7. Create Final Plan.
 
-* As a (human) developer, the focus in constructing new agents is to map
-  real-world business tasks into a series of agent-executable steps,
-  complete with decision points, tool integrations, and context handling.
-
-### Agentic Workflow building blocks
-
-An agent MUST support the following building blocks features: 
-
-1. Capacity to split "large" goals into "thin" tasks. 
-2. Proper task ordering.
-3. Decision Points: Map out moments when the agent must evaluate information 
-   and choose a path (business event that must trigger a path selection).<br/>
-     Decision nodes include "checkpoints", "retry", "short-circuit" and
-   "fail-fast" (REFs: [1](https://en.wikipedia.org/wiki/Fail_fast_(business),
-   [2](<https://en.wikipedia.org/wiki/Fail-fast_system>) ) mechanisms.
-4. Identification and integration of external tools. (REST APIs, File System, ...).
-5. Context memory management keeping track of outputs from "executed" tasks.
-
-NOTE: Points 1, 2, and 4 can be seen as if the Agent were the "build tool" in 
-a conventional software project (POSIX `make`/`cmake`, Java `maven`/`gradle`, ...):<br/>
- In conventional build tools, the "large" goal (build a software), is split into
-tasks, then tasks are ordered using a directed acyclic graph, and external tools
-(compiler, linter, ...) are used to build the app.<br/>
- In conventional software the only decision point is to "stop and surrender"
-if some task fail while an Agent can try new alternative strategies.<br/>
- Also the external tools are invoked in a set of small restricted ways mandated
-by hardcoded rules written by a developer once in a while, with AI agents, a
-set of tools can be used "spontaneously" in million of different ways and
-combinations according to the user's prompt goal or intermediate task.
 [[architecture.build_block]]
 
-### Agentic AI Evaluation-driven Requirements Documentation
+## Agents how-to quick sheet
 
-* An Agentic AI requirements document is formed by a testable hypothesis: 
-  **Success (business goal) can be measured and failure can be debugged**.
-* A good requirements document creates alignment across teams. A great one 
-  bakes in its own evaluation plan. You are not just scoping what to build;
+1. Define agent's role and goal (requirements document):
+   - what it will do.
+   - who is it helping.
+   - expected output/expected "success" business goal that can be measured.
+     (Testeable hypothesis).
+   
+2. Favor structured input/output (avoid messy text).
+   - Tools: Pydantic AI, JSON Schemas, Lanchain output parser.
+3. Prompt and tune the agent's behavior:
+   - start with role-based system prompts.
+   - use prompt tuning or prefix tuning for consistent persona and task behavor.
+   - Tools: Big LLMs, Prefix Tuning, Prompt Tuning.
+4. Equip agent with reasoning frameworks:<br/>
+   - ReAct (Reasoning+Action).
+   - Chain-of-Thought: Allow access to tools (query/search,
+     code interpreters, Tools Langchain,  ReAct framework,...).
+5. Structure Multi-agent Logic (if needed):
+   - Use orchestration frameworks to define agent roles and coordination.
+   - Create Planner, Researcher, Reporter agents, each with its own input/output schema.
+   - Tools: CrewAI, LangGraph, OpenAI Swarm, ...
+6. Add memory and long-term context (RAG) *IF* agent need to remember
+   what happened earlier.
+   - Use conversational memory and/or ...
+   - summary memory and/or  ...
+   - vector-based memory.
+   - Tools: Zep, LangChain Memory, ChromaDB, FAISS, pgVector, ...
+7. Wrap in a UI (turns agent into product) or API.
+   - Tools: Gradio and/or Streamlit and/or FastAPI (to wrap into an API).
+8. Evaluate and monitor:
+   - Run test prompts and toolchains to check reliability.<br/>
+     Tools: Agents Evaluation Sets.
+     - Structured tests designed to estimate how well the system is performing.
+     - Input comes from domain experts and business professionals who 
+       understand the nuances of the tasks the agent is meant to 
+       perform. (coming back to expert systems, but just for testing
+       performance -vs full training-)  [[qa.evaluation]]
+   - Use logs, benchmarks and feedback to improve over time: 
+   - Tools: MCP Logs, OpenAI Evaluation API, Custom Metric Dashboards.
+9. Add Guardrails to steer the agent.
+   - Execute in a sandbox.
+   - Filter out personal information in user inputs or external calls.
+   - Pass LLMs response through content moderation filters.
+   - Automatically escalate high-risk concerns to Human-in-the-loop.
+   - testing system's resilience against prompt injection attacks.
+
+## AI roll-and-goal Requirements document examples
 
   ```
-  | Example 1: 
+  | Medical assistant agent 
   | 
-  | Given this context, this set of tools and this target goal, the agent 
-  | should be able to achieve XYZ." 
+  | It can reads X-rays, summarize findings and speaks results
   ```
 
   ```
-  | Example 2: 
+  | Agent X is a helpful assistant for ...
   | 
-  | # Objective:
+  | Given:
+  | - this context
+  | - this set of tools
+  | - target goal
+  | 
+  | the agent should be able to achieve XYZ of target goal
+  ```
+
+  ```
+  | You are HHRR employee
+  |
+  | With access to tools:
+  | - tool 1
+  | - tool 2
+  | - ...
+  | 
+  | ----------------------------------------------------------------------------
+  | # Objective 
   | 
   | Automate 90% of manual onboarding tasks, aiming for a 30% reduction in new 
   | employee ramp-up time.
   | 
   | # Workflow Summary
   | 
-  | Create internal account.
-  | Complete HHRR contact data.
-  | Evaluate employee clearance.
-  | Create 3rd party account (mail, ...)
-  | Provide resources to employee (laptop, mobile).
-  | Send welcome pack.
-  | confirm task completion.
+  | 1. Create internal account.
+  | 2. Complete HHRR contact data.
+  | 3. Evaluate employee clearance.
+  | 4. Create 3rd party account (mail, ...)
+  | 5. ...
+  | 6. confirm task completion by sending an email following JSON schema { ... }
   | 
+  | ----------------------------------------------------------------------------
   | # Capabilities:
   | 
   | Must maintain state across sessions.
   | Must escalate to HR if a blocker persists for more than 2 days.
   | 
+  | ----------------------------------------------------------------------------
   | # Tool Integrations
   | 
   | Requires access to the HHRR API, IT provisioning tool, and LMS webhook.
   | 
+  | ----------------------------------------------------------------------------
   | # Success Metrics
   | 
   | Average time-to-full-access < 2 days.
   | agent-led task completion rate > 85%.
   | 
-  |
+  | ----------------------------------------------------------------------------
   | # Guardrails/Constraints.
   |
   | 1. Agent must not access Personal Information (PII) beyond specified onboarding fields.
@@ -227,48 +320,11 @@ combinations according to the user's prompt goal or intermediate task.
   | 3. Agent must fall back to HR after two failed attempts at a task.
   ```
 
-* No matter the method, four core components are required:
-  - Inputs        : User queries, tool options, memory, and instructions.
-  - Outputs       : Agent responses and tool call sequences.
-  - Reference Data: Ground truth answers or expected actions.
-  - Evaluators    : Rules, heuristics, or models (like an LLM) to assess success.
-
-
-[[{qa.101,doc_has.keypoint]]
-### Basic AI Agent QA
-
-* AI Agents and LLMs Evaluation Sets ("Evals"):<br/>
-  * Structured tests designed to estimate how well the system is performing.
-  * Input comes from domain experts and business professionals who 
-    understand the nuances of the tasks the agent is meant to 
-    perform. (coming back to expert systems, but just for testing
-    performance -vs full training-)  [[qa.evaluation]]
-* Guardrails: mechanisms designed to steer the agent away from potentially
-  harmful paths by verifying the model's response **before being sent to users**.
-  Examples:
-  * Pass the agent's response through a content moderation filter.
-  * Check for and remove any personal information before it is shared.
-  * Automatically escalate an issue to a human representative if
-    a customer expresses a high-risk concern.
-* Specific Safety Evals: testing system's resilience against prompt attacks
-  (malicious querie3s).
-[[qa.101}]]
-
-[[{doc_has.comparative]]
-### System 1 vs System 2 thinking:
-
-Based on the physcologist Daniel Kahneman's framework:
-
-* System 1 Thinking: A mode of thinking that is fast, automatic, intuitive, and reactive. 
-  ("simple" or "standard" LLMs often exhibit this type of response).
-* System 2 Thinking: A mode of thinking, that is slow, deliberate, conscious, and
-  controlled. (LLM Reasoning models)
-[[doc_has.comparative}]]
-
 [[{agents.101]]
 ## Frameworks vs runtimes vs harnesses
 
   ```
+  | (Extracted from LangChain documentation)
   | ────────────────────────────────────────────────────────────────────────────────────────────────
   | FRAMEWORKS VS RUNTIMES VS HARNESSES ────────────────────────────────────────────────────────────
   | ────────────────────────────────────────────────────────────────────────────────────────────────
@@ -277,8 +333,8 @@ Based on the physcologist Daniel Kahneman's framework:
   |            |  Framework          |  Runtime ²                         |  "Harnessed" ³                             |
   |            |                     |  (Durable execution engines)       |                                            |
   |------------+---------------------+------------------------------------+--------------------------------------------+
-  | added      |  Abstractions       | - Durable execution                | - Predefined tools                         |
-  | Value      |  Integrations       | - Streaming                        | - Prompts                                  |
+  | added      | - Abstractions      | - Durable execution                | - Predefined tools                         |
+  | Value      | - Integrations      | - Streaming                        | - Prompts                                  |
   |            |                     | - HITL                             | - Planning Capabilities ⁴                  |
   |            |                     | - Persistence                      | - Task deletagion & Subagents "spawning" ⁵ |
   |            |                     |                                    | - Advanced persistence:                    |
@@ -334,71 +390,6 @@ Based on the physcologist Daniel Kahneman's framework:
 [[agents.101}]]
 
 
-## Swarm Masters && DAGs
-
-* <https://www.linkedin.com/pulse/agentic-workflows-why-dag-ultimate-design-pattern-dramil-dodeja-rtkmc/>
-
-  ```
-  | $ pip install networkx                            # Presetup    
-  | $ cat example_DAG.py --------------------------------------------------------------------------
-  | import networkx as nx
-  |  
-  | dag = nx.DiGraph()                              # 1. Create a directed graph
-  |  
-  | dag.add_nodes_from([                            # 2. Add tasks
-  |     "set_table", "cook_food",
-  |     "prepare_drinks", "serve_dinner" ])
-  |  
-  | dag.add_edge("set_table", "serve_dinner")       # 3.1 Add dependencies
-  | dag.add_edge("cook_food", "serve_dinner")
-  | dag.add_edge("prepare_drinks", "serve_dinner")
-  | if not nx.is_directed_acyclic_graph(dag):       # 3.2 Validate DAG (No Cycles)
-  |  
-  |     raise ValueError("Graph contains a cycle")
-  | execution_order = list(nx.topological_sort(dag))# 4. Get Execution Order (Topological Sort)
-  |  
-  | def execute_dag(graph, task_handlers):          # 5. Simple DAG Orchestrator
-  |     completed = set()
-  |  
-  |     for node in nx.topological_sort(graph):
-  |         dependencies = set(                     # Check: Ensure all dependencies are complete
-  |             graph.predecessors(node))
-  |         if not dependencies.issubset(completed):
-  |             raise RuntimeError(
-  |               f"Dependencies not met for {node}")
-  |         task_handlers[node]()
-  |         completed.add(node)
-  |  
-  | def set_table():                                # 6. Task Implementations
-  |     print("Table is set")
-  | def cook_food():
-  |     print("Food is cooked")
-  | def prepare_drinks():
-  |     print("Drinks are ready")
-  | def serve_dinner():
-  |     print("Dinner is served")
-  |  
-  | handlers =
-  | execute_dag(dag, {                               # 7. Run the Workflow
-  |     "set_table"     : set_table,                 # > Table is set
-  |     "cook_food"     : cook_food,                 # > Food is cooked
-  |     "prepare_drinks": prepare_drinks,            # > Drinks are ready
-  |     "serve_dinner"  : serve_dinner               # > Dinner is served
-  | })
-  ```
-
-### Top Agentic Tools Built on DAG & Graph Orchestration:
-
-- n8n.
-- DifyDify.
-- VoiceFlow.
-- Skyvern.
-- Microsoft Autogen.
-- Google (Vertex AI Agent Builder).
-- Netflix (Metaflow).
-- LinkedIn - AI-powered recruiter module
-- Uber (via LangGraph), uses for large-scale code migrations
-
 ## RACI Model or RACI (multi-agent) Pattern
 
 The RACI model defines four key roles in project management or multi-agent architectures:
@@ -412,6 +403,7 @@ The RACI model defines four key roles in project management or multi-agent archi
 
 
 This matrix helps clarify roles and responsibilities, ensuring everyone understands their part in the project. 
+
 
 
 [[{security.101,security.promp_injection,PM.TODO]]

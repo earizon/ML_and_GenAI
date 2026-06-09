@@ -1,6 +1,7 @@
-[[{prompting.101,prompting.graphs,PM.TODO]]
+[[{prompting.101,prompting.DSPy,prompting.graphs,PM.TODO]]
 
 ## DSPy Graph-Based Prompt Optimization: RIP of prompt engineering?
+
 
 """ no human should manually optimize prompts ever again """
 

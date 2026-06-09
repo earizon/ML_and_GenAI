@@ -1,0 +1,127 @@
+[[{agents.self_learning,agents.GPTSwarm,PM.TODO]]
+## GPTSwarm Framework
+
+- Self-Improving agents with RL / Prompting Optimization
+
+- <https://arxiv.org/html/2402.16823v3>
+
+- GPTSwarm is a graph-based framework for LLM-based agents, providing two high-level features:
+  - It lets you build LLM-based agents from graphs.
+  - It enables the customized and automatic self-organization of agent swarms with self-improvement capabilities.
+
+- An agent is represented by the full  directed (optimizable) computational graph of nodes and edges.
+- A swarm is defined as a (optimizable) composite graph, where each subgraph represents a 
+  collaborative agent.
+- each node represents an operation (e.g., LLM inference or tool use). 
+- edges within an agent define its execution topology.
+- edges between agents establish collaboration and communication among them.
+
+
+- This allows for optimization via reinforcement-learning techniques.
+  - Agents can improve their communication (or orchestration) patterns.
+  - graph connectivity between agents can self-improve online as a task
+    is being solved or its solution is transferred to another task.
+
+- Our contributions can be summarized as follows:
+
+
+- DAG optimization through pruning of nodes and edges was already present in the 
+ first work on “deep learning” with deep feedforward networks (Ivakhnenko et 
+  al., 1965; Ivakhnenko, 1968). Due to the combinatorial complexity induced by 
+  DAGs, recent studies have increasingly focused on the continuous optimization 
+  approach (Vowels et al., 2022).
+
+
+...  Unlike many other works on prompt optimization, which optimize a single global 
+prompt our node optimization problem naturally involves several operations where each of 
+them consists of a node-level prompt. The optimization problem is 
+more complex due to prompts affecting how other prompts operate on connected 
+nodes. **At the same time, our graph representation leads to a separation of 
+concerns where each node has a specific purpose with its own associated prompt**.
+- Due to this separation of concerns, **we hypothesize that, for every optimization 
+step, it is sufficient to update each node-level prompt individually, assuming 
+that all other prompts are fixed**.
+
+- In our first experiments, we demonstrate that edge optimization effectively
+  filters adversarial agents from a swarm, mirroring a scenario in 
+  multi-agent systems where some agents are detrimental rather than beneficial. 
+
+  ```
+  | Method       | Level 1| Level 2  | Level 3| Avg.
+  | GPT-3.5      | 7.55   | 4.65     | 0      | 4.85
+  | GPT-4        | 15.09  | 2.33     | 0      | 6.06
+  | GPT-4-Turbo  | 20.75  | 5.81     | 0      | 9.70
+  | AutoGPT      | 13.21  | 0        | 3.85   | 4.85
+  | GPTSwarm     | 30.56  | 20.93    | 3.85   | 18.45
+  | Improvement  | 47.3%↑ | 260.2%↑  | 0.0%   | 90.2%↑
+  | GPT4+Plugins | 30.30  | 9.70     | 0      | 14.6
+  ```
+
+## GPTSwarm vs ... AutoGPT/LangChain/...
+
+- AutoGPT and LangChain have set a standard for flexibility and reusability in various 
+  language-based tasks.
+- GPTSwarm graph-based design of agents and swarms further simplifies the reuse of modular 
+  components (nodes & agents) and the integration of such modules. <br/>
+  For instance, GPTSwarm supports 41 types of file analysis, web search 
+  (e.g., Google Search), and index-based memory.
+  [[doc_has.comparative,agents.langchain]]
+
+ 
+## GPTSwarm vs DSPy
+
+... Similarly to our work, DSPy (Khattab et al., 2023) implements 
+LLM pipelines as computational graphs with modular LLM queries as nodes, 
+parameterized by prompts and neural network weights.
+[[doc_has.comparative,prompting.DSPy]]
+
+... It proposes a two-stage process to optimize the parameters of these nodes.
+Initially, it generates a set of candidate solutions for each node.
+Subsequently, it optimizes across the Cartesian product of these candidate
+solution sets, aiming to identify an effective combination of parameters for
+the entire graph. 
+
+  To address the combinatorial optimization challenge raised in DSPy,
+we propose an iterative optimization process. By virtue of decomposing a
+solution into nodes with expected functions, at each iteration, we improve
+each node individually, conditioned on the execution history of the graph
+with the current prompts of each node.
+
+## GPTSwarm vs ... Hermes (and others):
+
+- Hermes is a final application that can be run by just prompting.
+- GPTSWarm is a SDK to build final apps.
+
+
+
+
+  ```
+  | [[PM.price,PM.year.2024]]
+  | Experiment                               | Cost  | # Prompt   | # Completion  | Time   
+  |                                          | (USD) | Tokens     | Tokens        | (h)
+  | -----------------------------------------|-------|------------|---------------|-----
+  | TOT - Mini Crosswords                    |  65.61|  1,515,826 |  2,013,511    |  8.5
+  | GPTSwarm- Mini Xwords Edge-Opt           |  77.42| 50,394,028 | 13,511,265    |  2.82
+  | GPTSwarm- Mini Xwords Edge-Opt-Eval      |   9.89|  6,448,660 |  1,718,613    |  0.73
+  | GPTSwarm- Mini Xwords Edge-Opt-Eval      | 377.54| 13,137,160 |  8,205,522    |  5.56
+  | GPTSwarm- Mini Xwords Node-Opt (GPT-3.5T)|  11.22|  7,468,797 |  1,876,246    |  0.83
+  | GPTSwarm- Mini Xwords Node-Opt-Eval (GPT-|  28.18| 22,791,158 |  2,693,575    |  0.91
+  | GPTSwarm- HumanEval w/o Opt              |  1.61 |     59,646 |     33,951    |  0.68
+  | GPTSwarm- HumanEval w/ Opt               |  28.46|  2,298,140 |    182,594    |  1.49
+  | GPTSwarm- GAIA (Level 1) - Agent(TOT)    |  2.21 |    123,801 |     32,599    |  1.05
+  | LLM-Debate- MMLU (3A3T)                  |  32.8 |  1,689,960 |    530,005    |  8.36
+  | DyLAN- MMLU optimization (3A3T)          | 105.93|  5,671,276 |  1,640,566    | 25.4
+  | DyLAN- MMLU inference (3A3T)             |  14.99|    628,009 |    290,472    |  4.75
+  | GPTSwarm- MMLU optimization (3A3T)       |  5.32 |    361,812 |     56,770    |  0.9
+  | GPTSwarm - MMLU inference (3A3T)         |  1.82 |    113,233 |     22,923    |  0.31
+  ```
+
+Acknowledgements
+
+This work was supported by the SDAIA-KAUST Center of Excellence in Data Science 
+and Artificial Intelligence (SDAIA-KAUST AI). It was further supported by the 
+European Research Council (ERC, Advanced Grant Number 742870) and the Swiss 
+National Science Foundation (SNF, Grant Number 200021 192356).
+
+
+[[agents.self_learning,agents.GPTSwarm}]]

@@ -22,6 +22,10 @@ xata_psql.txt                 # TODO
 # ejemplo_asistente_minerales.txt # TODO
 ejemplo_asistente_minerales.txt
 CODING_ASSISTANTS/101.payload
+agent_zero.txt
+agent_hermes.txt
+agent_active_graph.txt
+agent_gptswarm.txt
 # 101_Reflexion_Language_Agents_With_Verbal_Reinforcement_Learning_2303.11366v4.pdf
 # agents
 # mlflow                      # https://mlflow.org/

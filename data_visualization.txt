@@ -12,6 +12,15 @@
 
 * <https://streamlit.io/>:
 * OOSS framework, quick to learn.
+
+## Streamlit vs Gradio
+
+* <https://medium.com/%40ShahabH/streamlit-vs-gradio-a-comprehensive-comparison-cc2f28b7b832>
+
+- Streamlit is more focused in data apps.
+- Gradio is more focused in simplifying model deployment
+
+
 [[101}]]
 
 

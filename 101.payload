@@ -18,6 +18,7 @@ DataVisualization/101.payload
 # NLTK/101.payload
 USE_CASES/101.payload
 RAG/101.payload
+COMPANIES/101.payload
 101_TODO.txt                            # OK
 101_backpropagation.txt                 # OK, TODO
 # 101_external_resources.txt            # TODO 
