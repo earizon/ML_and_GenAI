@@ -1,8 +1,12 @@
 101.payload
 LANGCHAIN/ALL.payload
+STRANDS_AGENTS/ALL.payload
 AlphaTensor.txt
 meili_search.txt
 microsoft_magentic_one.txt
 Swarm_Masters_And_DAGs.txt
 CODING_ASSISTANTS/ALL.payload
+DEEP_RESEARCH_ASSISTANTS/ALL.payload
+MATH_ASSISTANTS/ALL.payload
+CHEMISTRY_AGENTS/ALL.payload
 TODO.payload

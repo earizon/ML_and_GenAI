@@ -2,63 +2,63 @@
 
 # AI Agents 101
 
-* An AI Agent can be described as an intelligent system designed to interact 
+* An AI Agent can be described as an intelligent system designed to interact
   with an environment. (self-driving car, chatbot, coding or research assistant, ...)
 
-  Agentic systems promise to extend the possibility of computer programs 
-beyond the mere execution of pre-determined workflows conceived to 
+  Agentic systems promise to extend the possibility of computer programs
+beyond the mere execution of pre-determined workflows conceived to
 solve narrow tasks.<br/>
 
 
 
   In fact **MOST REAL-LIFE PROBLEMS DO NOT FIT IN PRE-DETERMINED WORKFLOWS**
 (scripted or AI workflows, Robotic Process Automation (RPA), ...): [[doc_has.keypoint]]
-<br/> 
+<br/>
 > """think of the infinite workflows possibles using just combination
 > of command in GNU Core utils (<https://www.gnu.org/software/coreutils/manual/coreutils.html>)
 > vs the limited set of poorly documented scripts deployed in enterprise making
 > use of such tools for particular use cases or scenarios."""
 
   Cite by Roucher, Noyan, and Wolf (Hugging Face Smolagents engineers):
-> If a deterministic workflow fits all queries, by all means just code 
-> everything! This will give you a 100% reliable system with no risk of error 
-> introduced by letting unpredictable LLMs meddle in your workflow. For the sake 
-> of simplicity and robustness, **it's advised to regularize towards not using any 
+> If a deterministic workflow fits all queries, by all means just code
+> everything! This will give you a 100% reliable system with no risk of error
+> introduced by letting unpredictable LLMs meddle in your workflow. For the sake
+> of simplicity and robustness, **it's advised to regularize towards not using any
 > agentic behavior**.
   [[qa.101,qa.dont's]]
 
 An AI Agent **MUST** be capable of four key actions:
 
-1. **PERCEIVING ITS ENVIRONMENT**: 
-   A robot identifying "space time",  coding assistant aware of files 
-   in a hard-disk, research assistant aware of "papers", health 
+1. **PERCEIVING ITS ENVIRONMENT**:
+   A robot identifying "space time",  coding assistant aware of files
+   in a hard-disk, research assistant aware of "papers", health
    assistant aware of scanners, ...<br/>
-   TIP: 
+   TIP:
    - the environment (context) "perceived" replaces the INPUT data in conventional software architecture.
    - the prompt input replaces the "shell commands" (interface between humans and computers).
    - the reasoning LLM  replaces the computation in conventional software architecture.
 
-2. **PROCESSING INFORMATION**: 
+2. **PROCESSING INFORMATION**:
    doing request to an API, evaluating results, ...
 
 3. **TAKING ACTION TO ACHIEVE SPECIFIC GOALS**:
     Setting up heating room, searching for related content, ...
    TIP:
-   - "achieve specific goals" can be considered "declarative programming" in conventional 
-     software architecture. We describe the desired end state (vs the steps following 
+   - "achieve specific goals" can be considered "declarative programming" in conventional
+     software architecture. We describe the desired end state (vs the steps following
 
-4. **ADAPTING ITS BEHAVIOR BASED ON EXPERIENCE**: Re-try when finding an error, 
+4. **ADAPTING ITS BEHAVIOR BASED ON EXPERIENCE**: Re-try when finding an error,
     or learn from user feedback, ...
     ...
 
 ## Agent Categorization
 
 ### robot vs persona Classification
- 
-- **REACTIVE AGENTS/IA "robots"**     : These agents respond to specific stimuli in their 
+
+- **REACTIVE AGENTS/IA "robots"**     : These agents respond to specific stimuli in their
   environment without maintaining an internal state or memory.
-- **DELIBERATIVE AGENTS/IA "personas"**: These agents maintain an internal model of the 
-  world and can plan and reason about their actions. 
+- **DELIBERATIVE AGENTS/IA "personas"**: These agents maintain an internal model of the
+  world and can plan and reason about their actions.
 
 ### SINGLE vs MULTI-AGENT Classification
 
@@ -66,18 +66,18 @@ An AI Agent **MUST** be capable of four key actions:
   - Single short/long term memory.
   - Single LLM.
 
-- MULTI-AGENT: 
-  - each agent has an isolated set of "prompt and skills knowledge" 
+- MULTI-AGENT:
+  - each agent has an isolated set of "prompt and skills knowledge"
   - each agent has its own memory.
   - All  agents can share also a shared memory.
   - each agent can use a different LLM model (light local models for some simple tasks
-    and heavy and expensive cloud ones for complex tasks like plannification and 
+    and heavy and expensive cloud ones for complex tasks like plannification and
     evaluation).
 
 ### System 1 vs System 2 Thinking model classification:
 
 (according to the physcologist Daniel Kahneman's framework)
-- System 1 Thinking: A mode of thinking that is fast, automatic, intuitive, and reactive. 
+- System 1 Thinking: A mode of thinking that is fast, automatic, intuitive, and reactive.
   ("simple" or "standard" LLMs often exhibit this type of response).
 - System 2 Thinking: A mode of thinking, that is slow, deliberate, conscious, and
   controlled. (LLM Reasoning models)
@@ -87,12 +87,182 @@ An AI Agent **MUST** be capable of four key actions:
 - "full agency" agents, with agents operating on their own derived plans.
 - "on-rails" workflows, where humans remain in the loop. (most common as of 2026) [[PM.HITL]]
 
-## Learning vs non-learning Classification
+## By Agent Complexity
 
--  **Learning Agents**  improve their performance over time by learning
-   from data and experiences self-modifying their prompts and internal 
-   structures (Hermes, SwarmGPT, ...  are good examples).
--  **Non Learning Agents** require human intervention to upgrade version.
+REF: <https://www.youtube.com/watch?v=fXizBc03D7E>
+
+  ```
+  1. Simple      Reflex    React to external events.
+                           - No memory.
+                           - No understanding of "history".
+  2. Model-Based Reflex      Simple Reflex
+                           + Memory (internal model) to take actions
+  3. Goal Based            Guided by a goal directed behavior (future desired state)
+  4. Utility-Based         Goal based but adding an optimization function
+  5. Learning-Agent        Learns and propose new "solutions" (requires powerful LLM)
+
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────
+                               1. SIMPLE-REFLEX
+  ─────────────────────────────────────────────────────────────────────────────────────────────
+
+                    ┌···· Sensors <···-┐       ┌────────────┐
+                    ·                  ·       │            │     + Predefined Rules
+                    v                  ·       │            │     + React to extenal vents.
+               What the World          ·       │            │     + No memory => Repeated mistakes!!!
+               is NOW                  ^       │            │     + No understanding of history
+                    ·                  ·       │            │     + Ex: "Thermostat"
+                    ·              Precepts¹ <·│ ENVIRONMENT│
+                    ·                          │ (External  │
+                    ·               Action² ··>│  World)    │
+                    v                  ^       │            │
+             A)··>What action          ·       │            │
+                  should I do          ·       │            │
+                    ·                  ·       │            │
+                    v                  ·       │            │
+               │Actuators│············>┘       └────────────┘
+
+
+       A) pre-hardcoded condition-action rules (if-then-...)
+
+       ¹ percepts == set of percibed inputs ("subset" of the
+          information arriving from the external world)
+
+       ² "action" is the output from the agent, maybe
+         modifying the external Environment
+
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────
+                               2. MODEL-BASED REFLEX
+  ─────────────────────────────────────────────────────────────────────────────────────────────
+
+
+    MEMORY                                                         + Adds memory
+    ──────           ┌···· Sensors <····┐       ┌────────────┐
+    B)·······        ·                  ·       │            │
+            ·        v                  ·       │            │
+            v   What the World          ·       │            │
+    C) ····>┼·> is NOW                  ·       │            │
+            ^        ·                  ·       │            │
+            ·        ·              Precepts¹ <·│ ENVIRONMENT│
+    D) ······        ·                          │ (External  │
+                     ·               Action² ··>│  World)    │
+                     v                  ^       │            │
+             A)··> What action          ·       │            │
+                   should I do          ·       │            │
+                     ·                  ·       │            │
+                     v                  ·       │            │
+                │Actuators│············>┘       └────────────┘
+
+
+    B) State: The internal model of the World according to the Agen                               t
+    C) How the World Evolves ("inertia", ...)
+    D) What my actions do? (How the affect the environment)
+
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────
+                               3. GOAL-BASED
+  ─────────────────────────────────────────────────────────────────────────────────────────────
+
+
+    MEMORY                                                         + Guided by a goal or "aim"
+    ──────           ┌···· Sensors <····┐       ┌────────────┐    (future desired state)
+    B)·····─┐        ·                  ·       │            │  + "Drive to place A"
+            ·        v                  ·       │            │
+            v   What the World          ·       │            │
+ ┌· C) ····>┼·> is NOW                  ·       │            │
+ ·          ·        ·                  ·       │            │
+ ├· D) ····─┘        ·                  ·       │            │
+ ·                   ·                  ·       │            │
+ └·>··········> What if will        Precepts¹ <·│ ENVIRONMENT│
+                be like if I                    │ (External  │
+                do Action A          Action² ··>│  World)    │
+                     ·                  ·       │            │
+                     v                  ^       │            │
+         GOALS)··> What action          ·       │            │
+                   should I do          ·       │            │
+                     ·                  ·       │            │
+                     v                  ·       │            │
+                │Actuators│············>┘       └────────────┘
+
+  The Agent does not ask anymore "what actions matches my conditions" but
+  it ask "what actions/... will help to achieve the GOAL/s based on:
+  + current state
+  + predicted future.
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────
+                               4. UTILITY-BASED
+  ─────────────────────────────────────────────────────────────────────────────────────────────
+
+    MEMORY
+    ──────           ┌···· Sensors <····┐       ┌────────────┐  + Goal-based
+    B)·····─┐        ·                  ·       │            │  + Adds optimization to reach the goal:
+            ·        v                  ·       │            │       Goal: "Drive to place B"
+            v   What the World          ·       │            │    Utility: "Drive to place B saving fuel"
+ ┌· C) ····>┼·> is NOW                  ·       │            │
+ ·          ·        ·                  ·       │            │
+ ├· D) ····─┘        ·                  ·       │            │
+ ·                   ·                  ·       │            │
+ └·>··········> What if will        Precepts¹ <·│ ENVIRONMENT│
+                be like if I                    │ (External  │
+                do Action A          Action² ··>│  World)    │
+                     ·                  ·       │            │
+   UTILITY) ··> How "happy" will        ·       │            │
+                I be in such state      ·       │            │
+                     ·                  ·       │            │
+                     v                  ^       │            │
+                   What action          ·       │            │
+                   should I do          ·       │            │
+                     ·                  ·       │            │
+                     v                  ·       │            │
+                │Actuators│············>┘       └────────────┘
+
+
+
+  ─────────────────────────────────────────────────────────────────────────────────────────────
+                               5. UTILITY-BASED
+  ─────────────────────────────────────────────────────────────────────────────────────────────
+
+        ┌─····  Performance
+        ·       standard
+        v
+     │Critic¹├o·<······ Sensors <·······┐       ┌────────────┐ + Learns from errors.
+         ·                              ·       │            │ + proposes new "solutions".
+         v                              ·       │            │ + Optimizes the optimization function.
+      +Feedback ("REWARD")              ·       │            │
+         ·                              ·       │            │
+         v     changes                  ·       │            │
+     │Leaning²├o<·····┤ Pefor-⁴│        ·       │            │
+     │Element ├·····>o┤ mance  │        ·       │            │
+         ·        ┌··>│ Element│    Precepts¹ <·│ ENVIRONMENT│
+         ·        ·      ─┬─                    │ (External  │
+         v        ·       ·          Action² ··>│  World)    │
+    (+Learning    Expe-   ·             ·       │            │
+       goals)    rience   ·             ·       │            │
+         ·        ^       ·             ·       │            │
+         v        ·       ·             ·       │            │
+     │Problem  ³│·┘       ·             ^       │            │
+     │Generator │         ·             ·       │            │
+                          ·             ·       │            │
+                          ·             ·       │            │
+                          v             ·       │            │
+                    │Effectors│········>┘       └────────────┘
+
+
+ + Improves performance over time by update its
+   behavior based on feedback from the environement
+
+ ¹ The │Critic│ component observes the outcome of an agent's actions and compares them
+   to the performance standards.
+   Its output is a Feedback ("numerical signal"), also known as **"REWARD"** in
+   reinforcement learing theory. 
+ ² The |Learning Element| updates the internal knowledge using the feedback.
+   Its job is to improve the agents mapping from states all the way thorugh to actions.
+ ³ The |problem generated| suggests new actions the agent hasn't tried yet, 
+   (drive through a different path, ...)
+ ⁴ The |Performance Element| selects actions based on what the learning element has
+   determined to be optimal.
+  ```
 
 ## Agent micro-history
 
@@ -101,16 +271,16 @@ An AI Agent **MUST** be capable of four key actions:
   In a future other type of newer ML architectures could apply (world models,
 hierarchical reasoning Models, KAN networks, ...)
 
-* Years 2022-2023: "turning point" in AI agents with the introduction 
+* Years 2022-2023: "turning point" in AI agents with the introduction
   of prompting techniques to not only ask the LLM to complete text but order it
   about the way of thinking unlocking powerful new capabilities
-  foundational to today's advanced AI products. 
+  foundational to today's advanced AI products.
   * **REASONING**: ("think step by step" Chain of Thought, "imagine you
     are a set of 3 experts", "create a socratic dialogue"), Tree of Thoughts, ...:<br/>
     in the context of LLMs, is refered to the way "we" (our prompt)
     guides the LLM in the method of thinking.<br/>
     **It is the most important part off an agentic AI system**.<br/>
-    Modern Reasoning Models have been trained to ... 
+    Modern Reasoning Models have been trained to ...
     1. Use hardcoded content learn during training.
     2. Form Hypothesis!!!.
     3. Identify a Problem.
@@ -118,7 +288,7 @@ hierarchical reasoning Models, KAN networks, ...)
     4. Attempt to Correct.
        "lesson learned: I prematurely chose target B before target A being ready".
     7. Create Final Plan.
-  * **ReAct**: (Reasoning->Acting) refers to the ability of the AI Agent 
+  * **ReAct**: (Reasoning->Acting) refers to the ability of the AI Agent
     to deconstruct a problem, take sequential action, and utilize external
     tools to achieve a goal.<br/>
     **Action** ussualy refers to calling an external tool (API, calculator, ...),
@@ -127,28 +297,28 @@ hierarchical reasoning Models, KAN networks, ...)
 
 ##  Core Components of an Agentic AI System
 
-- Planning: Creating a step-by-step approach to solve a problem. In 
-  practice this means that the agent (its LLM) support the following 
-  building blocks features: 
-  1. Capacity to split "large" goals into "thin" tasks. 
+- Planning: Creating a step-by-step approach to solve a problem. In
+  practice this means that the agent (its LLM) support the following
+  building blocks features:
+  1. Capacity to split "large" goals into "thin" tasks.
   2. Proper task ordering.
-  3. Decision Points: Map out moments when the agent must evaluate information 
+  3. Decision Points: Map out moments when the agent must evaluate information
      and choose a path (business event that must trigger a path selection).<br/>
        Decision nodes include "checkpoints", "retry", "short-circuit" and
      "fail-fast" (REFs: [1](https://en.wikipedia.org/wiki/Fail_fast_(business),
      [2](<https://en.wikipedia.org/wiki/Fail-fast_system>) ) mechanisms.
   4. Identification and integration of external tools. (REST APIs, File System, ...).
   5. Context memory management keeping track of outputs from "executed" tasks.
-  
-  TIP: Points 1, 2, and 4 can be seen as if the Agent were the "build tool" in 
+
+  TIP: Points 1, 2, and 4 can be seen as if the Agent were the "build tool" in
   a conventional software project (POSIX `make`/`cmake`, Java `maven`/`gradle`, ...):<br/>
    In conventional build tools, the "large" goal (build a software), is split into
   tasks (by humans), then tasks are ordered using a directed acyclic graph, and
   external tools (compiler, linter, ...) are used to build the app.<br/>
    In conventional software the only decision point is to "stop and surrender"
   if some task fail while an Agent (IA persona) can try new alternative strategies.<br/>
-  
-   Also, in convertion software, the external tools are invoked in a set of small 
+
+   Also, in convertion software, the external tools are invoked in a set of small
   restricted ways mandated by hardcoded rules written by a developer once in a while.
   With AI agents, a set of tools can be used "spontaneously" in million of different
   ways and combinations according to the user's prompt goal or intermediate task.
@@ -176,7 +346,7 @@ hierarchical reasoning Models, KAN networks, ...)
         (consume more tokens).
       - Sliding Window: Send only up to N recent messages.
       - Summarization: Send a compact summary of earlier messages.
-    - LONG-TERM (Durable  ) memory : Persisted in databases, vector stores, ...  and 
+    - LONG-TERM (Durable  ) memory : Persisted in databases, vector stores, ...  and
       available across sessions (days, months, ...). Use to store essential facts,
       (long term "true claims", user preferences, ...).<br/>
       - Long-term memory typically falls into three categories:
@@ -189,12 +359,12 @@ hierarchical reasoning Models, KAN networks, ...)
         - balances memory data vs relevance of data.
         - Set expiration time when possible.
         - Create memory "namespaces" (by taxonomy groups, projects, ...)
-        - Consider privacy issues 
+        - Consider privacy issues
       - NOTE a long-term memory that does not expires can end up being part of the
         "absolute true" in the RAG.
   * TIP: short-term memory must not be confused with state of a task.
     This State is an special isolated (very) sort term memory used for a single task.
-  * TIP: An State of an State Machine can be seen as an specialized structured 
+  * TIP: An State of an State Machine can be seen as an specialized structured
     memory. Depending on the State Machine live time (task or session) it
     can be seen as simple task's state or an isolated short-term memory for
     the session.<br/>
@@ -213,7 +383,7 @@ hierarchical reasoning Models, KAN networks, ...)
    - who is it helping.
    - expected output/expected "success" business goal that can be measured.
      (Testeable hypothesis).
-   
+
 2. Favor structured input/output (avoid messy text).
    - Tools: Pydantic AI, JSON Schemas, Lanchain output parser.
 3. Prompt and tune the agent's behavior:
@@ -240,11 +410,11 @@ hierarchical reasoning Models, KAN networks, ...)
    - Run test prompts and toolchains to check reliability.<br/>
      Tools: Agents Evaluation Sets.
      - Structured tests designed to estimate how well the system is performing.
-     - Input comes from domain experts and business professionals who 
-       understand the nuances of the tasks the agent is meant to 
+     - Input comes from domain experts and business professionals who
+       understand the nuances of the tasks the agent is meant to
        perform. (coming back to expert systems, but just for testing
        performance -vs full training-)  [[qa.evaluation]]
-   - Use logs, benchmarks and feedback to improve over time: 
+   - Use logs, benchmarks and feedback to improve over time:
    - Tools: MCP Logs, OpenAI Evaluation API, Custom Metric Dashboards.
 9. Add Guardrails to steer the agent.
    - Execute in a sandbox.
@@ -256,19 +426,19 @@ hierarchical reasoning Models, KAN networks, ...)
 ## AI roll-and-goal Requirements document examples
 
   ```
-  | Medical assistant agent 
-  | 
+  | Medical assistant agent
+  |
   | It can reads X-rays, summarize findings and speaks results
   ```
 
   ```
   | Agent X is a helpful assistant for ...
-  | 
+  |
   | Given:
   | - this context
   | - this set of tools
   | - target goal
-  | 
+  |
   | the agent should be able to achieve XYZ of target goal
   ```
 
@@ -279,39 +449,39 @@ hierarchical reasoning Models, KAN networks, ...)
   | - tool 1
   | - tool 2
   | - ...
-  | 
+  |
   | ----------------------------------------------------------------------------
-  | # Objective 
-  | 
-  | Automate 90% of manual onboarding tasks, aiming for a 30% reduction in new 
+  | # Objective
+  |
+  | Automate 90% of manual onboarding tasks, aiming for a 30% reduction in new
   | employee ramp-up time.
-  | 
+  |
   | # Workflow Summary
-  | 
+  |
   | 1. Create internal account.
   | 2. Complete HHRR contact data.
   | 3. Evaluate employee clearance.
   | 4. Create 3rd party account (mail, ...)
   | 5. ...
   | 6. confirm task completion by sending an email following JSON schema { ... }
-  | 
+  |
   | ----------------------------------------------------------------------------
   | # Capabilities:
-  | 
+  |
   | Must maintain state across sessions.
   | Must escalate to HR if a blocker persists for more than 2 days.
-  | 
+  |
   | ----------------------------------------------------------------------------
   | # Tool Integrations
-  | 
+  |
   | Requires access to the HHRR API, IT provisioning tool, and LMS webhook.
-  | 
+  |
   | ----------------------------------------------------------------------------
   | # Success Metrics
-  | 
+  |
   | Average time-to-full-access < 2 days.
   | agent-led task completion rate > 85%.
-  | 
+  |
   | ----------------------------------------------------------------------------
   | # Guardrails/Constraints.
   |
@@ -398,11 +568,11 @@ The RACI model defines four key roles in project management or multi-agent archi
                This person/agent **delegates** the work and ensures it is done.
 - Consulted  : Those whose opinions are sought.<br/>
                Typically subject matter experts. This role involves two-way communication.
-- Informed   : Individuals who need to be kept updated on progress or decisions but do not need to be consulted directly. 
+- Informed   : Individuals who need to be kept updated on progress or decisions but do not need to be consulted directly.
                (or Agents receiving events of interest)
 
 
-This matrix helps clarify roles and responsibilities, ensuring everyone understands their part in the project. 
+This matrix helps clarify roles and responsibilities, ensuring everyone understands their part in the project.
 
 
 
@@ -411,7 +581,7 @@ This matrix helps clarify roles and responsibilities, ensuring everyone understa
 
 * <https://arxiv.org/abs/2503.18813>
 
-- Solution based on 2 agents, in which one of them has a mission to 
+- Solution based on 2 agents, in which one of them has a mission to
 supervise the other one.
 [[security.promp_injection,security.101}]]
 

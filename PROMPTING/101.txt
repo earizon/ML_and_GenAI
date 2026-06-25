@@ -98,7 +98,7 @@ A summary of 5 best prompting patterns or strategies extracted from OpenAI Promp
    - Measure improvements with a comprehensive testing approach
    - Ensure that modifications lead to overall performance enhancements.
 
-[[{prompting.planning,agents.101]]
+[[{agents.planning,agents.101]]
 
 ## Depp-looking reasoning != deep planning
 
@@ -138,6 +138,6 @@ It reinforces an important distinction in AI systems:
 
 - paper: <https://lnkd.in/gJZwv3aY>
 
-[[prompting.planning}]]
+[[agents.planning}]]
 
 [[prompting.101}]]

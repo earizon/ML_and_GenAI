@@ -1,5 +1,5 @@
 [[{PM.price.free_tier,PM.TODO]]
-## Google Collab
+## Google Collab: Free TPUs
 
 * <https://colab.research.google.com/>
 

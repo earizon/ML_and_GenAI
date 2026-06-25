@@ -1,4 +1,29 @@
 [[{agents.skills]]
+
+# Skills 101
+
+## Agents vs Skills 101
+
+> Think of it this way:
+> A Skill is a verb.
+> An Agent is a person.
+>
+> A skill teaches the Agent how to do one specific thing really well  (deterministically)
+> An agent is a specialist you assign a task to — they think, plan, and execute.
+>
+> A skill doesn’t think. It follows the old 80's UNIX Phylosophy "Do one thing (one job) and do it right!"
+> ... every single time — with zero deviation. Use it when you have a task that is:
+
+- Always the same structure
+- Needs consistent output every time
+- Shouldn’t vary based on “mood” or reasoning
+- Done dozens of times a week
+
+- SkillAgent  A reusable instruction for one specific action
+
+- A specialist persona with goals and tools Triggered by the host (Copilot) detecting context / you referencing it
+[[}]]
+
 # Skills.md spec
 
 * Originally developed by Anthropic but portable to any other agent framework.

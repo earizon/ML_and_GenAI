@@ -454,4 +454,77 @@ session starts with a working app. [[doc_has.keypoint]]
 1. Extended Thinking: Dedicated reasoning budget before action.
 [[}]]
 
+[[{]]
+## Reuse Github Copilot Licence with Antrophic
+
+* REF: <https://dev.to/allentcm/using-claude-code-with-github-copilot-subscription-2obj>
+
+- LiteLLM or Copilot API proxy servers allows to save money by since they are cheaper than the
+  default Claude subscription [[PM.price.saving]]
+
+<!-- {{{ --->
+```
+
+
+PRE-SETUP: 
+- You have a Github Copilot subscription sitting around.
+
+ 
+1. Setup LiteLLM in litellm folder.
+$ mkdir litellm && ...           # STEP 1. Install litellm
+                                 # REF: <https://docs.litellm.ai/docs/#quick-start-proxy---cli>
+                                 # TIP: LiteLLM library/proxy provides unified interface to call
+                                 #      100+ LLMs — OpenAI, Anthropic, Vertex AI, Bedrock, and more 
+                                 #      using the OpenAI format.
+
+$ cd litellm                     # STEP 2. Configure litellm proxy server
+$ edit config.yaml
++ model_list:
++   - model_name: anthropic/*
++     litellm_params:
++       model: github_copilot/gpt-5-mini
++       extra_headers: {"editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat"}
++   - model_name: anthropic/*
++     litellm_params:
++       model: github_copilot/claude-sonnet-4.5
++       extra_headers: {"editor-version": "vscode/1.85.1", "Copilot-Integration-Id": "vscode-chat"}
+
+$ litellm --config config.yaml  # STEP 3. Start the litellm proxy server
+
+$ npm install -g copilot-api    # install Copilot-API proxy.
+$ copilot-api start             # start proxy server
+$ npm install \
+  -g @anthropic-ai/claude-code  # install Claude Code (if not yet done)
+
+$ edit ${HOME}/.claude/settings.json
+
+  ALT 1: LITELLM PROXY                                              │ ALT 2: COPILOT API
+  {                                                                 │ {
+    "env": {                                                        │    "env": {
+      "ANTHROPIC_BASE_URL": "http://localhost:4000",                │      "ANTHROPIC_BASE_URL": "http://localhost:4141",
+      "ANTHROPIC_AUTH_TOKEN": "sk-litellm-static-key",              │      "ANTHROPIC_AUTH_TOKEN": "sk-dummy",
+      "ANTHROPIC_MODEL": "github_copilot/claude-sonnet-4.5",        │      "ANTHROPIC_MODEL": "claude-sonnet-4.5",
+      "ANTHROPIC_DEFAULT_HAIKU_MODEL": "github_copilot/gpt-5-mini", │      "ANTHROPIC_DEFAULT_HAIKU_MODEL": "gpt-5-mini",
+      "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",                     │      "DISABLE_NON_ESSENTIAL_MODEL_CALLS": "1",
+      "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"               │      "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+    }                                                               │    }
+  }                                                                 │  }
+                                                                    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+```
+<!-- }}} --->
+
+[[}]]
+
 [[agents.claude_code}]]

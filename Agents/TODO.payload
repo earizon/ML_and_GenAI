@@ -4,7 +4,12 @@
 # Summarizing PDFs with Ollama and LangChain: <https://vincent.codes.finance/posts/documents-llm/#loading-pdfs>
 
 # AWS_multiagent_orchestrator.txt # 
+LANGCHAIN/TODO.payload
+STRANDS_AGENTS/TODO.payload
 CODING_ASSISTANTS/TODO.payload
+DEEP_RESEARCH_ASSISTANTS/TODO.payload
+MATH_ASSISTANTS/TODO.payload
+CHEMISTRY_AGENTS/TODO.payload
 llama_index_AI_Agents.txt
 Koog_AI_Agents.txt
 TODO.txt

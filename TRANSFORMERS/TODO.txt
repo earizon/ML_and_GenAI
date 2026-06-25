@@ -17,6 +17,35 @@
 [[}]]
 
 
+[[{]]
+## Train LLM from the Scratch
+
+(by Eric Vyacheslav @ LinkedIn)
+
+..  Someone open-sourced every secret step that turns a model into ChatGPT. 
+
+... This open-source repo goes from raw data to a working model. 
+
+- train LLM on a single GPU with PyTorch. (13M param.version up to 8Billions in multi-GPU)
+- Multi-head attention, MLP blocks, and layer normalization are all coded by hand.
+
+- Four scripts run the whole pipeline:
+  - Download the Pile corpus.
+  - Tokenize into fast storage.
+  - Train with checkpointing.
+  - Generate text from prompts.
+
+Then it goes further into post-training. 
+
+- instruction tuning.
+- reward modeling.
+- reasoning rewards.<br/>  [[prompting.reasoning]]
+  TIP: That means that reasoning is just a base-model post-training !!!
+
+* <https://github.com/FareedKhan-dev/train-llm-from-scratch>
+[[}]]
+
+
 
 
 [[{architecture.transformers,year.202501]]
@@ -295,5 +324,7 @@ Features include:
 - Decoder-Only Architecture: Supports variable prediction horizons and context 
   lengths.
 [[data.time_series}]]
+
+
 
 [[PM.TODO}]]

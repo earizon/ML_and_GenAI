@@ -1,13 +1,15 @@
-101.txt                       # OK
+101.txt                       # OK,    Content is (always) WiP.
 101_LLM_planning.txt          # md OK, content 20%
 eval_driven_goals_hypot.txt   # OK
+agents_md.txt                 # OK
 # agentic_patterns.txt        # <https://github.com/nibzard/awesome-agentic-patterns>
 LANGCHAIN/101.payload
+STRANDS_AGENTS/101.payload
 lang_grant_SQL_MCP.txt        #
-# pydantic_AI.txt             # TODO <·· very interesting
-# Agents/HF_smolagents.txt
-MCP.txt                       # OK, WiP
-A2A.txt                       # content 1%
+# pydantic_AI.txt             # TODO <·· very interesting # Agents/HF_smolagents.txt
+MCP.txt                       # OK, content 40%
+A2A.txt                       # content 30%
+ARD.txt                       # OK, content 20%
 ../PROMPTING/DSPy.txt         # TODO
 firecrawl.txt                 # OK
 skills.txt                    # TODO
@@ -22,10 +24,14 @@ xata_psql.txt                 # TODO
 # ejemplo_asistente_minerales.txt # TODO
 ejemplo_asistente_minerales.txt
 CODING_ASSISTANTS/101.payload
+DEEP_RESEARCH_ASSISTANTS/101.payload
+MATH_ASSISTANTS/101.payload
+CHEMISTRY_AGENTS/101.payload
+GOAP_planning.txt
 agent_zero.txt
 agent_hermes.txt
 agent_active_graph.txt
 agent_gptswarm.txt
 # 101_Reflexion_Language_Agents_With_Verbal_Reinforcement_Learning_2303.11366v4.pdf
-# agents
-# mlflow                      # https://mlflow.org/
+# mlflow    # https://mlflow.org/
+

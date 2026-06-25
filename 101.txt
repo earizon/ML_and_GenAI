@@ -1,61 +1,74 @@
+[[{101,doc_has.bibliography]]
+##  Bibliography:
+ 
+<http://www.deeplearningbook.org/>
 
+[[doc_has.bibliography}]]
+
+## Bird's Eye view of Model types
 ```
 | Bird's Eye view of Model types
-| <http://www.deeplearningbook.org/> by 
-| (forcibely incomplete and outdate by still pertinent)
+| (forcibely incomplete and outdated by still pertinent)
+| 
+| WARN: Next list shows only Neural Networks trained models, vs fully
+|       agentic systems making use of one or more Neural Networks.
 |
 | [[{use_case.101}]]
 | Model Type          Examples
 | -----------------   ------------------------------------------------
-| 
-| text-to-text        Mixtral, GPT-4, Claude 3, Gemini
-| 
-| text-to-Image       Dalle-E 2, Stable Diffussion, Imagen
-| 
+| text-to-text        Antrophic Claude, Gemini, OpenAI GPT-4, Mixtral
+| -----------------   ------------------------------------------------
+| text-to-Image       Dalle-E 2, Stable Diffussion
+| -----------------   ------------------------------------------------
 | Text-to-Audio       Jukebox, AudioLM, MusicGen
-| 
+| -----------------   ------------------------------------------------
 | Text-to-Video       Sora
-| 
+| -----------------   ------------------------------------------------
 | Image-toText        CLIP, DALL-E 3
-| 
-| Umage-to-Image      Super-resolution, style transfer, inpainting
-| 
+| -----------------   ------------------------------------------------
+| Image-to-Image      Super-resolution, style transfer, inpainting
+| -----------------   ------------------------------------------------
 | Text-to-Code        Stable Diffusion, DALL-E 3, AlphaCode, Codex
-| 
+| -----------------   ------------------------------------------------
 | Video-to-Audio      Soundify
-| 
+| -----------------   ------------------------------------------------
 | Text-to-Math        ChatGPT, Claude
-| 
+| -----------------   ------------------------------------------------
 | Text-to-Scientfic   Minverva, Galactica
-| 
+| -----------------   ------------------------------------------------
 | Algorithm Discovery AlphaTensor
-| 
+| -----------------   ------------------------------------------------
 | Multimodal Input    GPT-4V
+| -----------------   ------------------------------------------------
+| 
 | 
 | AI Video Generation Models Comparative
-| AI Model                   |Best For                            |Pricing                      |Key Strength
-| Sora 2                     |Cinematic quality & physics         |ChatGPT Plus ($20/mo)        |Realistic physics & synchronized audio
-| Google Veo 3.1             |4K professional production          |Gemini Advanced ($19.99/mo)  |Native 4K & character consistency
-| Runway Gen-4.5             |Creative control & film production  |From $12/mo                  |Motion brushes & scene consistency
-| Kling 2.6                  |Short-form & social content         |Free tier / Paid plans       |Simultaneous audio-visual generation
-| Luma Ray3                  |Photorealistic motion               |From $7.99/mo                |Hi-Fi 4K HDR & natural physics
-| Pika 2.5                   |Quick social videos & effects       |From $8/mo                   |Pikaswaps & special effects
-| Wan2.2 (Open Source)       |Local generation & customization    |Free (open-source)           |MoE architecture & consumer GPU support  [[price.free_tier]]
-| LTX-2 (Open Source)        |4K with audio & commercial use      |Free (Apache 2.0)            |Native 4K 50fps with synchronized audio  [[price.free_tier]]
-| HunyuanVideo 1.5           |Efficient local generation          |Free (open-source)           |13.6GB VRAM for 720p & fast inference    [[price.free_tier]]
+| 
+| AI Model             |Best For                            |Pricing             |Key Strength
+|                      |                                    |($/month)           |Key Strength
+| -------------------- |----------------------------------- |------------------- |------------
+| Google Veo 3.1       |4K professional production          |20                  |Native 4K & character consistency
+| Runway Gen-4.5       |Creative control, film production   |12 (From 12)        |Motion brushes & scene consistency
+| Kling 2.6            |Short-form & social content         | ? Free/Paid        |Simultaneous audio-visual generation     [[PM.price.free_tier]]
+| Luma Ray3            |Photorealistic motion               | 8 (From)           |Hi-Fi 4K HDR & natural physics
+| Pika 2.5             |Quick social videos & effects       |From $8/mo          |Pikaswaps & special effects
+| Wan2.2 (Open Source) |Local generation & customization    |Free                |MoE architecture & consumer GPU support  [[PM.price.free_tier]]
+| LTX-2 (Open Source)  |4K with audio & commercial use      |Free                |Native 4K 50fps with synchronized audio  [[PM.price.free_tier]]
+| HunyuanVideo 1.5     |Efficient local generation          |Free                |13.6GB VRAM for 720p & fast inference    [[PM.price.free_tier]]
+| OpenAI Sora 2        |Cinematic quality & physics         |                    |Realistic physics & synchronized audio
+|                      |                                    |                    |WARN: Sora was "closed" after investing
+|                      |                                    |                    |      1000M$  !!!                        [[PM.Risk]]
 |
 |
 | Text Sumarization/"distillation" models (Example list)
-| ──────────────────────────────────── 
+|                                      
 | facebook/bart-large-cnn
 | mrm8488/bert2bert_shared-spanish-finetuned-sum...
 | google/pegasus-xsum
 | philschmid/bart-large-cnn-samsum
 | sshleifer/distilbart-cnn-12-6
-[[use_case.101}]]
+| ...
 ```
-
-
 
 [[{cloud.Kaggle,hardware.GPU,PM.price.free_tier]]
 ## Kaggle DataScience Home: Free GPUs  

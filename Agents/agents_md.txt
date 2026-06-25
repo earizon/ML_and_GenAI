@@ -1,0 +1,70 @@
+[[{agents.101,standards.agents_md]]
+## AGENTS.md
+
+* <https://agents.md/>
+
+- Published by the Linux Foundation and the Agent Interoperability Initiative Foundation (AAIF).
+- Cross Agent standard (Hermes, Geminni Cli, Mistral Vibe, Codex, OpenCode, VS Code, Cursor, 
+  Devin, Cursor, Windsurf, Continue, Amp, Warp, and Goose, ...).<br/>
+  Bolt exception. Claude use its own `CLAUDE.md` (but it easy to fix with sym.links to make it
+  cross agent compatible. See details later on)
+- Before `AGENTS.md` we had `cursorrules`for cursor, `CLAUDE.md` for Claude, `.github/copilot-instructions.md`
+  for copilot, `GEMMINI.md`, ...
+- As a reference, more thatn 60.000 projects use AGENTS.md in github, 
+- Some agents can require some initial pre-setup, others will automatically accept `AGENTS.md`
+  if found in the file-system.
+- In practice AGENTS.md reduces tokens compsuption ~15% [[scalability.token_ussage]]
+
+  ```
+  | <PROJECT_ROOT>/
+  |   ├─ README.md     <·· for humans.
+  |   ├─ AGENTS.md ¹ ³ <·· for agents: add detailed, agent─focused guidance such as 
+  |   ·                   - Project overview
+  |   ·                   - build steps
+  |   ·                   - QA testing.
+  |   ·                   - QA coding conventions
+  |   ·                   - QA documentation
+  |   ·                   - Security considerations
+  |   ·                   - XXX workflows
+  |   ·                   - routing logic
+  |   ·                   - delegation patterns 
+  |   ·                   TIP: The agent will read its content at startup and keep it in "memory".
+  |   ·                   TIP: Do NOT duplicate information in README.md
+  |   ·
+  |   ├─ <SUBPROJECT_A>/AGENTS.md  <·· (optional), for big monorepos with subproject/submodules
+  |   ·                                Agents automatically read the nearest file in the 
+  |   ·                                directory tree. At time of writing the main OpenAI repo
+  |   ·                                has 88 AGENTS.md files.
+  |   ·
+  |   ├─ skills/my-skill01/SKILL.md <·· Cross-client standard ²
+  |   ·  ^     ^ 
+  |   ·  └─────┴─ Before layout standarization we had
+  |   ·           .claude/skills, .code/skills, .gemini/skills/, .opencode/skills, ...
+  |
+  |
+  | ¹ Prompt  instructions "gain" over AGENTS.md.
+  |
+  | ² Keep in mind:
+  |   - AGENTS.md are loaded deterministically at startup.
+  |   - SKILLS are loaded on demand.
+  |
+  | ³ - The default max.size for AGENTS.md cross-agent is 32 KiB.
+  |   - for a "solo setup" AGENTS.md can be about 200-500 lines. 
+  |   - for a shared team  AGENTS.md use something simpler (50-100 lines)
+  |     so that every contributor will accept/understand.
+  ```
+
+## Claude Code related notes
+
+- if Claude Code finds both `AGENTS.md` and `CLAUDE.md`, then `CLAUDE.md` takes preference and
+  `AGENTS.md` is ignored. Use a sym.link (`ln -s CLAUDE.md AGENTS.md`) if needed.
+- Claude Code ignores any tooling permissions found in AGENTS.md. It will instead, deterministically
+  follow permissions defined in .claude/settings.json.
+- `<PROJECT_ROOT>/CLAUDE.md` has the same priority that `<PROJECT_ROOT>/MEMORY.md`, 
+  written by Claude itself when "autoMemoryEnabled" is true in config..
+- Claude admits "@path/to/file.md" imports to embbed other mds into CLAUDE.md. AGENTS.md do NOT.
+  Since other agents neither understand imports in general, embbed AGENTS.md into CLAUDE.md with
+  `@AGENTS.md` to keep compatibility.
+- `AGENTS.md` content is considered "advisory", not "mandatory".
+
+[[agents.101}]]

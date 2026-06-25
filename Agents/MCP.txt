@@ -26,52 +26,58 @@
   |
   |  3 x 3 custom-made              3 + 3 STANDARD
   |        integration              integration
+  |
+  | ┌ MCP HOST ┐           ┌ MCP Server  ──────┐
+  | │ HOST     │           │                   │
+  | │          │   ·······>│ Tool_A (prompt A) │
+  | │          │   ·       │ Tool_B (prompt B) │
+  | │          │   ·       │                   │
+  | │   ┌──────┤   ·······>│ Resource_A        │
+  | │   │MCP   │····       │ Resource_B        │
+  | │   │Client│           │ ..                │
+  | └─┬─┴──────┘           └───────────────────┘
+  |   │
+  |   └─···········─┬─·······─┬─·····
+  |              ┌ LLM 1 ┐ ┌ LLM 2 ┐ ...
+  |              │       │ │       │
+  │              └───────┘ └───────┘
   ```
 
-* Alternative to MCP include OpenAI's Operator and "powerful" LLMs able to interpret the OpenAPI YAML embedded in a prompt, ...
-
-* MCP HOST:<br/>
+- MCP HOST:<br/>
   The most similar to the "application" that the final user will see.
   (ex: Claud desktop, web browser+extension, custom chat UI, ...).
   * It is also in charge of keeping the conversation history, take care of user input
     and rendering (or talking) the LLM output (LLM responses).
-* MCP TOOLS: "Spontaneusly" invoked by LLM models.<br/>
-  exposed server functions (actions). The client(host) can call it through HTTP/STDIO.
-  * Designed to do something on behalf of the AI model, extending the LLM limitations (I/O, web scrapping,
-    calculator, ...).<br/>
-    Ussualy an exposed server function will requires user to permit its use (through OAuth 2?,secrets?,...).<br/>
-    For example, Claude’s client might pop up "The AI wants to use the 'ABC' tool, allow yes/no?".
-  * The LLM works sort of a shell interface with a key difference to conventional UI or command line
-    shells. It is the LLM (via the host) the one to decide which tool to call (vs a user navigating
-    menus). <br/>.
-    Another way to say it, tools are "spontaneously" invoked by the LLM model, through the client(host).
+- MCP TOOLS: "**Spontaneusly**" invoked by LLM models.<br/>
+  exposed server functions (actions). The client(host) can call it through
+  HTTP(+OAuth 2/secrets auth) or STDIO transports.
+  * Tools extens LLM limitations allowing for I/O communication, web scrapping, calculators, any software, ....<br/>
+  * The LLM works like a shell interface with a key difference to conventional UI or command line
+    shells: It is the LLM (via the host) the one to decide which tool to call (vs a user navigating
+    menus or invoking cli tools after lot of reading manuals).<br/>.
     [[doc_has.keypoint]]
-* MCP CLIENT:<br/>
+- MCP CLIENT: ("embedded" as part of the MCP HOST)<br/>
   Takes care of the HTTP/STDIO transport between the MCP Host and the MCP tools and MCP resources
   (note that the host is free to also communitcate with resources directly).
-* MCP RESOURCES: "Spontaneusly" invoked by LLM models or "deterministically" by the MCP HOST.<br/>
-  **Read-only(no side effects) data sources** that the AI client(host) can query in order to retrieve
-    more context<br/>
-  * Example: SQL/graph queries, read-only CSV/spreadsheets/file systems, **knowledge snippets**, ...
-  * They are typically lighter in computation resources (no updates, no slow I/O, git information, ...).<br/>
-  * Another key difference: resources are usually accessed deterministically by the MCP host (the "application"),
-     vs "spontaneously" by the LLM.
-    as is the case for tools). The Host knows when to fetch a certain context for the model.Ej:<br/>
-    1. User LLM input: "Use the company handbook to answer my question".
-    2.  the Host (mostly) deterministically queries the resource and feeds it to the LLM conext.
+- MCP RESOURCES:
+  * Compared to tools, Resources are **Read-only** that the host can query to retrieve more context<br/>
+  * As MCP tools, resources are also "**Spontaneusly**" invoked by LLM models but ALSO
+    (and quite frequently) "deterministically" by the MCP HOST.<br/>
+  * Example: read-only local files (README.md, AGENT.md, CSVs, ...), SQL/graph queries, **knowledge snippets**, ...
+  * Typically lighter in computation resources (no updates, no slow I/O, git information, ...).<br/>
   * Resources are usually identified by some unique identifier (URI, name, ...).
-  * permissions and privacy security meassures can also apply for "sensitive" data, with policy restrictions
-    in the Host and/or resource.<br/>
-* MCP   PROMPTS:<br/>
-  Predefined prompt templates or workflows that the server can supply.<br/>
-  It can help to guide the Host app about the conversation flows to use to steer the LLM model in the right
-  direction.
+  * permissions and privacy security meassures can also apply for "sensitive" data (file system
+    secrets, forbidden directories, ...) determined in in the Host (ex: .claude/settings.json, ...)
+    and/or resource (OAuth protected).<br/>
+- MCP   PROMPTS:<br/>
+  * **Predefined prompt templates by the MCP Server**.<br/>
+  * MCP PROMPTS (injected by MCP Tools/Server into the final PROMPT) can help to guide the Host app
+     about the conversation flows to use to steer the LLM model in the right direction.
   * Prompts can for example, be rendered in a final UI visible to the final user managing the Host "Application".
-  Example MCP Prompts:
-  * (system) prompts can indicate the roles to be used by the LLM (You are a lawyer, a code reviewer, ...)
-    and the keywords (or taxonomies) to guide the LLM to use the correct MCP tools "spontaneusly".<br/>
-  * Prompts representing multi-turn workflows. e.g: step-by-step diagnostic interview.
-[[agents.MCP}]]
+  * Example MCP Prompts:
+    - (system) prompts can indicate the roles to be used by the LLM (You are a lawyer, a code reviewer, ...)
+      and the keywords (or taxonomies) to guide the LLM to use the correct MCP tools "spontaneusly".<br/>
+    - Prompts representing multi-turn workflows. e.g: step-by-step diagnostic interview.
 
 [[{agents.MCP,doc_has.example]]
 ## MCP Examples (from Daily Dose of Data Science)
@@ -148,8 +154,7 @@
  | from llama_index.tools.mcp import McpToolSpec
  | from llama_index.core.agent.workflow import FunctionAgent
  |
- |
- | async def get_agetn(tools: McpToolSpec):
+ | async def get_agent(tools: McpToolSpec):
  |   tools = await tools.to_tool_list_async()
  |
  |   agent = FunctionAgent(
@@ -242,83 +247,86 @@
 [[{agents.MCP]]
 # Official MCP Registry  (By the MCP Team)
 
-* <https://www.infoq.com/news/2025/09/introducing-mcp-registry/>
-By Andrew Hoblitzell
+* Summary from original article by Andrew Hoblitzell at
+  <https://www.infoq.com/news/2025/09/introducing-mcp-registry/>
 
-The Model Context Protocol (MCP) ecosystem is formalizing a public 
-registry for server discovery. [[PM.date.2025.Q3]]
-... Together with Agentgateway, they aim to make finding, governing,
-and running agentic tools more routine for engineering teams. [[mlops.agent_gateway]]
+The MCP ecosystem is formalizing a public registry for server discovery. [[PM.date.2025.Q3]]
 
-- The registry sits above that protocol, publishing a machine-readable
- catalog-of-servers and APIs for publicly available MCP servers that
-**clients can query and install**.
+... Together with AgentGateway, they aim to make finding, governing,
+and running agentic tools more routine ready [[mlops.agent_gateway,2gents.A2A]]
 
- The goal is for there to be many downstream registries as "source of truth",
-vs the many **ad-hoc registries** we see today.
+- The registry publishes a machine-readable catalog-of-servers and APIs
+  for publicly available MCP servers that **clients can query and install**.
 
-- The preview emphasizes federated discovery (vs single-walled list). 
+- The goal is for there to be many downstream registries as "source of truth",
+  vs the many **ad-hoc registries** we see today. [[architecture.SOT]]
 
-- Public marketplaces and private enterprise sub-registries can mirror and 
-extend, all against a shared OpenAPI.
+- The preview emphasizes federated discovery (vs single-walled list).
 
-    I was struck by how often we underestimate “discovery” in 
-infrastructure. APIs, servers, extensions—they don’t gain momentum by 
-existing; they gain it by being locatable and trusted. Reminding me of the 
-early webrings of the late 90s internet - Taylor Black, Microsoft
+- Public marketplaces and private enterprise sub-registries can mirror and
+  extend, all against a shared OpenAPI.
 
-For developers, the near-term flow is straightforward. MCP clients can query 
-the registry API, filter by capability or policy, then install servers without 
-copying manifests by hand. Teams that prefer containerized distribution can 
-also follow Docker’s MCP packaging and registry efforts to reduce workstation 
-variance. Meanwhile, Agentgateway offers a single ingress where platform teams 
-can enforce authN/Z, rate limits, and request inspection across heterogeneous 
-agent frameworks while emitting telemetry via OpenTelemetry.
+Cite by Taylor Black, Microsoft
 
-There are notable trade-offs with the registry. Centralized discovery raises 
-questions about curation, governance, and schema drift across public and 
-private sub-registries. During preview, the MCP Registry explicitly makes no 
-durability guarantees and may ship breaking changes, so client code should be 
-defensive. The MCP roadmap calls the registry an API substrate that third-party 
-marketplaces can build on, which implies tighter versioning guarantees, richer 
-metadata, and standardized hooks for provenance and policy.
+> ... APIs, servers, extensions don't gain momentum by existing;
+> they gain it by being locatable and trusted (discovery)..."
 
-Agentgateway is also early in its Foundation lifecycle; operators will need to 
-validate performance, protocol coverage, and the maturity of RBAC and auditing 
-in their environments before relying on it for broad policy enforcement. On the 
-gateway side, the Foundation highlights alignment with community specifications 
-(A2A, MCP) and a path toward neutral, vendor-agnostic governance; integrations 
-and production hardening should accelerate as more contributors join.
+- near-term flow: MCP clients can query the registry API, filter by
+  capability or policy, then install servers without copying manifests
+  by hand.
 
-“Agentgateway is the first and only data plane built from the ground up for 
-AI agents,” the Foundation says; combined with MCP’s “open catalog and 
-API,” the two projects sketch a path to safer scale. For developers looking 
-to learn more, they can explore the MCP Registry repository and agentgateway 
-repository.
+- Meanwhile, AgentGateway offers a single ingress where platform teams
+  can enforce authN/Z, rate limits (Denial-of-Service and resource
+  exhaustion prevention), and request inspection across heterogeneous
+  agent frameworks while emitting telemetry via OpenTelemetry.
+  [[security.101,security.AgentGateway,security.OAuth,security.DoS]]
+
+..  registry (notable) trade-offs:
+
+-  Centralized discovery raises questions about curation, governance, and
+   schema drift across public and private sub-registries.
+
+- MCP Registry preview spec version explicitly makes no durability guarantees
+  and may ship breaking changes, so client code should be defensive.
+
+-third-party marketplaces can offer extended versioning guarantees, richer
+  metadata, standardized hooks for provenance and policy over the
+  MCP Registry standard spec.
+
+- Agentgateway is also early in its Foundation lifecycle.
+  (validation needed on performance, protocol coverage, maturity of RBAC/auditing)
+  before relying on it for broad policy enforcement.
 
 [[agents.MCP}]]
 
-[[{agents.MCP,architecture.A2A.101,PM.TODO]]
-# Agentgateway: Next Generation Agentic Proxy for AI Agents and MCP servers 
+[[{agents.Agentgateway,agents.MCP,agents.A2A.101,PM.TODO]]
+## Agentgateway: Next Generation Agentic Proxy for AI Agents and MCP servers
 
 * <https://github.com/agentgateway/agentgateway>
 * <https://agentgateway.dev/>
 
-- OOSS data plane optimized for agentic AI connectivity within or across
-  any agent framework or environment. 
+- Fisrt and only data plane optimized for agentic AI connectivity within or across
+  any agent framework or environment. [[PM.date.2025.Q3]]
+
+- “Agentgateway is the first and only data plane built from the ground up for
+  AI agents,” ... combined with MCP’s “open catalog and API,” the two projects
+  sketch a path to safer scale.
+
 - Agentgateway provides drop-in security, observability, and governance
   for agent-to-agent and agent-to-tool communication and supports leading
-  interoperable protocols, including Agent2Agent (A2A) and Model Context Protocol (MCP).
+  interoperable protocols, including Agent2Agent (A2A) and MCP.
+
   ```
+  | [[architecture.gateway]]
   |                              ┌·· MCP Server
   |                              ·
   | Agent ···> │AgentGateway│ ··─┼·· (A2A) Agent
   |                              ·
   |                              └·· OpenAPI
-  | 
+  |
   | AgentGateay plays the role of a centralized and secure data plane
-  | for agentic systems. An AI-native proxy intended to govern 
-  | agent-to-agent, agent-to-tool, and agent-to-LLM interactions. 
+  | for agentic systems. An AI-native proxy intended to govern
+  | agent-to-agent, agent-to-tool, and agent-to-LLM interactions.
   | bringing policy and observability where general-purpose API gateways
   | are being stretched.
   ```
@@ -328,8 +336,23 @@ repository.
 - Multi Tenant, each with their own set of resources and users.
 - Dynamic configuration updates via xDS, without any downtime.
 - Run Anywhere: k8s clusters, VMs, Bare Metal, ...
-- Legacy API Support: agentgateway can transform legacy APIs into 
-  MCP resources. Currently supports OpenAPI. (gRPC coming soon)
+- Legacy API Support: agentgateway can transform legacy APIs into
+  MCP resources. Currently supports OpenAPI. (gRPC coming soon) [[standards.OpenAPI,protocol.gRPC]]
+
+### AgentGateway vs AI Gateway
+
+- AI Gateways (OpenRouter, Pydantic Gateway, ...) offers unified interface to multiple
+  (LLM) AI providers with a single key.
+- AgentGateway offers a unified interface to multiple MCPs or OpenAPI tools/resources as well as
+  (A2A) Agents.
+* [[PM.TODO]]
+
+[[{PM.TODO.NOW,doc_has.comparative]]
+### AgentGateway vs MLflow vs LiteLLM vs ...
+
+[[PM.TODO.NOW]]
+[[}]]
+
 [[agents.MCP}]]
 
 
@@ -377,45 +400,51 @@ Streamable HTTP is the preferred transport:
 * Easier to adopt in modern architectures
 
 
-[[{]]
+[[{agents.tool_attention,PM.TODO]]
 ### Tool Attention is All You Need
 
 * <https://arxiv.org/abs/2604.21816>
 
-MCP has become a common interface for connecting LLMs agents to external tools,
-but its reliance on stateless, eager schema injection imposes a hidden 
-per-turn overhead the MCP Tax or Tools Tax that practitioner 
-reports place between roughly 10k and 60k tokens in typical multi-server 
-deployments inflating the key-value cache, ...  reasoning degradation 
-...
-as context utilization approaches published fracture points around 70% [[101]]
-... 
-We introduce Tool Attention, a middleware-layer mechanism that generalizes the 
-"Attention Is All You Need" paradigm from self-attention over tokens to gated 
-attention over tools. [[architecture.middleware]]
+- MCP  reliance on stateless, eager schema injection imposes a hidden
+  per-turn overhead ... with a "Tax" between roughly 10 andk 60k tokens
+ 
+- We introduce Tool Attention, a middleware-layer mechanism that generalizes
+  the "Attention Is All You Need" paradigm from self-attention over tokens 
+  to gated attention over tools. [[architecture.middleware]]
 
 Tool Attention combines:
 
-1. an Intent Schema Overlap (ISO) score from sentence embeddings
+1. an Intent Schema Overlap (ISO) score from sentence embeddings.
 2. a state-aware gating function enforcing preconditions and access scopes, and
 3. a two-phase lazy schema loader that keeps a compact summary pool in context
    and promotes full JSON schemas only for top-k gated tools.
 
-In this simulation, Tool Attention directly reduces measured per-turn tool
-tokens by 95.0% (47.3k -> 2.4k) and raises effective context utilization 
+In simulations Tool Attention directly **reduces measured per-turn tool
+tokens by 95.0**% (47.3k -> 2.4k) and raises effective context utilization
 (a token-ratio quantity) from 24% to 91%.  [[scalability.token_ussage]]
 
- Taken together, the results support a simple thesis: protocol-level 
-efficiency, not raw context length, is a binding constraint on scalable gentic 
-systems.  [[101]]
+ Results support a simple thesis: "protocol-level efficiency", not
+raw context length, is a binding constraint on scalable gentic systems.
 
 **WARN**: Comment on Linked-in about the paper by Vitaliy Stepanov:
 
-> Right direction, but production version needs cache eviction policies you 
+> Right direction, but production version needs cache eviction policies you
 > can reason about.
 > Lazy schema loading helps until your top-N tools shift mid-task and you
 > start paying the loading cost on every turn anyway.
-> Worth reading alongside Anthropic's MCP tool search work 
+> Worth reading alongside Anthropic's MCP tool search work
 > (different mechanisms, same problem).
 
+[[agents.tool_attention}]]
+
+
+## MCP Alternatives
+
+* Alternative to MCP include OpenAI's Operator and "powerful" LLMs
+able to interpret the OpenAPI YAML embedded in a prompt, ...
+
+
+
 [[}]]
+
+[[agents.MCP}]]

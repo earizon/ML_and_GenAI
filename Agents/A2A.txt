@@ -1,4 +1,4 @@
-[[{agents.A2A,PM.TODO]]
+[[{agents.A2A,PM.TODO.NOW,PM.TODO.@ma]]
 ## Agent2Agent (A2A) protocol
 
 * <https://github.com/google/A2A>
@@ -10,15 +10,324 @@
   capabilities and negotiate how they will interact with users (via text, forms, or
   bidirectional audio/video), all while working securely together.
 
-### A2A Specs.
+### A2A Specs
 
 * <https://a2a-protocol.org/latest/specification/>
 
-
-## TODO:
+## TODO
 
 * <https://www.confluent.io/blog/google-agent2agent-protocol-needs-kafka/>
 
 
+## A2A v1.0 concepts summary:
+
+- A2A `Agent skills`: Define what the agent do. Attributes (defined in a2a.types) include:
+  - id          : A unique identifier for the skill.
+  - name        : A human-readable name.
+  - description : A more detailed explanation of what the skill does.
+  - tags        : Keywords for **categorization and discovery**. [[agents.discovery]]
+  - examples    : Sample prompts or use cases.
+  - input_modes/
+    output_modes: Supported Media Types for inputs/outputs (e.g., "text/plain", "application/json").
+  - security_requirements: Security schemes necessary for this skill.  [[security.*]]
+
+- `Agent Card`  :<br/>
+  - JSON document allowing other agents or clients to find out the 
+    agent and its skills (capabilities).
+  - Exposed through `.well-known/agent-card.json` HTTP endpoint path 
+    relative to a given URL like `https://myagent.mycomp.com/`.
+  - Other agents can access the Card directly (if the know the the 
+    URL (hardcoded or injecting through configuration parameters)
+
+   a well known URL or
+   by querying an intermediate registry ("Find an agent with some given skill/s").
+
+ It's like a digital business card for the agent.
+
+Key attributes of an AgentCard (defined in a2a.types):
+
+name, description, version: Basic identity information.
+supported_interfaces: Ordered list of endpoints and protocols where the A2A service can be reached.
+capabilities: Supported A2A features like streaming or extended_agent_card.
+default_input_modes / default_output_modes: Default Media Types for the agent.
+skills: A list of AgentSkill objects that the agent offers.
+The helloworld example defines its Agent Card like this:
+
+
+# Define a public-facing agent card that allows clients to discover your agent's capabilities.
+public_agent_card = AgentCard(
+    # Basic identity information of A2A server
+    name='Hello World Agent',  # Identity
+    description='Just a hello world agent',
+    version='0.0.1',
+    # Default Media Types for the agent's interactions
+    default_input_modes=['text/plain'],  # Supported media types
+    default_output_modes=['text/plain'],
+    # Supported A2A features (like streaming or extended config)
+    capabilities=AgentCapabilities(streaming=True, extended_agent_card=True),
+    # Ordered list of endpoints and protocols where the service can be reached
+    supported_interfaces=[
+        AgentInterface(
+            protocol_binding='JSONRPC',
+            url='http://127.0.0.1:9999',
+        )
+    ],
+    # The list of AgentSkill objects that this agent offers
+    skills=[skill],
+    # Optional attributes (omitted here for simplicity):
+    # icon_url                         -> A URL to an icon representing the agent
+)
+This card tells us the agent is named "Hello World Agent", can be run at http://127.0.0.1:9999/, supports text interactions, and has the hello_world skill.
+
+-          `Message`
+-             `Task`
+-     `unified Part`
+-         `Artifact`
+-        `contextId`
+-           `taskId`
+- `referenceTaskIds`
+- streaming artifact/status events
+-   `Agent security`
+  
+... Agents expose capabilities through A2A Agent Cards and skills
+
+## a2a.proto (summary)
+
+```
+// source https://raw.githubusercontent.com/a2aproject/A2A/refs/heads/main/specification/a2a.proto
+// Provides operations for interacting with agents using the A2A protocol.
+service A2AService
+  rpc          SendMessage(SendMessageRequest) returns (SendMessageResponse) { // client -> A
+  rpc SendStreamingMessage(SendMessageRequest) returns (stream StreamResponse) // client -> A, allow RT interac/State update
+  rpc       ListTasks(ListTasksRequest) returns (ListTasksResponse)
+  rpc         GetTask(GetTaskRequest) returns (Task) { // Gets latest state of task.
+  rpc      CancelTask(CancelTaskRequest) returns (Task)
+
+  // TIP: `taskPushNotificationConfig` (method SendMessageConfiguration) can configure asynchronous task updates.
+  // [[PM.TODO]] Recheck the full subscribe to task process and details
+  rpc SubscribeToTask(SubscribeToTaskRequest) returns (stream StreamResponse) // (fail if task in terminal state)
+  rpc CreateTaskPushNotificationConfig(TaskPushNotificationConfig) returns (TaskPushNotificationConfig) // + TaskPushNotificationConfig for task.
+  // Gets a push notification config for a task.
+  rpc GetTaskPushNotificationConfig(GetTaskPushNotificationConfigRequest)
+      returns (TaskPushNotificationConfig)
+  // Get a list of push notifications configured for a task.
+  rpc ListTaskPushNotificationConfigs(ListTaskPushNotificationConfigsRequest)
+      returns (ListTaskPushNotificationConfigsResponse)
+  rpc GetExtendedAgentCard(GetExtendedAgentCardRequest) returns (AgentCard) // Gets extended-agent-card for the Auth. agent.
+  rpc DeleteTaskPushNotificationConfig(DeleteTaskPushNotificationConfigRequest) // Deletes push not. config for a task.
+      returns (google.protobuf.Empty)
+
+
+message SendMessageConfiguration { // Configuration of a send message request.
+  repeated string accepted_output_modes // list of media types supported by client for response parts.
+
+  TaskPushNotificationConfig task_push_notification_config
+
+  optional int32 history_length // most recent msgs from task's history, unset => no limit, 0 => do not include any messages.
+  // true   => Op. returns immediately after creating the task, even if processing is still in progress.
+  // false  => operation MUST wait until the task reaches COMPLETED|FAILED|CANCELED|REJECTED terminal state (or interrupted)
+  // ( INPUT_REQUIRED ,  AUTH_REQUIRED ) state before returning.
+  bool return_immediatel
+
+// Task: Core unit of action for A2A.
+ It has a current status
+// and when results are created for the task they are stored in the
+// artifact. If there are multiple turns for a task, these are stored in
+// history.
+message Task
+  string id // UUID (generated by the server)
+  string context_id // UUID used to related tasks <-> messages.
+  TaskStatus status // **CURRENT** status ==(state, message)
+  repeated Artifact artifacts; // TIP: repeated => set of.
+  repeated Message;
+  google.protobuf.Struct metadata //  key/value object with custom metadata
+
+enum TaskState
+  TASK_STATE_UNSPECIFIED
+  TASK_STATE_SUBMITTED           // task submitted and ACKNOWLEDGED.
+  TASK_STATE_WORKING             // Actively being processed by the agent.
+  TASK_STATE_COMPLETED           // OK terminal state.
+  TASK_STATE_FAILED              // KO terminal state.
+  TASK_STATE_CANCELED            // KO terminal state.
+  TASK_STATE_INPUT_REQUIRED      // interrupted state.
+  TASK_STATE_REJECTED            // KO terminal state. (rejected by agent)
+    TASK_STATE_AUTH_REQUIRED     // interrupted state.
+
+message TaskStatus { // A container for the status of a task
+  TaskState state
+  Message message // A message associated with the status.
+  google.protobuf.Timestamp timestamp
+
+// textual|image|video|...|structured data blob (JSON, ...).
+message Part /* data container */ // string text | bytes raw | string url | google.protobuf.Value data
+  + google.protobuf.Struct metadata // Metadata associated with this part.
+  + filename       // optional
+  string media_type
+
+enum Role  // ROLE_UNSPECIFIED | ROLE_USER | ROLE_AGENT
+
+// It can associated with a context and/or a task.
+// For server messages:
+// - context_id  must be provided,
+// - task_id   must be provided if a task was created.
+// For client messages:
+// - context_id  optional
+// - task_id     optional (if provided server will infer the context_id)
+message Message { // unit of communication between client <-> server
+  string message_id // UUID created by message creator
+  string context_id // Optional. Links message with context.
+  string task_id    // Optional. Links message with task.
+  Role role
+  repeated Part parts // message
+  google.protobuf.Struct metadata // Optional.
+  repeated string extensions // URIs of extensions present or contributed to this Message.
+  repeated string reference_task_ids  // Optional. (additional context)
+
+message Artifact { // == task outputs
+  string artifact_id // UUID (unique within a task)
+  string name // human readable
+  string description // Optional.
+  repeated Part parts // The content of the artifact. Must contain at least one part.
+  google.protobuf.Struct metadata // Optional.
+  repeated string extensions // URIs of extensions present or contributed to this Artifact.
+
+message TaskStatusUpdateEvent { // event sent by agent to notify the client of a change in a task's status.
+  string task_id
+  string context_id
+  TaskStatus status // new status of the task.
+  google.protobuf.Struct metadata  // Optional.
+
+message TaskArtifactUpdateEvent { // == task delta (artifact generated|updated)
+  string task_id
+  string context_id
+  Artifact artifact // artifact generated|updated.
+  bool append
+  bool last_chunk
+  google.protobuf.Struct metadata      // opt
+
+message AuthenticationInfo { // AAA details, used in push notifications.
+  string scheme //Bearer, Basic, Digest, ...
+  string credentials // Format depends on scheme
+
+
+
+message AgentInterface {   // Declares how to interact with the agent.
+  string url
+  string protocol_binding
+  string tenant              // TIP: tenant is an opaque (to the protocol) identifier.
+  string protocol_version
+
+message AgentCard { // self-describing manifest with essential metadata i
+  string name
+  string description
+  repeated AgentInterface supported_interfaces
+  AgentProvider provider // The service provider of the agent.
+  string version
+  optional string documentation_url
+  AgentCapabilities capabilities // A2A Capability set supported by the agent.
+  map<string, SecurityScheme> security_schemes       // AAA
+  repeated SecurityRequirement security_requirements // AAA
+  repeated string default_input_modes // Defined as media types, can be overridden per skill
+  repeated string default_output_modes // Defined as media types
+  repeated AgentSkill skills // "verbs" or "actions" supported by the Agent
+  repeated AgentCardSignature signatures // JSON Web Signatures computed for this AgentCard
+  optional string icon_url
+
+// Represents the service provider of an agent.
+message AgentProvider
+  string url // URL for agent provider's website or relevant documentation.
+  string organization // Example: "Google"
+
+// Defines optional capabilities supported by an agent.
+message AgentCapabilities
+  optional bool streaming
+  optional bool push_notifications  // WARN: Push_notifications is optional => but required if we want
+                                    //       to use an Agent -> |queue| -> ... architecture
+  repeated AgentExtension extensions
+  optional bool extended_agent_card  // [[PM.TODO]]  Recheck extended_agent_card
+
+message AgentExtension
+  string uri
+  string description
+  bool required // true => client must understand and comply with it
+  google.protobuf.Struct params
+
+message AgentSkill
+  string id
+  string name
+  string description
+  repeated string tags
+  repeated string examples
+  repeated string input_modes  // media types
+  repeated string output_modes // media types
+  repeated SecurityRequirement security_requirements
+
+message AgentCardSignature // JWS signature of an AgentCard.
+  string protected
+  string signature
+  google.protobuf.Struct header
+
+message TaskPushNotificationConfig // Data container: links task with push-not-config
+  string tenant
+  string id
+  string task_id
+  string url
+  string token
+  AuthenticationInfo authentication
+
+message StringList
+  repeated string list // The individual string values.
+
+message SecurityRequirement // requirements for agent.
+  map<string, StringList> schemes
+
+message SecurityScheme := APIKey |HTTPAuth |OAuth2 |OpenId |MutualTls
+
+// NOTE: SendMessageRequest is the primary operation for initiating agent interactions.
+//      It may return a Task or a direct Message response
+message SendMessageRequest // request for SendMessage  method.
+  string tenant
+  Message message
+  SendMessageConfiguration configuration
+  google.protobuf.Struct metadata
+
+message GetTaskRequest // (string tenant, string id, optional int32 history_length)
+
+message ListTasksRequest // Params. for listing tasks with (opt) filtering criteria.
+  (string tenant, string context_id, TaskState status
+   optional int32 page_size, string page_token,
+  optional int32 history_length
+  google.protobuf.Timestamp status_timestamp_after
+  optional bool include_artifacts)
+
+message ListTasksResponse // Task tasks, string next_page_token, int32 page_size, int32 total_size
+
+message CancelTaskRequest // (tenant, id, metadata)
+
+message (Get|Delete)TaskPushNotificationConfigRequest // ( tenant, task_id, id)
+
+message SubscribeToTaskRequest // (tenant, id)
+
+// Represents a request for the  ListTaskPushNotificationConfigs  method.
+message ListTaskPushNotificationConfigsRequest // (tenant, task_id, page_size, page_token)
+  
+message GetExtendedAgentCardRequest // string tenant => Extended is extended by/for tenant
+
+message SendMessageResponse // Task | Message
+
+
+message StreamResponse // wrapper for  Task | Message | TaskStatusUpdateEvent | TaskArtifactUpdateEvent 
+
+// Represents a successful response for the  ListTaskPushNotificationConfigs
+// method.
+message ListTaskPushNotificationConfigsResponse
+  // The list of push notification configurations.
+  repeated TaskPushNotificationConfig configs
+  // A token to retrieve the next page of results, or empty if there are no more results in the list.
+  string next_page_token
+
+
+Task -> 1+ Artifacts
+```
 
 [[agents.A2A}]]

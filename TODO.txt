@@ -341,10 +341,9 @@ Lectures      : https://lnkd.in/gKS74pzh
           Code: https://lnkd.in/giUvF4hDImages
 [[}]]
 
-[[{doc_has.externalresouce,PM.101?]]
+[[{doc_has.externalresouce,101,PM.TODO]]
 * <http://neuralnetworksanddeeplearning.com/>
 * <https://cola.github.io/posts/2014-03-NN-Manifolds-Topology>
-* <https://distill.pub/>
 * <https://distill.pub/2017/momentum/>
 [[doc_has.externalresouce}]]
 
@@ -798,7 +797,7 @@ perfectionistic curation of our web data.
 
 [[architecture.transformers.MoE}]]
 
-[[{sector.entertainment]]
+[[{]]
 ## Microfilms
 
 * <https://www.youtube.com/watch?v=ChRuH0F678A&t=104s>
@@ -814,7 +813,7 @@ He uses:
 - Midjourney for stills.
 - Cling for motion. [[use_case.video_production]]
 - Suno for music.   [[use_case.music_composition]]
-[[sector.entertainment}]]
+[[}]]
 
 [[{architecture.IoT,architecture.mobile,dev_stack.android,dev_stack.iOS]]
 ## ML Kit
@@ -1865,5 +1864,183 @@ for ratings and recommendations on the questions """ - James Hargis [[prompting.
 
 - <https://github.com/stanford-oval/storm>
 [[}]]
+
+[[{scalability.101,hardware.nvidia]]
+## WarpGroup-Backend: C++ backend to improve GPU performance
+
+By Anubhab Banerjee, [[PM.year.2026]]
+
+* <https://towardsdatascience.com/i-built-a-c-backend-so-my-gpu-would-stop-eating-air/>
+* <https://github.com/AnubhabBanerjee/WarpGroup-backend.git>
+
+TL;DR: Standard LLM batching pads short sequences with zeros so they 
+match the longest one. Your GPU then dutifully performs billions of 
+multiplications on those zeros, .... WarpGroup-Backend replaces 
+this with a small C++ engine that crams variable-length sequences 
+together like a very anxious Tetris champion. 
+
+- 2.08x throughput on an H100.
+- 5.89x on a GTX 1080.  (the smaller your hardware, the worse padding hurts)
+- Zero OOM crashes. 
+
+(... GPU bin packing is shockingly close to what the MAC scheduler in your phone has been doing for two decades...)
+
+1. A confession: most of your GPU's “work” is fake
+
+...Variable-length data + rectangular tensors = your GPU getting paid by the hour to do pretend work.
+
+2. Why does padding exist at all? 
+
+... GPU loves rectangles. ... matrices where every row is the same length
+because that lets it run thousands of identical math operations in parallel.
+
+Text is not a rectangle. tweet is 12 tokens. legal contract is 4,000.
+
+... f you want to feed 8 of them at once through a transformer, you have two options:
+
+1. Pad them all to the longest one with a <pad> token.  ... your code is simple, and
+   your GPU now spends most of its time multiplying zero by another zero. (HuggingFace’s default.)
+2. Concatenate them into one long 1-D ribbon and tell the attention kernel
+   "hey, please don’t let token 12 talk to token 4001, they’re from different documents."
+   (variable-length attention, and it’s what FlashAttention-2’s flash_attn_varlen_func exists to do).
+   - already in place for production **inference** stacks (vLLM, TensorRT-LLM, SGLang, FlashInfer, TGI internals)
+
+The hard part: (the part everyone keeps re-implementing in slightly different shapes):
+- organizing the ribbon (keep the GPU saturated and the host-side overhead invisible):
+  1. which documents go in which batch.
+  2. in what order.
+  3. up to what total length.
+ 
+WarpGroup-Backend (C++) is the annoying-organizer half of that equation.
+
+pakc your queue of variable-length sequences into bins ... 
+Each bin with up to N tokens total. 
+... then ship the whole bin to the GPU as one flat ribbon.
+(classic bin-packing problem)
+
+- How big should the bin be?
+
+... practical heuristic ... GPU kernels (including FlashAttention-2)
+tend to hit best efficiency when sequence-related dimensions are multiples
+of 16 (sometimes 8, depending on dtype and arch). 
+So we round every sequence length up: 137 → 144, 200 → 
+208.
+
+This is the silliest part of the whole exercise and yet ignoring it leaves measurable throughput on the floor.
+Problem C: Python is too slow to do this in the hot loop
+
+4. The five-phase pipeline (the actually-cool part)
+
+- Phase 0: Empirically measure how much VRAM the model has left. (Python)
+- Phase 1: Tokenize text and yeet integers across the C++ border. (Python → C++)
+- Phase 2: Catch yeets in a thread-safe queue with no GIL drama. (C++ async dispatcher)
+- Phase 3: Sort, align, and Tetris them into 1-D bins. (C++ bin packer)
+           ("the heart of the whole project" ...  Everything else, the C++ threads, the
+            pinned memory, the GIL gymnastics — exists to feed the 30-line loop and to
+            deliver its output to the GPU in a single async DMA with no extra host-side copies.)
+- Phase 4: Hand bins to the GPU via pinned-memory async DMA. (C++ memory pool, one DMA, no extra copies
+           ussing pinned memory )
+- Phase 5: FlashAttention-2 enjoys its zero-padding lunch. (PyTorch)
+
+5. The receipts (i.e., the numbers)
+
+
+- vLLM / continuous batching is optimized for decode-time serving:<br/>
+  many concurrent requests at different generation steps, schedule the
+  next token across them, keep the GPU saturated under streaming load. 
+  Its headline primitive is paged attention — a KV-cache memory manager 
+  that pages physically non-contiguous blocks like an OS pagetable.   [[mlops.vLLM]]
+- TensorRT-LLM, SGLang, FlashInfer all support variants of varlen attention. 
+  Their packing logic typically lives inside a serving runtime tuned for live,
+  latency-sensitive request streams.  [[mlops.TensorRT_LLM,mlops.SGLang,mlops.FlashInfer]]
+- WarpGroup-Backend targets the other half of the workload spectrum: 
+   - offline / high-throughput, prefill-style jobs. Document evaluation,
+     RAG indexing, batched embedding extraction, batched OAM-log summarization,
+     bulk classification, eval harnesses. 
+   - The unit of work is a finite corpus of variable-length sequences, not a
+     streaming firehose of decode requests.
+   - The focus is host-side packing density, GIL-free async dispatch, and a 
+     tight pinned-memory handoff — not KV-cache paging. [[mlops.WarpGroup]]
+
+Think of it this way:
+- vLLM is a restaurant manager seating arriving diners across tables in real time.
+- WarpGroup is a catering operation packing the day’s box lunches into delivery
+  vans before the trucks leave the depot.
+- Different problems, complementary primitives, frequently co-deployable in the same building.
+
+
+You will need:
+
+- Linux, CUDA toolkit, an NVIDIA GPU (consumer or datacenter, both work).
+- A PyTorch build with CUDA support (don’t ship the CPU-only one and then act surprised when nothing accelerates).
+- An LLM that supports flash_attention_2 (Qwen2.5, Llama-3, Mistral, SmolLM2, etc.). [[mlops.flash_attention_2,mlops.deployment]]
+
+Look at this side-by-side and tell me with a straight face these are different problems:
+
+
+A quick aside to two very different audiences
+
+To my HPC and CUDA-first friends reading this: I know. You’ve been 
+doing exactly this since the first GPGPU papers landed in 2003. Bin 
+packing is a freshman algorithms class, cudaHostAlloc is in every 
+CUDA tutorial, and pinned memory is — for you — basically a 
+personality trait. None of this is news. Please put the pitchforks 
+down.
+
+But it is news for telecom engineers, and that’s half the reason 
+this article exists. For twenty years our world was FPGAs, ASICs, and 
+PRBs. We optimized spectrum, not silicon. Ask the average RAN 
+engineer to explain Tensor Core tile alignment and you’ll get a 
+polite stare
+
+- MEC has tiny GPUs. Multi-access Edge Compute nodes at the gNB / UPF 
+  tier don’t get to play with 8× H100 racks. They get one L4, maybe 
+  an A10, maybe a single H100 if procurement was in a good mood. 
+- Squeezing 2–6× more throughput out of a single edge GPU is the 
+  difference between “AI features available at the edge” and “AI 
+  features only at the core DC, plus 30 ms of extra round-trip.” That 
+  gap is exactly where URLLC-class applications live or die.
+
+
+   Default batching is a polite lie. “batch_size = 8” tells you nothing 
+about how full your GPU is.  The correct unit is tokens in VRAM, and
+you have to measure it because no library will tell you the truth.
+The day you start thinking in tokens-per-bin instead of items-per-batch is the day your throughput graph stops embarrassing you.
+
+... The expensive parts of an LLM pipeline are not the matrix multiplies 
+- those have been hand-optimized by NVIDIA engineers -
+  The expensive parts are the transitions: 
+- tokens-to-tensors.
+- host-to-device.
+- Python-to-C++.
+- scheduler-to-GPU.
+- Almost every “Wait, I made it 2× faster” story in modern ML is a boundary story.  [[architecture.101]]
+
+- Sometimes Python can absolutely coordinate high-performance inference systems — vLLM proves it every day-
+  but moving the hot-path packing loop into a background C++ thread sheds two specific Python-side costs
+  that bite under load:
+  - GIL contention with the ingest thread.
+  - interpreter + allocator overhead in a tight scheduling loop where every microsecond is part of the budget.
+
+- The right Python / C++ ratio for high-throughput inference infra 
+  isn’t 100/0 or 0/100 — it’s a thin, well-defined PyBind11 
+  boundary with the latency-critical scheduler on the C++ side and all 
+  the interesting stuff (model code, business logic, glue) on the 
+  Python side. WarpGroup is ~64% Python, ~30% C++, ~5% build glue. That 
+  ratio is not an accident.
+
+Next steps ... 
+
+Extend the dispatcher to manage multiple C++ queues and distribute dynamically sized bins 
+across local interconnects (NVLink / PCIe). 
+[[scalability.101}]]
+
+[[{security.honeypot]]
+## Idea: Honey pot as guardrail for AI agents.
+
+We leave fake files, bank accounts, fake profiles or APIs that must 
+never be written to and check if the agent actually wrote to.
+
+[[security.honeypot}]]
 
 

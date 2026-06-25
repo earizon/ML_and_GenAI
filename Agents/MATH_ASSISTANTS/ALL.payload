@@ -1,0 +1,10 @@
+leanstral_coding_agent.txt
+# https://github.com/ulamai/ulamai         # OOSS Lean theorem prover and formalizer
+# https://axiommath.ai/                    # AXLE: Test verify_proof, extract theorems, and experiment with proof transformations in seconds
+# https://www.math.inc/                    # Introducing Gauss, an agent for autoformalization
+#                                          # "Wiles'famous proof touches algebraic number theory, elliptic curves, modular forms, Galois representations,
+#                                          # algebraic geometry .. most absent from any formal library. Formalizing it means building foundations that
+#                                          # future work across the Langlands program will depend on.
+#                                          # The bottleneck in formal mathematics has shifted:
+#                                          # - From producing proofs to organizing, integrating, and maintaining them at scale.
+#                                          # - These project are where that engineering discipline gets built.

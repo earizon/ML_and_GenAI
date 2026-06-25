@@ -1,0 +1,18 @@
+[[{]]
+## Skyvern: Browser-based bot workflows
+
+- <https://github.com/Skyvern-AI/skyvern>
+
+- browser-based workflows using LLMs and computer vision. 
+- Playwright-compatible SDK.
+- It adds AI functionality on top of playwright, as well as
+  a no-code workflow builder to help both technical and 
+  non-technical users automate manual workflows on any 
+  website, replacing brittle or unreliable automation solutions.
+
+- Skyvern uses a swarm of agents to comprehend a website, plan and execute its actions
+  allowing to operate on websites it's never seen before.
+- Skyvern is able to take a single workflow and apply it to a large number
+  of websites, as it's able to reason through the interactions necessary to
+  complete the workflow A detailed technical report can be found here.
+[[}]]

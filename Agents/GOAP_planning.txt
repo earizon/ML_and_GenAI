@@ -1,0 +1,39 @@
+[[{agents.planning.GOAP]]
+## Goal Oriented Action Planner (GOAP)
+
+* <https://cdn.aaai.org/ojs/18909/18909-52-22675-1-2-20211004.pdf>
+
+* Used for example by Embabel <https://github.com/embabel/embabel-agent/>
+
+""" We believe that to achieve truly be␂lievable 
+character-interactions between non-playable charac␂ters, 
+real(non-scripted) communication between the agents is the key. We 
+will introduce our multi-agent cooperation system where each AI-agent 
+thinks for itself and communi␂cates with the other agents to 
+cooperate and achieves complex goals.
+
+Following our research on char␂acter interaction in games(Boeda 
+2019b,a, 2018), we be␂lieve that to achieve truly believable and 
+lively non-playable characters, real communications between the 
+agents is the key to share knowledge and organize themselves 
+naturally and smartly.
+
+...
+
+we are able to achieve multi-agent cooperation without commander-like 
+entity, where each agent has its own abilities, memory, and decision 
+making systems.
+(This is in clear contrast to BIG LLMs orchestrating the full
+planning).
+
+Conclusion:
+
+ Thanks to our GOAP cooperation system with our messag␂ing system, 
+our characters are able to cooperate together to achieve complex 
+goals. Despite not having much knowledge about what can do the other 
+characters, they are able to plan for a potential cooperation plan. 
+Then they are able to ex␂plore the world and communicate with the 
+different char␂acters to find a character that can do and accept 
+the coop␂eration request.
+
+[[agents.planning.GOAP}]]

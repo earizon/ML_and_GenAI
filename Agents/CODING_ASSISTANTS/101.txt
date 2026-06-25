@@ -1,0 +1,11 @@
+[[{agents.coding_assistant]]
+
+# Coding Assistants 101
+
+## DeepWiki: Think Deep Research for GitHub
+
+- <https://deepwiki.com/>
+
+- High quality AI generated documentation for major OOSS projects hosted in Github.
+
+[[agents.coding_assistant}]]

@@ -10,17 +10,22 @@
   - vector searches.
   - business logic.
   - JS/TS frontend.
-- MCP Server support.
-- Integrated Evaluation Framework: Use Pydantic Evals to continuously evaluate LLM outputs in production. [[qa.prompting]]
-  - Curate datasets from production traces and catch regressions before users do. [[qa.best_patterns]]
+- MCP Server support. [[agents.MCP]]
+- Integrated Evaluation Framework: 
+  - Use Pydantic Evals to continuously evaluate LLM outputs in production.
+    [[qa.prompting,qa.evaluation,qa.101]]
+  - Curate datasets from production traces and catch regressions before users do. 
+    [[qa.best_patterns]]
 - Real-Time Cost Tracking:
   - Identify expensive prompts [[PM.price.control]]
   - optimize model selection.
-  - set budget alerts.
+  - set budget alerts. [[mlops.monitoring.tokens]]
   - See exactly where your AI spending goes. [[profiling.tokens]]
-- Pydantic AI & AI Gateway Integration: 
-  - Natively integrates with Pydantic AI and Pydantic AI Gateway for model routing & budget control across all major LLM providers.
+- Pydantic AI & AI Gateway Integration:
+  - Natively integrates with Pydantic AI and Pydantic AI Gateway
+    for model routing & budget control across all major LLM providers.
 
 - First-Party SDKs for Python, JS/TS, Rust:
-- Query Your Data with SQL: Drill down into your traces with SQL and use Natural Language Processing (NLP) to auto-generate your SQL queries. 
+- Query Your Data with SQL:
+  - Drill down into your traces with SQL and use Natural Language Processing (NLP) to auto-generate your SQL queries. 
 [[mlops.observability,mlops.logfire}]]

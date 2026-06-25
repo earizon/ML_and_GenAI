@@ -1,0 +1,8 @@
+# https://medium.com/@uk89564522/best-5-ai-agents-for-chemists-tools-that-think-like-scientists-90eeef292425
+# 
+# - C&P from
+#   https://developers.googleblog.com/how-a2a-is-building-a-world-of-collaborative-agents/
+#   Predicting Protein's 3D structure: Foldrun standalone Agentic A2A interface
+#   ...  Foldrun manages the long-running, autonomous tasks that require dynamic 
+#   decision-making—like adjusting parameters based on prediction confidence and 
+#   choosing between AlphaFold 2, OpenFold 3, or Boltz-2 depending on the molecule.

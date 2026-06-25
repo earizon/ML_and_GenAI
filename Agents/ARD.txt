@@ -1,0 +1,48 @@
+[[{agents.ARD]]
+# Agent Resource Discovery (ARD)
+
+Extracted from  <https://developers.googleblog.com/announcing-the-agentic-resource-discovery-specification/>
+
+ ...open specification for publishing, discovering and verifying
+tools, skills, and agents across the Word Wide Web.
+[[agents.discovery.tools,agents.discovery.skills,agents.discovery]]
+
+For this ecosystem to scale, agents need reliable answers to three 
+questions: 
+
+- Where does the right capability live?
+- Which capability should I actually use?
+- And how do I verify it's safe to connect to?
+
+.. While many platforms already feature custom registries to manage 
+these capabilities, they remain fragmented and siloed within specific 
+ecosystems. 
+
+ARD standardizes:
+- how capabilities are published under an organization's own domain name.
+- how capabilities are indexed across federated registries.
+
+ARD primitives:
+- catalogs  : organization publishes a catalog describing 
+  its available capabilities, hosted directly under the 
+  organization's own domain. (https://.../.well-known/ai-catalog.json)
+  - Ownership of that domain serves as the cryptographic 
+    foundation for identity and trust.
+  - The catalog describe:
+    - MCP servers,
+    - A2A agents,
+    - OpenAPI tools,
+    - nested catalogs.
+    - ...
+ 
+- registries: "search engines" for the agentic web. 
+  - crawl and index public catalogs and expose a search interface.
+  - When an agent submits a discovery request, a registry 
+    returns matching capabilities + security metadata on demand.
+
+- TIP: A client agent can search for or directly download a well-known ai-catalog.json)
+
+... Google Cloud supports this with Agent Registry in Gemini
+Enterprise Agent Platform.
+
+[[agents.ARD}]]
