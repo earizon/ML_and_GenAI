@@ -1,281 +1,193 @@
-[[{mlops]]
+[[{doc_has.comparative,mlops.model_deployment]]
+## LLM Inference backends comparative: llama.cpp vs vLLM vs Transformers vs ...
 
-[[{]]
-# llama.cpp vs vLLM vs Transformers vs ExLlama vs ExLlama2 vs "LLM backends"
+
+
+
+
 
  ```
- |           ┌─············· Training
- |           ·   ┌─········· Fine-tunning
- |           ·   ·  ┌─······ Inference
- |           ·   ·  ·  ┌···· REST API Interface (ex: OpenAPI)
- |           ·   ·  ·  ·  +-----------------------------------------
- | "BACKEND" v   v  v  v  | Notes
- | -----------------------+-----------------------------------------
- | llama.   NO  NO YES YES| - focus on CPU/local inference (vs server)
- |   .cpp³                | 
- |                        | 
- |                        | - Plain C/C++ implementation without
- |                        | - ollama runs on top of it. ¹
- |                        | - llama.cpp itself runs on top of  ggml. ²
- |                        | - minimal setup
- |                        | - OpenAI, Anthropic Messages REST API, 
- |                        |
- |                        | Target: Single User, Local setups
- |                        | One line setup:
- |                        | $ ./llama-cli -m modelXYZ.gguf --interactive
- |                        | (launch web UI like: --port 8080 --host 127.0.0.1)
- |                        | 
- |                        | $ curl http://127.0.0.1:8080/completion
- |                        |   -H "Content-Type: application/json"
- |                        |   -d '{"prompt": "...", "temperature":0.7, "max_tokens":128}
- |                        |
- |                        |
- |                        |
- |                        |  llama.cpp
- |                        |    ·
- |                        |    ·
- |                        |    v
- |                        |   CUDA kernels, Vulkan, 
- |                        |   CPU+GPU hybrid inference,
- |                        |   OpenVINO (Intel GPUs/NPUs)
- |                        |
- |                        |
- | -----------------------+----------------------------------------
- | vLLM     NO  NO YES ?? | High-troughput inference server, scheduler and RLHF
- |                        | - throughput-optimized for server with batched
- |                        |   inference and many concurrent requests.
- |                        | - merges requests dynamically to maximize GPU utilization
- |                        |   (Do not leave "zeros" in GPU matrices)
- |                        | 
- |                        | Depends/Executes on top of PyTorch ang GPU "ecosystem"
- |                        | Scalates in server (many-users) setups
- |                        | Parallel Multi-users
- |                        | 
- |                        | vLLM <·· Inference Server,Scheduler and RLHF
- |                        |  ·       - receives (remote) requests (or sequence group)
- |                        |  ·       - manages scheduling + execution
- |                        |  ·       - (decoding progress, cache blocks)
- |                        |  ·       - stateful
- |                        |  ·       - execution loop "==" scheduler + model runner
- |                        |  ·       - Paged KV cache/Paged Attention
- |                        |  ·         <https://docs.vllm.ai/en/latest/design/paged_attention/>
- |                        |  ·         multi-request memory packing
- |                        |  ·       - Sampler (which token to choose based on LLM logits output)
- |                        |  v
- |                        | PyTorch, CUDA kernels, OpenVINO, ...
- |                        |  ·
- |                        |  v
- |                        | HARDWARE
- | -----------------------+----------------------------------------
- | ExLlama  NO  NO YES ?? | Fast quantized GPU inference
- |                        | Single-node GPU focus
- | -----------------------+----------------------------------------
- | LiteRT   NO  ?? YES YES| Google's production-ready orchestration layer 
- |    -LM                 | for LLMs, engineered for high-performance.
- |                        | <https://github.com/google-ai-edge/LiteRT-LM>
- |                        | - cross-platform C++  (Android/iOS/Web/Desktop/IoT)
- |                        | - CPU, GPU and NPU support [[hardware.GPU,hardware.NPU]]
- |                        |   (Runs Gemma 4 "smoothly" using just CPU "threads")
- |                        | - Optimized for edge (Single non-parallel persistent sessions)
- |                        | - Multimodal support (text/vision/audio)
- |                        | - Tool Support (agentic workflows).
- |                        | - Can Run Gemma 4+, Llama, Phi-4, Qwen, ... using
- |                        | - Smaller model catalog compared to llama.cpp
- |                        | - No support for GGUF, only literlm format.
- |                        | [[architecture.IoT,architecture.mobile,]]
- |                        | [[dev_stack.cross-platform]]
- |                        | 
- |          Application   | <· (MCP-Host, ChatBot, Code Agent, ...)
- |             ·          |   
- |             v          |   
- |          LiteRT‑LM     | <- Orchestration layer, control plane for inference
- |             ·          |   - Owns: sessions, (LLM|Vision|Audio)executors, thread pools
- |             ·          |   - Prefill:
- |             ·          |     - text/vision/audio prompt "ingestion".
- |             ·          |     - prefilling KV cache.
- |             ·          |   - Decoding inference loop, either: 
- |             ·          |     - autoregressive (Token-by-token) or
- |             ·          |     - diffussion based ("emerging tokens")
- |             ·          |   - Session lifecycle.
- |             ·          |   - Explicit KV cache handling.
- |             ·          |     - copying buffers
- |             ·          |     - session isolation
- |             ·          |     - context switching
- |             ·          |         
- |             v          |  
- |          LiteRT runtime| <· "data plane" Deploy NN graph (ops, kernels)
- |             ·          |  
- |             v          |  
- |          Hardware      |    <· Execute kernels
- |          (CPU/GPU/NPU) | 
- | -----------------------+----------------------------------------
- | ExLlama2 NO  NO YES ???|  Optimized GPU inference
- |                        |  Single-node GPU focus
- | -----------------------+-----------------------------------------
- | NVidia   NO  ?? YES ???|  Optimized GPU inference for Nvidia
- |  Tritron               |  
- | -----------------------+-----------------------------------------
+ |                                                           ─┐
+ |  ┌──────────┐      ┌──────────────┐       ┌──────────┐     │
+ |  │ Training │ ···> │Traning       │   ··> │ NN Model ├··┐  │
+ |  │ Data     │      │(+fine-tuning)│       │          │  ·  │
+ |  └──────────┘      └──────────────┘       └──────────┘  ·  │  Training 
+ |                     + HF Transformers                   ·  │  Phase
+ |                     + ...                               ·  │
+ |                                                         ·  │
+ |      ┌─················································─┘  │
+ |      v                                                    ─┘
+ |                                                           ─┐
+ |  ┌──────────────┐     ┌───────────┐     ┌─────────┐        │
+ |  │ Model        │ ··> │ LLM       │ ··> │LLM      ├··┐     │
+ |  │ Optimization │     │ Inference │     │Inference│  ·     │  Model
+ |  │              │     │ Backend   │     │Engine   │  ·     │  Serving
+ |  └──────────────┘     └───────────┘     └─────────┘  ·     │  Phase
+ |                        + decoding     + tensors      ·     │
+ |   + Quantization       + KV cache     + operators    ·     │
+ |   + Kernel Tunning     + batching     + hard.opt.    ·     │
+ |                        + tok.stream                  ·     │
+ |                        + ...                         ·     │
+ |                                                      ·    ─┘
+ |      ┌─·············································─┘
+ |      v
+ |   ┌──────────┐
+ |   │ Hardware │
+ |   └──────────┘
+ |
+ |
+ |                                                                        ┌─········· Training
+ |                                                                        · ┌─······· Fine-tunning
+ |                                                                        · · ┌─····· Inference
+ |          ┌────────────────────────────────────────────────────────────┐· · · ┌···· REST API (ex: OpenAPI)
+ | "BACKEND"│ Notes                                                      │v v v v
+ | ─────────┼────────────────────────────────────────────────────────────┼─┬─┬─┬─┐
+ | llama.   │ + focus on CPU/local inference (vs server)                 │N│N│Y│Y│
+ |   .cpp³  │   Single User, Local setups                                │ │ │ │ │
+ |          │ + Plain C/C++ implementation without                       │ │ │ │ │
+ |          │ + ollama runs on top of it. ¹                              │ │ │ │ │
+ |          │ + llama.cpp itself runs on top of  ggml. ²                 │ │ │ │ │
+ |          │ + minimal setup                                            │ │ │ │ │
+ |          │ + OpenAI, Anthropic Messages REST API,                     │ │ │ │ │
+ |          │                                                            │ │ │ │ │
+ |          │ Target:                                                    │ │ │ │ │
+ |          │ $ ./llama-cli -m modelXYZ.gguf \                           │ │ │ │ │
+ |          │   --interactive \                                          │ │ │ │ │
+ |          │   --port 8080 --host 127.0.0.1 # One line setup            │ │ │ │ │
+ |          │                                                            │ │ │ │ │
+ |          │ (                                                          │ │ │ │ │
+ |          │ cat << EOF                                                 │ │ │ │ │
+ |          │ {"prompt": "...",                                          │ │ │ │ │
+ |          │   "temperature":0.7,                                       │ │ │ │ │
+ |          │   "max_tokens":128}                                        │ │ │ │ │
+ |          │ EOF                                                        │ │ │ │ │
+ |          │ ) │ $ curl http://127.0.0.1:8080/completion                │ │ │ │ │
+ |          │   ─H "Content─Type: application/json" ─d @─                │ │ │ │ │
+ |          │                                                            │ │ │ │ │
+ |          │  llama.cpp                                                 │ │ │ │ │
+ |          │    ·                                                       │ │ │ │ │
+ |          │    ·                                                       │ │ │ │ │
+ |          │    v                                                       │ │ │ │ │
+ |          │   CUDA kernels, Vulkan,                                    │ │ │ │ │
+ |          │   CPU+GPU hybrid inference,                                │ │ │ │ │
+ |          │   OpenVINO (Intel GPUs/NPUs)                               │ │ │ │ │
+ |          │                                                            │ │ │ │ │
+ |          │ NOTE: Ollama is just a front-end wrapper on top of         │ │ │ │ │
+ |          │   llama.cpp **significantly slower due to terrible         │ │ │ │ │
+ |          │   default settings.                                        │ │ │ │ │
+ | ─────────┼────────────────────────────────────────────────────────────┼─┼─┼─┼─┤
+ | vLLM     │ High troughput inference server, scheduler and RLHF        │N│N│Y│Y│
+ |          │ + optimized for server with batched                        │ │ │ │ │
+ |          │   inference and many concurrent requests.                  │ │ │ │ │
+ |          │ + merges requests dynamically to maximize GPU ussage       │ │ │ │ │
+ |          │   (Do not leave "zeros" in GPU matrices)                   │ │ │ │ │
+ |          │                                                            │ │ │ │ │
+ |          │ Scalates in server (many-users) setups                     │ │ │ │ │
+ |          │ Parallel Multi-users                                       │ │ │ │ │
+ |          │                                                            │ │ │ │ │
+ |          │ High-level Archictecture:                                  │ │ │ │ │
+ |          │  │API Server│                                              │ │ │ │ │
+ |          │     ·                                                      │ │ │ │ │
+ |          │     v                                                      │ │ │ │ │
+ |          │                                                            │ │ │ │ │
+ |          │  │vLLM│<· Inference Server,Scheduler and RLHF              │ │ │ │ │
+ |          │    ·      + receives (remote) requests                     │ │ │ │ │
+ |          │    ·      + multi-request memory packing                   │ │ │ │ │
+ |          │    ·      + (decoding progress, cache blocks)              │ │ │ │ │
+ |          │    ·      + exec.loop:                                     │ │ │ │ │
+ |          │    ·        + scheduler: trigger batch execution           │ │ │ │ │
+ |          │    ·        + model runner                                 │ │ │ │ │
+ |          │    ·        + Update Paged KV cache/Paged Attention        │ │ │ │ │
+ |          │    ·      + LLM logits output to token (Sampler)           │ │ │ │ │
+ |          │    v                                                       │ │ │ │ │
+ |          │  │PyTorch, CUDA kernels│                                   │ │ │ │ │
+ |          │  │OpenVINO, ...        │                                   │ │ │ │ │
+ |          │    ·                                                       │ │ │ │ │
+ |          │    v                                                       │ │ │ │ │
+ |          │   HARDWARE                                                 │ │ │ │ │
+ | ─────────┼────────────────────────────────────────────────────────────┼─┼─┼─┼─┤
+ | LiteRT   │ Google's production─ready orchestration layer              │N│N│Y│Y│
+ |    -LM   │ for LLMs, engineered for high─performance.                 │ │ │ │ │
+ |          │ <https://github.com/google─ai─edge/LiteRT─LM>              │ │ │ │ │
+ |          │ + cross-platform C++  (Android/iOS/Web/Desktop/IoT)        │ │ │ │ │
+ |          │ + CPU, GPU and NPU support  [[hardware.NPU]]               │ │ │ │ │
+ |          │   (Gemma 4 runs "smoothly" using CPU)                      │ │ │ │ │
+ |          │ + Optimized for edge (Single non─parallel                  │ │ │ │ │
+ |          │   persistent sessions)                                     │ │ │ │ │
+ |          │ + Multimodal support (text/vision/audio)                   │ │ │ │ │
+ |          │ + Tool Support (agentic workflows).                        │ │ │ │ │
+ |          │ + Can Run Gemma 4+, Llama, Phi─4, Qwen, ... using          │ │ │ │ │
+ |          │ + Smaller model catalog compared to llama.cpp              │ │ │ │ │
+ |          │ + No support for GGUF, only literlm format.                │ │ │ │ │
+ |          │ [[architecture.IoT,architecture.mobile,]]                  │ │ │ │ │
+ |          │ [[dev_stack.cross─platform]]                               │ │ │ │ │
+ |          │                                                            │ │ │ │ │
+ |          │  │IA App│<····· Ex: ChatBot Agent, MCP-Host, ...           │ │ │ │ │
+ |          │     ·                                                      │ │ │ │ │
+ |          │     v                                                      │ │ │ │ │
+ |          │ │LiteRT‑LM│ <·· Orchestration layer for inference          │ │ │ │ │
+ |          │     ·          + Owns: sessions, (LLM│Vis.│Aud)executors,  │ │ │ │ │
+ |          │     ·                  and thread pools                    │ │ │ │ │
+ |          │     ·          + Prefill:                                  │ │ │ │ │
+ |          │     ·            + text/vision/audio prompt "ingestion".   │ │ │ │ │
+ |          │     ·            + KV cache.                               │ │ │ │ │
+ |          │     ·          + Decoding inference loop, either:          │ │ │ │ │
+ |          │     ·            + autoregressive (Token─by─token) or      │ │ │ │ │
+ |          │     ·            + diffussion based ("emerging tokens")    │ │ │ │ │
+ |          │     ·          + Session lifecycle.                        │ │ │ │ │
+ |          │     ·          + Explicit KV cache handling.               │ │ │ │ │
+ |          │     ·            + copying buffers                         │ │ │ │ │
+ |          │     ·            + session isolation                       │ │ │ │ │
+ |          │     ·            + context switching                       │ │ │ │ │
+ |          │     ·                                                      │ │ │ │ │
+ |          │     v                                                      │ │ │ │ │
+ |          │ │LiteRT │ <···· "data plane" Deploy NN graph               │ │ │ │ │
+ |          │ │rutnime│       (ops, kernels)                             │ │ │ │ │
+ |          │     ·                                                      │ │ │ │ │
+ |          │     v                                                      │ │ │ │ │
+ |          │  Hardware       <· Execute kernels                         │ │ │ │ │
+ |          │  (CPU/GPU/NPU)                                             │ │ │ │ │
+ | ─────────┼────────────────────────────────────────────────────────────┼─┼─┼─┼─┤
+ | ExLlamav2│ Fast quantized GPU inference for moderm                    │N│N│Y│Y│
+ |          │ Single-node consumer (vs Datacenter) GPUs                  │ │ │ │ │
+ | ─────────┼────────────────────────────────────────────────────────────┼─┼─┼─┼─┤
+ | NVidia   │  Optimized GPU inference for Nvidia                        │N│N│Y│Y│
+ |  Triton  │                                                            │ │ │ │ │
+ |          │ │Triton │                                                  │ │ │ │ │
+ |          │     ·                                                      │ │ │ │ │
+ |          │     ·                                                      │ │ │ │ │
+ |          │     ·                                                      │ │ │ │ │
+ |          │     v                                                      │ │ │ │ │
+ |          │ │Tritron│ <···· NVidia TensorRT, TensorFlow,               │ │ │ │ │
+ |          │ │rutnime│       PyTorch, ONNX, custom backends             │ │ │ │ │
+ | ─────────┼────────────────────────────────────────────────────────────┼─┼─┼─┼─┤
+ | Transformers (by Hugging Face)                                        │Y│Y│Y│N│
+ |          │ + Focus on training/fine-tunning on GPU (vs inference      │ │ │ │ │
+ |          │   or model serving)                                        │ │ │ │ │
+ |          │ + Monstly use through its Python API                       │ │ │ │ │
+ |          │ + integration with the Hugging Face Hub                    │ │ │ │ │
+ |          │ + "go-to" for traing and fine-tuning.                      │ │ │ │ │
+ | ─────────┴────────────────────────────────────────────────────────────┴─┴─┴─┴─┘
  |
  | ¹ as of 2025, llama.cpp does not need the ollama to run.
  |   (REF: <https://itsfoss.com/llama-cpp/> )
  |   ollama is just a "bloated" wrapper on top of llama.cpp (Recheck this claim)
- | ² ggml is a general purpose inference library, valid for other 
- |   deep-learning architectures not related to GPT/LLM, for example whispper 
+ | ² ggml is a general purpose inference library, valid for other
+ |   deep-learning architectures not related to GPT/LLM, for example whispper
  |   (speech-to-text,...)
  | ³ C&P from Guilherme Monteiro Post@Linkedin
- |   Georgi Gerganov wrote llama.cpp in pure C/C++. (No CUDA required) 
+ |   Georgi Gerganov wrote llama.cpp in pure C/C++. (No CUDA required)
  |   to LLMs running on your laptop. No hacking, quantization as
  |   compression algebra
  ```
-
-Related: Transformers v5 Introduces a More Modular and Interoperable Core
-
-Summary from <https://www.infoq.com/news/2025/12/transformers-hugging-face/>
-
-- Model initialization and parallelism have been reworked to integrate more 
-  cleanly with tools like Megatron, Nanotron, and TorchTitan, while maintaining 
-  strong compatibility with popular fine-tuning frameworks such as Unsloth, 
-  Axolotl, TRL, and LlamaFactory.
-- Another change is quantization as a first-class concept. Weight loading has 
-  been redesigned to support low-precision formats more naturally, reflecting the 
-  reality that many state-of-the-art models now ship in 8-bit or 4-bit variants 
-  and are deployed on hardware optimized for these workloads.
-- Overall, Transformers v5 is less about adding surface features and more about 
-  reinforcing its role as shared infrastructure. By standardizing model 
-  definitions and aligning closely with training, inference, and deployment 
-  tools, **Hugging Face is positioning Transformers as stable "ecosystem glue"
-  for the next phase of open AI development**.
-
-- Example Python Ussage:
-
-  ```
-  | # PRESETUP: pip install transformers  [[PM.low_code,architecture.mlops.HF_transformers]]
-  | 
-  | from transformers import AutoTokenizer, AutoModelForCausalLM
-  | from typing import Final
-  | 
-  | model_id : Final = "CohereLabs/North-Mini-Code-1.0"
-  | tokenizer: Final = AutoTokenizer.from_pretrained(model_id)
-  | model    : Final = AutoModelForCausalLM.from_pretrained(model_id)
-  | 
-  | prompt01 : Final = "Write a python program to check if a string is a palindrome or not."
-  | 
-  | message_l = [{"role": "user", "content": prompt01}] # Format message can vary with model
-  | 
-  | input_ids = tokenizer.apply_chat_template(
-  |     message_l,
-  |     tokenize=True,
-  |     add_generation_prompt=True,
-  |     return_tensors="pt",
-  | )
-  | 
-  | gen_tokens = model.generate(
-  |     **input_ids, 
-  |     max_new_tokens=1024, 
-  |     do_sample=True, 
-  |     temperature=1.0,
-  |     top_p=0.95
-  | )
-  | 
-  | gen_text = tokenizer.decode(gen_tokens[0])
-  | print(gen_text)
-  ```
 [[}]]
 
-[[}]]
 
 [[{]]
-## LLM "Backends" vs Inference Engine "Backends"
 
-(WARN: LLM Generated content @ 2026)
-
-
-- LLM Backends: Model Runtimes + Serving Logic ("what to compute and when") like llama, vLLM, ExLlama handle:
-  - Token-by-token generation
-  - KV cache management  (overlaps with Inference engines)
-  - Sampling (temperature, top-p, etc.)
-  - Sometimes batching / serving
-  -
-- Inference Engines "Backends" (Execution Layer -"The muscle, fast math execution") like
-  TensorRT, ONNX Runtime and OpenVINO handle:
-  - Running optimized compute graphs
-  - Kernel fusion, quantization
-  - Hardware acceleration (CPU, GPU, NPU)
-  -  Analogy (Very Accurate)
 
   ```
-  | Typical pipeline:
-  | Model (PyTorch / Transformers)
-  |         · 
-  |         v 
-  | Converted / optimized
-  |         · 
-  |         v 
-  | Inference Engine (TensorRT / ONNX / OpenVINO)
-  |         · 
-  |         v 
-  | LLM Backend (handles decoding, KV cache, batching)
+
   ```
-
-- llama.cpp: Backend + inference engine combined (self-contained)
-  - Does NOT use TensorRT / ONNX / OpenVINO
-  - Has its own custom kernels + runtime
-- ExLlama / ExLlama2: 
-  - does NOT rely on ONNX / TensorRT
-  - Custom CUDA kernels
-
-- vLLM:
-  - Does NOT use ONNX / TensorRT / OpenVINO
-  - Built on PyTorch + custom kernels
-  - Focus:
-    - Scheduling, batching, KV cache (PagedAttention)
-
-- TensorRT / ONNX Runtime / OpenVINO: General-purpose execution engines
-  - They are NOT LLM-aware (mostly)
-  - They don’t handle:
-    - token streaming
-    - sampling
-    - chat logic
-
-- LLM backends are LLM-aware. They understand:
-  - autoregressive decoding
-  - attention KV cache
-  - token streaming
-- Inference engines are graph-aware. They understand:
-  - tensors
-  - operators
-  - optimization
-- Inference engines do NOT understand:
-  - "generate the next token until EOS"
-
-LLM backend and Inference engines overlaps: 
-
-- TensorRT-LLM: Adds LLM-specific logic on top of TensorRT
-- ONNX Runtime (with extensions): Can run LLMs with generation loops
-- OpenVINO: Adding LLM pipelines and token generation APIs
-
-🧠 Practical Combinations
-🚀 Production (NVIDIA)
-Model → TensorRT-LLM → serving system
-🧠 Research / flexible
-Transformers → vLLM
-💻 Local / edge
-llama.cpp
-🖥️ Intel deployment
-Model → OpenVINO → custom serving layer
-🔑 Final Mental Model
-llama.cpp / ExLlama / vLLM
-→ “Run and manage LLM generation”
-TensorRT / ONNX / OpenVINO
-→ “Make tensor math run as fast as possible”
-🧭 One-Line Summary
-
-LLM backends own the generation loop,
-inference engines accelerate the math inside it.
-
-If you want, I can go one level deeper and show why vLLM doesn’t use TensorRT (and what would break if it tried)—that’s where the architectural differences get really interesting.
 [[}]]
 
-
-
-[[mlops}]]
